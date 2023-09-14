@@ -335,11 +335,5 @@ set_global_assignment -name VHDL_FILE resonance_control_fpga_rev_pr.vhd
 set_global_assignment -name VHDL_FILE simulation/modelsim/Heartbeat_ISA.vhd
 set_global_assignment -name VHDL_FILE Heartbeat_FP.vhd
 set_global_assignment -name IP_FILE RAM_2_PORT.ip
-set_global_assignment -name SIGNALTAP_FILE stp_temp.stp
-set_global_assignment -name SIGNALTAP_FILE stp_udp_accel.stp
 set_global_assignment -name VHDL_FILE ram_2.vhd
-set_global_assignment -name SIGNALTAP_FILE output_files/motor.stp
-set_global_assignment -name SIGNALTAP_FILE output_files/stp3.stp
-set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
-set_global_assignment -name SIGNALTAP_FILE stp1.stp
 set_global_assignment -name IP_FILE EPCQ.ip
