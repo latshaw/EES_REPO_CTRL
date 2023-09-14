@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2021.10.07.14:37:46"
+ outputDirectory="C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_chassis_PIP_PR3/remote_download/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Cyclone 10 GX"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="10CX105YF672E5G"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="5"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_CLOCK_RATE"
+     type="Long"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_CLOCK_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_RESET_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="clock" kind="clock" start="0">
+   <property name="clockRate" value="0" />
+   <property name="externallyDriven" value="false" />
+   <property name="ptfSchematicName" value="" />
+   <port name="clock" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="reset" kind="reset" start="0">
+   <property name="associatedClock" value="clock" />
+   <property name="synchronousEdges" value="DEASSERT" />
+   <port name="reset" direction="input" role="reset" width="1" />
+  </interface>
+  <interface name="read_param" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="read_param" direction="input" role="read_param" width="1" />
+  </interface>
+  <interface name="param" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="param" direction="input" role="param" width="3" />
+  </interface>
+  <interface name="reconfig" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="reconfig" direction="input" role="reconfig" width="1" />
+  </interface>
+  <interface name="reset_timer" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="reset_timer" direction="input" role="reset_timer" width="1" />
+  </interface>
+  <interface name="busy" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="busy" direction="output" role="busy" width="1" />
+  </interface>
+  <interface name="data_out" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="data_out" direction="output" role="data_out" width="32" />
+  </interface>
+  <interface name="write_param" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="write_param" direction="input" role="write_param" width="1" />
+  </interface>
+  <interface name="data_in" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="data_in" direction="input" role="data_in" width="32" />
+  </interface>
+  <interface name="ctl_nupdt" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="ctl_nupdt" direction="input" role="ctl_nupdt" width="1" />
+  </interface>
+ </perimeter>
+ <entity kind="remote_download" version="1.0" name="remote_download">
+  <parameter name="AUTO_CLOCK_CLOCK_RATE" value="-1" />
+  <parameter name="AUTO_CLOCK_CLOCK_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLOCK_RESET_DOMAIN" value="-1" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_DEVICE" value="10CX105YF672E5G" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="5" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_chassis_PIP_PR3\remote_download\synth\remote_download.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_chassis_PIP_PR3\remote_download\synth\remote_download.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_chassis_PIP_PR3/remote_download.ip" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/altera_remote_update/altera_remote_update_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/altera_remote_update/altera_remote_update_core_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Info" culprit="remote_download">"Generating: remote_download"</message>
+   <message level="Info" culprit="remote_download">"Generating: remote_download_altera_remote_update_181_gv7a2jq"</message>
+   <message level="Info" culprit="remote_download">"Generating: altera_remote_update_core"</message>
+   <message level="Info" culprit="remote_update_core">Generating top-level entity altera_remote_update_core.</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_remote_update"
+   version="18.1"
+   name="remote_download_altera_remote_update_181_gv7a2jq">
+  <parameter name="GUI_config_device" value="MT25QU01G" />
+  <parameter name="check_avalon_interface" value="false" />
+  <parameter name="in_data_width" value="32" />
+  <parameter name="out_data_width" value="32" />
+  <parameter name="check_app_pof" value="false" />
+  <parameter name="DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="DEVICE" value="10CX105YF672E5G" />
+  <parameter name="operation_mode" value="REMOTE" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="5" />
+  <parameter name="config_device_addr_width" value="32" />
+  <parameter name="m_support_write_config_check" value="true" />
+  <parameter name="is_epcq" value="true" />
+  <parameter name="CBX_AUTO_BLACKBOX" value="ALL" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_chassis_PIP_PR3\remote_download\altera_remote_update_181\synth\remote_download_altera_remote_update_181_gv7a2jq.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_chassis_PIP_PR3\remote_download\altera_remote_update_181\synth\remote_download_altera_remote_update_181_gv7a2jq.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/altera_remote_update/altera_remote_update_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/altera_remote_update/altera_remote_update_core_hw.tcl" />
+  </childSourceFiles>
+  <instantiator instantiator="remote_download" as="remote_update_0" />
+  <messages>
+   <message level="Info" culprit="remote_download">"Generating: remote_download_altera_remote_update_181_gv7a2jq"</message>
+   <message level="Info" culprit="remote_download">"Generating: altera_remote_update_core"</message>
+   <message level="Info" culprit="remote_update_core">Generating top-level entity altera_remote_update_core.</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_remote_update_core"
+   version="18.1"
+   name="altera_remote_update_core">
+  <parameter name="GUI_config_device" value="MT25QU01G" />
+  <parameter name="in_data_width" value="32" />
+  <parameter name="out_data_width" value="32" />
+  <parameter name="check_app_pof" value="false" />
+  <parameter name="DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="DEVICE" value="10CX105YF672E5G" />
+  <parameter name="operation_mode" value="REMOTE" />
+  <parameter name="config_device_addr_width" value="32" />
+  <parameter name="m_support_write_config_check" value="true" />
+  <parameter name="is_epcq" value="true" />
+  <parameter name="CBX_AUTO_BLACKBOX" value="ALL" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_chassis_PIP_PR3\remote_download\altera_remote_update_core_181\synth\altera_remote_update_core.sv"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_chassis_PIP_PR3\remote_download\altera_remote_update_core_181\synth\altera_remote_update_core.sv"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/altera_remote_update/altera_remote_update_core_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator
+     instantiator="remote_download_altera_remote_update_181_gv7a2jq"
+     as="remote_update_core" />
+  <messages>
+   <message level="Info" culprit="remote_download">"Generating: altera_remote_update_core"</message>
+   <message level="Info" culprit="remote_update_core">Generating top-level entity altera_remote_update_core.</message>
+  </messages>
+ </entity>
+</deploy>

@@ -1,0 +1,377 @@
+Archive Project report for resonance_control_fpga_rev_pr
+Mon Aug  1 12:34:16 2022
+Quartus Prime Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Archive Project Summary
+  3. Archive Project Messages
+  4. Files Archived
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------+
+; Archive Project Summary                                        ;
++------------------------+---------------------------------------+
+; Archive Project Status ; Successful - Mon Aug  1 12:34:16 2022 ;
+; Revision Name          ; resonance_control_fpga_rev_pr         ;
+; Top-level Entity Name  ; Motion_control                        ;
+; Family                 ; Cyclone 10 GX                         ;
++------------------------+---------------------------------------+
+
+
++--------------------------+
+; Archive Project Messages ;
++--------------------------+
+Info: File Set 'Source control' contains:
+    Info: Project source and settings files
+    Info: Automatically detected source files
+Critical Warning: Analysis & Elaboration was not run successfully.
+    Critical Warning: The 'Automatically detected source files' file subset will attempt to guess which files are needed. The archive file will likely be larger than required and may still be incomplete.
+Warning (225010): Analysis was not performed on the current project. The Quartus Prime software may not be able to automatically locate all project files.
+Info: Parsing: dpram.v
+Info: Parsing: remote_download/altera_remote_update_core_181/synth/altera_remote_update_core.sv
+Info: Parsing: remote_download/altera_remote_update_181/synth/remote_download_altera_remote_update_181_gv7a2jq.v
+Info: Parsing: remote_download/synth/remote_download.v
+Info: Parsing: epcs/altera_asmi_parallel_181/synth/epcs_altera_asmi_parallel_181_o677haq.v
+Info: Parsing: epcs/synth/epcs.v
+Info: Parsing: cyclone.v
+Info: Parsing: i2c.vhd
+Info: Parsing: EEPROM_CONTROL.vhd
+Info: Parsing: fpga_tsd_int/altera_temp_sense_181/synth/altera_temp_sense.v
+Info: Parsing: fpga_tsd_int/synth/fpga_tsd_int.vhd
+Info: Parsing: LED_CONTROL.vhd
+Info: Parsing: ADT_CONTROL.vhd
+Info: Parsing: Heartbeat_ISA.vhd
+Info: Parsing: gen_i2c.vhd
+Info: Parsing: pkg_comms_top/xformer.v
+Info: Parsing: pkg_comms_top/udp_port_cam.v
+Info: Parsing: pkg_comms_top/test_tx_mac.v
+Info: Parsing: pkg_comms_top/speed_test.v
+Info: Parsing: pkg_comms_top/scanner.v
+Info: Parsing: pkg_comms_top/rtefi_center.v
+Info: Parsing: pkg_comms_top/rtefi_blob.v
+Info: Parsing: pkg_comms_top/reg_delay.v
+Info: Parsing: pkg_comms_top/qgtx_wrap.v
+Info: Parsing: pkg_comms_top/qgtx_reset_fsm.v
+Info: Parsing: pkg_comms_top/precog.v
+Info: Parsing: pkg_comms_top/pbuf_writer.v
+Info: Parsing: pkg_comms_top/patt_gen.v
+Info: Parsing: pkg_comms_top/ones_chksum.v
+Info: Parsing: pkg_comms_top/negotiate.v
+Info: Parsing: pkg_comms_top/multi_sampler.v
+Info: Parsing: pkg_comms_top/mem_gateway.v
+Info: Parsing: pkg_comms_top/mac_subset.v
+Info: Parsing: pkg_comms_top/hello.v
+Info: Parsing: pkg_comms_top/hack_icmp_cksum.v
+Info: Parsing: pkg_comms_top/gtx_eth_clks.v
+Info: Parsing: pkg_comms_top/gmii_link.v
+Info: Parsing: pkg_comms_top/flag_xdomain.v
+Info: Parsing: pkg_comms_top/ethernet_crc_add.v
+Info: Parsing: pkg_comms_top/eth_gtx_bridge.v
+Info: Parsing: pkg_comms_top/ep_tx_pcs.v
+Info: Parsing: pkg_comms_top/ep_sync_detect.v
+Info: Parsing: pkg_comms_top/ep_rx_pcs.v
+Info: Parsing: pkg_comms_top/enc_8b10b.v
+Info: Parsing: pkg_comms_top/ds_clk_buf.v
+Info: Parsing: pkg_comms_top/dec_8b10b.v
+Info: Parsing: pkg_comms_top/data_xdomain.v
+Info: Parsing: pkg_comms_top/crc16.v
+Info: Parsing: pkg_comms_top/crc8e_guts.v
+Info: Parsing: pkg_comms_top/construct_tx_table.v
+Info: Parsing: pkg_comms_top/construct.v
+Info: Parsing: pkg_comms_top/comms_top_regbank.v
+Info: Parsing: pkg_comms_top/chitchat_txrx_wrap.v
+Info: Parsing: pkg_comms_top/chitchat_tx.v
+Info: Parsing: pkg_comms_top/chitchat_rx.v
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/twentynm_xcvr_avmm.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_resync.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_arbiter.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/a10_avmm_h.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/altera_xcvr_native_a10_functions_h.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_atx_pll_rcfg_arb.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/a10_xcvr_atx_pll.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_pll_embedded_debug.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_pll_avmm_csr.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/xcvr_phy_pll_altera_xcvr_atx_pll_a10_181_5jqw6kq.sv
+Info: Parsing: xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_atx_pll_rcfg_opt_logic_5jqw6kq.sv
+Info: Parsing: xcvr_phy_pll/synth/xcvr_phy_pll.v
+Info: Parsing: transeiver_phy_rst/altera_xcvr_reset_control_181/synth/altera_xcvr_functions.sv
+Info: Parsing: transeiver_phy_rst/altera_xcvr_reset_control_181/synth/alt_xcvr_resync.sv
+Info: Parsing: transeiver_phy_rst/altera_xcvr_reset_control_181/synth/altera_xcvr_reset_control.sv
+Info: Parsing: transeiver_phy_rst/altera_xcvr_reset_control_181/synth/alt_xcvr_reset_counter.sv
+Info: Parsing: transeiver_phy_rst/synth/transeiver_phy_rst.v
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_resync.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_arbiter.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_pcs.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_pma.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_xcvr_avmm.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_xcvr_native.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_a10_functions_h.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/a10_avmm_h.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_pipe_retry.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_avmm_csr.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_prbs_accum.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_odi_accel.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_rcfg_arb.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_pcie_dfe_params_h.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_commands_h.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_functions_h.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_program.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_cpu.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_master.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_pcie_dfe_ip.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/transceiver_phy_wrap_altera_xcvr_native_a10_181_2vscxii.sv
+Info: Parsing: transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_rcfg_opt_logic_2vscxii.sv
+Info: Parsing: transceiver_phy_wrap/synth/transceiver_phy_wrap.v
+Info: Parsing: udp_com.v
+Info: Parsing: POLYNOMIAL_DIVISION.vhd
+Info: Parsing: stepper_driver.vhd
+Info: Parsing: resets.vhd
+Info: Parsing: regs.vhd
+Info: Parsing: Motion_control.vhd
+Info: Parsing: isa_bus.vhd
+Info: Parsing: Heartbeat.tdf
+Info: Parsing: FIBER_CONTROL.vhd
+Info: Parsing: FCC_DATA_OUT.vhd
+Info: Parsing: FCC_DATA_IN.vhd
+Info: Parsing: FCC_DATA_ACQ_FIBER_CONTROL.vhd
+Info: Parsing: FCC_DATA_ACQ.vhd
+Info: Parsing: DATA_SELECT.vhd
+Info: Parsing: TMC2660.vhd
+Info: Parsing: COMPONENTS.vhd
+Info: Parsing: resonance_control_fpga_rev_pr.vhd
+Info: Parsing: Heartbeat_FP.vhd
+Info: Archive will store files relative to the closest common parent directory
+Info (13213): Using common directory C:/intelFPGA_pro/18.1/PROJECTS/RES_CTRL_LLRF3_rev_1/
+Info: ----------------------------------------------------------
+Info: ----------------------------------------------------------
+Info: Generated archive 'C:/intelFPGA_pro/18.1/PROJECTS/RES_CTRL_LLRF3_rev_1/resonance_control_fpga_rev_pr_18_1_0_222.qar'
+Info: ----------------------------------------------------------
+Info: ----------------------------------------------------------
+Info: Generated report 'resonance_control_fpga_rev_pr.archive.rpt'
+Error (23031): Evaluation of Tcl script c:/intelfpga_pro/18.1/quartus/common/tcl/apps/qpm/qar.tcl unsuccessful
+Error: Quartus Prime Shell was unsuccessful. 5 errors, 14 warnings
+    Error: Peak virtual memory: 5045 megabytes
+    Error: Processing ended: Mon Aug  1 12:34:16 2022
+    Error: Elapsed time: 00:00:58
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Files Archived                                                                                                   ;
++------------------------------------------------------------------------------------------------------------------+
+; File Name                                                                                                        ;
++------------------------------------------------------------------------------------------------------------------+
+; ADT_CONTROL.vhd                                                                                                  ;
+; ALTCLK_PLL.ip                                                                                                    ;
+; c:/intelfpga_pro/18.1/quartus/bin64/assignment_defaults.qdf                                                      ;
+; COMPONENTS.vhd                                                                                                   ;
+; cyclone.v                                                                                                        ;
+; cyclone10gx_main.sdc                                                                                             ;
+; DATA_SELECT.vhd                                                                                                  ;
+; dpram.v                                                                                                          ;
+; EEPROM_CONTROL.vhd                                                                                               ;
+; epcs/altera_asmi_parallel_181/synth/epcs_altera_asmi_parallel_181_o677haq.v                                      ;
+; epcs/epcs.cmp                                                                                                    ;
+; epcs/epcs.qip                                                                                                    ;
+; epcs/epcs.sopcinfo                                                                                               ;
+; epcs/synth/epcs.v                                                                                                ;
+; FCC_DATA_ACQ.vhd                                                                                                 ;
+; FCC_DATA_ACQ_FIBER_CONTROL.vhd                                                                                   ;
+; FCC_DATA_IN.vhd                                                                                                  ;
+; FCC_DATA_OUT.vhd                                                                                                 ;
+; FIBER_CONTROL.vhd                                                                                                ;
+; FIFO.ip                                                                                                          ;
+; fpga_tsd_int/altera_temp_sense_181/synth/altera_temp_sense.sdc                                                   ;
+; fpga_tsd_int/altera_temp_sense_181/synth/altera_temp_sense.v                                                     ;
+; fpga_tsd_int/fpga_tsd_int.cmp                                                                                    ;
+; fpga_tsd_int/fpga_tsd_int.qip                                                                                    ;
+; fpga_tsd_int/fpga_tsd_int.sopcinfo                                                                               ;
+; fpga_tsd_int/synth/fpga_tsd_int.vhd                                                                              ;
+; gen_i2c.vhd                                                                                                      ;
+; Hearbeat_FP.tdf                                                                                                  ;
+; Heartbeat.tdf                                                                                                    ;
+; Heartbeat_FP.vhd                                                                                                 ;
+; Heartbeat_ISA.tdf                                                                                                ;
+; Heartbeat_ISA.vhd                                                                                                ;
+; i2c.vhd                                                                                                          ;
+; isa_bus.vhd                                                                                                      ;
+; JIC_CONVERSION_SETUP_3_2_21.cof                                                                                  ;
+; LED_CONTROL.vhd                                                                                                  ;
+; Motion_control.vhd                                                                                               ;
+; output_files/fiber_debug.stp                                                                                     ;
+; output_files/marvel_test.jic                                                                                     ;
+; output_files/marvel_test_auto.rpd                                                                                ;
+; output_files/RES_4_4_22_auto.rpd                                                                                 ;
+; output_files/RES_4_7_22_auto.rpd                                                                                 ;
+; output_files/RES_4_13_22_auto.rpd                                                                                ;
+; output_files/RES_4_21_22_auto.rpd                                                                                ;
+; output_files/RES_4_21b_22_auto.rpd                                                                               ;
+; output_files/res_5_5.rpd                                                                                         ;
+; output_files/res_5_10.rpd                                                                                        ;
+; output_files/RES_5_10_22_a_auto.rpd                                                                              ;
+; output_files/RES_5_17_22_auto.rpd                                                                                ;
+; output_files/RES_5_18_22_auto.rpd                                                                                ;
+; output_files/RES_5_19_22_auto.rpd                                                                                ;
+; output_files/RES_6_3_22_auto.rpd                                                                                 ;
+; output_files/RES_6_3b_22_auto.rpd                                                                                ;
+; output_files/RES_7_26_22.jic                                                                                     ;
+; output_files/RES_7_26_22_auto.rpd                                                                                ;
+; output_files/RES_7_26_22_b.jic                                                                                   ;
+; output_files/RES_7_26_22_b_auto.rpd                                                                              ;
+; output_files/res_conv.cof                                                                                        ;
+; output_files/RES_res_dummy_sfp_test.jic                                                                          ;
+; output_files/RES_res_dummy_sfp_test_auto.rpd                                                                     ;
+; output_files/resonance_4_29_2021.map                                                                             ;
+; output_files/resonance_control_fpga_rev_pr.cdf                                                                   ;
+; output_files/resonance_control_fpga_rev_pr.done                                                                  ;
+; output_files/resonance_control_fpga_rev_pr.flow.rpt                                                              ;
+; output_files/resonance_control_fpga_rev_pr.syn.rpt                                                               ;
+; output_files/resonance_control_fpga_rev_pr.syn.summary                                                           ;
+; output_files/resonance_control_fpga_rev_pr_3_31_21_fiber_debug.sof                                               ;
+; output_files/stp1.stp                                                                                            ;
+; pkg_comms_top/chitchat_rx.v                                                                                      ;
+; pkg_comms_top/chitchat_tx.v                                                                                      ;
+; pkg_comms_top/chitchat_txrx_wrap.v                                                                               ;
+; pkg_comms_top/comms_top_regbank.v                                                                                ;
+; pkg_comms_top/construct.v                                                                                        ;
+; pkg_comms_top/construct_tx_table.v                                                                               ;
+; pkg_comms_top/crc8e_guts.v                                                                                       ;
+; pkg_comms_top/crc16.v                                                                                            ;
+; pkg_comms_top/data_xdomain.v                                                                                     ;
+; pkg_comms_top/dec_8b10b.v                                                                                        ;
+; pkg_comms_top/ds_clk_buf.v                                                                                       ;
+; pkg_comms_top/enc_8b10b.v                                                                                        ;
+; pkg_comms_top/ep_rx_pcs.v                                                                                        ;
+; pkg_comms_top/ep_sync_detect.v                                                                                   ;
+; pkg_comms_top/ep_tx_pcs.v                                                                                        ;
+; pkg_comms_top/eth_gtx_bridge.v                                                                                   ;
+; pkg_comms_top/ethernet_crc_add.v                                                                                 ;
+; pkg_comms_top/flag_xdomain.v                                                                                     ;
+; pkg_comms_top/gmii_link.v                                                                                        ;
+; pkg_comms_top/gtx_eth_clks.v                                                                                     ;
+; pkg_comms_top/hack_icmp_cksum.v                                                                                  ;
+; pkg_comms_top/hello.v                                                                                            ;
+; pkg_comms_top/mac_subset.v                                                                                       ;
+; pkg_comms_top/mem_gateway.v                                                                                      ;
+; pkg_comms_top/multi_sampler.v                                                                                    ;
+; pkg_comms_top/negotiate.v                                                                                        ;
+; pkg_comms_top/ones_chksum.v                                                                                      ;
+; pkg_comms_top/patt_gen.v                                                                                         ;
+; pkg_comms_top/pbuf_writer.v                                                                                      ;
+; pkg_comms_top/precog.v                                                                                           ;
+; pkg_comms_top/qgtx_reset_fsm.v                                                                                   ;
+; pkg_comms_top/qgtx_wrap.v                                                                                        ;
+; pkg_comms_top/reg_delay.v                                                                                        ;
+; pkg_comms_top/rtefi_blob.v                                                                                       ;
+; pkg_comms_top/rtefi_center.v                                                                                     ;
+; pkg_comms_top/scanner.v                                                                                          ;
+; pkg_comms_top/speed_test.v                                                                                       ;
+; pkg_comms_top/test_tx_mac.v                                                                                      ;
+; pkg_comms_top/udp_port_cam.v                                                                                     ;
+; pkg_comms_top/xformer.v                                                                                          ;
+; PLL_125_to_50.ip                                                                                                 ;
+; PLL_main.ip                                                                                                      ;
+; PLL_stepper.ip                                                                                                   ;
+; POLYNOMIAL_DIVISION.vhd                                                                                          ;
+; PR1_JIC_GEN.cof                                                                                                  ;
+; RAM_2_PORT.ip                                                                                                    ;
+; regs.vhd                                                                                                         ;
+; remote_download/altera_remote_update_181/synth/remote_download_altera_remote_update_181_gv7a2jq.v                ;
+; remote_download/altera_remote_update_core_181/synth/altera_remote_update_core.sv                                 ;
+; remote_download/remote_download.cmp                                                                              ;
+; remote_download/remote_download.qip                                                                              ;
+; remote_download/remote_download.sopcinfo                                                                         ;
+; remote_download/synth/remote_download.v                                                                          ;
+; res_5_5_22t.sdc                                                                                                  ;
+; resets.vhd                                                                                                       ;
+; resonance_control_fpga_rev_pr.out.sdc                                                                            ;
+; resonance_control_fpga_rev_pr.qpf                                                                                ;
+; resonance_control_fpga_rev_pr.qsf                                                                                ;
+; resonance_control_fpga_rev_pr.vhd                                                                                ;
+; serv_req_info.txt                                                                                                ;
+; stepper_driver.vhd                                                                                               ;
+; stp_temp.stp                                                                                                     ;
+; stp_udp_accel.stp                                                                                                ;
+; stp_udp_fifo.stp                                                                                                 ;
+; tca9534_i2c.vhd                                                                                                  ;
+; TMC2660.vhd                                                                                                      ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/a10_avmm_h.sv                                              ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_arbiter.sv                                        ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_avmm_csr.sv                                ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_odi_accel.sv                               ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_pipe_retry.sv                              ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_prbs_accum.sv                              ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_rcfg_arb.sv                                ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_native_rcfg_opt_logic_2vscxii.sv                  ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/alt_xcvr_resync.sv                                         ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_a10_false_paths.sdc                     ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_a10_functions_h.sv                      ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_pcie_dfe_ip.sv                          ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/altera_xcvr_native_pcie_dfe_params_h.sv                    ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_commands_h.sv                                    ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_cpu.sv                                           ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_functions_h.sv                                   ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_master.sv                                        ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/pcie_mgmt_program.sv                                       ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/plain_files.txt                                            ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/transceiver_phy_wrap_altera_xcvr_native_a10_181_2vscxii.sv ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_pcs.sv                                            ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_pma.sv                                            ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_xcvr_avmm.sv                                      ;
+; transceiver_phy_wrap/altera_xcvr_native_a10_181/synth/twentynm_xcvr_native.sv                                    ;
+; transceiver_phy_wrap/synth/transceiver_phy_wrap.v                                                                ;
+; transceiver_phy_wrap/transceiver_phy_wrap.cmp                                                                    ;
+; transceiver_phy_wrap/transceiver_phy_wrap.qip                                                                    ;
+; transceiver_phy_wrap/transceiver_phy_wrap.sopcinfo                                                               ;
+; transeiver_phy_rst/altera_xcvr_reset_control_181/synth/alt_xcvr_reset_counter.sv                                 ;
+; transeiver_phy_rst/altera_xcvr_reset_control_181/synth/alt_xcvr_resync.sv                                        ;
+; transeiver_phy_rst/altera_xcvr_reset_control_181/synth/altera_xcvr_functions.sv                                  ;
+; transeiver_phy_rst/altera_xcvr_reset_control_181/synth/altera_xcvr_reset_control.sv                              ;
+; transeiver_phy_rst/altera_xcvr_reset_control_181/synth/plain_files.txt                                           ;
+; transeiver_phy_rst/synth/transeiver_phy_rst.v                                                                    ;
+; transeiver_phy_rst/transeiver_phy_rst.cmp                                                                        ;
+; transeiver_phy_rst/transeiver_phy_rst.qip                                                                        ;
+; transeiver_phy_rst/transeiver_phy_rst.sopcinfo                                                                   ;
+; udp_com.v                                                                                                        ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/a10_avmm_h.sv                                                     ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/a10_xcvr_atx_pll.sv                                               ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_arbiter.sv                                               ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_atx_pll_rcfg_arb.sv                                      ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_atx_pll_rcfg_opt_logic_5jqw6kq.sv                        ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_pll_avmm_csr.sv                                          ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_pll_embedded_debug.sv                                    ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/alt_xcvr_resync.sv                                                ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/altera_xcvr_native_a10_functions_h.sv                             ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/plain_files.txt                                                   ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/twentynm_xcvr_avmm.sv                                             ;
+; xcvr_phy_pll/altera_xcvr_atx_pll_a10_181/synth/xcvr_phy_pll_altera_xcvr_atx_pll_a10_181_5jqw6kq.sv               ;
+; xcvr_phy_pll/synth/xcvr_phy_pll.v                                                                                ;
+; xcvr_phy_pll/xcvr_phy_pll.cmp                                                                                    ;
+; xcvr_phy_pll/xcvr_phy_pll.qip                                                                                    ;
+; xcvr_phy_pll/xcvr_phy_pll.sopcinfo                                                                               ;
++------------------------------------------------------------------------------------------------------------------+
+
+

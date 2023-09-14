@@ -1,0 +1,832 @@
+
+State Machine - b2v_inst12|FIBER_CONT_0|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_0|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_0|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_1|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_1|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_1|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_2|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_2|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_2|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_3|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_3|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_3|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_4|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_4|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_4|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_5|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_5|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_5|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_6|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_6|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_6|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_7|STATE
+Name STATE.deta_lo_chk STATE.deta_ld2 STATE.deta_new STATE.done_wait STATE.init_move STATE.init_track STATE.deta_hi_chk STATE.deta_ld1 STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.deta_ld1 0 0 0 0 0 0 0 1 1 
+STATE.deta_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE.init_track 0 0 0 0 0 1 0 0 1 
+STATE.init_move 0 0 0 0 1 0 0 0 1 
+STATE.done_wait 0 0 0 1 0 0 0 0 1 
+STATE.deta_new 0 0 1 0 0 0 0 0 1 
+STATE.deta_ld2 0 1 0 0 0 0 0 0 1 
+STATE.deta_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_7|STATE1
+Name STATE1.disc_lo_chk STATE1.disc_ld2 STATE1.disc_new STATE1.done_wait1 STATE1.disc_move STATE1.disc_track STATE1.disc_hi_chk STATE1.disc_ld1 STATE1.disc_init 
+STATE1.disc_init 0 0 0 0 0 0 0 0 0 
+STATE1.disc_ld1 0 0 0 0 0 0 0 1 1 
+STATE1.disc_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE1.disc_track 0 0 0 0 0 1 0 0 1 
+STATE1.disc_move 0 0 0 0 1 0 0 0 1 
+STATE1.done_wait1 0 0 0 1 0 0 0 0 1 
+STATE1.disc_new 0 0 1 0 0 0 0 0 1 
+STATE1.disc_ld2 0 1 0 0 0 0 0 0 1 
+STATE1.disc_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FIBER_CONT_7|STATE2
+Name STATE2.pzt_lo_chk STATE2.pzt_ld2 STATE2.pzt_new STATE2.done_wait2 STATE2.pzt_move STATE2.pzt_track STATE2.pzt_hi_chk STATE2.pzt_ld1 STATE2.pzt_init 
+STATE2.pzt_init 0 0 0 0 0 0 0 0 0 
+STATE2.pzt_ld1 0 0 0 0 0 0 0 1 1 
+STATE2.pzt_hi_chk 0 0 0 0 0 0 1 0 1 
+STATE2.pzt_track 0 0 0 0 0 1 0 0 1 
+STATE2.pzt_move 0 0 0 0 1 0 0 0 1 
+STATE2.done_wait2 0 0 0 1 0 0 0 0 1 
+STATE2.pzt_new 0 0 1 0 0 0 0 0 1 
+STATE2.pzt_ld2 0 1 0 0 0 0 0 0 1 
+STATE2.pzt_lo_chk 1 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:0:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:1:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:2:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:3:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:4:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:5:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:6:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:7:stepper_I|STATE
+Name STATE.done STATE.result STATE.hold_mode STATE.decel_mode STATE.accel_mode STATE.op_mode STATE.period_track STATE.pulse_off STATE.pulse_on STATE.load STATE.idle 
+STATE.idle 0 0 0 0 0 0 0 0 0 0 0 
+STATE.load 0 0 0 0 0 0 0 0 0 1 1 
+STATE.pulse_on 0 0 0 0 0 0 0 0 1 0 1 
+STATE.pulse_off 0 0 0 0 0 0 0 1 0 0 1 
+STATE.period_track 0 0 0 0 0 0 1 0 0 0 1 
+STATE.op_mode 0 0 0 0 0 1 0 0 0 0 1 
+STATE.accel_mode 0 0 0 0 1 0 0 0 0 0 1 
+STATE.decel_mode 0 0 0 1 0 0 0 0 0 0 1 
+STATE.hold_mode 0 0 1 0 0 0 0 0 0 0 1 
+STATE.result 0 1 0 0 0 0 0 0 0 0 1 
+STATE.done 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:0:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \genUDP:inst_comms_top|i_eth_gtx_bridge|i_gmii_link|tx|tx_state
+Name tx_state.TX_EXTEND tx_state.TX_EPD tx_state.TX_DATA tx_state.TX_CR4 tx_state.TX_CR3 tx_state.TX_CR2 tx_state.TX_SPD tx_state.TX_CR1 tx_state.TX_IDLE tx_state.TX_COMMA 
+tx_state.TX_COMMA 0 0 0 0 0 0 0 0 0 0 
+tx_state.TX_IDLE 0 0 0 0 0 0 0 0 1 1 
+tx_state.TX_CR1 0 0 0 0 0 0 0 1 0 1 
+tx_state.TX_SPD 0 0 0 0 0 0 1 0 0 1 
+tx_state.TX_CR2 0 0 0 0 0 1 0 0 0 1 
+tx_state.TX_CR3 0 0 0 0 1 0 0 0 0 1 
+tx_state.TX_CR4 0 0 0 1 0 0 0 0 0 1 
+tx_state.TX_DATA 0 0 1 0 0 0 0 0 0 1 
+tx_state.TX_EPD 0 1 0 0 0 0 0 0 0 1 
+tx_state.TX_EXTEND 1 0 0 0 0 0 0 0 0 1 
+
+State Machine - \genUDP:inst_comms_top|i_eth_gtx_bridge|badger|center|txmac|mac|mode
+Name mode.011 mode.010 mode.001 mode.000 mode.100 
+mode.000 0 0 0 0 0 
+mode.001 0 0 1 1 0 
+mode.010 0 1 0 1 0 
+mode.011 1 0 0 1 0 
+mode.100 0 0 0 1 1 
+
+State Machine - \genUDP:inst_comms_top|i_eth_gtx_bridge|badger|center|txmac|precog|state
+Name state.ST_WAIT_FALLING state.ST_WAIT_RISING state.ST_WAIT_GAP state.ST_WAIT_RTS 
+state.ST_WAIT_RTS 0 0 0 0 
+state.ST_WAIT_GAP 0 0 1 1 
+state.ST_WAIT_RISING 0 1 0 1 
+state.ST_WAIT_FALLING 1 0 0 1 
+
+State Machine - led_cont_i2c|LED_i2c|NEXT_STATE
+Name NEXT_STATE.packet_r NEXT_STATE.packet_s NEXT_STATE.stop NEXT_STATE.data_s NEXT_STATE.ack NEXT_STATE.addr_s NEXT_STATE.start NEXT_STATE.init 
+NEXT_STATE.init 0 0 0 0 0 0 0 0 
+NEXT_STATE.start 0 0 0 0 0 0 1 1 
+NEXT_STATE.addr_s 0 0 0 0 0 1 0 1 
+NEXT_STATE.ack 0 0 0 0 1 0 0 1 
+NEXT_STATE.data_s 0 0 0 1 0 0 0 1 
+NEXT_STATE.stop 0 0 1 0 0 0 0 1 
+NEXT_STATE.packet_s 0 1 0 0 0 0 0 1 
+NEXT_STATE.packet_r 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst23|CYCLONE_inst|dpram_sm
+Name dpram_sm.0011 dpram_sm.0010 dpram_sm.0001 dpram_sm.0000 
+dpram_sm.0000 0 0 0 0 
+dpram_sm.0001 0 0 1 1 
+dpram_sm.0010 0 1 0 1 
+dpram_sm.0011 1 0 0 1 
+
+State Machine - b2v_inst23|CYCLONE_inst|c10_rd|remote_update_0|remote_update_core|state
+Name state.UPDATE state.SHIFT_OUT state.SHIFT_IN state.CAPTURE_REGS state.CAPTURE_UPTREG state.IDLE 
+state.IDLE 0 0 0 0 0 0 
+state.CAPTURE_UPTREG 0 0 0 0 1 1 
+state.CAPTURE_REGS 0 0 0 1 0 1 
+state.SHIFT_IN 0 0 1 0 0 1 
+state.SHIFT_OUT 0 1 0 0 0 1 
+state.UPDATE 1 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:7:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:1:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \step_gen:2:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \step_gen:5:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \step_gen:6:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \SPI_ports_gen:5:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:6:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:3:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \step_gen:4:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - \genUDP:inst_comms_top|i_eth_gtx_bridge|i_gmii_link|rx|rx_state
+Name rx_state.RX_EXTEND rx_state.RX_CR4 rx_state.RX_CR3 rx_state.RX_COMMA rx_state.RX_PAYLOAD rx_state.RX_NOFRAME 
+rx_state.RX_NOFRAME 0 0 0 0 0 0 
+rx_state.RX_PAYLOAD 0 0 0 0 1 1 
+rx_state.RX_COMMA 0 0 0 1 0 1 
+rx_state.RX_CR3 0 0 1 0 0 1 
+rx_state.RX_CR4 0 1 0 0 0 1 
+rx_state.RX_EXTEND 1 0 0 0 0 1 
+
+State Machine - \genUDP:inst_comms_top|i_eth_gtx_bridge|i_gmii_link|rx|SYNC_DET|state
+Name state.SYNC_ACQUIRED_4A state.SYNC_ACQUIRED_4 state.SYNC_ACQUIRED_3A state.SYNC_ACQUIRED_3 state.SYNC_ACQUIRED_2A state.SYNC_ACQUIRED_2 state.SYNC_ACQUIRED_1 state.COMMA_DETECT_3 state.ACQUIRE_SYNC_2 state.COMMA_DETECT_2 state.ACQUIRE_SYNC_1 state.COMMA_DETECT_1 state.LOSS_OF_SYNC 
+state.LOSS_OF_SYNC 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.COMMA_DETECT_1 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.ACQUIRE_SYNC_1 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.COMMA_DETECT_2 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.ACQUIRE_SYNC_2 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.COMMA_DETECT_3 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.SYNC_ACQUIRED_1 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.SYNC_ACQUIRED_2 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.SYNC_ACQUIRED_2A 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.SYNC_ACQUIRED_3 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.SYNC_ACQUIRED_3A 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.SYNC_ACQUIRED_4 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.SYNC_ACQUIRED_4A 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_1|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_1|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - \step_gen:7:stepper_I|profile_mode
+Name profile_mode.op_decel profile_mode.op_hold profile_mode.op_accel 
+profile_mode.op_accel 0 0 0 
+profile_mode.op_hold 0 1 1 
+profile_mode.op_decel 1 0 1 
+
+State Machine - b2v_inst12|FCC_Data_0|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_0|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_4|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_4|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_5|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_5|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_2|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_2|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_3|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_3|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_6|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_6|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_7|FCC_data_input_module|STATE
+Name STATE.load_data STATE.crc_check STATE.wait_crc STATE.init_crc STATE.load_crc_data STATE.rcv_data STATE.rcv_first_bit STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 
+STATE.rcv_first_bit 0 0 0 0 0 0 1 1 
+STATE.rcv_data 0 0 0 0 0 1 0 1 
+STATE.load_crc_data 0 0 0 0 1 0 0 1 
+STATE.init_crc 0 0 0 1 0 0 0 1 
+STATE.wait_crc 0 0 1 0 0 0 0 1 
+STATE.crc_check 0 1 0 0 0 0 0 1 
+STATE.load_data 1 0 0 0 0 0 0 1 
+
+State Machine - b2v_inst12|FCC_Data_7|poly_div|STATE
+Name STATE.result STATE.load_xor STATE.en_numer STATE.check_msb STATE.en_xor STATE.load_xor_init STATE.load_numer_wait STATE.load_numer STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.load_numer 0 0 0 0 0 0 0 1 1 
+STATE.load_numer_wait 0 0 0 0 0 0 1 0 1 
+STATE.load_xor_init 0 0 0 0 0 1 0 0 1 
+STATE.en_xor 0 0 0 0 1 0 0 0 1 
+STATE.check_msb 0 0 0 1 0 0 0 0 1 
+STATE.en_numer 0 0 1 0 0 0 0 0 1 
+STATE.load_xor 0 1 0 0 0 0 0 0 1 
+STATE.result 1 0 0 0 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:0:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:1:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:2:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:3:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - \SPI_ports_gen:4:TMC2660_I|STATE
+Name STATE.data_ld_done STATE.data_check STATE.sclk_low STATE.sclk_high STATE.csn_wait STATE.csn_low STATE.data_load STATE.drvi_load STATE.init 
+STATE.init 0 0 0 0 0 0 0 0 0 
+STATE.drvi_load 0 0 0 0 0 0 0 1 1 
+STATE.data_load 0 0 0 0 0 0 1 0 1 
+STATE.csn_low 0 0 0 0 0 1 0 0 1 
+STATE.csn_wait 0 0 0 0 1 0 0 0 1 
+STATE.sclk_high 0 0 0 1 0 0 0 0 1 
+STATE.sclk_low 0 0 1 0 0 0 0 0 1 
+STATE.data_check 0 1 0 0 0 0 0 0 1 
+STATE.data_ld_done 1 0 0 0 0 0 0 0 1 
+
+State Machine - adt_cont_i2c|ADT00_i2c|NEXT_STATE
+Name NEXT_STATE.packet_r NEXT_STATE.packet_s NEXT_STATE.stop NEXT_STATE.data_s NEXT_STATE.ack NEXT_STATE.addr_s NEXT_STATE.start NEXT_STATE.init 
+NEXT_STATE.init 0 0 0 0 0 0 0 0 
+NEXT_STATE.start 0 0 0 0 0 0 1 1 
+NEXT_STATE.addr_s 0 0 0 0 0 1 0 1 
+NEXT_STATE.ack 0 0 0 0 1 0 0 1 
+NEXT_STATE.data_s 0 0 0 1 0 0 0 1 
+NEXT_STATE.stop 0 0 1 0 0 0 0 1 
+NEXT_STATE.packet_s 0 1 0 0 0 0 0 1 
+NEXT_STATE.packet_r 1 0 0 0 0 0 0 1 
+
+State Machine - adt_cont_i2c_1|ADT00_i2c|NEXT_STATE
+Name NEXT_STATE.packet_r NEXT_STATE.packet_s NEXT_STATE.stop NEXT_STATE.data_s NEXT_STATE.ack NEXT_STATE.addr_s NEXT_STATE.start NEXT_STATE.init 
+NEXT_STATE.init 0 0 0 0 0 0 0 0 
+NEXT_STATE.start 0 0 0 0 0 0 1 1 
+NEXT_STATE.addr_s 0 0 0 0 0 1 0 1 
+NEXT_STATE.ack 0 0 0 0 1 0 0 1 
+NEXT_STATE.data_s 0 0 0 1 0 0 0 1 
+NEXT_STATE.stop 0 0 1 0 0 0 0 1 
+NEXT_STATE.packet_s 0 1 0 0 0 0 0 1 
+NEXT_STATE.packet_r 1 0 0 0 0 0 0 1 
+
+State Machine - Summary

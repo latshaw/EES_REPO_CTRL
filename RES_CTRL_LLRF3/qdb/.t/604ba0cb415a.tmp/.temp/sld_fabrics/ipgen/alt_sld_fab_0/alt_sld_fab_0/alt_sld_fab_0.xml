@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2021.03.12.12:11:58"
+ outputDirectory="C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/qdb/.t/604ba0cb415a.tmp/.temp/sld_fabrics/ipgen/alt_sld_fab_0/alt_sld_fab_0/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Cyclone 10 GX"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="10CX105YF672E5G"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="5"
+     onHdl="0"
+     affectsHdl="1" />
+ </perimeter>
+ <entity kind="alt_sld_fab_0" version="1.0" name="alt_sld_fab_0">
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_DEVICE" value="10CX105YF672E5G" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="5" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\synth\alt_sld_fab_0.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\synth\alt_sld_fab_0.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/qdb/.t/604ba0cb415a.tmp/.temp/sld_fabrics/ipgen/alt_sld_fab_0/alt_sld_fab_0.ip" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/qdb/.t/604ba0cb415a.tmp/.temp/sld_fabrics/ipgen/alt_sld_fab_0/alt_sld_fab_wrapper_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_instrumentation_fabric/alt_sld_fab_hw.tcl" />
+   <file
+       path="C:/intelFPGA_pro/18.1/ip/altera/sld/core/altera_instrumentation_fabric/com.altera.superfabric.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/com.altera.utilities.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/commons-lang3-3.7.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/hamcrest-all-1.3.jar" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_signaltap_agent/altera_signaltap_agent_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_super_splitter/altera_sld_splitter_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_jtag_wys_atom/altera_jtag_wys_atom_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_sld_jtag_hub/altera_sld_jtag_hub_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_connection_identification_hub/altera_connection_identification_hub_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/misc/altera_a10_xcvr_reset_sequencer/altera_a10_xcvr_reset_sequencer_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_alt_sld_fab_0_10_mgvf7lq"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_alt_sld_fab_181_vq6guei"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_signaltap_agent_wrapper"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_splitter_181_6frorta"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_jtag_wys_atom"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="alt_sld_fab_0"
+   version="1.0"
+   name="alt_sld_fab_0_alt_sld_fab_0_10_mgvf7lq">
+  <parameter name="AUTO_DEVICE" value="10CX105YF672E5G" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="5" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\alt_sld_fab_0_10\synth\alt_sld_fab_0_alt_sld_fab_0_10_mgvf7lq.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\alt_sld_fab_0_10\synth\alt_sld_fab_0_alt_sld_fab_0_10_mgvf7lq.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/qdb/.t/604ba0cb415a.tmp/.temp/sld_fabrics/ipgen/alt_sld_fab_0/alt_sld_fab_wrapper_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_instrumentation_fabric/alt_sld_fab_hw.tcl" />
+   <file
+       path="C:/intelFPGA_pro/18.1/ip/altera/sld/core/altera_instrumentation_fabric/com.altera.superfabric.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/com.altera.utilities.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/commons-lang3-3.7.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/hamcrest-all-1.3.jar" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_signaltap_agent/altera_signaltap_agent_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_super_splitter/altera_sld_splitter_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_jtag_wys_atom/altera_jtag_wys_atom_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_sld_jtag_hub/altera_sld_jtag_hub_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_connection_identification_hub/altera_connection_identification_hub_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/misc/altera_a10_xcvr_reset_sequencer/altera_a10_xcvr_reset_sequencer_hw.tcl" />
+  </childSourceFiles>
+  <instantiator instantiator="alt_sld_fab_0" as="alt_sld_fab_0" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_alt_sld_fab_0_10_mgvf7lq"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_alt_sld_fab_181_vq6guei"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_signaltap_agent_wrapper"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_splitter_181_6frorta"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_jtag_wys_atom"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="alt_sld_fab"
+   version="18.1"
+   name="alt_sld_fab_0_alt_sld_fab_181_vq6guei">
+  <parameter name="MAX_WIDTH" value="0" />
+  <parameter name="TOP_HUB" value="1" />
+  <parameter name="DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter
+     name="SETTINGS"
+     value="{fabric a10_xcvr dir agent use_clock 0 needs_clock 0 psig 6b6bab39} {fabric a10_xcvr dir agent use_clock 0 needs_clock 0 psig 6b6bab39} " />
+  <parameter name="CLOCKS" value="{id {} } {id {} } " />
+  <parameter name="DESIGN_HASH" value="8fba255f69405df88f24" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="5" />
+  <parameter name="MIRROR" value="0" />
+  <parameter
+     name="COMPOSED_SETTINGS"
+     value="{fabric a10_xcvr dir agent use_clock 0 needs_clock 0} {fabric a10_xcvr dir agent use_clock 0 needs_clock 0} " />
+  <parameter name="AUTO_DEVICE" value="10CX105YF672E5G" />
+  <parameter
+     name="EP_INFOS"
+     value="{hpath {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].g_analog_resets_default.g_tre_tx_endpoint.reset_endpoint_tx|xcvr_reset_ep_inst|ep} } {hpath {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].g_analog_resets_default.g_tre_rx_endpoint.reset_endpoint_rx|xcvr_reset_ep_inst|ep} } " />
+  <parameter
+     name="AGENTS"
+     value="{type altera_signaltap_agent name auto_signaltap_auto_signaltap_0 params {SLD_RAM_BLOCK_TYPE {AUTO} SLD_DATA_BITS {374} SLD_TRIGGER_BITS {374} INSTANCE 0 SLD_NODE_INFO {805334528} SLD_POWER_UP_TRIGGER {0} SLD_INVERSION_MASK {000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000} SLD_INVERSION_MASK_LENGTH {1143} SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH {0} SLD_SEGMENT_SIZE {128} SLD_ATTRIBUTE_MEM_MODE {OFF} SLD_STATE_FLOW_USE_GENERATED {0} SLD_STATE_BITS {11} SLD_BUFFER_FULL_STOP {1} SLD_CURRENT_RESOURCE_WIDTH {1} SLD_INCREMENTAL_ROUTING {0} SLD_NODE_CRC_LOWORD {10898} SLD_NODE_CRC_HIWORD {62536} SLD_TRIGGER_LEVEL {1} SLD_SAMPLE_DEPTH {128} SLD_TRIGGER_IN_ENABLED {0} SLD_TRIGGER_PIPELINE {0} SLD_RAM_PIPELINE {0} SLD_COUNTER_PIPELINE {0} SLD_ADVANCED_TRIGGER_ENTITY {basic,1,} SLD_TRIGGER_LEVEL_PIPELINE {1} SLD_ENABLE_ADVANCED_TRIGGER {0} SLD_SECTION_ID auto_signaltap_0} }" />
+  <parameter name="NODE_COUNT" value="2" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\alt_sld_fab_181\synth\alt_sld_fab_0_alt_sld_fab_181_vq6guei.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\alt_sld_fab_181\synth\alt_sld_fab_0_alt_sld_fab_181_vq6guei.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_instrumentation_fabric/alt_sld_fab_hw.tcl" />
+   <file
+       path="C:/intelFPGA_pro/18.1/ip/altera/sld/core/altera_instrumentation_fabric/com.altera.superfabric.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/com.altera.utilities.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/commons-lang3-3.7.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/hamcrest-all-1.3.jar" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_signaltap_agent/altera_signaltap_agent_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_super_splitter/altera_sld_splitter_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_jtag_wys_atom/altera_jtag_wys_atom_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_sld_jtag_hub/altera_sld_jtag_hub_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_connection_identification_hub/altera_connection_identification_hub_hw.tcl" />
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/misc/altera_a10_xcvr_reset_sequencer/altera_a10_xcvr_reset_sequencer_hw.tcl" />
+  </childSourceFiles>
+  <instantiator
+     instantiator="alt_sld_fab_0_alt_sld_fab_0_10_mgvf7lq"
+     as="alt_sld_fab_0" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_alt_sld_fab_181_vq6guei"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_signaltap_agent_wrapper"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_splitter_181_6frorta"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_jtag_wys_atom"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy"</message>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_signaltap_agent"
+   version="18.1"
+   name="altera_signaltap_agent_wrapper">
+  <parameter name="sld_buffer_full_stop" value="1" />
+  <parameter name="sld_use_jtag_signal_adapter" value="0" />
+  <parameter name="sld_storage_qualifier_advanced_condition_entity" value="basic" />
+  <parameter name="sld_hps_trigger_out_enabled" value="0" />
+  <parameter name="sld_node_crc_loword" value="10898" />
+  <parameter name="sld_inversion_mask_length" value="1143" />
+  <parameter name="sld_current_resource_width" value="1" />
+  <parameter
+     name="sld_inversion_mask"
+     value="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" />
+  <parameter name="sld_node_info" value="805334528" />
+  <parameter name="sld_power_up_trigger" value="0" />
+  <parameter name="sld_segment_size" value="128" />
+  <parameter name="sld_state_bits" value="11" />
+  <parameter name="sld_node_crc_hiword" value="62536" />
+  <parameter name="sld_storage_qualifier_enable_advanced_condition" value="0" />
+  <parameter name="sld_advanced_trigger_7" value="NONE" />
+  <parameter name="SLD_SECTION_ID" value="auto_signaltap_0" />
+  <parameter name="sld_advanced_trigger_6" value="NONE" />
+  <parameter name="sld_advanced_trigger_5" value="NONE" />
+  <parameter name="sld_advanced_trigger_4" value="NONE" />
+  <parameter name="sld_advanced_trigger_3" value="NONE" />
+  <parameter name="sld_advanced_trigger_2" value="NONE" />
+  <parameter name="sld_advanced_trigger_1" value="NONE" />
+  <parameter name="sld_storage_qualifier_gap_record" value="0" />
+  <parameter name="sld_sample_depth" value="128" />
+  <parameter name="sld_attribute_mem_mode" value="OFF" />
+  <parameter name="INSTANCE" value="0" />
+  <parameter name="sld_trigger_level_pipeline" value="1" />
+  <parameter name="sld_ram_pipeline" value="0" />
+  <parameter name="PREFER_HOST" value="" />
+  <parameter name="sld_advanced_trigger_9" value="NONE" />
+  <parameter name="sld_advanced_trigger_8" value="NONE" />
+  <parameter name="sld_ram_block_type" value="AUTO" />
+  <parameter name="sld_hps_event_id" value="0" />
+  <parameter name="sld_state_flow_use_generated" value="0" />
+  <parameter name="device_family" value="Cyclone 10 GX" />
+  <parameter name="sld_advanced_trigger_10" value="NONE" />
+  <parameter name="sld_node_crc_bits" value="32" />
+  <parameter name="sld_state_flow_mgr_entity" value="state_flow_mgr_entity.vhd" />
+  <parameter name="sld_storage_qualifier_inversion_mask_length" value="0" />
+  <parameter name="sld_data_bits" value="374" />
+  <parameter name="sld_trigger_in_enabled" value="0" />
+  <parameter name="sld_storage_qualifier_mode" value="OFF" />
+  <parameter name="sld_inversion_mask_mod" value="0" />
+  <parameter name="sld_hps_event_enabled" value="0" />
+  <parameter name="sld_trigger_pipeline" value="0" />
+  <parameter name="sld_hps_trigger_in_enabled" value="0" />
+  <parameter name="sld_counter_pipeline" value="0" />
+  <parameter name="sld_enable_advanced_trigger" value="0" />
+  <parameter name="sld_create_monitor_interface" value="1" />
+  <parameter name="sld_storage_qualifier_pipeline" value="0" />
+  <parameter name="sld_storage_qualifier_bits" value="1" />
+  <parameter name="sld_incremental_routing" value="0" />
+  <parameter name="sld_trigger_bits" value="374" />
+  <parameter name="sld_trigger_level" value="1" />
+  <parameter name="sld_advanced_trigger_entity" value="basic,1," />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_signaltap_agent_181\synth\altera_signaltap_agent_wrapper.sv"
+       attributes="" />
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_signaltap_agent_181\synth\intel_signal_tap.sdc"
+       attributes="NO_SDC_PROMOTION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_signaltap_agent_181\synth\altera_signaltap_agent_wrapper.sv"
+       attributes="" />
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_signaltap_agent_181\synth\intel_signal_tap.sdc"
+       attributes="NO_SDC_PROMOTION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_signaltap_agent/altera_signaltap_agent_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator
+     instantiator="alt_sld_fab_0_alt_sld_fab_181_vq6guei"
+     as="auto_signaltap_auto_signaltap_0" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_signaltap_agent_wrapper"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_sld_splitter"
+   version="18.1"
+   name="alt_sld_fab_0_altera_sld_splitter_181_6frorta">
+  <parameter
+     name="FRAGMENTS"
+     value="{{name reset type conduit dir start ports { {tre_reset_req tre_reset_req out 1 0} {tre_reset_in tre_reset_in in 1 0} {clk_in clk_in out 1 1} } } } {{name reset type conduit dir start ports { {tre_reset_req tre_reset_req out 1 0} {tre_reset_in tre_reset_in in 1 0} {clk_in clk_in out 1 1} } } } " />
+  <parameter name="EXAMPLE" value="" />
+  <parameter name="ADD_INTERFACE_ASGN" value="1" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_sld_splitter_181\synth\alt_sld_fab_0_altera_sld_splitter_181_6frorta.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_sld_splitter_181\synth\alt_sld_fab_0_altera_sld_splitter_181_6frorta.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_super_splitter/altera_sld_splitter_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="alt_sld_fab_0_alt_sld_fab_181_vq6guei" as="splitter" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_splitter_181_6frorta"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_jtag_wys_atom"
+   version="18.1"
+   name="altera_jtag_wys_atom">
+  <parameter name="device_family" value="Cyclone 10 GX" />
+  <parameter name="DEVICE_FAMILY_ID" value="12" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_jtag_wys_atom_181\synth\altera_jtag_wys_atom.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_jtag_wys_atom_181\synth\altera_jtag_wys_atom.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_jtag_wys_atom/altera_jtag_wys_atom_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="alt_sld_fab_0_alt_sld_fab_181_vq6guei" as="jtagpins" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: altera_jtag_wys_atom"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_sld_jtag_hub"
+   version="18.1"
+   name="alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q">
+  <parameter name="CONN_INDEX" value="0" />
+  <parameter name="N_SEL_BITS" value="1" />
+  <parameter name="DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="N_NODE_IR_BITS" value="10" />
+  <parameter name="BRIDGE_START_INDEX" value="2" />
+  <parameter
+     name="SETTINGS"
+     value="{mfr_code 110 type_code 0 version 6 instance 0 ir_width 10 bridge_agent 0 prefer_host {} } " />
+  <parameter name="FORCE_IR_CAPTURE_FEATURE" value="1" />
+  <parameter name="USE_TCK_ENA" value="0" />
+  <parameter name="BROADCAST_FEATURE" value="0" />
+  <parameter name="NODE_INFO" value="00110000000000000110111000000000" />
+  <parameter name="COMPILATION_MODE" value="0" />
+  <parameter name="ENABLE_SOFT_CORE_CONTROLLER" value="0" />
+  <parameter name="NEGEDGE_TDO_LATCH" value="0" />
+  <parameter name="FORCE_PRE_1_4_FEATURE" value="0" />
+  <parameter name="COUNT" value="1" />
+  <parameter name="BRIDGE_HOST" value="0" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_sld_jtag_hub_181\synth\alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q.vhd"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_sld_jtag_hub_181\synth\alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q.vhd"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/jtag/altera_sld_jtag_hub/altera_sld_jtag_hub_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="alt_sld_fab_0_alt_sld_fab_181_vq6guei" as="sldfabric" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_sld_jtag_hub_181_bez4b2q"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_connection_identification_hub"
+   version="18.1"
+   name="alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy">
+  <parameter name="COUNT" value="1" />
+  <parameter name="SETTINGS" value="{width 4 latency 0} " />
+  <parameter name="DESIGN_HASH" value="8fba255f69405df88f24" />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_connection_identification_hub_181\synth\alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_connection_identification_hub_181\synth\alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/core/altera_connection_identification_hub/altera_connection_identification_hub_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="alt_sld_fab_0_alt_sld_fab_181_vq6guei" as="ident" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_connection_identification_hub_181_o3crgfy"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_a10_xcvr_reset_sequencer"
+   version="18.1"
+   name="alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi">
+  <parameter name="COUNT" value="2" />
+  <parameter
+     name="SETTINGS"
+     value="{use_clock 0 needs_clock 0} {use_clock 0 needs_clock 0} " />
+  <generatedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_a10_xcvr_reset_sequencer_181\synth\alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi.v"
+       attributes="" />
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_a10_xcvr_reset_sequencer_181\synth\altera_xcvr_reset_sequencer.sv"
+       attributes="" />
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_a10_xcvr_reset_sequencer_181\synth\alt_xcvr_resync.sv"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_a10_xcvr_reset_sequencer_181\synth\alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi.v"
+       attributes="" />
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_a10_xcvr_reset_sequencer_181\synth\altera_xcvr_reset_sequencer.sv"
+       attributes="" />
+   <file
+       path="C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\qdb\.t\604ba0cb415a.tmp\.temp\sld_fabrics\ipgen\alt_sld_fab_0\alt_sld_fab_0\altera_a10_xcvr_reset_sequencer_181\synth\alt_xcvr_resync.sv"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/sld/misc/altera_a10_xcvr_reset_sequencer/altera_a10_xcvr_reset_sequencer_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator
+     instantiator="alt_sld_fab_0_alt_sld_fab_181_vq6guei"
+     as="a10xcvrfabric" />
+  <messages>
+   <message level="Info" culprit="alt_sld_fab_0">"Generating: alt_sld_fab_0_altera_a10_xcvr_reset_sequencer_181_qo5sgxi"</message>
+  </messages>
+ </entity>
+</deploy>

@@ -1,0 +1,14 @@
+BLOCK                         START ADDRESS   END ADDRESS     
+
+Page_0                        0x00000020      0x00AEFFFF (0x00AEF5FB)
+
+
+Configuration device: 10CX105Y
+Configuration mode: Active Serial
+
+
+Notes:
+
+- Data checksum for this conversion is 0x587B2AE4
+
+- All the addresses in this file are byte addresses

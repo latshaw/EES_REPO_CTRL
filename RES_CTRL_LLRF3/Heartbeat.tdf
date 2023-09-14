@@ -1,0 +1,56 @@
+SUBDESIGN Heartbeat
+(
+	clock			:	INPUT;
+	reset			:	INPUT;
+	LED				:	OUTPUT;
+)
+VARIABLE
+	ss: MACHINE WITH STATES (s0, s1, s2, s3);
+	count[28..0] 	:	DFF;
+
+BEGIN
+	count[].clk  = clock;
+	count[].clrn = reset;
+	
+	ss.clk   = clock;
+	ss.reset = !reset;
+	CASE ss IS
+    	WHEN s0 =>
+         	count[] = (count[] != 10285710) & (count[] + 1); --119999950 ns
+			LED = GND; -- on
+         	IF count[] == 10285710 THEN
+            	ss = s1;
+			ELSE
+				ss = s0;
+         	END IF;
+		WHEN s1 =>
+         	count[] = (count[] != 8228567) & (count[] + 1); --95999950 ns
+			LED = VCC; -- off
+         	IF count[] == 8228567 THEN
+            	ss = s2;
+			ELSE
+				ss = s1;
+         	END IF;
+		WHEN s2 =>
+         	count[] = (count[] != 8228567) & (count[] + 1); --95999950 ns
+			LED = GND; -- on
+         	IF count[] == 8228567 THEN
+            	ss = s3;
+			ELSE
+				ss = s2;
+         	END IF;
+		WHEN s3 =>
+         	count[] = (count[] != 55542852) & (count[] + 1); --647999950 ns
+			LED = VCC; -- off
+         	IF count[] == 55542852 THEN
+            	ss = s0;
+			ELSE
+				ss = s3;
+         	END IF;
+
+	END CASE;
+
+	
+END;
+
+

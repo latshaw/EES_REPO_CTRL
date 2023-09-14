@@ -1,0 +1,1289 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA_lite/18.1/Altera_workspaces/IOT_RF_MONT_DE0_Nano/MODELSIM
+Pcomponents
+Z0 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z1 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z2 w1595530862
+Z3 dC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim
+Z4 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/COMPONENTS.vhd
+Z5 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/COMPONENTS.vhd
+l0
+L4
+V;N4_VmNG;EobSJQPl8]hb3
+!s100 GI]S[[>:BbQEW42k58o[N2
+Z6 OV;C;10.5b;63
+32
+Z7 !s110 1604955807
+!i10b 1
+Z8 !s108 1604955807.000000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/COMPONENTS.vhd|
+Z10 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/COMPONENTS.vhd|
+!i113 1
+Z11 o-work work -2002 -explicit
+Z12 tExplicit 1 CvgOpt 0
+Ecounter
+R2
+Z13 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z14 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+R0
+R1
+R3
+R4
+R5
+l0
+L156
+V6QJNPX@LbaNDFZbmPk2`Z1
+!s100 @eAFPCfDz`<1N=m;n14m22
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Acounter
+R13
+R14
+R0
+R1
+DEx4 work 7 counter 0 22 6QJNPX@LbaNDFZbmPk2`Z1
+l167
+L166
+Vi?QgA5T1^66XO]DcmCad_2
+!s100 2QYYNimDMamVGI7RIi0F@0
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Edata_select
+Z15 w1382475482
+Z16 DPx4 work 10 components 0 22 ;N4_VmNG;EobSJQPl8]hb3
+R0
+R1
+R3
+Z17 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/DATA_SELECT.vhd
+Z18 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/DATA_SELECT.vhd
+l0
+L5
+Vzc6>VC><66g2@^?CNG<T^0
+!s100 i;Wh<hA_30035P6SSkW9e0
+R6
+32
+Z19 !s110 1604955808
+!i10b 1
+R8
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/DATA_SELECT.vhd|
+Z21 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/DATA_SELECT.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R0
+R1
+DEx4 work 11 data_select 0 22 zc6>VC><66g2@^?CNG<T^0
+l30
+L26
+VjI]@2gXR?W[bDEkllQD093
+!s100 >gGTn1Ede:Q4ak>6=oD5f2
+R6
+32
+R19
+!i10b 1
+R8
+R20
+R21
+!i113 1
+R11
+R12
+Efcc_data_acq
+Z22 w1594649753
+R0
+R1
+R3
+Z23 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ.vhd
+Z24 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ.vhd
+l0
+L26
+V<jOgoM=6PY8HJl=zci0[N2
+!s100 DF@`04o`c]?T60[_>jJ>@1
+R6
+32
+R19
+!i10b 1
+Z25 !s108 1604955808.000000
+Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ.vhd|
+Z27 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ.vhd|
+!i113 1
+R11
+R12
+Abdf_type
+R0
+R1
+DEx4 work 12 fcc_data_acq 0 22 <jOgoM=6PY8HJl=zci0[N2
+l80
+L41
+V8jfJY<FiOLIl_HWG[5Wlk0
+!s100 PWXBTbX0Ud@Hin7JaDfW80
+R6
+32
+R19
+!i10b 1
+R25
+R26
+R27
+!i113 1
+R11
+R12
+Efcc_data_acq_fiber_control
+Z28 w1595609270
+R16
+R13
+R14
+R0
+R1
+R3
+Z29 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ_FIBER_CONTROL.vhd
+Z30 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ_FIBER_CONTROL.vhd
+l0
+L28
+VR9z3eE[<PS>:YLXj0f^?Z3
+!s100 `ChQIJeSbUb:c`:VJ5bWz1
+R6
+32
+R19
+!i10b 1
+R25
+Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ_FIBER_CONTROL.vhd|
+Z32 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_ACQ_FIBER_CONTROL.vhd|
+!i113 1
+R11
+R12
+Abdf_type
+R16
+R13
+R14
+R0
+R1
+DEx4 work 26 fcc_data_acq_fiber_control 0 22 R9z3eE[<PS>:YLXj0f^?Z3
+l110
+L56
+V>7fGhN;;Dcco@G<H8R?em1
+!s100 lo?<?efd>GXCm5Yk?fQRI0
+R6
+32
+R19
+!i10b 1
+R25
+R31
+R32
+!i113 1
+R11
+R12
+Efcc_data_in
+Z33 w1457964385
+R16
+R0
+R1
+R3
+Z34 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_IN.vhd
+Z35 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_IN.vhd
+l0
+L5
+V<PfDkY7:j@<@L?8e^E[<Z1
+!s100 dWMUXTbiMBnVF8U3Q>HMV3
+R6
+32
+R19
+!i10b 1
+R25
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_IN.vhd|
+Z37 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_IN.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R0
+R1
+DEx4 work 11 fcc_data_in 0 22 <PfDkY7:j@<@L?8e^E[<Z1
+l98
+L28
+V_QW7I5S^2k4?MbNKEA[8j3
+!s100 n21OeEe:6lUo;[Hjh^J8a2
+R6
+32
+R19
+!i10b 1
+R25
+R36
+R37
+!i113 1
+R11
+R12
+Efcc_data_out
+Z38 w1372790782
+R16
+R0
+R1
+R3
+Z39 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_OUT.vhd
+Z40 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_OUT.vhd
+l0
+L5
+VE4IBic7n:Q`l0:?hT<2?80
+!s100 Eh_oUj_`E4?]45XFAWmYV0
+R6
+32
+R19
+!i10b 1
+R25
+Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_OUT.vhd|
+Z42 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FCC_DATA_OUT.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R0
+R1
+DEx4 work 12 fcc_data_out 0 22 E4IBic7n:Q`l0:?hT<2?80
+l53
+L31
+V9SfoAZ];BT6IlkRY7C7>d0
+!s100 @6>cUfU`VokDZlm[855Yd3
+R6
+32
+R19
+!i10b 1
+R25
+R41
+R42
+!i113 1
+R11
+R12
+Efiber_control
+Z43 w1389470089
+R16
+R13
+R14
+R0
+R1
+R3
+Z44 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FIBER_CONTROL.vhd
+Z45 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FIBER_CONTROL.vhd
+l0
+L6
+VU`c9g?8?RDN]X^7YQf=Ka2
+!s100 YN`DXhb7fe]V?>Am?mVS52
+R6
+32
+R19
+!i10b 1
+R25
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FIBER_CONTROL.vhd|
+Z47 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/FIBER_CONTROL.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R13
+R14
+R0
+R1
+DEx4 work 13 fiber_control 0 22 U`c9g?8?RDN]X^7YQf=Ka2
+l89
+L48
+V`Z`Eio4oTWdc6z40Ri4993
+!s100 7LX:zg4Q:1Le9Y7[bc7FJ3
+R6
+32
+R19
+!i10b 1
+R25
+R46
+R47
+!i113 1
+R11
+R12
+Eflip_flop
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L309
+V_HG`AjAI]MkzEd5=g`g=o3
+!s100 _LoQI5nQ1P;^jbSAPiW=63
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Aflip_flop
+R0
+R1
+DEx4 work 9 flip_flop 0 22 _HG`AjAI]MkzEd5=g`g=o3
+l320
+L319
+VzBCNB;dQE`eNK[X?=V8Uc2
+!s100 NgizU]KK1FVX9a3K9?P]l0
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Egen_i2c
+Z48 w1604676935
+R13
+R14
+R0
+R1
+R3
+Z49 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/gen_i2c.vhd
+Z50 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/gen_i2c.vhd
+l0
+L14
+V9eQzfNh[R<o2R]LBU1NI^1
+!s100 HIamU;=<G6GTHKdeMS>1P0
+R6
+32
+R19
+!i10b 1
+R25
+Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/gen_i2c.vhd|
+Z52 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/gen_i2c.vhd|
+!i113 1
+R11
+R12
+Artl
+R13
+R14
+R0
+R1
+DEx4 work 7 gen_i2c 0 22 9eQzfNh[R<o2R]LBU1NI^1
+l50
+L32
+VgDJZgCR3TA:Z2L^DLK5gA2
+!s100 L6ncIB2;2YHJIA4SHP^BF1
+R6
+32
+R19
+!i10b 1
+R25
+R51
+R52
+!i113 1
+R11
+R12
+Eheartbeat_fp
+Z53 w1604513161
+R13
+R14
+R0
+R1
+R3
+Z54 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_FP.vhd
+Z55 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_FP.vhd
+l0
+L6
+VKC6APaN0_J_9hER_Q8V_h0
+!s100 lkglZ4lT9hIh3El:6XS_[3
+R6
+32
+Z56 !s110 1604955809
+!i10b 1
+Z57 !s108 1604955809.000000
+Z58 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_FP.vhd|
+Z59 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_FP.vhd|
+!i113 1
+R11
+R12
+Artl
+R13
+R14
+R0
+R1
+DEx4 work 12 heartbeat_fp 0 22 KC6APaN0_J_9hER_Q8V_h0
+l22
+L18
+Vi=CZ[]DY[z=K<?_=@db_X2
+!s100 1I[nk@ZSzFmgTT0L<cim^3
+R6
+32
+R56
+!i10b 1
+R57
+R58
+R59
+!i113 1
+R11
+R12
+Eheartbeat_isa
+Z60 w1604514211
+R13
+R14
+R0
+R1
+R3
+Z61 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_ISA.vhd
+Z62 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_ISA.vhd
+l0
+L6
+VkDZ`]Bk[]Ehl>3caK4[GZ2
+!s100 do@Uh3j:Ab`KO_:FWVh^83
+R6
+32
+R56
+!i10b 1
+R57
+Z63 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_ISA.vhd|
+Z64 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Heartbeat_ISA.vhd|
+!i113 1
+R11
+R12
+Artl
+R13
+R14
+R0
+R1
+DEx4 work 13 heartbeat_isa 0 22 kDZ`]Bk[]Ehl>3caK4[GZ2
+l21
+L17
+VU@S73Nj4Q;CNoVF^R_3<^2
+!s100 N>cmjn`Pd>Tk>62G>6Uz41
+R6
+32
+R56
+!i10b 1
+R57
+R63
+R64
+!i113 1
+R11
+R12
+Ei2c_vhd_tst
+Z65 w1604676537
+Z66 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+R0
+R1
+R3
+Z67 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/i2c_tb .vhd
+Z68 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/i2c_tb .vhd
+l0
+L8
+VK>ZPJGVeaHeWX@W1diTJX1
+!s100 Bd8RnSDohk3;ah^jNlzD51
+R6
+32
+R56
+!i10b 1
+R57
+Z69 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/i2c_tb .vhd|
+Z70 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/i2c_tb .vhd|
+!i113 1
+R11
+R12
+Ai2c_arch
+R66
+R0
+R1
+DEx4 work 11 i2c_vhd_tst 0 22 K>ZPJGVeaHeWX@W1diTJX1
+l45
+L10
+V[jMWTYPUE>PVhF^M@;QRY2
+!s100 eDioRjji4Q8R]dRUfKGzC2
+R6
+32
+R56
+!i10b 1
+R57
+R69
+R70
+!i113 1
+R11
+R12
+Eisa_bus
+Z71 w1382474161
+R16
+R13
+R14
+R0
+R1
+R3
+Z72 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/isa_bus.vhd
+Z73 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/isa_bus.vhd
+l0
+L7
+VNl2=BF<iiM;;bE0E62JER3
+!s100 Y=n68kOUL5b2U=83^?z7h3
+R6
+32
+R19
+!i10b 1
+R25
+Z74 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/isa_bus.vhd|
+Z75 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/isa_bus.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R13
+R14
+R0
+R1
+DEx4 work 7 isa_bus 0 22 Nl2=BF<iiM;;bE0E62JER3
+l61
+L24
+Vl[:ddkF9o8lP`33d4IzN53
+!s100 44eGb]Z1;HQ=SoE_2KBHL1
+R6
+32
+R19
+!i10b 1
+R25
+R74
+R75
+!i113 1
+R11
+R12
+Elatch_n
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L190
+VF`63iFAUS2@GP41h5DTP?3
+!s100 QCEEdf9EU;B8lMa8[2KMF1
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Alatch_n
+R0
+R1
+DEx4 work 7 latch_n 0 22 F`63iFAUS2@GP41h5DTP?3
+l201
+L200
+V5@NcFjAR@S]76I8g]eOAk3
+!s100 MTh^M5;[Uam4cV53]ID8n2
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Emath_main
+Z76 w1620151836
+R66
+R0
+R1
+Z77 dC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/simulation/modelsim
+Z78 8C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\simulation\modelsim\math_main.vhd
+Z79 FC:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\simulation\modelsim\math_main.vhd
+l0
+L9
+V[hKU`HL@234M[^ceiZbbj1
+!s100 97=Ce:ZmJTL4^CjYIhb[o1
+R6
+32
+Z80 !s110 1620151841
+!i10b 1
+Z81 !s108 1620151841.000000
+Z82 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\simulation\modelsim\math_main.vhd|
+Z83 !s107 C:\intelFPGA_pro\18.1\PROJECTS\resonance_control_fpga_rev_pr1\simulation\modelsim\math_main.vhd|
+!i113 1
+R11
+R12
+Amath_main
+R66
+R0
+R1
+Z84 DEx4 work 9 math_main 0 22 [hKU`HL@234M[^ceiZbbj1
+l24
+L11
+VdV:f1C1NoYz7_0c2I9Jz;0
+!s100 A2kNMQo1`5_imSX98[M;?2
+R6
+32
+R80
+!i10b 1
+R81
+R82
+R83
+!i113 1
+R11
+R12
+Emotion_control
+Z85 w1604582245
+R16
+R13
+R14
+R0
+R1
+R3
+Z86 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Motion_control.vhd
+Z87 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Motion_control.vhd
+l0
+L32
+VPIazKEH2G5Pn0=7fmFN9H3
+!s100 zEKCl^h61SFa;n[eaRVK?1
+R6
+32
+R56
+!i10b 1
+R57
+Z88 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Motion_control.vhd|
+Z89 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/Motion_control.vhd|
+!i113 1
+R11
+R12
+Abdf_type
+R16
+R13
+R14
+R0
+R1
+DEx4 work 14 motion_control 0 22 PIazKEH2G5Pn0=7fmFN9H3
+l469
+L189
+V=VRUaOf[5LMDPH9D:QDB]3
+!s100 Z;BRiXn8jh?nlib>z3Dgz1
+R6
+32
+R56
+!i10b 1
+R57
+R88
+R89
+!i113 1
+R11
+R12
+Emotion_control_vhd_tst
+Z90 w1602782490
+Z91 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+R66
+R0
+R1
+R3
+Z92 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/Motion_control_tb.vhd
+Z93 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/Motion_control_tb.vhd
+l0
+L8
+VjI:6b7LQnFmfzS9bM;^a10
+!s100 5EiCn_z3Z?Nb4KX^^TDB]0
+R6
+32
+R56
+!i10b 1
+R57
+Z94 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/Motion_control_tb.vhd|
+Z95 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/simulation/modelsim/Motion_control_tb.vhd|
+!i113 1
+R11
+R12
+Amotion_control_arch
+R91
+R66
+R0
+R1
+DEx4 work 22 motion_control_vhd_tst 0 22 jI:6b7LQnFmfzS9bM;^a10
+l250
+L10
+VOK:X1d^oJFL0hR:SN3J1;1
+!s100 P[;41gZbbBS3:ja9E@C1E1
+R6
+32
+R56
+!i10b 1
+R57
+R94
+R95
+!i113 1
+R11
+R12
+Epolynomial_division
+Z96 w1378501358
+R16
+R0
+R1
+R3
+Z97 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/POLYNOMIAL_DIVISION.vhd
+Z98 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/POLYNOMIAL_DIVISION.vhd
+l0
+L6
+Vf?K6fE4RgQBeOGI1dM5R31
+!s100 KLDjnl?icMoP^:`[Rd<[f1
+R6
+32
+R19
+!i10b 1
+R25
+Z99 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/POLYNOMIAL_DIVISION.vhd|
+Z100 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/POLYNOMIAL_DIVISION.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R0
+R1
+DEx4 work 19 polynomial_division 0 22 f?K6fE4RgQBeOGI1dM5R31
+l57
+L18
+Vf[=7i71YcV@^LX:TjE1mB1
+!s100 V5X@58Efeie136<RlPI1J2
+R6
+32
+R19
+!i10b 1
+R25
+R99
+R100
+!i113 1
+R11
+R12
+Eregne
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L119
+VVFA`ifHBc6]GT6QSjb>J>0
+!s100 de;kYFOblezX3XnzN38YJ2
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Aregne
+R0
+R1
+DEx4 work 5 regne 0 22 VFA`ifHBc6]GT6QSjb>J>0
+l131
+L130
+V9CEeUYc0i60=[kR[KEeiG2
+!s100 gJ=QdGT[?RjX6>nNFeIHn3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Eregs
+Z101 w1604519539
+R16
+R13
+R14
+R0
+R1
+R3
+Z102 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/regs.vhd
+Z103 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/regs.vhd
+l0
+L21
+VbW^^fZ78S8`dDXB3YbWb@0
+!s100 QD[Hd1NEG`c5X8g85K>^m1
+R6
+32
+R19
+!i10b 1
+R25
+Z104 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/regs.vhd|
+Z105 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/regs.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R13
+R14
+R0
+R1
+DEx4 work 4 regs 0 22 bW^^fZ78S8`dDXB3YbWb@0
+l252
+L83
+ViX_kz>IG__kh:HfBJ`I210
+!s100 f;:65bH;oGB0<fAzB9<9?3
+R6
+32
+R19
+!i10b 1
+R25
+R104
+R105
+!i113 1
+R11
+R12
+Eresets
+Z106 w1303142219
+R16
+R13
+R14
+R0
+R1
+R3
+Z107 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resets.vhd
+Z108 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resets.vhd
+l0
+L6
+VOLBi1gECZdc;KQ46f7=7G3
+!s100 iNIe2OEJI9TGDBUW51KHb2
+R6
+32
+R19
+!i10b 1
+R25
+Z109 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resets.vhd|
+Z110 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resets.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R13
+R14
+R0
+R1
+DEx4 work 6 resets 0 22 OLBi1gECZdc;KQ46f7=7G3
+l23
+L15
+V8O9HWamgDQhhBXHzfkNHl2
+!s100 SeC3;H1n^KBhGeDoUDei^2
+R6
+32
+R19
+!i10b 1
+R25
+R109
+R110
+!i113 1
+R11
+R12
+Eresonance_control_fpga_rev_pr
+Z111 w1594225816
+Z112 DPx6 altera 21 altera_syn_attributes 0 22 VDO^b9KjXAlbL<kcc]62h2
+R16
+R13
+R14
+R0
+R1
+R3
+Z113 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resonance_control_fpga_rev_pr.vhd
+Z114 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resonance_control_fpga_rev_pr.vhd
+l0
+L23
+VI_d^6`[VISBFW<QeX=S0i3
+!s100 NB9n:b7ZI^l9UJkX3EoJ33
+R6
+32
+Z115 !s110 1602685112
+!i10b 1
+Z116 !s108 1602685112.000000
+Z117 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resonance_control_fpga_rev_pr.vhd|
+Z118 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/resonance_control_fpga_rev_pr.vhd|
+!i113 1
+R11
+R12
+Appl_type
+R112
+R16
+R13
+R14
+R0
+R1
+DEx4 work 29 resonance_control_fpga_rev_pr 0 22 I_d^6`[VISBFW<QeX=S0i3
+l197
+L171
+VR6`U5Uh1OneCK2_@nMKEA3
+!s100 <M<PJoPl8Lh3=eeX0hi3z0
+R6
+32
+R115
+!i10b 1
+R116
+R117
+R118
+!i113 1
+R11
+R12
+Eshift_left_bit
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L343
+VA6nI[0zIc4E?a;IN>WY5W2
+!s100 f@4T:eja<[NlE5>]PGKac3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Abehavior
+R0
+R1
+DEx4 work 14 shift_left_bit 0 22 A6nI[0zIc4E?a;IN>WY5W2
+l359
+L355
+VmNPg6T?f;H29c60YV?b_e1
+!s100 `DPNEl=;PM3i60ZV2l`Yh0
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Eshift_left_reg
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L266
+VT`6US]WWJAh4PhS>hQ3H;3
+!s100 VK?<Vzc5d70az9GCI8_jJ3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Abehavior
+R0
+R1
+DEx4 work 14 shift_left_reg 0 22 T`6US]WWJAh4PhS>hQ3H;3
+l282
+L278
+Vl:A[@]1@m66dg0aooj[F:2
+!s100 fjA;>Y7M3WJ=WK?50LC7L3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Eshift_reg
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L224
+Vdf`YLQNG^G?lWiLlh7Le_3
+!s100 U?^l4^DAjEh^OXmC9e6l81
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Abehavior
+R0
+R1
+DEx4 work 9 shift_reg 0 22 df`YLQNG^G?lWiLlh7Le_3
+l239
+L235
+Vg3IOV5NiQeZ9mhH=1i<fo1
+!s100 hVcaNf[Xlb0D_Tz;_JjKX3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Eshift_right_reg
+R2
+R0
+R1
+R3
+R4
+R5
+l0
+L384
+V_VfDi5WO;ReNVCB1@``@a0
+!s100 _lS=I_;h5Gz2R8hjGcCg90
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Abehavior
+R0
+R1
+DEx4 work 15 shift_right_reg 0 22 _VfDi5WO;ReNVCB1@``@a0
+l400
+L396
+V>7lh511=K<<2W;DBMF:4G1
+!s100 GH43WekF7M6RSl53GlRL`1
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Estepper_driver
+Z119 w1615833246
+R16
+R13
+R14
+R0
+R1
+R77
+Z120 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/stepper_driver.vhd
+Z121 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/stepper_driver.vhd
+l0
+L16
+VF79KXOLE]:CgR5Nj=Yi8?1
+!s100 TGIJJV:415IC]Ueo@0OM^3
+R6
+32
+Z122 !s110 1615833273
+!i10b 1
+Z123 !s108 1615833273.000000
+Z124 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/stepper_driver.vhd|
+Z125 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr1/stepper_driver.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R13
+R14
+R0
+R1
+DEx4 work 14 stepper_driver 0 22 F79KXOLE]:CgR5Nj=Yi8?1
+l143
+L48
+V^n^_El8E`3iA]Q:QJSFe=2
+!s100 VR`4oW>^K1NN>J14T6hDI2
+R6
+32
+R122
+!i10b 1
+R123
+R124
+R125
+!i113 1
+R11
+R12
+Estepper_tb
+Z126 w1617972094
+R66
+R0
+R1
+R77
+R78
+R79
+l0
+L9
+VhUXLgQ6V4h4>G80]`zhDN3
+!s100 Zg=G6Ia`J5dRz9b_7W7K[3
+R6
+32
+Z127 !s110 1617972101
+!i10b 1
+Z128 !s108 1617972101.000000
+R82
+R83
+!i113 1
+R11
+R12
+Astepper_tb_arch
+R66
+R0
+R1
+DEx4 work 10 stepper_tb 0 22 hUXLgQ6V4h4>G80]`zhDN3
+l22
+L11
+V?MYV6blcSkca=04a8GKId1
+!s100 Fe@c10ORDLPnTDOElhYH73
+R6
+32
+R127
+!i10b 1
+R128
+R82
+R83
+!i113 1
+R11
+R12
+Etca9534_i2c
+Z129 w1597088327
+R66
+R0
+R1
+R3
+Z130 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/tca9534_i2c.vhd
+Z131 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/tca9534_i2c.vhd
+l0
+L5
+V[IbB3n1<Zk8JdkoY9WQN>0
+!s100 ?B[`IKT4YgzdOzH28N`k=1
+R6
+32
+R56
+!i10b 1
+R57
+Z132 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/tca9534_i2c.vhd|
+Z133 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/tca9534_i2c.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R66
+R0
+R1
+DEx4 work 11 tca9534_i2c 0 22 [IbB3n1<Zk8JdkoY9WQN>0
+l71
+L13
+VWbUAN5YWHe9[WL7VoCARB3
+!s100 A2dES5a_U=l80M^8@4BQR2
+R6
+32
+R56
+!i10b 1
+R57
+R132
+R133
+!i113 1
+R11
+R12
+Etmc2660
+Z134 w1604519646
+R16
+R0
+R1
+R3
+Z135 8C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/TMC2660.vhd
+Z136 FC:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/TMC2660.vhd
+l0
+L31
+V@MB>;cSIY7XM<]PoeBScV3
+!s100 @TVKG4g[UR0AFK5g6UezR2
+R6
+32
+R56
+!i10b 1
+R57
+Z137 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/TMC2660.vhd|
+Z138 !s107 C:/intelFPGA_pro/18.1/PROJECTS/resonance_control_fpga_rev_pr/TMC2660.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R16
+R0
+R1
+DEx4 work 7 tmc2660 0 22 @MB>;cSIY7XM<]PoeBScV3
+l102
+L53
+VLR8?A33cd58C<WJNXEMZD3
+!s100 TgMMYC[WZJmWBN1c0>NSd2
+R6
+32
+R56
+!i10b 1
+R57
+R137
+R138
+!i113 1
+R11
+R12
