@@ -1,3 +1,0 @@
-Hello github!
-Modified in branch1.
-branch1 modified after initial merge.
