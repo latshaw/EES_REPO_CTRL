@@ -52,10 +52,12 @@ else:
         f3.close()
    
 #If copy argument is passed, copy over source directory, creating new folders if they don't exist
+print("Making git_repo directory if it does not exist...")
 os.makedirs(os.path.dirname('./git_repo/test.txt'), exist_ok=True) #create ./git_repo if it does not currently exist
 
 exceptions = 0
 if args.copy:
+    tree = []
     print("Copying files over to ./git_repo/...")
     for file in file_list:
         file = file[:-1] #remove new line hidden character from the end
@@ -70,8 +72,23 @@ if args.copy:
         #if file.find('/') >= 0: #is a bath
         #    original = './'+original
         try:
-            os.makedirs(os.path.dirname('./git_repo/'+str(file)), exist_ok=True) #create path if it does not exist (folders)
-            shutil.copy2(str(original), './git_repo/'+str(file)) #copy over the file
+            #os.makedirs(os.path.dirname('./git_repo/'+str(file)), exist_ok=True) #create path if it does not exist (folders)
+            if original.find('/') >= 0: #if true, then this is a path
+                index = file.find('/')
+                original = './'+file[:index] #grab folder name
+                temp = file[:index]
+                match = 0
+                for t in tree: # tree is a list of folders already copied
+                    if t==temp: #see if current name matches one in this list
+                        match = 1
+                if match == 0: #if no matches found, this is a new one
+                    tree.append(file[:index]) # add it to the list and copy the folder over
+                    #print('notes:', original)
+                    shutil.copytree(original, './git_repo/'+str(file[:index]), dirs_exist_ok=True) #copy all folders and sub folders
+                    print('COPY FOLDER: ' + str(original) +' to '+ './git_repo/'+str(file[:index]))
+            else:
+                shutil.copy2(str(original), './git_repo/'+str(file)) #copy over this single file
+                print('COPY FILE: ', str(original), ' to ', './git_repo/'+str(file))
         except:
             print("WARNING FILE NOT FOUND, COULD NOT COPY: "+ str(original) + ' to ' + './git_repo/'+str(file))
             exceptions+=1
