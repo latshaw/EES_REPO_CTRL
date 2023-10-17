@@ -1,9 +1,0 @@
-	component PLL_main is
-		port (
-			rst      : in  std_logic := 'X'; -- reset
-			refclk   : in  std_logic := 'X'; -- clk
-			outclk_0 : out std_logic;        -- clk
-			outclk_1 : out std_logic         -- clk
-		);
-	end component PLL_main;
-
