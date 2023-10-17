@@ -29,9 +29,9 @@ Instructions for converting your existing Quartus project someting to place on g
 	1. To update your local repo with the remote one follow these steps:
 		a. git fetch origin
   		b. git reset --hard origin
-    		c. git clean -fd
+    	c. git clean -fd
 	3. Use 'git status' to display helpful messages
-	4. Use git rm <file> or git rm -r <folder>/* to remove content as needed
+	4. Use git rm <file> or git rm -r FOLDER/* to remove content as needed
 	5. Use git add <file> to add a file (NEVER do a git add all)
 	6. Perform a git commit and then a git push.
 
