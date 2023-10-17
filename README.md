@@ -26,11 +26,14 @@ Instructions for converting your existing Quartus project someting to place on g
 	5. Then also run git push
 	6. If there are no error messages then your repo is now online! :)
 10. If you are working from a already cloned project
-	1. Use git pull to pull in the latest repo from online
-	2. Use 'git status' to display helpful messages
-	3. Use git rm <file> or git rm -r <folder>/* to remove content as needed
-	4. Use git add <file> to add a file (NEVER do a git add all)
-	5. Perform a git commit and then a git push.
+	1. To update your local repo with the remote one follow these steps:
+		a. git fetch origin
+  		b. git reset --hard origin
+    		c. git clean -fd
+	3. Use 'git status' to display helpful messages
+	4. Use git rm <file> or git rm -r <folder>/* to remove content as needed
+	5. Use git add <file> to add a file (NEVER do a git add all)
+	6. Perform a git commit and then a git push.
 
 
 Insturctions to generate FPGA laod files:
