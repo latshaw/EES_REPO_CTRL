@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: interlocks_control_fpga_rev_pr1_rev.tcl
-# Generated on: Tue Oct 17 15:21:08 2023
+# Generated on: Tue Oct 17 15:49:03 2023
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -50,6 +50,7 @@ if {$make_assignments} {
 	set_global_assignment -name TOP_LEVEL_ENTITY interlocks_control
 	set_global_assignment -name DEVICE 10CX105YF672E5G
 	set_global_assignment -name ENABLE_SIGNALTAP OFF
+	set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp2.stp
 	set_global_assignment -name POWER_AUTO_COMPUTE_TJ ON
 	set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 	set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
@@ -63,6 +64,8 @@ if {$make_assignments} {
 	set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 	set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 	set_global_assignment -name ENABLE_LOGIC_ANALYZER_INTERFACE OFF
+	set_global_assignment -name VHDL_FILE gen_i2c.vhd
+	set_global_assignment -name VHDL_FILE LED_CONTROL.vhd
 	set_global_assignment -name SDC_FILE cyclone10gx_main.sdc
 	set_global_assignment -name SDC_FILE interlocks_control_fpga_rev_pr1_rev.out.sdc
 	set_global_assignment -name QIP_FILE fpga_tsd_int/fpga_tsd_int.qip
@@ -166,6 +169,7 @@ if {$make_assignments} {
 	set_global_assignment -name IP_FILE PLL_125_to_5.ip
 	set_global_assignment -name SIGNALTAP_FILE stp1.stp
 	set_global_assignment -name VHDL_FILE ads8353_arc.vhd
+	set_global_assignment -name SIGNALTAP_FILE output_files/stp2.stp
 	set_global_assignment -name IP_FILE EPCQ.ip
 	set_location_assignment PIN_Y20 -to ARC_SDO_B_3
 	set_location_assignment PIN_Y19 -to ARC_SDO_A_3
