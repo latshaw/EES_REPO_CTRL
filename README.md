@@ -65,4 +65,4 @@ OR if you prefer lots of typing, you can use git bash to run the following manua
 2. quartus_sh --flow compile PROJECT
 3. cd output_files
 4. run this in gitbash, git rev-parse HEAD  and keep just the first 8 characters. Call it GIT_ID
-4. quartus_cpf -o auto_create_rpd=on -c -d MT25QU01G -s 10CX105Y resonance_control_fpga_rev_pr.sof GIT_ID.jic
+4. quartus_cpf -o auto_create_rpd=on -c -d MT25QU01G -s 10CX105Y PROJECT.sof GIT_ID.jic
