@@ -1,0 +1,12 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity comms_regbank is
+	generic(LB_AWI	:	integer := 24;
+			LB_DWI	:	integer	:=	32
+			);
+	port(lb_clk		:	in std_logic;
+			lb_valid	:	in std_logic;
+			lb_rnw	:	in std_logic;
+			

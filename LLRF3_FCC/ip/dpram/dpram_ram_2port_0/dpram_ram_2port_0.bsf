@@ -1,0 +1,147 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 304 384)
+	(text "dpram_ram_2port_0" (rect 92 -1 176 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 368 20 380)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "data_a[17..0]" (rect 0 0 50 12)(font "Arial" (font_size 8)))
+		(text "data_a[17..0]" (rect 4 61 82 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 96 72)(line_width 3))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "data_b[17..0]" (rect 0 0 50 12)(font "Arial" (font_size 8)))
+		(text "data_b[17..0]" (rect 4 101 82 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 96 112)(line_width 3))
+	)
+	(port
+		(pt 0 152)
+		(input)
+		(text "address_a[11..0]" (rect 0 0 64 12)(font "Arial" (font_size 8)))
+		(text "address_a[11..0]" (rect 4 141 100 152)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 96 152)(line_width 3))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "address_b[11..0]" (rect 0 0 64 12)(font "Arial" (font_size 8)))
+		(text "address_b[11..0]" (rect 4 181 100 192)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 96 192)(line_width 3))
+	)
+	(port
+		(pt 0 232)
+		(input)
+		(text "wren_a" (rect 0 0 29 12)(font "Arial" (font_size 8)))
+		(text "wren_a" (rect 4 221 40 232)(font "Arial" (font_size 8)))
+		(line (pt 0 232)(pt 96 232)(line_width 1))
+	)
+	(port
+		(pt 0 272)
+		(input)
+		(text "wren_b" (rect 0 0 29 12)(font "Arial" (font_size 8)))
+		(text "wren_b" (rect 4 261 40 272)(font "Arial" (font_size 8)))
+		(line (pt 0 272)(pt 96 272)(line_width 1))
+	)
+	(port
+		(pt 0 312)
+		(input)
+		(text "clock_a" (rect 0 0 30 12)(font "Arial" (font_size 8)))
+		(text "clock_a" (rect 4 301 46 312)(font "Arial" (font_size 8)))
+		(line (pt 0 312)(pt 96 312)(line_width 1))
+	)
+	(port
+		(pt 0 352)
+		(input)
+		(text "clock_b" (rect 0 0 30 12)(font "Arial" (font_size 8)))
+		(text "clock_b" (rect 4 341 46 352)(font "Arial" (font_size 8)))
+		(line (pt 0 352)(pt 96 352)(line_width 1))
+	)
+	(port
+		(pt 304 72)
+		(output)
+		(text "q_a[17..0]" (rect 0 0 38 12)(font "Arial" (font_size 8)))
+		(text "q_a[17..0]" (rect 255 61 315 72)(font "Arial" (font_size 8)))
+		(line (pt 304 72)(pt 208 72)(line_width 3))
+	)
+	(port
+		(pt 304 112)
+		(output)
+		(text "q_b[17..0]" (rect 0 0 38 12)(font "Arial" (font_size 8)))
+		(text "q_b[17..0]" (rect 255 101 315 112)(font "Arial" (font_size 8)))
+		(line (pt 304 112)(pt 208 112)(line_width 3))
+	)
+	(drawing
+		(text "data_a" (rect 57 43 150 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "datain_a" (rect 101 67 250 144)(font "Arial" (color 0 0 0)))
+		(text "q_a" (rect 209 43 436 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "dataout_a" (rect 163 67 380 144)(font "Arial" (color 0 0 0)))
+		(text "data_b" (rect 57 83 150 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "datain_b" (rect 101 107 250 224)(font "Arial" (color 0 0 0)))
+		(text "q_b" (rect 209 83 436 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "dataout_b" (rect 163 107 380 224)(font "Arial" (color 0 0 0)))
+		(text "address_a" (rect 35 123 124 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "address_a" (rect 101 147 256 304)(font "Arial" (color 0 0 0)))
+		(text "address_b" (rect 35 163 124 339)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "address_b" (rect 101 187 256 384)(font "Arial" (color 0 0 0)))
+		(text "wren_a" (rect 53 203 142 419)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "wren_a" (rect 101 227 238 464)(font "Arial" (color 0 0 0)))
+		(text "wren_b" (rect 53 243 142 499)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "wren_b" (rect 101 267 238 544)(font "Arial" (color 0 0 0)))
+		(text "clock_a" (rect 53 283 148 579)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 101 307 220 624)(font "Arial" (color 0 0 0)))
+		(text "clock_b" (rect 53 323 148 659)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 101 347 220 704)(font "Arial" (color 0 0 0)))
+		(text " dpram_ram_2port_0 " (rect 212 368 538 746)(font "Arial" ))
+		(line (pt 96 32)(pt 208 32)(line_width 1))
+		(line (pt 208 32)(pt 208 368)(line_width 1))
+		(line (pt 96 368)(pt 208 368)(line_width 1))
+		(line (pt 96 32)(pt 96 368)(line_width 1))
+		(line (pt 97 52)(pt 97 76)(line_width 1))
+		(line (pt 98 52)(pt 98 76)(line_width 1))
+		(line (pt 207 52)(pt 207 76)(line_width 1))
+		(line (pt 206 52)(pt 206 76)(line_width 1))
+		(line (pt 97 92)(pt 97 116)(line_width 1))
+		(line (pt 98 92)(pt 98 116)(line_width 1))
+		(line (pt 207 92)(pt 207 116)(line_width 1))
+		(line (pt 206 92)(pt 206 116)(line_width 1))
+		(line (pt 97 132)(pt 97 156)(line_width 1))
+		(line (pt 98 132)(pt 98 156)(line_width 1))
+		(line (pt 97 172)(pt 97 196)(line_width 1))
+		(line (pt 98 172)(pt 98 196)(line_width 1))
+		(line (pt 97 212)(pt 97 236)(line_width 1))
+		(line (pt 98 212)(pt 98 236)(line_width 1))
+		(line (pt 97 252)(pt 97 276)(line_width 1))
+		(line (pt 98 252)(pt 98 276)(line_width 1))
+		(line (pt 97 292)(pt 97 316)(line_width 1))
+		(line (pt 98 292)(pt 98 316)(line_width 1))
+		(line (pt 97 332)(pt 97 356)(line_width 1))
+		(line (pt 98 332)(pt 98 356)(line_width 1))
+		(line (pt 0 0)(pt 304 0)(line_width 1))
+		(line (pt 304 0)(pt 304 384)(line_width 1))
+		(line (pt 0 384)(pt 304 384)(line_width 1))
+		(line (pt 0 0)(pt 0 384)(line_width 1))
+	)
+)

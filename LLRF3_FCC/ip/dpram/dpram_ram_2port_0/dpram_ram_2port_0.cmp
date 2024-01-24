@@ -1,0 +1,15 @@
+	component dpram_ram_2port_0 is
+		port (
+			data_a    : in  std_logic_vector(17 downto 0) := (others => 'X'); -- datain_a
+			q_a       : out std_logic_vector(17 downto 0);                    -- dataout_a
+			data_b    : in  std_logic_vector(17 downto 0) := (others => 'X'); -- datain_b
+			q_b       : out std_logic_vector(17 downto 0);                    -- dataout_b
+			address_a : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address_a
+			address_b : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address_b
+			wren_a    : in  std_logic                     := 'X';             -- wren_a
+			wren_b    : in  std_logic                     := 'X';             -- wren_b
+			clock_a   : in  std_logic                     := 'X';             -- clk
+			clock_b   : in  std_logic                     := 'X'              -- clk
+		);
+	end component dpram_ram_2port_0;
+

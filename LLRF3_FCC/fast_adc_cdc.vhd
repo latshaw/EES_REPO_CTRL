@@ -1,0 +1,108 @@
+--library ieee;
+--use ieee.std_logic_1164.all;
+--use ieee.numeric_std.all;
+--use work.components.all;
+--use work.all;
+--
+--entity fast_adc_cdc is
+--	port(adc_clk		:	in std_logic;
+--			reset			:	in	std_logic;
+--			strobe		:	in	std_logic;
+--			
+--			lb_clk		:	in	std_logic;
+--			addr_in		:	in	std_logic_vector(23 downto 0);
+--			data_in		:	in	reg16_19;
+--			data_out		:	out std_logic_vector(18 downto 0)
+--			);
+--end entity fast_adc_cdc;
+--
+--architecture behavior of fast_adc_cdc is
+--
+--component reg_dpram is
+--		port (
+--			data      : in  std_logic_vector(18 downto 0) := (others => 'X'); -- datain
+--			q         : out std_logic_vector(18 downto 0);                    -- dataout
+--			wraddress : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- wraddress
+--			rdaddress : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- rdaddress
+--			wren      : in  std_logic                     := 'X';             -- wren
+--			wrclock   : in  std_logic                     := 'X';             -- clk
+--			rdclock   : in  std_logic                     := 'X'              -- clk
+--		);
+--end component reg_dpram;
+--
+--signal addr_cnt_d, addr_cnt_q		:	unsigned(3 downto 0);
+--signal addr_cnt_int					:	integer range 0 to 15;	
+--signal data_in_d, data_in_q		:	std_logic_vector(18 downto 0);
+--signal addr_rd_d, addr_rd_q		:	std_logic_vector(3 downto 0);
+--signal wren_d, wren_q				:	std_logic;
+--
+--type state_type is (init_wr, st_rate_cnt_chk, st_data_acq, st_wen, st_addr_chk, st_done);
+--signal state				:	state_type;
+--
+--begin
+--
+--process(adc_clk, reset)
+--begin
+--	if(reset = '0') then
+--		addr_cnt_q	<=	(others	=>	'0');
+--		data_in_q	<=	(others	=>	'0');
+--		wren_q		<=	'0';
+--	elsif(rising_edge(adc_clk)) then
+--		addr_cnt_q	<=	addr_cnt_d;
+--		data_in_q	<=	data_in_d;
+--		wren_q		<=	wren_d;
+--	end if;
+--end process;
+--
+--addr_rd_d	<=	addr_in(3 downto 0) when addr_in(23 downto 4) = x"00000" else addr_rd_q;
+--
+--process(lb_clk, reset)
+--begin
+--	if(reset = '0') then
+--		addr_rd_q	<=	(others	=>	'0');
+--	elsif(rising_edge(lb_clk)) then
+--		addr_rd_q	<=	addr_rd_d;
+--	end if;
+--end process;	
+--
+--u0 : component reg_dpram
+--	port map (
+--		data      => data_in_q,      --      data.datain
+--		q         => data_out,         --         q.dataout
+--		wraddress => addr_cnt_q, -- wraddress.wraddress
+--		rdaddress => addr_rd_q, -- rdaddress.rdaddress
+--		wren      => wren,      --      wren.wren
+--		wrclock   => adc_clk,   --   wrclock.clk
+--		rdclock   => lb_clk   --   rdclock.clk
+--	);
+--	
+--addr_cnt_d	<=	addr_cnt_q + 1 when state_wr = addr_wr else addr_cnt_q;
+--addr_cnt_int	<=	to_integer(addr_cnt_q);	
+--wren_d		<=	'1' when state_wr = memen_wr else '0';
+--
+--
+--data_in_d	<=	data_in(addr_cnt_int);
+--					
+--
+--process(adc_clk, reset, data_valid)
+--begin
+--	if(reset = '0') then
+--		state_wr		<=	init_wr;
+--	elsif(rising_edge(adc_clk) and strobe = '1') then
+--		case state_wr is
+--			when init_wr	=>	state_wr	<=	load_wr;
+--			when data_wr	=>	state_wr	<=	memen_wr;
+--			when memen_wr	=>	state_wr	<=	addr_wr;
+--			when addr_wr	=>	state_wr	<=	data_wr;
+--			when others		=>	state_wr	<=	init_wr;
+--		end case;	
+--	end if;
+--end process;
+--
+--	
+--
+--
+--
+--
+--end architecture behavior;			
+--			
