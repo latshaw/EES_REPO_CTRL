@@ -48,6 +48,8 @@ ENTITY Motion_control IS
 		SGMII1_TX_P		:	out std_logic;		-- SGMII TX, to marvel chip
 		SGMII1_RX_P		:	in std_logic;		-- SGMII RX, to marvel chip
 		ETH1_RESET_N   :  out std_logic;    -- SGMII active low reset
+		eth_mdio       : out std_logic;
+		eth_mdc        : out std_logic;
 		
 		-- use only for testing with test bench (testBench = 1)
 		addr_tb	: in  STD_LOGIC_VECTOR(23 downto 0);
@@ -553,6 +555,16 @@ COMPONENT EEPROM_CONTROL IS
 		EEPROM_SDA 		: INOUT 	STD_LOGIC -- data line (data is bi directional), LED_SDA
 	);
 END COMPONENT;
+-- 3/6/2024 , added for new marvel PHY
+COMPONENT marvell_phy_config IS
+	PORT (
+			clock	      :	in std_logic;
+			reset	      :	in std_logic;
+			phy_resetn	:	out std_logic;
+			mdio	      :	out std_logic;
+			mdc		   :	out std_logic;
+			config_done	:	out std_logic);
+END COMPONENT;
 --
 --verilog component
 -- used for remote flash and reconfigure
@@ -679,6 +691,21 @@ SIGNAL fpga_tsd_int_EOC_n : STD_LOGIC;
 	
 --
 BEGIN 
+-- ================================================================
+-- MARVEL PHY INIT
+-- ================================================================
+-- 3/6/2024
+
+
+marvell_phy_config_inst : marvell_phy_config
+	PORT MAP(
+			clock	      => clock,
+			reset	      => RESET_all,
+			phy_resetn	=> ETH1_RESET_N,
+			mdio	      => eth_mdio,
+			mdc		   => eth_mdc,
+			config_done	=>  open);
+			
 --===================================================
 -- PLL and Clock
 --===================================================
@@ -686,7 +713,7 @@ BEGIN
 PLL_reset <= NOT(RESET_all);
 -- reset SGMII/Marvel chip during FPGA reset.
 -- will hold in reset for minimum of 8 clock cycles (64 ns)
-ETH1_RESET_N <= RESET_all; 
+--ETH1_RESET_N <= RESET_all; 
 
 --
 -- 3/12/21, switched to using 125 Mhz as global clock to see if C10GX  has a sufficient speed grade
