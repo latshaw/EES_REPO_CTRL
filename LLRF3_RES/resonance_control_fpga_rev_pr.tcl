@@ -392,6 +392,8 @@ if {$make_assignments} {
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to sfp_sda_0 -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to sfp_scl_0 -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to ETH1_RESET_N -entity motion_control
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to eth_mdio -entity motion_control
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to eth_mdc -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_2 -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_3 -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_1 -entity motion_control
