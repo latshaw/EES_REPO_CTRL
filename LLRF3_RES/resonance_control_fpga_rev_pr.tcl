@@ -283,6 +283,8 @@ if {$make_assignments} {
 	set_location_assignment PIN_U22 -to sfp_refclk_p
 	set_location_assignment PIN_U21 -to "sfp_refclk_p(n)"
 	set_location_assignment PIN_AF17 -to ETH1_RESET_N
+ 	set_location_assignment PIN_AF18 -to eth_mdio
+	set_location_assignment PIN_AE17 -to eth_mdc
 	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_rx_0_p -entity motion_control
 	set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to sfp_tx_0_p -entity motion_control
 	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_refclk_p -entity motion_control
