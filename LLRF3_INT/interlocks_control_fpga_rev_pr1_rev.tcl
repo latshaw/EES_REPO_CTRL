@@ -279,6 +279,8 @@ if {$make_assignments} {
 	set_location_assignment PIN_AE26 -to SGMII1_TX_P
 	set_location_assignment PIN_AE25 -to "SGMII1_TX_P(n)"
 	set_location_assignment PIN_AF17 -to ETH1_RESET_N
+	set_location_assignment PIN_AF18 -to eth_mdio
+	set_location_assignment PIN_AE17 -to eth_mdc
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to ARCTST1_FPGA -entity interlocks_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to ARCTST2_FPGA -entity interlocks_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to ARCTST3_FPGA -entity interlocks_control

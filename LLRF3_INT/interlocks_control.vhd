@@ -39,6 +39,8 @@ ENTITY interlocks_control IS
 		SGMII1_RX_P    : in std_logic;
 		SGMII1_TX_P    : out  std_logic;
 		ETH1_RESET_N   : out std_logic;
+		eth_mdio       : out std_logic;
+		eth_mdc        : out std_logic;
 		
 		-- Legacy isa info, no longer needed, keep this until we wire up the new udp module
 --		ISA_RESET_FPGA :  IN  STD_LOGIC;
@@ -588,6 +590,18 @@ COMPONENT CYCLONE IS
 			 we_cyclone_inst_c10_data : IN STD_LOGIC); 
 END COMPONENT;
 --
+-- 3/6/2024 , added for new marvel PHY
+COMPONENT marvell_phy_config IS
+	PORT (
+			clock	      :	in std_logic;
+			reset	      :	in std_logic;
+			phy_resetn	:	out std_logic;
+			mdio	      :	out std_logic;
+			mdc		   :	out std_logic;
+			config_done	:	out std_logic);
+END COMPONENT;
+
+--
 signal c10gx_tmp, c10gx_tmp_buffer	, tempb1, tempb2	:	std_logic_vector(9 downto 0);
 signal temp_eoc1, temp_eoc2, temp_eoc3 : STD_LOGIC;
 -- internal temperature sensore end of fetching the temp. (falling edge)
@@ -689,6 +703,24 @@ SIGNAL en_c_data	: std_logic; -- note, this is intended to capture the enable st
 SIGNAL lb_valid   : STD_LOGIC;
 --
 BEGIN 
+
+-- ================================================================
+-- MARVEL PHY INIT
+-- ================================================================
+-- 3/6/2024
+
+
+marvell_phy_config_inst : marvell_phy_config
+	PORT MAP(
+			clock	      => CLOCK,
+			reset	      => RESET_all_n,
+			phy_resetn	=> ETH1_RESET_N,
+			mdio	      => eth_mdio,
+			mdc		   => eth_mdc,
+			config_done	=>  open);
+
+
+
 -- ================================================================
 -- Reset Control
 -- ================================================================
@@ -1158,8 +1190,9 @@ begin
 	end if;
 end process;
 
+-- JAL 3/6/2024, moved into marvell_phy_config.vhd module
 -- will reset Marvel PHY. One reset is needed to init PHY.
-ETH1_RESET_N <= RESET_all_n;
+--ETH1_RESET_N <= RESET_all_n;
 --
 -- 7/26/22, updated to Marvel PHY 
 inst_comms_top: udp_com
