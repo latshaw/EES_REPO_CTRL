@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <window width="1526" height="860" x="290" y="133" />
+ <generation path="" synthesis="VHDL" greybox="0" clear_previous="1" />
+ <library expandedCategories="Existing IP Variants,Project,Library" />
+ <systemtable filter="All Interfaces" />
+</preferences>

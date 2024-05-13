@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2020.09.11.13:43:59"
+ outputDirectory="F:/Projects/C75/FPGA_board/Rev_PR1/FPGA_Project_c10gxllrf3p0_ethernet_sfp/ip/test_nco/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Cyclone 10 GX"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="10CX220YF780E5G"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="5"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLK_CLOCK_RATE"
+     type="Long"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLK_CLOCK_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLK_RESET_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="clk" kind="clock" start="0">
+   <property name="clockRate" value="0" />
+   <property name="externallyDriven" value="false" />
+   <property name="ptfSchematicName" value="" />
+   <port name="clk" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="rst" kind="reset" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="synchronousEdges" value="DEASSERT" />
+   <port name="reset_n" direction="input" role="reset_n" width="1" />
+  </interface>
+  <interface name="in" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="rst" />
+   <property name="prSafe" value="false" />
+   <port name="clken" direction="input" role="clken" width="1" />
+   <port name="phi_inc_i" direction="input" role="phi_inc_i" width="32" />
+  </interface>
+  <interface name="out" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="rst" />
+   <property name="prSafe" value="false" />
+   <port name="fsin_o" direction="output" role="fsin_o" width="18" />
+   <port name="out_valid" direction="output" role="out_valid" width="1" />
+  </interface>
+ </perimeter>
+ <entity kind="test_nco" version="1.0" name="test_nco">
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_DEVICE" value="10CX105YF672E5G" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone 10 GX" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="-1" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="5" />
+  <generatedFiles>
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\synth\test_nco.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\synth\test_nco.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="F:/Projects/C75/FPGA_board/Rev_PR1/FPGA_Project_c10gxllrf3p0_ethernet_sfp/ip/test_nco.ip" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/dsp/altera_nco_ii/altera_nco_ii_hw.tcl" />
+   <file
+       path="C:/intelFPGA_pro/18.1/ip/altera/dsp/altera_nco_ii/nco_helper.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/com.altera.entityinterfaces.jar" />
+  </childSourceFiles>
+  <messages>
+   <message level="Info" culprit="test_nco">"Generating: test_nco"</message>
+   <message level="Info" culprit="test_nco">"Generating: test_nco_altera_nco_ii_181_4lk2jgi"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_nco_ii"
+   version="18.1"
+   name="test_nco_altera_nco_ii_181_4lk2jgi">
+  <parameter name="aprp" value="16" />
+  <parameter name="numba" value="1" />
+  <parameter name="cordic_arch" value="parallel" />
+  <parameter name="pmod_pipe" value="1" />
+  <parameter name="fsamp" value="100.0" />
+  <parameter name="cycles_per_output" value="1" />
+  <parameter name="selected_device_family" value="Cyclone 10 GX" />
+  <parameter name="apri" value="16" />
+  <parameter name="aprf" value="32" />
+  <parameter name="want_dither" value="true" />
+  <parameter name="hyper_opt_select" value="false" />
+  <parameter name="want_phase_mod" value="false" />
+  <parameter name="apr" value="32" />
+  <parameter name="hyper_opt" value="false" />
+  <parameter name="trig_cycles_per_output" value="1" />
+  <parameter name="dpri" value="4" />
+  <parameter name="mpr" value="18" />
+  <parameter name="design_env" value="NATIVE" />
+  <parameter name="numch" value="1" />
+  <parameter name="want_freq_mod" value="false" />
+  <parameter name="use_dedicated_multipliers" value="true" />
+  <parameter name="want_sin_and_cos" value="single_output" />
+  <parameter name="phi_inc" value="42949673" />
+  <parameter name="fmod_pipe" value="1" />
+  <parameter name="arch" value="large_rom" />
+  <parameter name="freq_out" value="1.0" />
+  <parameter name="real_freq_out" value="1.0" />
+  <generatedFiles>
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_mob_rw.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_isdr.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_apr_dxx.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_dxx_g.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_dxx.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_gal.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_as_m_cen.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altqmcpipe.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\test_nco_altera_nco_ii_181_4lk2jgi_sin.hex"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\test_nco_altera_nco_ii_181_4lk2jgi.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altq.ocp"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altqmcash.ocp"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altqmcpipe.ocp"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_mob_rw.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_isdr.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_apr_dxx.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_dxx_g.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_dxx.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_gal.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_nco_as_m_cen.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altqmcpipe.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\test_nco_altera_nco_ii_181_4lk2jgi_sin.hex"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\test_nco_altera_nco_ii_181_4lk2jgi.v"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altq.ocp"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altqmcash.ocp"
+       attributes="" />
+   <file
+       path="F:\Projects\C75\FPGA_board\Rev_PR1\FPGA_Project_c10gxllrf3p0_ethernet_sfp\ip\test_nco\altera_nco_ii_181\synth\asj_altqmcpipe.ocp"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="C:/intelfpga_pro/18.1/ip/altera/dsp/altera_nco_ii/altera_nco_ii_hw.tcl" />
+   <file
+       path="C:/intelFPGA_pro/18.1/ip/altera/dsp/altera_nco_ii/nco_helper.jar" />
+   <file
+       path="C:/intelFPGA_pro/18.1/quartus/sopc_builder/model/lib/com.altera.entityinterfaces.jar" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="test_nco" as="nco_ii_0" />
+  <messages>
+   <message level="Info" culprit="test_nco">"Generating: test_nco_altera_nco_ii_181_4lk2jgi"</message>
+  </messages>
+ </entity>
+</deploy>
