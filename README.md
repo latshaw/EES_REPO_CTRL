@@ -2,7 +2,7 @@
 Welcome to the JSA Repository Page. This is a public repository page contianing information needed to properly use github repos. We can use this as a playground in which to add experimental updates and forks. 
 This is a local update, try to push to remote.
 
-Instructions for converting your existing Quartus project someting to place on gitlab:
+Instructions for converting your existing Quartus PROJECT into somthing that we can place on gitlab:
 
 
 1. Make a copy of your project, this is your staging folder
@@ -21,7 +21,7 @@ Instructions for converting your existing Quartus project someting to place on g
 9. If you do not have a current working version of the git repository:
 	1. Create a new folder called GIT_STAGING
 	2. Open gitbash and run: git clone https://github.com/latshaw/EES_REPO_CTRL.git
-	3. Copy over the LLRF3_SYSTEM
+	3. Copy over the LLRF3_SYSTEM (use git add to add in the new files/fodlers)
 	4. In git bash run git commit -m 'insert your useful message here'
 	5. Then also run git push
 	6. If there are no error messages then your repo is now online! :)
