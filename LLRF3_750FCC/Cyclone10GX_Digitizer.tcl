@@ -409,7 +409,7 @@ if {$make_assignments} {
 	set_location_assignment PIN_A4 -to fpga_ver[5]
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_E16 -to lmk04808_ld
-	set_location_assignment PIN_Y9 -to jtag_mux_sel_out
+	set_location_assignment PIN_T2 -to jtag_mux_sel_out
 	# Commit assignments
 	export_assignments
 
