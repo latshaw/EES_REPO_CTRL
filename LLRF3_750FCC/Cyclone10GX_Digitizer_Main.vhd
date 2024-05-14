@@ -84,7 +84,8 @@ entity cyclone10gx_digitizer_main is
 			  led_sda				:	inout std_logic;
 				
 			  
-			  pmod_io				:	in std_logic_vector(5 downto 0)
+			  pmod_io				:	in std_logic_vector(5 downto 0);
+			  jtag_mux_sel_out   :	out std_logic -- JTAG mux select '0' - C10 and M10, '1' for M10 only
 --			  pll_rd_valid				:	out std_logic
 			  
 			  
@@ -627,6 +628,8 @@ SIGNAL c_status : STD_LOGIC_VECTOR(31 downto 0); -- RO
 SIGNAL c_datar : STD_LOGIC_VECTOR(31 downto 0); -- RO
 signal lb_strb : STD_LOGIC;
 
+signal jtag_mux_sel : std_logic;
+
 --attribute noprune: boolean;
 ---- cyclone.v neded no prune signals
 --attribute noprune of c_cntlr : signal is true;--
@@ -1064,6 +1067,7 @@ begin
 				flt_clr_cnt_q		<=	0;
 				sft_flt_q			<=	(others	=>	'0');
 				sft_flt_edge_q		<=	(others	=>	'0');
+				jtag_mux_sel_out  <= '0';
 			elsif(rising_edge(adc_pll_clk_data)) then
 				adc_pll_lock_q		<=	adc_pll_lock_d;
 				fclk_match_q		<=	fclk_match_d;
@@ -1099,6 +1103,7 @@ begin
 				flt_clr_cnt_q		<=	flt_clr_cnt_d;
 				sft_flt_q			<=	sft_flt;
 				sft_flt_edge_q		<=	sft_flt_edge_d;
+				jtag_mux_sel_out	<=	jtag_mux_sel;
 			end if;
 end process;
 
@@ -1207,6 +1212,8 @@ wav_data_in(6)	<=	fltrd(12);
 wav_data_in(7)	<=	fltrd(13);
 
 wav_takei		<=	reg_rw_bank(3)(1)(0);
+jtag_mux_sel	<=	reg_rw_bank(3)(1)(3); -- MAX10/C10 JTAG chain control. set to '0' for default (C10 and M10 in chain) or set to '1' to just have M10 in chain.
+
 -- Note, these are a different order than for 1497 FCC
 -- 750    version: [0]--DRMP PAUSE, [1]--DRMP FORCE, [2]--PRMP PAUSE, [3]--PRMP FORCE	
 -- pause = pause th eramp, force = skip ramping and assume final value
@@ -1633,7 +1640,7 @@ regbank_in(5)(5)  <= (not adc1_b(15))&(not adc1_b(15))&(not adc1_b(15))&adc1_b(1
 --dac3_out <= reg_rw_bank(3)(0)(15 downto 0);   -- xB0
 
 -- note, pin assignment is mirrored
-dac3_out <= reg_rw_bank(2)(9)(15 downto 0);   -- xA9, DACS1, pins 1/6
+dac3_out <= reg_rw_bank(2)( 9)(15 downto 0);  -- xA9, DACS1, pins 1/6
 dac2_out <= reg_rw_bank(2)(10)(15 downto 0);  -- xAA, DACS2, pins 2/7
 dac1_out <= reg_rw_bank(2)(11)(15 downto 0);  -- xAB, DACS3, pins 3/8
 dac0_out <= reg_rw_bank(2)(12)(15 downto 0);  -- xAC, DACS4, pins 4/8
