@@ -118,7 +118,7 @@ begin
 										else 	                         state <= DELAY; 
 										end if;
 --					when CHECK => if cmd_q = x"9" then 
---												state <= SHIFT_DATA; -- for read cmds only, shift in datar byteÃ¢â„¢Â 
+--												state <= SHIFT_DATA; -- for read cmds only, shift in datar byteÃƒÂ¢Ã¢â€žÂ¢Ã‚Â 
 --									   else
 --												state <= COUNT;
 --										end if;
@@ -223,6 +223,7 @@ begin
 CYCLONE_inst : entity work.cyclone
 	PORT MAP(
 			 lb_clk 		 => lb_clk,      -- 125 MHz clock
+			 reset_n     => reset_n,
 			 c10_addr 	 => c_addr_mux,
 			 c_addr_slow => c_addr_mux2, -- will be clocked by slower clock in cyclone.v
 			 c10_data 	 => c_data_mux,

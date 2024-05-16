@@ -2,6 +2,7 @@
 module cyclone (
 	// Global signals
 	input lb_clk,
+	input reset_n,
 	// Control registers
 	input [31:0] c10_addr, // external
 	input [31:0] c_addr_slow, // external
@@ -16,15 +17,38 @@ module cyclone (
 	// Clock Generationg
 	// =============================================================
 	// used to reconfigure the c10gx from flash after a new load
-	reg [2:0] clock_cnt = 3'b000 /* synthesis noprune */;
-	wire clock_rd;
+	reg [2:0] clock_cnt1, clock_cnt2, clock_cnt3, clock_cnt4, clock_cnt5, clock_cnt6, clock_cnt7; /* synthesis noprune */;
+	reg [2:0] clock_cntq1, clock_cntq2, clock_cntq3, clock_cntq4, clock_cntq5, clock_cntq6, clock_cntq7; /* synthesis noprune */;
+	wire clock_rd1, clock_rd2, clock_rd3, clock_rd4, clock_rd5, clock_rd6, clock_rd7;
 
 	always@(posedge lb_clk) begin // clocked with slow clock
-		 clock_cnt = clock_cnt + 3'b001; //maybe change to + 1'b1 instead of +1 and see if this fixes truncation error?
+		 clock_cntq1 <= clock_cntq1 + 3'b001; //maybe change to + 1'b1 instead of +1 and see if this fixes truncation error?
+		 clock_cntq2 <= clock_cntq2 + 3'b001;
+		 clock_cntq3 <= clock_cntq3 + 3'b001;
+		 clock_cntq4 <= clock_cntq4 + 3'b001;
+		 clock_cntq5 <= clock_cntq5 + 3'b001;
+		 clock_cntq6 <= clock_cntq6 + 3'b001;
+		 clock_cntq7 <= clock_cntq7 + 3'b001;
+		 
+		 clock_cnt1 <= clock_cntq1;
+		 clock_cnt2 <= clock_cntq2;
+		 clock_cnt3 <= clock_cntq3;
+		 clock_cnt4 <= clock_cntq4;
+		 clock_cnt5 <= clock_cntq5;
+		 clock_cnt6 <= clock_cntq6;
+		 clock_cnt7 <= clock_cntq7;
 	end
 	//125 MHz divide by <something>. ASMII IP recommends less than 20 MHz, MICROn chip allows up to 90MHz. 
-	assign clock_rd = clock_cnt[2]; //use this clock to drive EPCQ/EPCS
+	assign clock_rd1 = clock_cnt1[2]; //use this clock to drive EPCQ/EPCS
+	assign clock_rd2 = clock_cnt2[2]; 
+	assign clock_rd3 = clock_cnt3[2]; 
+	assign clock_rd4 = clock_cnt4[2];
+	assign clock_rd5 = clock_cnt5[2];
+	assign clock_rd6 = clock_cnt6[2];
+	assign clock_rd7 = clock_cnt7[2];
+	
 
+	
 	// =============================================================
 	// Control signals
 	// =============================================================
@@ -56,7 +80,7 @@ module cyclone (
 	reg [31:0] c10_cntlr_buffer, c10_cntlr_buffer2;
 	reg [31:0] c_addr_slow_b, c_addr_clock_rd;
 	// buffer for control register
-	always@(posedge clock_rd) begin
+	always@(posedge clock_rd1) begin
 		c10_cntlr_buffer  <= c10_cntlr;
 		c10_cntlr_buffer2 <= c10_cntlr_buffer;
 		//
@@ -89,7 +113,7 @@ module cyclone (
 	
 	wire trigger_dpram_write;
 	
-	always@(posedge clock_rd) begin
+	always@(posedge clock_rd2) begin
 		epcs_rd_pulse_gen           <= {epcs_rd_pulse_gen[0], epcs_rd};
 		epcs_write_pulse_gen        <= {epcs_write_pulse_gen[0], trigger_dpram_write}; // was epcs_write
 		epcs_sector_erase_pulse_gen <= {epcs_sector_erase_pulse_gen[0], epcs_erase};
@@ -115,7 +139,7 @@ module cyclone (
 //	end
 	
 	reg busy_RE;
-	always@(posedge clock_rd) begin
+	always@(posedge clock_rd3) begin
 		if (busy_clear == 1'b1 ) begin
 			busy_RE <= 1'b0;
 		end else if ((busy_pulse_RE == 1'b1) & (busy_RE == 1'b0)) begin
@@ -126,7 +150,7 @@ module cyclone (
 	end
 	//and now the same but for falling edge
 	reg busy_FE;
-	always@(posedge clock_rd) begin
+	always@(posedge clock_rd3) begin
 		if (busy_clear == 1'b1 ) begin
 			busy_FE <= 1'b0;
 		end else if ((busy_pulse_FE == 1'b1) & (busy_FE == 1'b0)) begin
@@ -170,7 +194,7 @@ module cyclone (
 	reg  last_dv;
 	wire dpram_wena;
 	wire read_en;
-	always@(posedge clock_rd) begin
+	always@(posedge clock_rd4) begin
 		if (epcs_rd == 1'b1) begin
 			if ((data_valid == 1'b0) & (last_dv == 1'b1)) begin // watch for falling edge of data_valid
 				if (addra_count <= c10_data[7:0]) begin
@@ -188,7 +212,7 @@ module cyclone (
 	assign dpram_addra = addra_count;
 	assign dpram_wena = ((read_en==1'b1) & (data_valid==1'b1)) ? 1'b1 : 1'b0;
 	// Reader DPRAM
-	dpram_lbnl #(.dw(8), .aw(8))  	read_buffer(.clka(clock_rd), .clkb(lb_clk), .addra(dpram_addra), .dina(epcs_formatted), .wena(dpram_wena),
+	dpram_lbnl #(.dw(8), .aw(8))  	read_buffer(.clka(clock_rd5), .clkb(lb_clk), .addra(dpram_addra), .dina(epcs_formatted), .wena(dpram_wena),
 	 .addrb(c10_addr[7:0]), .doutb(dpram_outb));
 	//Assign output byte
 	assign c10_datar[7:0] = dpram_outb;
@@ -197,7 +221,7 @@ module cyclone (
 	// =============================================================
 	reg [7:0] dpram_write_counter;
 	//
-	always@(posedge clock_rd) begin 
+	always@(posedge clock_rd6) begin 
 		if (epcs_write == 1'b1) begin
 			if (dpram_sm == 2'b00) begin
 				//allow counter data to be stable (while shift is still low)
@@ -228,7 +252,7 @@ module cyclone (
 	//Writer DPRAM
 	//get memory input byte
 	wire [7:0] epcs_byte, write_dpram_dout, dpraw_w_douta;
-	dpram_lbnl #(.dw(8), .aw(8))  	write_buffer(.clka(lb_clk), .clkb(clock_rd), .addra(c10_data[15:8]), .dina(c10_data[7:0]), .wena(dpram_writer_wen), .douta(dpraw_w_douta),
+	dpram_lbnl #(.dw(8), .aw(8))  	write_buffer(.clka(lb_clk), .clkb(clock_rd7), .addra(c10_data[15:8]), .dina(c10_data[7:0]), .wena(dpram_writer_wen), .douta(dpraw_w_douta),
 	 .addrb(dpram_write_counter), .doutb(write_dpram_dout));
 	//
 	assign epcs_byte = write_dpram_dout;
@@ -240,7 +264,7 @@ module cyclone (
 	// ASMII flash controller which controls the reads and writes to the flash memory (off chip)
 	// =============================================================
 	EPCQ EPCQ_inst (
-		.clkin         (clock_rd),        	       //   input,   width = 1,         clkin.clk
+		.clkin         (clock_rd1),        	       //   input,   width = 1,         clkin.clk
 		.read          (epcs_rd_pulse),	          //   input,   width = 1,          read.read
 		.rden          (read_en),	                //   input,   width = 1,          rden.rden
 		.addr          (c_addr_clock_rd),          //   input,   width = 32,          addr.addr WAS c10_addr WAS c_addr 5/10/24
@@ -261,7 +285,7 @@ module cyclone (
 	
 	// do we need this double buffer???
 	reg [31:0] c10_status_buffer, c10_status_buffer2;
-	always@(posedge clock_rd) begin
+	always@(posedge clock_rd2) begin
 		// initial buffer
 		c10_status_buffer[31:24] <= dpraw_w_douta;
 		c10_status_buffer[23:8]  <= 17'b0000000000000000;
@@ -299,7 +323,7 @@ module cyclone (
 	reg  [7:0] reset_timer_cnt = 8'b00000000 /* synthesis noprune */;
 	wire reset_timer;
 
-	always@(posedge clock_rd) begin // clocked with slow clock
+	always@(posedge clock_rd2) begin // clocked with slow clock
 		 reset_timer_cnt = reset_timer_cnt + 8'b00000001;
 	end
 	
@@ -308,7 +332,7 @@ module cyclone (
 	// remote update IP, used to reconfigure the fpga with the new configuration data stroed on  flash.
 	
 	remote_download c10_rd (
-		.clock       (clock_rd), 			//   input,   width = 1,       clock.clk
+		.clock       (clock_rd2), 			//   input,   width = 1,       clock.clk
 		.reset       (c10_cntlr[6]),     //   input,   width = 1,       reset.reset : active hi, recommended 1 reset before use
 		.read_param  (1'b0),  				//   input,   width = 1,       read_param.read_param
 		.param       (3'b0),      			//   input,   width = 3,       param.param
