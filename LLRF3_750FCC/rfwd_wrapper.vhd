@@ -66,15 +66,36 @@ signal wake_cnt_q, wake_cnt_d : UNSIGNED(15 downto 0);
 signal instr_cnt_q, instr_cnt_d : UNSIGNED(3 downto 0);
 signal cmd_q, cmd_d : std_logic_vector(3 downto 0);
 signal reader_cnt_q, reader_cnt_d : UNSIGNED(3 downto 0);
+
+signal watch_dog_q, watch_dog_d  : UNSIGNED(31 downto 0);
+signal proc_reset_q_n, proc_reset_d_n : std_logic;
 begin
 --
 --========================================================
 --	FCC ID read upon reset / power on
 --========================================================
 -- load fccid upon initial wakeup after a short delay
+-- 5/20/24, added watchdog incase fcc_id read fails. This will resart the state machine after ~4 seconds
+--
 	process (lb_clk, reset_n)
 	begin
 		if reset_n = '0' then
+			watch_dog_q     <= x"00000000";
+			proc_reset_q_n  <='0';
+		elsif lb_clk'event and lb_clk = '1' then
+		   watch_dog_q    <= watch_dog_d;
+			proc_reset_q_n <= proc_reset_d_n;
+		end if;
+	end process;
+	--
+	proc_reset_d_n <= '0' when watch_dog_q >= x"20000000" else '1'; 
+	--
+   watch_dog_d    <=  watch_dog_q when state = DONE else
+	                   x"00000000" when state = INIT else watch_dog_q + 1;
+	--
+	process (lb_clk, reset_n, proc_reset_q_n)
+	begin
+		if (reset_n = '0') or (proc_reset_q_n = '0') then
 				state           <= INIT;
 				wake_cnt_q      <= x"0000";
 				instr_q         <= x"EBE9E"; -- CLEAR/EXT-ADDR/CLEAR/READ/CLEAR/READ/CLEAR
@@ -118,7 +139,7 @@ begin
 										else 	                         state <= DELAY; 
 										end if;
 --					when CHECK => if cmd_q = x"9" then 
---												state <= SHIFT_DATA; -- for read cmds only, shift in datar byteÃƒÂ¢Ã¢â€žÂ¢Ã‚Â 
+--												state <= SHIFT_DATA; -- for read cmds only, shift in datar byteÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢Ãƒâ€šÃ‚Â 
 --									   else
 --												state <= COUNT;
 --										end if;
