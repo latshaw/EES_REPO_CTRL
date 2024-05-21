@@ -104,13 +104,14 @@ module comms_top
    output	sfp_tx_0_p    
 );
 
-tca9534_i2c u3(
-			.clock				(sfp_refclk_p),
-			.reset				(reset),
-			.sda					(sfp_sda_0),
-			.scl					(sfp_scl_0),
-			.tca_config_done	(sfp_config_done0)
-			);
+// JAL, not using SFP 5/21/24
+//tca9534_i2c u3(
+//			.clock				(sfp_refclk_p),
+//			.reset				(reset),
+//			.sda					(sfp_sda_0),
+//			.scl					(sfp_scl_0),
+//			.tca_config_done	(sfp_config_done0)
+//			);
 			
 
 reg [31:0] ip_addr_sel;
