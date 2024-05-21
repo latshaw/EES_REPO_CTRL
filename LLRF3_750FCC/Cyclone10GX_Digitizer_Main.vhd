@@ -904,11 +904,18 @@ marvell_phy_config_inst : entity work.marvell_phy_config
 --lmk_reset_n				<=	reset and m10_reset and pmod_io(3);			
 --reset_n					<=	reset and m10_reset and pmod_io(3) and not lmk_ref(0) and not lmk_lock(0);
 
-lmk_reset_n				<=	reset and m10_reset and pmod_io(3);			
+--lmk_reset_n				<=	reset and m10_reset and pmod_io(3);			
 reset_n					<=	reset and m10_reset and pmod_io(3);
-
-	
-
+--
+-- matching reset_all syncronizer
+process(clock, reset_n)
+begin
+	if(reset_n = '0') then
+		lmk_reset_n <= '0';
+	elsif(rising_edge(clock)) then
+		lmk_reset_n <= '1';
+	end if;
+end process;
 
 rst_wait_cnt_d		<=	std_logic_vector(unsigned(rst_wait_cnt_q) + 1) when en_rst_wait_cnt = '1' else 
 							rst_wait_cnt_q;
