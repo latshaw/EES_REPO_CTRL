@@ -651,7 +651,7 @@ signal jtag_mux_sel : std_logic;
 ----attribute noprune of c_cntlr_fccid_d, c_cntlr_fccid_q : signal is true;
 ----attribute noprune of c_data_mux : signal is true;
 
-
+signal lmk_count_q, lmk_count_d : unsigned(15 downto 0);
 
 begin
 
@@ -904,18 +904,28 @@ marvell_phy_config_inst : entity work.marvell_phy_config
 --lmk_reset_n				<=	reset and m10_reset and pmod_io(3);			
 --reset_n					<=	reset and m10_reset and pmod_io(3) and not lmk_ref(0) and not lmk_lock(0);
 
---lmk_reset_n				<=	reset and m10_reset and pmod_io(3);			
-reset_n					<=	reset and m10_reset and pmod_io(3);
+lmk_reset_n				<=	reset and m10_reset;-- and pmod_io(3);			
+reset_n					<=	reset and m10_reset;-- and pmod_io(3); removes push button
 --
--- matching reset_all syncronizer
-process(clock, reset_n)
-begin
-	if(reset_n = '0') then
-		lmk_reset_n <= '0';
-	elsif(rising_edge(clock)) then
-		lmk_reset_n <= '1';
-	end if;
-end process;
+-- matching reset_all firmware module, without taking away PLL ayscn resets
+-- aslo adding a wakeup delay timer
+--process(clock, reset_n)
+--begin
+--	if(reset_n = '0') then
+--		lmk_reset_n <= '0';
+--		lmk_count_q <= (others =>'0');
+--	elsif(rising_edge(clock)) then
+--		if lmk_count_q >= x"0fff" then
+--			lmk_count_q <= x"1fff";
+--			lmk_reset_n <= '1';
+--		else
+--			lmk_count_q <= lmk_count_d;
+--			lmk_reset_n <= '0';
+--		end if;
+--	end if;
+--end process;
+--
+--lmk_count_d <= lmk_count_q + 1;
 
 rst_wait_cnt_d		<=	std_logic_vector(unsigned(rst_wait_cnt_q) + 1) when en_rst_wait_cnt = '1' else 
 							rst_wait_cnt_q;
