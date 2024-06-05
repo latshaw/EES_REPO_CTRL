@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: C10GXFACTORY.tcl
-# Generated on: Wed Jun  5 15:03:25 2024
+# Generated on: Wed Jun  5 15:21:27 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -69,6 +69,7 @@ if {$make_assignments} {
 	set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 	set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 	set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+	set_global_assignment -name VERILOG_FILE dpram_lbnl.v
 	set_global_assignment -name VHDL_FILE marvell_phy_config.vhd
 	set_global_assignment -name QIP_FILE EPCQ/EPCQ.qip
 	set_global_assignment -name SDC_FILE C10GXFACTORY.out.sdc
