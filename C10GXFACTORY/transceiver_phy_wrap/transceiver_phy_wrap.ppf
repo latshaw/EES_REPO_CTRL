@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pinplan
+ variation_name="xcvr_native_a10_0"
+ megafunction_name="ALTERA_XCVR_NATIVE_A10"
+ intended_family="Cyclone 10 GX"
+ specifies="all_ports">
+ <global>
+  <pin name="tx_analogreset" direction="input" scope="external" />
+  <pin name="tx_digitalreset" direction="input" scope="external" />
+  <pin name="rx_analogreset" direction="input" scope="external" />
+  <pin name="rx_digitalreset" direction="input" scope="external" />
+  <pin name="tx_cal_busy" direction="output" scope="external" />
+  <pin name="rx_cal_busy" direction="output" scope="external" />
+  <pin name="tx_serial_clk0" direction="input" scope="external" />
+  <pin name="rx_cdr_refclk0" direction="input" scope="external" />
+  <pin name="tx_serial_data" direction="output" scope="external" />
+  <pin name="rx_serial_data" direction="input" scope="external" />
+  <pin name="rx_is_lockedtoref" direction="output" scope="external" />
+  <pin name="rx_is_lockedtodata" direction="output" scope="external" />
+  <pin name="tx_coreclkin" direction="input" scope="external" />
+  <pin name="rx_coreclkin" direction="input" scope="external" />
+  <pin name="tx_clkout" direction="output" scope="external" />
+  <pin name="rx_clkout" direction="output" scope="external" />
+  <pin name="tx_parallel_data[9..0]" direction="input" scope="external" />
+  <pin
+     name="unused_tx_parallel_data[117..0]"
+     direction="input"
+     scope="external" />
+  <pin name="rx_parallel_data[9..0]" direction="output" scope="external" />
+  <pin name="rx_patterndetect" direction="output" scope="external" />
+  <pin name="rx_syncstatus" direction="output" scope="external" />
+  <pin
+     name="unused_rx_parallel_data[115..0]"
+     direction="output"
+     scope="external" />
+ </global>
+</pinplan>
