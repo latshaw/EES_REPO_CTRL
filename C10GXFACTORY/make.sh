@@ -13,6 +13,6 @@ quartus_sh -t $TCL
 quartus_sh --flow compile $PROJECT
 cd output_files
 quartus_cpf -o auto_create_rpd=on -c -d MT25QU01G -s 10CX105Y $PROJECT.sof $PROJECT'_'$GIT_ID.jic
-quartus_cpf -c -u up -a 0x02000000 $PROJECT.sof $PROJECT'_'$GIT_ID.hexout
+#quartus_cpf -c -u up -a 0x02000000 $PROJECT.sof $PROJECT'_'$GIT_ID.hexout
 
 echo 'DONE!'
