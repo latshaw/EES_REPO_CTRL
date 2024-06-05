@@ -1,0 +1,53 @@
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_TOOL_NAME "QsysPrimePro"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_TOOL_VERSION "18.1"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_TOOL_ENV "QsysPrimePro"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_TOOL_VENDOR_NAME "Intel Corporation"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_TOP_LEVEL_COMPONENT_NAME "altera_temp_sense"
+set_global_assignment -library "fpga_tsd_int" -name SOPCINFO_FILE [file join $::quartus(qip_path) "fpga_tsd_int.sopcinfo"]
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name SLD_INFO "QSYS_NAME fpga_tsd_int HAS_SOPCINFO 1 GENERATION_ID 0"
+set_global_assignment -library "fpga_tsd_int" -name MISC_FILE [file join $::quartus(qip_path) "fpga_tsd_int.cmp"]
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_TARGETED_DEVICE_FAMILY "Cyclone 10 GX"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_GENERATED_DEVICE_FAMILY "{Cyclone 10 GX}"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_QSYS_MODE "STANDALONE"
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+set_global_assignment -library "fpga_tsd_int" -name MISC_FILE [file join $::quartus(qip_path) "../fpga_tsd_int.ip"]
+
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_NAME "YWx0ZXJhX3RlbXBfc2Vuc2U="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_DISPLAY_NAME "VGVtcGVyYXR1cmUgU2Vuc29yIEludGVsIEZQR0EgSVA="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_VERSION "MTguMQ=="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_DESCRIPTION "VGhlIFRlbXBlcmF0dXJlIFNlbnNvciBJbnRlbCBGUEdBIElQIG1lZ2FmdW5jdGlvbiBjb25maWd1cmVzIHRoZSB0ZW1wZXJhdHVyZSBzZW5zaW5nIGRpb2RlIChUU0QpICBibG9jayB0byB1dGlsaXplIHRoZSB0ZW1wZXJhdHVyZSBtZWFzdXJlbWVudCBmZWF0dXJlIGluIHRoZSBGUEdBLg=="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "REVWSUNFX0ZBTUlMWQ==::Q3ljbG9uZSAxMCBHWA==::REVWSUNFX0ZBTUlMWQ=="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "Q0JYX0FVVE9fQkxBQ0tCT1g=::QUxM::Q0JYX0FVVE9fQkxBQ0tCT1g="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "TlVNQkVSX09GX1NBTVBMRVM=::MTI4::TlVNQkVSX09GX1NBTVBMRVM="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "UE9JX0NBTF9URU1QRVJBVFVSRQ==::ODU=::UE9JX0NBTF9URU1QRVJBVFVSRQ=="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "U0lNX1RTRENBTE8=::MA==::U0lNX1RTRENBTE8="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "VVNFX1dZUw==::b24=::VVNFX1dZUw=="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_PARAMETER "VVNFUl9PRkZTRVRfRU5BQkxF::b2Zm::VVNFUl9PRkZTRVRfRU5BQkxF"
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_GROUP "QmFzaWMgRnVuY3Rpb25zL0NvbmZpZ3VyYXRpb24gYW5kIFByb2dyYW1taW5n"
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cDovL3d3dy5hbHRlcmEuY29tL2xpdGVyYXR1cmUvdWcvdWdfYWx0dGVtcF9zZW5zZS5wZGY="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly9kb2N1bWVudGF0aW9uLmFsdGVyYS5jb20vIy9saW5rL2VpczE0MTIxMzE1NTgwMDQvZWlzMTQxMjEzMTY1ODU5OA=="
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly9kb2N1bWVudGF0aW9uLmFsdGVyYS5jb20vIy9saW5rL2hjbzE0MjE2OTgwNDIwODcvaGNvMTQyMTY5ODAxMzQwOA=="
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_NAME "ZnBnYV90c2RfaW50"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_DISPLAY_NAME "c3lzdGVt"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_REPORT_HIERARCHY "On"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MA==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSAxMCBHWA==::QXV0byBERVZJQ0VfRkFNSUxZ"
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::MTBDWDEwNVlGNjcyRTVH::QXV0byBERVZJQ0U="
+set_global_assignment -entity "fpga_tsd_int" -library "fpga_tsd_int" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::NQ==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
+
+
+set_global_assignment -library "altera_temp_sense_181" -name VERILOG_FILE [file join $::quartus(qip_path) "altera_temp_sense_181/synth/altera_temp_sense.v"]
+set_global_assignment -library "altera_temp_sense_181" -name SDC_FILE [file join $::quartus(qip_path) "altera_temp_sense_181/synth/altera_temp_sense.sdc"]
+set_global_assignment -library "fpga_tsd_int" -name VHDL_FILE [file join $::quartus(qip_path) "synth/fpga_tsd_int.vhd"]
+
+
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_TOOL_NAME "altera_temp_sense"
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_TOOL_VERSION "18.1"
+set_global_assignment -entity "altera_temp_sense" -library "altera_temp_sense_181" -name IP_TOOL_ENV "QsysPrimePro"
+
