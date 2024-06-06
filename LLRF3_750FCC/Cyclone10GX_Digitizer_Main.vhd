@@ -1875,7 +1875,7 @@ port map(clock				=>	clock,
 			lb_addr			=>	lb_addr,  --output, EPICS -> HRT, what address is being written
 			lb_wdata			=>	lb_wdata, -- output, EPICS -> HRT, what data is being written to the given address
 			lb_renable		=>	lb_renable,
-			lb_rdata			=>	lb_rdata_mux, -- was lb_rdata, input EPICS <- HRT, HRT is supplying the requested readback at a given address
+			lb_rdata			=>	lb_rdata, -- was lb_rdata, input EPICS <- HRT, HRT is supplying the requested readback at a given address
 			
 
 
@@ -1891,23 +1891,23 @@ port map(clock				=>	clock,
 -- start cyclone rfwd specific
 --================================================================ 	
 -- cyclone specific remote firmware download (rfwd)
-
-	rfwd_wrapper_inst : entity work.rfwd_wrapper
-	port map( lb_clk			   =>  lb_clk,			
-			    adc_pll_clk_data =>  adc_pll_clk_data, 
-			    reset_n			   =>  reset_n,			  
-			    lb_valid         =>  lb_valid,         
-			    fccid            =>  fccid,            
-			    c_bus_ctl        =>  c_bus_ctl,        
-			    lb_addr          =>  lb_addr,          
-			    lb_wdata         =>  lb_wdata,         
-			    lb_rdata_rfwd    =>  lb_rdata_rfwd,    
-			    lb_rnw           =>  lb_rnw);
+--
+--	rfwd_wrapper_inst : entity work.rfwd_wrapper
+--	port map( lb_clk			   =>  lb_clk,			
+--			    adc_pll_clk_data =>  adc_pll_clk_data, 
+--			    reset_n			   =>  reset_n,			  
+--			    lb_valid         =>  lb_valid,         
+--			    fccid            =>  fccid,            
+--			    c_bus_ctl        =>  c_bus_ctl,        
+--			    lb_addr          =>  lb_addr,          
+--			    lb_wdata         =>  lb_wdata,         
+--			    lb_rdata_rfwd    =>  lb_rdata_rfwd,    
+--			    lb_rnw           =>  lb_rnw);
 
 	-- this process muxes between our arbitrary register blocks
 	-- x000000 to xEFFFFF is for HRT and waveforms
 	-- xF00000 to xFFFFFF is for remote firmware download specific blocks (arbitary)
-	lb_rdata_mux <= lb_rdata_rfwd when c_bus_ctl = x"abcdefCC" else lb_rdata; -- don't delay read data if coming from 93MHz clock domain. 
+--	lb_rdata_mux <= lb_rdata_rfwd when c_bus_ctl = x"abcdefCC" else lb_rdata; -- don't delay read data if coming from 93MHz clock domain. 
 	--
 --================================================================ 
 -- end cyclone rfwd specific
@@ -2261,16 +2261,16 @@ port map(clock		=>	adc_pll_clk_data,
 			dtnerr	=>	open
 			);
 ------------------epcs control for remote firmware and fcc id---------------- module used to r/w the fcc register
---epcs_cntl_inst: entity work. epcs_cntl
---port map(clock			=>	adc_pll_clk_data,
---			reset			=>	adc_pll_lock_q,
---			epcs_busy	=>	epcsb,
---			address		=>	cnfga,
---			data			=>	cnfgd,
---			cntl			=>	cnfgc,	  
---			result		=>	cnfgr,
---			fccid			=>	fccid
---			);			
+epcs_cntl_inst: entity work. epcs_cntl
+port map(clock			=>	adc_pll_clk_data,
+			reset			=>	adc_pll_lock_q,
+			epcs_busy	=>	epcsb,
+			address		=>	cnfga,
+			data			=>	cnfgd,
+			cntl			=>	cnfgc,	  
+			result		=>	cnfgr,
+			fccid			=>	fccid
+			);			
 
 
 			 
