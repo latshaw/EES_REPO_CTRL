@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: Cyclone10GX_Digitizer.tcl
-# Generated on: Mon May 13 11:47:22 2024
+# Generated on: Thu Jun  6 14:49:34 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -40,11 +40,11 @@ if {[is_project_open]} {
 
 # Make assignments
 if {$make_assignments} {
-	set_global_assignment -name FAMILY "Cyclone 10 GX"
 	set_global_assignment -name TOP_LEVEL_ENTITY cyclone10gx_digitizer_main
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.0.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:58:54  AUGUST 13, 2018"
 	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
+	set_global_assignment -name FAMILY "Cyclone 10 GX"
 	set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 	set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
@@ -69,6 +69,7 @@ if {$make_assignments} {
 	set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
 	set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 	set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+	set_global_assignment -name VERILOG_FILE cyclone_ru_only.v
 	set_global_assignment -name VHDL_FILE rfwd_wrapper.vhd
 	set_global_assignment -name VERILOG_FILE dpram_lbnl.v
 	set_global_assignment -name VERILOG_FILE cyclone.v
@@ -410,6 +411,7 @@ if {$make_assignments} {
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_E16 -to lmk04808_ld
 	set_location_assignment PIN_T2 -to jtag_mux_sel_out
+
 	# Commit assignments
 	export_assignments
 

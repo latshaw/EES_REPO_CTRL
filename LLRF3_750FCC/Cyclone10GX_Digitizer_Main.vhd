@@ -651,6 +651,16 @@ signal jtag_mux_sel : std_logic;
 ----attribute noprune of c_cntlr_fccid_d, c_cntlr_fccid_q : signal is true;
 ----attribute noprune of c_data_mux : signal is true;
 
+
+--signal ru_data_out, ru_data_in :STD_LOGIC_VECTOR(31 downto 0);
+signal ru_param, ru_ctrl : STD_LOGIC_VECTOR(2 downto 0); -- 3 bit
+--
+--signal en_ru_param, en_ru_ctrl, en_ru_data_in : STD_LOGIC;
+--attribute noprune of ru_ctrl : signal is true;
+--attribute noprune of ru_param : signal is true;
+--attribute noprune of ru_data_in : signal is true;
+
+
 signal lmk_count_q, lmk_count_d : unsigned(15 downto 0);
 
 begin
@@ -1665,6 +1675,7 @@ dac0_out <= reg_rw_bank(2)(12)(15 downto 0);  -- xAC, DACS4, pins 4/8
 
 RHONPERD <= reg_rw_bank(7)(5)(15 downto 0); -- 16 bit, RHONPERD xF5
 RHPERD	<= reg_rw_bank(7)(6)(15 downto 0); -- 16 bit, RHPERD   xF6
+ru_ctrl  <= reg_rw_bank(7)(7)( 2 downto 0); -- 3 bit, reconfig control, xF7
 
 
 --regbank_in(3)(7)	<=	"00"&adc0_a;		             
@@ -1888,29 +1899,32 @@ port map(clock				=>	clock,
 
 	
 --================================================================ 
--- start cyclone rfwd specific
+-- start cyclone remote update specific
 --================================================================ 	
--- cyclone specific remote firmware download (rfwd)
+-- cyclone specific remote update (RU), use this to hop to golden image/reconfig fpga
 --
---	rfwd_wrapper_inst : entity work.rfwd_wrapper
---	port map( lb_clk			   =>  lb_clk,			
---			    adc_pll_clk_data =>  adc_pll_clk_data, 
---			    reset_n			   =>  reset_n,			  
---			    lb_valid         =>  lb_valid,         
---			    fccid            =>  fccid,            
---			    c_bus_ctl        =>  c_bus_ctl,        
---			    lb_addr          =>  lb_addr,          
---			    lb_wdata         =>  lb_wdata,         
---			    lb_rdata_rfwd    =>  lb_rdata_rfwd,    
---			    lb_rnw           =>  lb_rnw);
 
-	-- this process muxes between our arbitrary register blocks
-	-- x000000 to xEFFFFF is for HRT and waveforms
-	-- xF00000 to xFFFFFF is for remote firmware download specific blocks (arbitary)
---	lb_rdata_mux <= lb_rdata_rfwd when c_bus_ctl = x"abcdefCC" else lb_rdata; -- don't delay read data if coming from 93MHz clock domain. 
-	--
+cyclone_ru_only_init : entity work.cyclone_ru_only 
+port map(
+	lb_clk      => adc_pll_clk_data, -- note, 93MHz clock which is slower than 125MHz.
+	reset_n     => lmk_reset_n,
+	--c10_addr, 
+	--c10_data, 
+	--c10_cntlr, 
+	--c10_status,
+	c10_datar   => open,
+	--ru_param    => ru_param,
+	--ru_data_in  => ru_data_in,
+	ru_ctrl     => ru_ctrl, -- signal in 93 MHz clock domain, xF7
+	ru_data_out => open
+	--input we_cyclone_inst_c10_data
+  );
+  
+ 	-- remote update specific registers 
+
+
 --================================================================ 
--- end cyclone rfwd specific
+-- end cyclone emote update specific
 --================================================================ 	
 			
 -----------------pll lock and latch status---------------------
