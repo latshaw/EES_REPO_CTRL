@@ -201,8 +201,8 @@ marvell_phy_config_inst : marvell_phy_config
 			mdc		   => eth_mdc,
 			config_done	=>  open);
 			
-	--en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1' or fpga_ver(2)= '1' or fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
-	en_mdc_mdio <= '1'; -- see if this works...
+	en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1' or fpga_ver(2)= '1' or fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
+
 -- ================================================================
 --  Silly heart beat for PCB LEDS
 -- ================================================================	
@@ -257,7 +257,7 @@ marvell_phy_config_inst : marvell_phy_config
 					when "0" & x"1" => regbank_0 <= x"0000000" & "0" & ru_param                ;--x"001" 
 					when "0" & x"2" => regbank_0 <= x"0000000" & "0" & ru_ctrl                 ;--x"002" 
 					when "0" & x"3" => regbank_0 <= ru_data_in              ;--x"003" 
-					when others =>     regbank_0 <= x"C001FACE"				  ;-- default case
+					when others =>     regbank_0 <= x"00000000"				  ;-- default case
 				end case;
 				
 				--==================================================================
@@ -267,7 +267,7 @@ marvell_phy_config_inst : marvell_phy_config
 				case ADDR(4 downto 0) is
 					when "0" & x"0" => regbank_1 <= x"00000000"             ;--x"020" next block example
 					when "0" & x"A" => regbank_1 <= x"0000ABCD"             ;--x"02A"  
-					when others =>     regbank_1 <= x"C001FACE"				  ;-- default case
+					when others =>     regbank_1 <= x"00000000"				  ;-- default case
 				end case;
 
 				--==================================================================
@@ -276,7 +276,7 @@ marvell_phy_config_inst : marvell_phy_config
 				
 				case ADDR(4 downto 0) is
 					when "0" & x"0" => regbank_2 <= x"00000000"            ; --x"040" ,
-					when others =>     regbank_2 <= x"C001FACE" 				 ;-- default case
+					when others =>     regbank_2 <= x"00000000" 				 ;-- default case
 				end case;
 				
 				--==================================================================
@@ -285,7 +285,7 @@ marvell_phy_config_inst : marvell_phy_config
 					
 				case ADDR(4 downto 0) is
 					when "0" & x"0" => regbank_3 <= x"00000000"            ;--x"060",
-					when others =>     regbank_3 <= x"C001FACE" 				 ;-- default case
+					when others =>     regbank_3 <= x"00000000" 				 ;-- default case
 				end case;
 
 				--==================================================================
@@ -294,7 +294,7 @@ marvell_phy_config_inst : marvell_phy_config
   
 				case ADDR(4 downto 0) is
 					when "0" & x"0" => regbank_4 <= x"00000000"               ;--x"080",
-					when others =>      regbank_4 <= x"C001FACE" 				 ;-- default case
+					when others =>      regbank_4 <= x"00000000" 				 ;-- default case
 				end case;
 					
 				--==================================================================
@@ -303,7 +303,7 @@ marvell_phy_config_inst : marvell_phy_config
 
 				case ADDR(4 downto 0) is					
 					when "0" & x"0" => regbank_5 <= x"00000000"                ;--x"0A0"
-					when others =>      regbank_5 <= x"C001FACE" 				 ;-- default case
+					when others =>      regbank_5 <= x"00000000" 				 ;-- default case
 				end case;
 	
 				--==================================================================
@@ -327,7 +327,7 @@ marvell_phy_config_inst : marvell_phy_config
 
 				case ADDR(4 downto 0) is					
 					when "0" & x"0" => regbank_7 <= x"00000000"                 ;--x"0E0",
-					when others =>     regbank_7 <= x"C001FACE" 				      ;-- default case
+					when others =>     regbank_7 <= x"00000000" 				      ;-- default case
 				end case;
 				
 			--==================================================================
