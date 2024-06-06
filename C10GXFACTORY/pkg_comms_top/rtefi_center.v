@@ -14,6 +14,8 @@
 //
 module rtefi_center(
 	// GMII Input (Rx)
+	input [31:0] ip, 
+	input [47:0] mac,
 	input rx_clk,
 	input [7:0] rxd,
 	input rx_dv,
@@ -68,8 +70,7 @@ parameter mac_aw = 10;  // sets size (in 16-bit words) of DPRAM in Tx MAC
 // plug-ins.  Generally the UDP port numbers should be "well known",
 // but the case can be made to have them run-time override-able (without
 // resynthesizing) to help cope with unexpected network issues.
-parameter [31:0] ip = {8'd192, 8'd168, 8'd7, 8'd4};  // 192.168.7.4
-parameter [47:0] mac = 48'h12555500012d;
+
 parameter udp_port0 = 7;
 parameter udp_port1 = 801;
 parameter udp_port2 = 802;
@@ -216,10 +217,12 @@ end
 
 // Memory for MAC/IP addresses
 reg [7:0] ip_mem[0:15];
-always @(posedge config_clk) if (config_s) ip_mem[config_a] <= config_d;
+//always @(posedge config_clk) if (config_s) ip_mem[config_a] <= config_d;
 always @(posedge rx_clk) ip_d <= ip_mem[ip_a];
 always @(posedge tx_clk) ip_mem_d_tx <= ip_mem[ip_mem_a_tx];
-initial begin
+//JAL make this dynamic
+always @(*)
+begin
 	// Matches packets in at least arp3.dat, icmp3.dat, udp3.dat.
 	ip_mem[0] = mac[47:40];  // Start of MAC
 	ip_mem[1] = mac[39:32];

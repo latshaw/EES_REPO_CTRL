@@ -10,6 +10,9 @@ module udp_com
 (
      input     clock,
      input     reset_n,
+	  
+	  input [2:0]	ip_sel,
+	  
 	  output		lb_clk,
 
      inout     sfp_sda_0,
@@ -44,13 +47,49 @@ module udp_com
 //     .tca_config_done     (sfp_config_done0)
 //);
 
+reg [31:0] ip_addr_sel;
+reg [47:0]	mac_addr_sel;
+reg [2:0]	ip_sel_in = 0;
+
+
+always @(*)
+begin
+	case(ip_sel)
+		3'b000		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd101};			
+		3'b001		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd102};
+		3'b010		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd103};
+		3'b011		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd104};
+		3'b100		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd105};
+		3'b101		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd106};
+		3'b110		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd107};
+		3'b111		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd108};
+		default		:	ip_addr_sel		=	{8'd192, 8'd168, 8'd50, 8'd101};
+	endcase
+end
+	
+always @(*)
+begin
+	case(ip_sel)
+		3'b000		:	mac_addr_sel		=	48'h00105ad155b7;			
+		3'b001		:	mac_addr_sel		=	48'h00105ad155b8;
+		3'b010		:	mac_addr_sel		=	48'h00105ad155b9;
+		3'b011		:	mac_addr_sel		=	48'h00105ad155ba;
+		3'b100		:	mac_addr_sel		=	48'h00105ad155bb;
+		3'b101		:	mac_addr_sel		=	48'h00105ad155bc;
+		3'b110		:	mac_addr_sel		=	48'h00105ad155bd;
+		3'b111		:	mac_addr_sel		=	48'h00105ad155be;
+		default		:	mac_addr_sel		=	48'h00105ad155b7;
+	endcase
+end
+
 
 localparam LBUS_ADDR_WIDTH = 24;
 localparam LBUS_DATA_WIDTH = 32;
 localparam GTX_ETH_WIDTH = 10;
 // 192.168.50.110 is IP for LLRF 3.0 Resonance
-localparam IPADDR = {8'd192, 8'd168, 8'd50, 8'd110};
-localparam MACADDR = 48'h00105ad155b5;
+//localparam IPADDR = {8'd192, 8'd168, 8'd50, 8'd110};
+//localparam MACADDR = 48'h00105ad155b5;
+
 localparam JUMBO_DW = 14;
 
 
@@ -167,12 +206,12 @@ wire [LBUS_ADDR_WIDTH-1:0] lb_addr_raw;
 
 
 eth_gtx_bridge #(
-     .IP           (IPADDR),
-     .MAC          (MACADDR),
      .JUMBO_DW     (JUMBO_DW),
      .GTX_DW       (GTX_ETH_WIDTH)
 )
 i_eth_gtx_bridge (
+      .ip				   (ip_addr_sel),
+		.mac			    	(mac_addr_sel),
      .gtx_tx_clk        (gtx0_tx_usr_clk),     // Transceiver clock
      .gmii_tx_clk       (gtx0_tx_usr_clk),     // Clock for Ethernet fabric - 125 MHz for 1GbE
      .gmii_rx_clk       (gtx0_rx_usr_clk),

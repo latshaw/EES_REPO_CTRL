@@ -29,6 +29,8 @@ ENTITY C10GXFACTORY IS
 		
 		fpga_ver		   : in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
 		
+		pmod_io		   :	in std_logic_vector(5 downto 0);
+		
 		hb_fpga    :  out  STD_LOGIC; -- FPGA heart beat LED
 		gpio_led_1 :  out  STD_LOGIC; -- HEART_BEAT LED
 		gpio_led_2 :  out std_logic;  -- heart beat ioc
@@ -42,6 +44,7 @@ ARCHITECTURE bdf_type OF C10GXFACTORY IS
 component udp_com is
 port(	clock				: in std_logic;
 		reset_n			: in std_logic;
+		ip_sel         : in std_logic_vector(2 downto 0);
 		lb_clk			: out std_logic;
 		sfp_sda_0		: inout std_logic;
 		sfp_scl_0		: out std_logic;
@@ -155,6 +158,7 @@ RESET_all <= '0' when reset = '0' else '1'; -- active low reset from on chip pus
 inst_comms_top: udp_com
 port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from clock 
 			reset_n			=>	RESET_all,	   -- active low reset
+			ip_sel			=>	pmod_io(2 downto 0),
 			lb_clk			=> CLOCK,			-- lb_clk 125 Mhz, from gtx0_tx_usr_clk/tx phy wrapper
 			sfp_sda_0		=>	sfp_sda_0,
 			sfp_scl_0		=>	sfp_scl_0,
@@ -180,8 +184,13 @@ port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from 
 	--
 -- ================================================================
 -- MARVEL PHY INIT
--- ================================================================ *********** will need to come back and fix look at PMOD for version control
--- 3/6/2024
+-- ================================================================
+-- 4/3/2024
+-- FPGA board versions before REV1 have a marvel that does not need to have the mdio registers configured.
+-- for the PRE REV1 boards, there are some pull ups on what I call the fpga_ver pins
+-- FPGA board REV 1 and later we do need to configure the pins
+-- for the REV1 boards, these are tired to C10 PMOD2. make sure these are never pulled up at power up.
+
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
 			clock	      => clock,
@@ -192,9 +201,8 @@ marvell_phy_config_inst : marvell_phy_config
 			mdc		   => eth_mdc,
 			config_done	=>  open);
 			
-	en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1' or fpga_ver(2)= '1' or fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
-
-
+	--en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1' or fpga_ver(2)= '1' or fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
+	en_mdc_mdio <= '1'; -- see if this works...
 -- ================================================================
 --  Silly heart beat for PCB LEDS
 -- ================================================================	

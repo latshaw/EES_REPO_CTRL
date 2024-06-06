@@ -7,12 +7,12 @@
 // ------------------------------------
 
 module eth_gtx_bridge #(
-   parameter IP       = {8'd192, 8'd168, 8'd7, 8'd4},
-   parameter MAC      = 48'h112233445566,
    parameter JUMBO_DW = 14, // Not used, just holdover for compatibility with older eth_gtx_bridge
    parameter GTX_DW   = 20) // Parallel GTX data width; Supported values are 10b and 20b
 (
-   input               gtx_tx_clk,  // Transceiver clock at half rate
+   input [31:0]			ip,
+	input [47:0]			mac,
+	input               gtx_tx_clk,  // Transceiver clock at half rate
    input               gmii_tx_clk, // Clock for Ethernet fabric - 125 MHz for 1GbE
    input               gmii_rx_clk,
    input  [GTX_DW-1:0] gtx_rxd,
@@ -120,8 +120,10 @@ module eth_gtx_bridge #(
    wire cfg_ipmac = (cfg_addr[4]==SEL_MACIP) & cfg_valid;
    wire cfg_udp   = (cfg_addr[4]==SEL_UDP) & cfg_valid;
 
-   rtefi_blob #(.ip(IP), .mac(MAC), .mac_aw(2)) badger(
+   rtefi_blob #(.mac_aw(2)) badger(
       // GMII Input (Rx)
+		.ip						(ip),
+		.mac						(mac),
       .rx_clk              (gmii_rx_clk),
       .rxd                 (gmii_rxd),
       .rx_dv               (gmii_rx_dv),

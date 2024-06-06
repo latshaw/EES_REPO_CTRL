@@ -32,6 +32,8 @@
 
 module rtefi_blob(
 	// GMII Input (Rx)
+	input [31:0] ip,
+	input [47:0] mac,
 	input rx_clk,
 	input [7:0] rxd,
 	input rx_dv,
@@ -82,8 +84,6 @@ parameter paw = 11;  // packet (memory) address width, nominal 11
 parameter n_lat = 8;  // latency of client pipeline
 parameter mac_aw = 10;  // sets size (in 16-bit words) of DPRAM in Tx MAC
 // See comments in rtefi_center.v
-parameter [31:0] ip = {8'd192, 8'd168, 8'd7, 8'd4};  // 192.168.7.4
-parameter [47:0] mac = 48'h12555500012d;
 parameter udp_port0 = 7;
 parameter udp_port1 = 801;
 parameter udp_port2 = 802;
@@ -102,7 +102,7 @@ wire [7:0] idata;
 wire [7*8-1:0] mux_data_in;
 
 rtefi_center #(
-	.ip(ip), .mac(mac), .paw(paw), .n_lat(n_lat),
+	.paw(paw), .n_lat(n_lat),
 	.mac_aw(mac_aw),
 	.udp_port0(udp_port0),
 	.udp_port1(udp_port1),
@@ -113,6 +113,8 @@ rtefi_center #(
 	.udp_port6(udp_port6),
 	.udp_port7(udp_port7)
 ) center(
+	.ip(ip),
+	.mac(mac),
 	.rx_clk(rx_clk), .rxd(rxd),
 	.rx_dv(rx_dv), .rx_er(rx_er),
 	.tx_clk(tx_clk) , .txd(txd),
