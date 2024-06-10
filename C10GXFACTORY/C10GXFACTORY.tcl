@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: C10GXFACTORY.tcl
-# Generated on: Thu Jun  6 14:52:42 2024
+# Generated on: Mon Jun 10 12:11:47 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -142,6 +142,7 @@ if {$make_assignments} {
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_2 -entity C10GXFACTORY
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_3 -entity C10GXFACTORY
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_1 -entity C10GXFACTORY
+	set_location_assignment PIN_AC13 -to clock_100
 	set_location_assignment PIN_M1 -to reset
 	set_location_assignment PIN_Y10 -to m10_reset
 	set_location_assignment PIN_P2 -to hb_fpga
@@ -167,28 +168,18 @@ if {$make_assignments} {
 	set_location_assignment PIN_AF17 -to ETH1_RESET_N
 	set_location_assignment PIN_AF18 -to eth_mdio
 	set_location_assignment PIN_AE17 -to eth_mdc
-	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_rx_0_p -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to sfp_tx_0_p -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_refclk_p -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to reset -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to m10_reset -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to hb_fpga -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to LED_SDA -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to LED_SCL -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to sfp_sda_0 -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to sfp_scl_0 -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to ETH1_RESET_N -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to eth_mdio -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to eth_mdc -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_2 -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_3 -entity resonance_control_fpga_rev_pr
-	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_1 -entity resonance_control_fpga_rev_pr
 	set_location_assignment PIN_F7 -to fpga_ver[0]
 	set_location_assignment PIN_E9 -to fpga_ver[1]
 	set_location_assignment PIN_D8 -to fpga_ver[2]
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_A4 -to fpga_ver[5]
 	set_location_assignment PIN_B5 -to fpga_ver[4]
+	set_location_assignment PIN_E17 -to pmod_io[5]
+	set_location_assignment PIN_F17 -to pmod_io[4]
+	set_location_assignment PIN_B16 -to pmod_io[3]
+	set_location_assignment PIN_F21 -to pmod_io[2]
+	set_location_assignment PIN_A17 -to pmod_io[1]
+	set_location_assignment PIN_A18 -to pmod_io[0]
 
 	# Commit assignments
 	export_assignments

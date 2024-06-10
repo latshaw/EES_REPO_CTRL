@@ -604,7 +604,8 @@ signal sft_flt_q				:	std_logic_vector(7 downto 0);
 signal sft_flt_edge_d		:	std_logic_vector(3 downto 0);
 signal sft_flt_edge_q		:	std_logic_vector(3 downto 0);
 
-signal ssa_prmt            : std_logic_vector(15 downto 0);
+signal ssa_prmt            : std_logic_vector(1 downto 0);
+signal ssa_prmt_flt_cnt, ssa_prmt_flt_cnt_d    : unsigned(15 downto 0);
 signal ssa_flt_latch_d, ssa_flt_latch_q				: std_logic;
 
 -- remote firmware download singals
@@ -811,27 +812,39 @@ fault_clear		<=	fault_clear_q;
 			
 -- =============================================================== 
 -- SSA interface
--- ===============================================================		 **************************** change to be 93 MHz clock
+-- ===============================================================k
 -- dig_in(2)  is for SSA permit
 -- dig_out(2) is for SSA enable
 
 -- handle SSA permit coming into FCC (from SSA). If the SSA permit goes away, then latch the fault, open RF switch.
+-- ssa_flt_latch_q will go HI when a fault is present
 process(adc_pll_clk_data, reset_n, fault_clear)
 begin
 	if(reset_n	=	'0') then
-		ssa_prmt		    <= (others	=>	'0');
-		ssa_flt_latch_q <= '0';
+		ssa_prmt		     <= (others	=>	'0');
+		ssa_prmt_flt_cnt <= (others	=>	'0');
+		ssa_flt_latch_q  <= '0';
 	elsif(rising_edge(adc_pll_clk_data)) then
-			ssa_prmt        <= ssa_prmt(14 downto 0) & dig_in(2);
-			ssa_flt_latch_q <= ssa_flt_latch_d;
+		--
+		ssa_prmt_flt_cnt <= ssa_prmt_flt_cnt_d;
+		ssa_flt_latch_q  <= ssa_flt_latch_d;
+		ssa_prmt         <= ssa_flt_latch_q & dig_in(2); -- latched fault status + current status
+		--		
 	end if;
 end process;
 
+-- increment ssa fault counter if a fault condtion exists (i.e. no ssa enable from the digital input for about 10 micro seconds)
+ssa_prmt_flt_cnt_d <= x"0000"                when (fault_clear = '1')                                   else -- clear fault counter, even if the fault is latched
+						    x"0000"                when ((dig_in(2) = '1') and (ssa_prmt_flt_cnt <= x"03A2")) else -- clear fault counter only if fault is not latched 
+							 ssa_prmt_flt_cnt + 1   when ((dig_in(2) = '0') and (ssa_prmt_flt_cnt <= x"03A2")) else -- increment fault counter if enable is missing and fault has not yet latched
+							 ssa_prmt_flt_cnt; -- otherwise, keep current value of counter
+--
 -- latch ssa permit fault if we see the SSA permit 'go away'
 -- fault exists when ssa_flt_latch_q is HI
-ssa_flt_latch_d <= '0' when fault_clear = '1' else
-                   '1' when ssa_prmt=x"0000" and fib_msk_set(0)='0' else ssa_flt_latch_q;
-
+ssa_flt_latch_d <= '0'             when fault_clear = '1'                                   else -- clear latched fault
+                   '1'             when (ssa_prmt_flt_cnt > x"03A0") and fib_msk_set(0)='0' else -- if counter is exceeded and not masked, latch fault
+						 ssa_flt_latch_q; -- otherwise keep the current value
+--
 regbank_in(4)(2)(8) <=	NOT(ssa_flt_latch_q); -- RF On Permit from SSA, HI is RF permit allowed, LOW is do not allow RF permit
 
 --handle enable going to SSA

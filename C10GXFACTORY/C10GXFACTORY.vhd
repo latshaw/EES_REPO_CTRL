@@ -6,7 +6,7 @@ use work.all;
 
 ENTITY C10GXFACTORY IS 
 	PORT
-	(
+	(  clock_100 : in STD_LOGIC;
 		reset     : in  STD_LOGIC; -- switch 1, c10 reset
 		m10_reset : in std_logic;  -- Let's us know if Max10 was reset
 		
@@ -193,7 +193,7 @@ port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from 
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => clock,
+			clock	      => clock_100,
 			reset	      => RESET_all,
 			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,

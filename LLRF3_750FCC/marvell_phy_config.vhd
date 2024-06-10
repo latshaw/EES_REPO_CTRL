@@ -73,7 +73,9 @@ signal phy_resetn_d			:	std_logic;
 type state_type is (init, load_data, enable_check, sclk_low, sclk_high, addr_check, phy_config_done);
 signal state			: state_type;
  
- 
+
+signal mdioCatchCnt_q, mdioCatchCnt_d    : unsigned(11 downto 0);
+signal en_mdioCatchCnt, en_mdc_q : std_logic;
  
 begin
 
@@ -96,9 +98,11 @@ begin
 		reset_count_q	<= (others => '0');
 		data_in_phy_q	<= (others => '0');
 		data_out_phy_q	<= (others => '0');
+		mdioCatchCnt_q <= (others => '0');
 --		mdc				<=	'0';
 --		mdio_q			<=	'1';
 		phy_resetn		<=	'0';	
+		en_mdc_q       <= '0';
 	elsif(rising_edge(sclk)) then
 		bit_count_q		<= bit_count_d;
 		addr_count_q	<= addr_count_d;
@@ -108,8 +112,15 @@ begin
 --		mdc				<=	mdc_d;
 --		mdio_q			<=	mdio_d;
 		phy_resetn		<=	phy_resetn_d;
+		mdioCatchCnt_q <= mdioCatchCnt_d;
+		en_mdc_q       <= en_mdc;
 	end if;
 end process;	
+ 
+
+-- during power up, different versions of the fpga have different pull up which may expereince brief transients
+-- this coutner helps smooth out those transients. If coutner is on half the time, then pull up is likely present
+mdioCatchCnt_d <= mdioCatchCnt_q + 1 when ((en_mdc_q = '1') and (state = init) and (mdioCatchCnt_q /= x"989")) else mdioCatchCnt_q;
  
 addr_count_d	<= 	(others => '0') when clr_addr_count = '0' else
 					addr_count_q + 1 when en_addr_count = '1' else
@@ -157,15 +168,15 @@ begin
 		state <= init;
 	elsif (rising_edge(sclk)) then
 		case state is
-			when init		=> 	if reset_count_q = x"989" then  -- hold in reset for 10 ms
-											state	<= enable_check;--------x"989" for 10 ms
+			when init		=> 	if reset_count_q = x"989" then  -- Hold in reset for 10 ms
+											state	<= enable_check;       -- x"989" after  10 ms
 								      else 
 											state <= init;
 								      end if;
-			when enable_check => if en_mdc = '1' then  -- check to see if en_mdc is set. If HI, proceed with mdc/mdio register config. else skip to done
-											state <= load_data;
+			when enable_check => if mdioCatchCnt_q >= x"4C4" then  -- Check to see if en_mdc is set.
+											state <= load_data;            -- If HI, proceed with mdc/mdio register config. 
 										else 
-											state	<=	phy_config_done;
+											state	<=	phy_config_done;      -- Else skip to done
 										end if;
 			when load_data	=>	state <= sclk_low;
 			when sclk_low	=> 	state <= sclk_high;
