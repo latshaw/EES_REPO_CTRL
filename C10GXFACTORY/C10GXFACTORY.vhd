@@ -140,6 +140,9 @@ attribute noprune of lb_strb : signal is true;
 attribute noprune of ru_ctrl : signal is true;
 attribute noprune of ru_param : signal is true;
 attribute noprune of ru_data_in : signal is true;
+
+signal reset_count, reset_count_d : UNSIGNED(2 downto 0);
+
 --
 BEGIN 
 -- ================================================================
@@ -149,7 +152,26 @@ BEGIN
 -- for LLRF 3.0 projects. This image will have limited functionality
 -- restricted to updating application image firmware (remotely) only.
 --
-RESET_all <= '0' when reset = '0' else '1'; -- active low reset from on chip pushbutton
+ --<= '0' when reset = '0' else '1'; -- active low reset from on chip pushbutton
+
+
+
+
+	process (CLOCK)
+	begin
+		if CLOCK'event and CLOCK = '1' then
+			if reset = '0' then
+				reset_count <= "000";
+			else
+				reset_count <= reset_count_d;
+			end if;
+		end if;
+	end process;
+
+	reset_count_d <= reset_count + 1 when (reset_count /= "111") else reset_count;
+	
+	RESET_all <= '0' when (reset_count /= "111") else '1'; 
+
 --
 --===================================================
 -- Ethernet Communication Module from Berkeley (with test bench option)
@@ -194,7 +216,7 @@ port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
 			clock	      => clock_100,
-			reset	      => RESET_all,
+			reset	      => reset,
 			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,
 			mdio	      => eth_mdio,
@@ -363,7 +385,7 @@ marvell_phy_config_inst : marvell_phy_config
 CYCLONE_inst : CYCLONE
 	PORT MAP(
 			 lb_clk 		=> CLOCK,
-			 reset_n    => RESET_all,
+			 --reset_n    => RESET_all,
 			 c10_addr 	=> c_addr,
 			 c10_data 	=> c_data,
 			 c10_cntlr 	=> c_cntlr,
@@ -382,8 +404,8 @@ CYCLONE_inst : CYCLONE
 	-- Enables for RWs for this firmware block ======================
 	-- enables for RW registers 
 	en_c_addr <= '1' when load = '1' and addr(11 downto 0) = x"0D5" else '0';
-	PROCESS(CLOCK,reset) begin 
-	  IF(reset='0') THEN 
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
 		  c_addr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_addr='1') THEN 
 		  c_addr<=din(31 downto 0); 
@@ -391,8 +413,8 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_c_cntl <= '1' when load = '1' and addr(11 downto 0) = x"0D6" else '0';
-	PROCESS(CLOCK,reset) begin 
-	  IF(reset='0') THEN 
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
 		  c_cntlr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_cntl='1') THEN 
 		  c_cntlr<=din(31 downto 0); 
@@ -400,8 +422,8 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_c_data <= '1' when load = '1' and addr(11 downto 0) = x"0D9" else '0';
-	PROCESS(CLOCK,reset) begin 
-	  IF(reset='0') THEN 
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
 		  c_data<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_data='1') THEN 
 		  c_data<=din(31 downto 0); 
@@ -411,8 +433,8 @@ CYCLONE_inst : CYCLONE
 	-- remote update specific
 	
 	en_ru_param <= '1' when load = '1' and addr(11 downto 0) = x"001" else '0';
-	PROCESS(CLOCK,reset) begin 
-	  IF(reset='0') THEN 
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
 		  ru_param<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_ru_param='1') THEN 
 		  ru_param<=din(2 downto 0); -- 3 bit
@@ -420,8 +442,8 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_ru_ctrl <= '1' when load = '1' and addr(11 downto 0) = x"002" else '0';
-	PROCESS(CLOCK,reset) begin 
-	  IF(reset='0') THEN 
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
 		  ru_ctrl<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_ru_ctrl='1') THEN 
 		  ru_ctrl<=din(2 downto 0); -- 3 bit
@@ -429,8 +451,8 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_ru_data_in <= '1' when load = '1' and addr(11 downto 0) = x"003" else '0';
-	PROCESS(CLOCK,reset) begin 
-	  IF(reset='0') THEN 
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
 		  ru_data_in<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_ru_data_in='1') THEN 
 		  ru_data_in<=din(31 downto 0); 

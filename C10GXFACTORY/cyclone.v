@@ -20,9 +20,9 @@ module cyclone (
 	// Clock Generationg
 	// =============================================================
 	// used to reconfigure the c10gx from flash after a new load
-	reg [2:0] clock_cnt1, clock_cnt2, clock_cnt3, clock_cnt4, clock_cnt5, clock_cnt6, clock_cnt7; /* synthesis noprune */;
-	reg [2:0] clock_cntq1, clock_cntq2, clock_cntq3, clock_cntq4, clock_cntq5, clock_cntq6, clock_cntq7; /* synthesis noprune */;
-	wire clock_rd1, clock_rd2, clock_rd3, clock_rd4, clock_rd5, clock_rd6, clock_rd7;
+	reg [2:0] clock_cnt1, clock_cnt2, clock_cnt3, clock_cnt4, clock_cnt5, clock_cnt6, clock_cnt7, clock_cnt8; /* synthesis noprune */;
+	reg [2:0] clock_cntq1, clock_cntq2, clock_cntq3, clock_cntq4, clock_cntq5, clock_cntq6, clock_cntq7, clock_cntq8; /* synthesis noprune */;
+	wire clock_rd1, clock_rd2, clock_rd3, clock_rd4, clock_rd5, clock_rd6, clock_rd7, clock_rd8;
 
 	always@(posedge lb_clk) begin // clocked with slow clock
 		 clock_cntq1 <= clock_cntq1 + 3'b001; //maybe change to + 1'b1 instead of +1 and see if this fixes truncation error?
@@ -32,6 +32,7 @@ module cyclone (
 		 clock_cntq5 <= clock_cntq5 + 3'b001;
 		 clock_cntq6 <= clock_cntq6 + 3'b001;
 		 clock_cntq7 <= clock_cntq7 + 3'b001;
+		 clock_cntq8 <= clock_cntq8 + 3'b001;
 		 
 		 clock_cnt1 <= clock_cntq1;
 		 clock_cnt2 <= clock_cntq2;
@@ -40,6 +41,7 @@ module cyclone (
 		 clock_cnt5 <= clock_cntq5;
 		 clock_cnt6 <= clock_cntq6;
 		 clock_cnt7 <= clock_cntq7;
+		 clock_cnt8 <= clock_cntq8;
 	end
 	//125 MHz divide by <something>. ASMII IP recommends less than 20 MHz, MICROn chip allows up to 90MHz. 
 	assign clock_rd1 = clock_cnt1[2]; //use this clock to drive EPCQ/EPCS
@@ -49,6 +51,7 @@ module cyclone (
 	assign clock_rd5 = clock_cnt5[2];
 	assign clock_rd6 = clock_cnt6[2];
 	assign clock_rd7 = clock_cnt7[2];
+	assign clock_rd8 = clock_cnt8[2];
 	
 
 	
@@ -328,7 +331,7 @@ module cyclone (
 	reg  [7:0] reset_timer_cnt = 8'b00000000 /* synthesis noprune */;
 	wire reset_timer;
 
-	always@(posedge clock_rd2) begin // clocked with slow clock
+	always@(posedge clock_rd8) begin // clocked with slow clock
 		 reset_timer_cnt = reset_timer_cnt + 8'b00000001;
 	end
 	
@@ -344,12 +347,13 @@ module cyclone (
 	wire [31:0] ru_data_in_d, ru_data_out_d;
 	reg  [2:0]  ru_param_q, ru_ctrl_last, ru_ctrl_q;
 	wire [31:0] ru_dout;
+	reg [2:0] ruBusyStr;
 	reg ruREq, ruWEq, ruRSTq;
 	wire ruREd, ruWEd, ruBsy, ruRSTd;
 	
 	// remote update IP, used to reconfigure the fpga with the new configuration data stroed on  flash
 	remote_download c10_rd (
-		.clock       (clock_rd2), 			//   input,   width = 1,       clock.clk
+		.clock       (clock_rd8), 			//   input,   width = 1,       clock.clk
 		.reset       (ruRSTq),           //   input,   width = 1,       reset.reset : active hi, recommended 1 reset before use
 		.read_param  (ruREq),  				//   input,   width = 1,       read_param.read_param
 		.param       (ru_param_q),      	//   input,   width = 3,       param.param
@@ -362,23 +366,7 @@ module cyclone (
 		.ctl_nupdt   (1'b0)    				//   input,   width = 1,       ctl_nupdt.ctl_nupdt : regiser select, HI is Control register, LO is Update register
 	);
 	
-	always@(posedge clock_rd2) begin 
-		if (reset_n == 1'b0) begin
-			//
-			ru_sm         <= 3'b000;
-			rst_cnt       <= 0;
-			ru_instr_q    <= 0;
-			ru_data_in_q  <= 0;
-			ru_data_out_q <= 0;
-			ru_param_q    <= 0;
-			ruREq         <= 0;
-			ruWEq         <= 0;
-			ruRSTq        <= 0;
-			ruCONFIGq     <= 0;
-			ru_ctrl_q     <=0;
-			ru_ctrl_last  <= 0;
-			//
-		end else begin
+	always@(posedge clock_rd8) begin 
 			//
 			ru_instr_q    <= ru_instr_d;
 			ru_data_in_q  <= ru_data_in_d;
@@ -390,7 +378,7 @@ module cyclone (
 			ruCONFIGq     <= ruCONFIGd;
 			ru_ctrl_q     <= ru_ctrl;
 			ru_ctrl_last  <= ru_ctrl_q;
-		end
+			ruBusyStr     <= {ruBusyStr[1:0], ruBsy};
 	end
 	
 	//	input  [2:0]  ru_param
@@ -400,7 +388,7 @@ module cyclone (
 
 
 	//assign ru_data_out_d = {ru_dout[30:0], ruBsy};    // read status register (output data)  from ru
-	assign ru_data_out_d = ru_dout;
+	assign ru_data_out_d = (ruBusyStr == 3'b100) ? ru_dout : ru_data_out_q;// 6/10/24, register on falling edge of busy, else keep old value
 	assign ru_data_in_d  = ru_data_in; // input data to ru
 	assign ru_param_d    = ru_param;   // address input to ru  
 	
