@@ -142,7 +142,15 @@ component dac_ddr is
 end component;
 
 
-
+component ssa_mon is
+	port (
+	clk 			: in  std_logic; 
+	reset_n     : in  std_logic; 
+	clear       : in  std_logic; 
+	ssa_en      : in  std_logic; 
+	ssa_prmt_pulse : out std_logic;
+	ssa_prmt_out : out std_logic_vector(1 downto 0));
+end component;
 
 signal reset_n				:	std_logic;
 
@@ -605,7 +613,8 @@ signal sft_flt_edge_d		:	std_logic_vector(3 downto 0);
 signal sft_flt_edge_q		:	std_logic_vector(3 downto 0);
 
 signal ssa_prmt            : std_logic_vector(1 downto 0);
-signal ssa_prmt_flt_cnt, ssa_prmt_flt_cnt_d    : unsigned(15 downto 0);
+signal ssa_prmt_cnt_q, ssa_prmt_cnt_d    : unsigned(7 downto 0);
+signal ssa_prmt_stretch, ssa_prmt_stretch_d : std_logic_vector(7 downto 0);
 signal ssa_flt_latch_d, ssa_flt_latch_q				: std_logic;
 
 -- remote firmware download singals
@@ -664,8 +673,103 @@ signal ru_param, ru_ctrl : STD_LOGIC_VECTOR(2 downto 0); -- 3 bit
 
 signal lmk_count_q, lmk_count_d : unsigned(15 downto 0);
 
+signal ssa_prmt_pulse, reset_clock_n, reset_adc : std_logic;
+
+signal c10gx_tmp_buffer	, tempb1, tempb2	:	std_logic_vector(9 downto 0);
+signal temp_eoc1, temp_eoc2, temp_eoc3, fpga_tsd_int_EOC_n : STD_LOGIC;
+
+signal lmk_done, lmk_done_buf, lmk_done_buf2, lmk_done_d, reset_adc_buf : std_logic;
+
 begin
 
+-- ===============================================================
+-- Reset Loigic
+-- ===============================================================
+-- reset, is a normally HI push button
+
+-- used to help marvel config module reset
+process (clock)
+	begin
+		if clock'event and clock = '1' then
+		   reset_clock_n <= reset;
+		end if;
+	end process;
+
+----used to help PLL come up after LMK is programmed	
+--process (adc_dclk_p) -- ref clock for PLL
+--	begin
+--		if reset = '0' then -- asyn reset helps meet recovery/removal timing
+--			lmk_done      <= '0'; -- lmk done signal will go HI when lmk is configured
+--			lmk_done_buf  <= '0'; -- buffer needed to help with CDC from clock -> adc_dclk_p
+--			lmk_done_buf2 <= '0';
+--		elsif adc_dclk_p'event and adc_dclk_p = '1' then
+--		   lmk_done_buf2 <= lmk_done_d;
+--			lmk_done_buf  <= lmk_done_buf2;
+--			lmk_done      <= lmk_done_buf;
+--		end if;
+--	end process;
+--	
+--	--combinational logic
+--	lmk_done_d <= lmkconfig_done; -- registered by clock
+--	
+--	process (adc_dclk_p) -- ref clock for PLL
+--	begin
+--		if lmk_done = '0' then   -- asyn reset helps meet recovery/removal timing
+--			reset_adc     <= '1'; -- active HI reset for PLL reset, keep PLL reset during initial power up
+--			reset_adc_buf <= '1';
+--		elsif adc_dclk_p'event and adc_dclk_p = '1' then
+--		   reset_adc     <= reset_adc_buf;
+--			reset_adc_buf <= '0';
+--		end if;
+--	end process;
+--	
+
+
+--lmk_reset_n    <= reset_clock_n; 
+lmk_reset_n    <= reset; -- direct from pin, asyn reset
+--reset_n		   <= reset_adc_n; 
+reset_n		   <= reset; -- direct from pin, asyn reset 
+--adc_pll_reset	<=	(not reset_n) and (not lmkconfig_done);	-- note, lmkconfig_done goes HI after LMK is configured, adc_pll_reset is active HI
+adc_pll_reset <= NOT(reset);--reset_adc; -- active HI
+	-- ===============================================================
+	-----------------------adc_data_acq code-----------------------
+	-- ===============================================================
+	
+
+	
+adc_pllo_inst: adc_pll0
+	port map (
+		rst      => adc_pll_reset,                --    reset.reset
+		refclk   => adc_dclk_p,                   --   refclk.clk
+		locked   =>	adc_pll_lock_d,               --   locked.export
+		phout		=>	adc_pll_phout,
+		lvds_clk => adc_pll_lvds_bit(1 downto 0), -- lvds_clk.lvds_clk
+		loaden   =>	adc_pll_lvds_en(1 downto 0),  --   loaden.loaden
+		outclk_2 =>	adc_pll_clk_data              --  outclk2.clk		
+	);
+
+adc_lvds_lock_d	<=	adc_pll_lock_q and spi_done_q(1);
+
+
+adc_lvds_rx_inst: adc_lvds_rx
+		port map (
+			rx_in            	=>	adc_data_in(8 downto 0), -- export
+			rx_out           	=>	adc_data_out,	          -- export
+			rx_bitslip_reset 	=>	"000000000",             -- export
+			rx_bitslip_ctrl	=>	bitslip_ctrl_q,          -- export
+			rx_bitslip_max   	=>	adc_bitslip_max,         -- export
+			ext_fclk         	=>	adc_pll_lvds_bit(0),     -- export
+			ext_loaden       	=>	adc_pll_lvds_en(0),      -- export
+			ext_coreclock    	=>	adc_pll_clk_data,
+			ext_vcoph			=>	adc_pll_phout,
+			ext_pll_locked		=>	adc_lvds_lock_q,
+			pll_areset       	=> adc_pll_reset,           -- export
+			rx_dpa_locked    	=>	adc_dpa_locked,
+			rx_dpa_hold      	=>	"000000000",
+			rx_dpa_reset     	=>	"000000000"			
+		);	
+	
+	
 -- ===============================================================
 -- FSD fault control
 -- ===============================================================
@@ -796,10 +900,10 @@ port map(clock		=>	adc_pll_clk_data, -- 93 MHz clock domain
 
 fib_msk_set					         <=	reg_rw_bank(3)(9)(15 downto 0);	
 --regbank_in(4)(5)(5 downto 4)		<=	fib_stat(3 downto 2);
-regbank_in(4)(5)(5 downto 4)		<=	fib_stat(3) & ssa_flt_latch_q; -- intlk latch and ssa prmt latch
+regbank_in(4)(5)(5 downto 4)		<=	fib_stat(3) & NOT(ssa_prmt(1)); -- intlk latch and ssa prmt latch
 regbank_in(4)(5)(3 downto 2)		<=	(others	=>	'0');
 --regbank_in(4)(5)(1 downto 0)		<=	fib_stat(1 downto 0);
-regbank_in(4)(5)(1 downto 0)		<=	fib_stat(1) & NOT(ssa_prmt(1)); -- intlk present and ssa prmt present (Low is no fault, HI is fault)
+regbank_in(4)(5)(1 downto 0)		<=	fib_stat(1) & NOT(ssa_prmt(0)); -- intlk present and ssa prmt present (Low is no fault, HI is fault)
 
 fault_clear_d		<=	'0' when flt_clr_cnt_q = 15 else
 							reg_rw_bank(3)(3)(0) when wrreg_en_out_buf(3)(3) = '1' else
@@ -812,40 +916,27 @@ fault_clear		<=	fault_clear_q;
 			
 -- =============================================================== 
 -- SSA interface
--- ===============================================================k
+-- ===============================================================
 -- dig_in(2)  is for SSA permit
 -- dig_out(2) is for SSA enable
 
 -- handle SSA permit coming into FCC (from SSA). If the SSA permit goes away, then latch the fault, open RF switch.
 -- ssa_flt_latch_q will go HI when a fault is present
-process(adc_pll_clk_data, reset_n, fault_clear)
-begin
-	if(reset_n	=	'0') then
-		ssa_prmt		     <= (others	=>	'0');
-		ssa_prmt_flt_cnt <= (others	=>	'0');
-		ssa_flt_latch_q  <= '0';
-	elsif(rising_edge(adc_pll_clk_data)) then
-		--
-		ssa_prmt_flt_cnt <= ssa_prmt_flt_cnt_d;
-		ssa_flt_latch_q  <= ssa_flt_latch_d;
-		ssa_prmt         <= ssa_flt_latch_q & dig_in(2); -- latched fault status + current status
-		--		
-	end if;
-end process;
 
--- increment ssa fault counter if a fault condtion exists (i.e. no ssa enable from the digital input for about 10 micro seconds)
-ssa_prmt_flt_cnt_d <= x"0000"                when (fault_clear = '1')                                   else -- clear fault counter, even if the fault is latched
-						    x"0000"                when ((dig_in(2) = '1') and (ssa_prmt_flt_cnt <= x"03A2")) else -- clear fault counter only if fault is not latched 
-							 ssa_prmt_flt_cnt + 1   when ((dig_in(2) = '0') and (ssa_prmt_flt_cnt <= x"03A2")) else -- increment fault counter if enable is missing and fault has not yet latched
-							 ssa_prmt_flt_cnt; -- otherwise, keep current value of counter
---
--- latch ssa permit fault if we see the SSA permit 'go away'
--- fault exists when ssa_flt_latch_q is HI
-ssa_flt_latch_d <= '0'             when fault_clear = '1'                                   else -- clear latched fault
-                   '1'             when (ssa_prmt_flt_cnt > x"03A0") and fib_msk_set(0)='0' else -- if counter is exceeded and not masked, latch fault
-						 ssa_flt_latch_q; -- otherwise keep the current value
---
-regbank_in(4)(2)(8) <=	NOT(ssa_flt_latch_q); -- RF On Permit from SSA, HI is RF permit allowed, LOW is do not allow RF permit
+--signal ssa_prmt            : std_logic_vector(1 downto 0);
+--signal ssa_prmt_cnt_q, ssa_prmt_cnt_d    : unsigned(15 downto 0);
+--signal ssa_prmt_stretch, ssa_prmt_stretch_d : std_logic_vector(7 downto 0);
+--signal ssa_flt_latch_d, ssa_flt_latch_q				: std_logic;
+
+ssa_mon_inst : ssa_mon 
+	PORT MAP(clk            => adc_pll_clk_data,
+	         --reset_n        => ,
+				clear          => fault_clear,
+				ssa_en         => dig_in(2),
+				ssa_prmt_pulse => ssa_prmt_pulse,
+				ssa_prmt_out   => ssa_prmt);
+  
+regbank_in(4)(2)(8) <=	ssa_prmt(1); -- NOT(ssa_flt_latch_q); -- RF On Permit from SSA, HI is RF permit allowed, LOW is do not allow RF permit
 
 --handle enable going to SSA
 -- We will use the HPA ENa set to 1 to enable the SSA.
@@ -870,7 +961,7 @@ pulse_mode_sep_inst: entity work.pulse_mode_sep
 -- ===============================================================
 
 dac8831_inst_0 : entity work.dac8831
-	PORT MAP(clock	=> clock,
+	PORT MAP(clock	=> adc_pll_clk_data,
 			   reset => reset_n,
 			   d_in	=> dac0_out,
 			   ncs  => dac_ncs,
@@ -878,7 +969,7 @@ dac8831_inst_0 : entity work.dac8831
 			   sdi  => dac0_sdi);
 				
 dac8831_inst_1 : entity work.dac8831				
-	PORT MAP(clock	=> clock,
+	PORT MAP(clock	=> adc_pll_clk_data,
 			   reset => reset_n,
 			   d_in	=> dac1_out,
 			   ncs  => open,
@@ -886,7 +977,7 @@ dac8831_inst_1 : entity work.dac8831
 			   sdi  => dac1_sdi);
 				
 dac8831_inst_2 : entity work.dac8831
-	PORT MAP(clock	=> clock,
+	PORT MAP(clock	=> adc_pll_clk_data,
 			   reset => reset_n,
 			   d_in	=> dac2_out,
 			   ncs  => open,
@@ -894,7 +985,7 @@ dac8831_inst_2 : entity work.dac8831
 			   sdi  => dac2_sdi);
 
 dac8831_inst_3 : entity work.dac8831			
-	PORT MAP(clock	=> clock,
+	PORT MAP(clock	=> adc_pll_clk_data,
 			   reset => reset_n,
 			   d_in	=> dac3_out,
 			   ncs  => open,
@@ -917,38 +1008,13 @@ en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1'
 marvell_phy_config_inst : entity work.marvell_phy_config
 	PORT MAP(
 			clock	      => clock,
-			reset	      => reset_n,
+			reset	      => reset_clock_n,
 			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,
 			mdio	      => eth_mdio,
 			mdc		   => eth_mdc,
 			config_done	=>  open);
 
---lmk_reset_n				<=	reset and m10_reset and pmod_io(3);			
---reset_n					<=	reset and m10_reset and pmod_io(3) and not lmk_ref(0) and not lmk_lock(0);
-
-lmk_reset_n				<=	reset and m10_reset;-- and pmod_io(3);			
-reset_n					<=	reset and m10_reset;-- and pmod_io(3); removes push button
---
--- matching reset_all firmware module, without taking away PLL ayscn resets
--- aslo adding a wakeup delay timer
---process(clock, reset_n)
---begin
---	if(reset_n = '0') then
---		lmk_reset_n <= '0';
---		lmk_count_q <= (others =>'0');
---	elsif(rising_edge(clock)) then
---		if lmk_count_q >= x"0fff" then
---			lmk_count_q <= x"1fff";
---			lmk_reset_n <= '1';
---		else
---			lmk_count_q <= lmk_count_d;
---			lmk_reset_n <= '0';
---		end if;
---	end if;
---end process;
---
---lmk_count_d <= lmk_count_q + 1;
 
 rst_wait_cnt_d		<=	std_logic_vector(unsigned(rst_wait_cnt_q) + 1) when en_rst_wait_cnt = '1' else 
 							rst_wait_cnt_q;
@@ -1004,42 +1070,7 @@ end process;
 
 
 --pmod_io(5 downto 3)	<=	pmod_io(2 downto 0);
-
-
------------------------adc_data_acq code-----------------------
-adc_pll_reset	<=	not reset_n;-- 4/19/2024 attempting to get rid of neg slack on hold
 	
-adc_pllo_inst: adc_pll0
-	port map (
-		rst      => adc_pll_reset,                --    reset.reset
-		refclk   => adc_dclk_p,                   --   refclk.clk
-		locked   =>	adc_pll_lock_d,               --   locked.export
-		phout		=>	adc_pll_phout,
-		lvds_clk => adc_pll_lvds_bit(1 downto 0), -- lvds_clk.lvds_clk
-		loaden   =>	adc_pll_lvds_en(1 downto 0),  --   loaden.loaden
-		outclk_2 =>	adc_pll_clk_data              --  outclk2.clk		
-	);
-
-adc_lvds_lock_d	<=	adc_pll_lock_q and spi_done_q(1);
-
-
-adc_lvds_rx_inst: adc_lvds_rx
-		port map (
-			rx_in            	=>	adc_data_in(8 downto 0), -- export
-			rx_out           	=>	adc_data_out,	          -- export
-			rx_bitslip_reset 	=>	"000000000",             -- export
-			rx_bitslip_ctrl	=>	bitslip_ctrl_q,          -- export
-			rx_bitslip_max   	=>	adc_bitslip_max,         -- export
-			ext_fclk         	=>	adc_pll_lvds_bit(0),     -- export
-			ext_loaden       	=>	adc_pll_lvds_en(0),      -- export
-			ext_coreclock    	=>	adc_pll_clk_data,
-			ext_vcoph			=>	adc_pll_phout,
-			ext_pll_locked		=>	adc_lvds_lock_q,
-			pll_areset       	=> adc_pll_reset,           -- export
-			rx_dpa_locked    	=>	adc_dpa_locked,
-			rx_dpa_hold      	=>	"000000000",
-			rx_dpa_reset     	=>	"000000000"			
-		);		
 
 fclk_d							<=	adc_data_out(71 downto 64);
 adcd_data_d(15 downto 8)	<=	adc_data_out(63 downto 56);
@@ -1593,9 +1624,10 @@ phslp			<=	reg_rw_bank(3)(2)(4 downto 3);
 -- rfon			<=	reg_rw_bank(5)(2)(0) AND NOT(ssa_flt_latch_q); -- 4/18/24 rf switch may ONLY be closed if SSA permit is good
 -- 4/22/24, we want RF on state to clear of switch is opened for an FPGA initiated reason
 -- with the below logic, if an SSA fault occurs, this will initiate the opening the RF switch from fimrware.
-rfon_int			<=	reg_rw_bank(5)(2)(0) AND NOT(ssa_flt_latch_q); -- disable RF_on if ssa fault occurs
-rfon_en			<=	wrreg_en_out_buf(5)(2) or ssa_flt_latch_q;     -- enable a write to the RF on register
-rfon			   <=	rfon_int when rfon_en = '1' else					  -- if enabled, update the rfon bit, otherwise keep the current value
+rfon_int			<=	reg_rw_bank(5)(2)(0) AND ssa_prmt(1);  -- disable RF_on if ssa fault occurs
+--rfon_en			<=	wrreg_en_out_buf(5)(2) or NOT(ssa_prmt(1));      -- enable a write to the RF on register
+rfon_en			<=	wrreg_en_out_buf(5)(2) or ssa_prmt_pulse;
+rfon			   <=	rfon_int when rfon_en = '1' else			     -- if enabled, update the rfon bit, otherwise keep the current value
 						rfon_q(0);
 
 ratn			<=	reg_rw_bank(5)(3)(5 downto 0);
@@ -1888,7 +1920,7 @@ end generate;
 ----------------ethernet communication module from berkeley------------------
 inst_comms_top: entity work.comms_top
 port map(clock				=>	clock,
-			reset				=>	lmk_reset_n,
+			--reset				=>	lmk_reset_n,
 			ip_sel			=>	pmod_io(2 downto 0),
 			sfp_sda_0		=>	sfp_sda_0,
 			sfp_scl_0		=>	sfp_scl_0,
@@ -1920,7 +1952,7 @@ port map(clock				=>	clock,
 cyclone_ru_only_init : entity work.cyclone_ru_only 
 port map(
 	lb_clk      => adc_pll_clk_data, -- note, 93MHz clock which is slower than 125MHz.
-	reset_n     => lmk_reset_n,
+	reset_n     => reset_n,
 	--c10_addr, 
 	--c10_data, 
 	--c10_cntlr, 
@@ -1975,7 +2007,7 @@ port map(clock			=>	clock,   -- Note, We are now using the 100 MHz clock, vs v5 
 			
 ----------------initializing dac (ad9781)
 ad9781_inst: entity work.ad9781
-port map(clock		=>	clock,
+port map(clock		=>	clock, ----------------------------- should we use same reset as lmk?****************************
 			reset		=>	reset_n,
 		
 			spi_init	=>	lmkconfig_done,		
@@ -2268,9 +2300,35 @@ inst_fpga_tsd: fpga_tsd_int
 port map(
 		corectl =>	'1',
 		reset   =>	'0',
-		tempout =>	c10gx_tmp,
-		eoc     =>	open
-	);
+		tempout =>	c10gx_tmp_buffer,
+		eoc     =>	fpga_tsd_int_EOC_n -- at falling edge, data on c10gx_tmp_buffer is valid
+		);
+	
+	-- watch for falling edge of EOC, and then register the new temperature
+	process (adc_pll_clk_data) 	begin
+		if (adc_pll_clk_data'event and adc_pll_clk_data='1') then temp_eoc1 <= fpga_tsd_int_EOC_n; end if;
+	end process;
+		process (adc_pll_clk_data) 	begin
+		if (adc_pll_clk_data'event and adc_pll_clk_data='1') then temp_eoc2 <= temp_eoc1; end if;
+	end process;
+	process (adc_pll_clk_data) 	begin
+		if (adc_pll_clk_data'event and adc_pll_clk_data='1') then temp_eoc3 <= temp_eoc2; end if;
+	end process;
+	process (adc_pll_clk_data) 	begin
+		if (adc_pll_clk_data'event and adc_pll_clk_data='1') then tempb1 <= c10gx_tmp_buffer; end if;
+	end process;
+	process (adc_pll_clk_data) 	begin
+		if (adc_pll_clk_data'event and adc_pll_clk_data='1') then tempb2 <= tempb1; end if;
+	end process;
+   process (adc_pll_clk_data)  begin
+		if (adc_pll_clk_data'event and adc_pll_clk_data='1') then
+			if (temp_eoc3='1') and (temp_eoc2 = '0') then
+				c10gx_tmp <= tempb2;
+			 end if;
+		end if;
+	end process;
+	
+	
 ------------------deta module----------------------
 deta_module_inst: entity work. deta_module
 port map(clock		=>	adc_pll_clk_data,

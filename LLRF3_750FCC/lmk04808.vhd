@@ -195,7 +195,8 @@ begin
 		q.data_ld_wait_cnt	<=	0;
 		q.pll_ld_data			<=	(others	=>	'0');
 		q.pll_data_in			<=	(others	=>	'0');
-		q.sync				<=	'0';
+		q.sync				   <=	'0';
+		q.pll_rst            <= '0'; -- JAL, 6/13/24 
 	elsif(rising_edge(clock)) then
 		q							<=	d;
 	end if;
