@@ -20,12 +20,12 @@ module cyclone (
 	// Clock Generationg
 	// =============================================================
 	// used to reconfigure the c10gx from flash after a new load
-	reg [2:0] clock_cnt1, clock_cnt2, clock_cnt3, clock_cnt4, clock_cnt5, clock_cnt6, clock_cnt7, clock_cnt8; /* synthesis noprune */;
-	reg [2:0] clock_cntq1, clock_cntq2, clock_cntq3, clock_cntq4, clock_cntq5, clock_cntq6, clock_cntq7, clock_cntq8; /* synthesis noprune */;
-	wire clock_rd1, clock_rd2, clock_rd3, clock_rd4, clock_rd5, clock_rd6, clock_rd7, clock_rd8;
+	reg [2:0] clock_cnt1, clock_cnt2, clock_cnt3, clock_cnt4, clock_cnt5, clock_cnt6, clock_cnt7, clock_cnt8, clock_cnt9, clock_cntRU; /* synthesis noprune */;
+	reg [2:0] clock_cntq1, clock_cntq2, clock_cntq3, clock_cntq4, clock_cntq5, clock_cntq6, clock_cntq7, clock_cntq8, clock_cntq9, clock_cntqRU; /* synthesis noprune */;
+	wire clock_rd1, clock_rd2, clock_rd3, clock_rd4, clock_rd5, clock_rd6, clock_rd7, clock_rd8, clock_rd9, clock_rdRU;
 
 	always@(posedge lb_clk) begin // clocked with slow clock
-		 clock_cntq1 <= clock_cntq1 + 3'b001; //maybe change to + 1'b1 instead of +1 and see if this fixes truncation error?
+		 clock_cntq1 <= clock_cntq1 + 3'b001; 
 		 clock_cntq2 <= clock_cntq2 + 3'b001;
 		 clock_cntq3 <= clock_cntq3 + 3'b001;
 		 clock_cntq4 <= clock_cntq4 + 3'b001;
@@ -33,6 +33,8 @@ module cyclone (
 		 clock_cntq6 <= clock_cntq6 + 3'b001;
 		 clock_cntq7 <= clock_cntq7 + 3'b001;
 		 clock_cntq8 <= clock_cntq8 + 3'b001;
+		 clock_cntq9 <= clock_cntq9 + 3'b001;
+		 clock_cntqRU <= clock_cntqRU + 3'b001;
 		 
 		 clock_cnt1 <= clock_cntq1;
 		 clock_cnt2 <= clock_cntq2;
@@ -42,6 +44,8 @@ module cyclone (
 		 clock_cnt6 <= clock_cntq6;
 		 clock_cnt7 <= clock_cntq7;
 		 clock_cnt8 <= clock_cntq8;
+		 clock_cnt9 <= clock_cntq9;
+		 clock_cntRU <= clock_cntqRU;
 	end
 	//125 MHz divide by <something>. ASMII IP recommends less than 20 MHz, MICROn chip allows up to 90MHz. 
 	assign clock_rd1 = clock_cnt1[2]; //use this clock to drive EPCQ/EPCS
@@ -52,6 +56,8 @@ module cyclone (
 	assign clock_rd6 = clock_cnt6[2];
 	assign clock_rd7 = clock_cnt7[2];
 	assign clock_rd8 = clock_cnt8[2];
+	assign clock_rd9 = clock_cnt9[2];
+	assign clock_rdRU = clock_cntRU[2];;
 	
 
 	
@@ -341,19 +347,33 @@ module cyclone (
 	reg ruCONFIGq;
 	wire ruCONFIGd;
 	
+	reg [2:0] ru_ctrl_q2, ru_ctrl_q3; // double buffer from input, does not get muxed at any point
+	wire [2:0] ru_ctrl_d3;
+	
 	reg  [2:0]  ru_sm, ru_instr_q;
-	wire [2:0]  ru_instr_d, ru_param_d;
+	wire [2:0]  ru_instr_d, ru_param_d, ru_ctrl_d;
 	reg  [31:0] rst_cnt, ru_data_in_q, ru_data_out_q;
 	wire [31:0] ru_data_in_d, ru_data_out_d;
 	reg  [2:0]  ru_param_q, ru_ctrl_last, ru_ctrl_q;
 	wire [31:0] ru_dout;
-	reg [2:0] ruBusyStr;
+	reg [2:0] ruBusyStr, ruBusyStr2;
 	reg ruREq, ruWEq, ruRSTq;
+	reg ruBsyA, ruBsyB;
 	wire ruREd, ruWEd, ruBsy, ruRSTd;
+	
+	// sm regs
+	reg  [3:0] autoRU, autoRUnext;
+	wire [3:0] autoRU_d;
+	reg autoGO;
+	reg [31:0] autoCNT;
+	wire[31:0] autoCNT_d;
+	reg [2:0]  autoINTR, autoPARAM, autoCTRL;
+	wire [2:0] autoINTR_d;
+	reg [31:0] autoDIN;
 	
 	// remote update IP, used to reconfigure the fpga with the new configuration data stroed on  flash
 	remote_download c10_rd (
-		.clock       (clock_rd8), 			//   input,   width = 1,       clock.clk
+		.clock       (clock_rdRU), 	   //   input,   width = 1,       clock.clk
 		.reset       (ruRSTq),           //   input,   width = 1,       reset.reset : active hi, recommended 1 reset before use
 		.read_param  (ruREq),  				//   input,   width = 1,       read_param.read_param
 		.param       (ru_param_q),      	//   input,   width = 3,       param.param
@@ -376,27 +396,146 @@ module cyclone (
 			ruWEq         <= ruWEd;
 			ruRSTq        <= ruRSTd;
 			ruCONFIGq     <= ruCONFIGd;
-			ru_ctrl_q     <= ru_ctrl;
+			ru_ctrl_q     <= ru_ctrl_d;
 			ru_ctrl_last  <= ru_ctrl_q;
-			ruBusyStr     <= {ruBusyStr[1:0], ruBsy};
+			ruBsyA        <= ruBsy;
+			ruBusyStr     <= {ruBusyStr[1:0], ruBsyA};
 	end
 	
+
+	// module IO notes
 	//	input  [2:0]  ru_param
 	//	input  [31:0] ru_data_in
 	//	input  [2:0] ru_ctrl
 	//	output [31:0] ru_data_out
 
 
+	// simple SM to take over bus if no interupt is present within so many seconds
+	//
+	//clocked registers
+	always@(posedge clock_rd9) begin 	
+		if (reset_n == 1'b0) begin
+			autoRU     <= 3'b000;
+			autoCNT    <= 0;
+			autoINTR   <= 3'b000;
+			ru_ctrl_q2 <= 3'b000;
+			ru_ctrl_q3 <= 3'b000;
+		end else begin
+			autoRU     <= autoRUnext;
+			autoCNT    <= autoCNT_d;
+			autoINTR   <= autoINTR_d;
+			ru_ctrl_q2 <= ru_ctrl;
+			ru_ctrl_q3 <= ru_ctrl_q2;
+			ruBsyB     <= ruBsy;
+			ruBusyStr2 <= {ruBusyStr2[1:0], ruBsyB};
+		end
+	end	
+	
+	// next state combinational logic
+	assign ru_ctrl_d3 = ru_ctrl_q3;
+	
+	always@(*) begin 
+		//autoRUnext = autoRU;                         // default assigment if autoRUnext is not updated, keep curretn value
+		if (autoRU == 3'b000) begin                    // INIT
+			if (ru_ctrl_d3 == 3'b101) begin             // Send a 5 to abort auto jump to  applicaiton (this ru_ctrl is buffered from input)
+				autoRUnext = 3'b111;
+			end else if (autoCNT >= 31'h07735940) begin // After a few seconds with no abort, go to the next state
+				autoRUnext = 3'b001;
+			end else begin
+				autoRUnext = 3'b000;
+			end
+		end else if (autoRU == 3'b001) begin         // LOAD
+			autoRUnext = 3'b010;
+		end else if (autoRU == 3'b010) begin         // STOBE HI
+			autoRUnext = 3'b011;
+		end else if (autoRU == 3'b011) begin         // STROBE LOW
+			autoRUnext = 3'b100;
+		end else if (autoRU == 3'b100) begin         // BUSY LOW CHECK
+			if (ruBusyStr2[2:1] == 2'b00) begin
+				autoRUnext = 3'b101;
+			end else begin
+				autoRUnext = 3'b100;
+			end
+		end else if (autoRU == 3'b101) begin         // DONE CHECK
+			if (autoINTR >= 3'b011) begin             // instruction 011 is the last written register, after this we may reconfigure
+				autoRUnext = 3'b110;
+			end else begin
+				autoRUnext = 3'b001;
+			end
+		end else if (autoRU == 3'b110) begin         // RECONFIG
+			autoRUnext = 3'b110;
+		end else if (autoRU == 3'b111) begin         // USER CONTROL
+			autoRUnext = 3'b111;
+		end
+	end
+
+	assign autoCNT_d  = (autoRU==3'b000)? autoCNT  + 1 : autoCNT;
+	assign autoINTR_d = (autoRU==3'b101)? autoINTR + 1 : autoINTR;
+
+	
+always @(*)
+begin
+	case(autoINTR)
+		3'b000		:	autoPARAM	 =	3'b101;			
+		3'b001		:	autoPARAM	 =	3'b100;
+		3'b010		:	autoPARAM	 =	3'b010;
+		default		:	autoPARAM	 =	3'b011;
+	endcase
+end
+
+always @(*)
+begin
+	case(autoINTR)
+		3'b000		:	autoDIN	   =	32'h00000001;			
+		3'b001		:	autoDIN	   =	32'h02000000;
+		3'b010		:	autoDIN	   =	32'h00001FFF;
+		default		:	autoDIN	   =	32'h00000001;
+	endcase
+end
+
+
+always @(*)
+begin
+	case(autoRU)
+		3'b000		:	autoCTRL		=	3'b100; // reset			
+		3'b001		:	autoCTRL		=	3'b000;
+		3'b010		:	autoCTRL		=	3'b010; // WE
+		3'b011		:	autoCTRL		=	3'b000;
+		3'b100		:	autoCTRL		=	3'b000;
+		3'b101		:	autoCTRL		=	3'b000;
+		3'b110		:	autoCTRL		=	3'b111; // reconfigure
+		3'b111		:	autoCTRL		=	3'b000; // user control state
+		default		:	autoCTRL		=	3'b000;
+	endcase
+end
+
+//	wire [2:0] autoCTRLwire, autoPARAMwire;
+//	wire[31:0] autoDINwire;
+//	
+//	assign autoCTRLwire  = autoCTRL;
+//	assign autoPARAMwire = autoPARAM;	
+//	assign autoDINwire   = autoDIN;
+
 	//assign ru_data_out_d = {ru_dout[30:0], ruBsy};    // read status register (output data)  from ru
-	assign ru_data_out_d = (ruBusyStr == 3'b100) ? ru_dout : ru_data_out_q;// 6/10/24, register on falling edge of busy, else keep old value
-	assign ru_data_in_d  = ru_data_in; // input data to ru
-	assign ru_param_d    = ru_param;   // address input to ru  
+	assign ru_data_out_d = (ruBusyStr[2:1] == 2'b10) ? ru_dout : ru_data_out_q;// 6/10/24, register on falling edge of busy, else keep old value
+	assign ru_ctrl_d     = (autoRU !== 3'b111)? autoCTRL  : ru_ctrl;    // input control to ru
+	assign ru_data_in_d  = (autoRU !== 3'b111)? autoDIN   : ru_data_in; // input data to ru
+	assign ru_param_d    = (autoRU !== 3'b111)? autoPARAM : ru_param;   // address input to ru  
 	
 	assign ruRSTd    = ( ru_ctrl_q == 3'b100) ? 1'b1 : 1'b0; // active hi reset
 	assign ruREd     = ((ru_ctrl_q == 3'b001) & (ru_ctrl_last == 3'b000)) ? 1'b1 : 1'b0; // read enable,  Rising Edge
 	assign ruWEd     = ((ru_ctrl_q == 3'b010) & (ru_ctrl_last == 3'b000)) ? 1'b1 : 1'b0; // write enable, Rising Edge
 	assign ruCONFIGd = ( ru_ctrl_q == 3'b111) ? 1'b1 : 1'b0; // device will reconfigure when this goes HI
-		
+	
+	
+//	reg ru_data_out_q2, ru_data_out_q3;
+//	always @(posedge clock_rd9)
+//	begin
+//		ru_data_out_q2 <= ru_data_out_q; // from slow clock domain
+//		ru_data_out_q3 <= ru_data_out_q2;
+//	end
+	
+	
    assign ru_data_out = ru_data_out_q;
 
 	

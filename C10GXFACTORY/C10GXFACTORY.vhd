@@ -288,7 +288,7 @@ marvell_phy_config_inst : marvell_phy_config
 				
 				case ADDR(4 downto 0) is
 					when "0" & x"0" => regbank_1 <= x"00000000"             ;--x"020" next block example
-					when "0" & x"A" => regbank_1 <= x"0000ABCD"             ;--x"02A"  
+					when "0" & x"A" => regbank_1 <= x"0008ABCD"             ;--x"02A"  
 					when others =>     regbank_1 <= x"00000000"				  ;-- default case
 				end case;
 
@@ -385,7 +385,7 @@ marvell_phy_config_inst : marvell_phy_config
 CYCLONE_inst : CYCLONE
 	PORT MAP(
 			 lb_clk 		=> CLOCK,
-			 --reset_n    => RESET_all,
+			 reset_n    => RESET_all,
 			 c10_addr 	=> c_addr,
 			 c10_data 	=> c_data,
 			 c10_cntlr 	=> c_cntlr,
