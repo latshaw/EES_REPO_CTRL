@@ -680,6 +680,9 @@ signal temp_eoc1, temp_eoc2, temp_eoc3, fpga_tsd_int_EOC_n : STD_LOGIC;
 
 signal lmk_done, lmk_done_buf, lmk_done_buf2, lmk_done_d, reset_adc_buf : std_logic;
 
+signal rst_count, rst_count_d : unsigned(15 downto 0);
+signal epcs_reset, epcs_reset_buf : std_logic;
+
 begin
 
 -- ===============================================================
@@ -694,7 +697,28 @@ process (clock)
 		   reset_clock_n <= reset;
 		end if;
 	end process;
-
+	
+	
+--process (adc_pll_clk_data, reset)
+--	begin
+--		if reset = '0' then
+--			epcs_reset_buf <= '0';
+--			rst_count      <= (others => '0');
+--		elsif	adc_pll_clk_data'event and adc_pll_clk_data = '1' then
+--		   if rst_count >= x"00FF" then
+--				rst_count <= x"03FF";
+--				epcs_reset_buf <= '1';
+--			else
+--				rst_count      <= rst_count_d;
+--				epcs_reset_buf <= '0';
+--			end if;
+--		end if;
+--	end process;
+--	
+--	rst_count_d <= rst_count + 1 when (rst_count <= x"00FF") else rst_count;
+--	epcs_reset  <= epcs_reset_buf;
+	
+	
 ----used to help PLL come up after LMK is programmed	
 --process (adc_dclk_p) -- ref clock for PLL
 --	begin
@@ -2348,7 +2372,7 @@ port map(clock		=>	adc_pll_clk_data,
 ------------------epcs control for remote firmware and fcc id---------------- module used to r/w the fcc register
 epcs_cntl_inst: entity work. epcs_cntl
 port map(clock			=>	adc_pll_clk_data,
-			reset			=>	adc_pll_lock_q,
+			reset			=>	adc_pll_lock_q, --adc_pll_lock_q,
 			epcs_busy	=>	epcsb,
 			address		=>	cnfga,
 			data			=>	cnfgd,

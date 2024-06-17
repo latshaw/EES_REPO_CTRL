@@ -228,43 +228,6 @@
       </ipxact:parameters>
     </ipxact:busInterface>
     <ipxact:busInterface>
-      <ipxact:name>shift_bytes</ipxact:name>
-      <ipxact:busType vendor="altera" library="altera" name="conduit" version="18.1"></ipxact:busType>
-      <ipxact:abstractionTypes>
-        <ipxact:abstractionType>
-          <ipxact:abstractionRef vendor="altera" library="altera" name="conduit" version="18.1"></ipxact:abstractionRef>
-          <ipxact:portMaps>
-            <ipxact:portMap>
-              <ipxact:logicalPort>
-                <ipxact:name>shift_bytes</ipxact:name>
-              </ipxact:logicalPort>
-              <ipxact:physicalPort>
-                <ipxact:name>shift_bytes</ipxact:name>
-              </ipxact:physicalPort>
-            </ipxact:portMap>
-          </ipxact:portMaps>
-        </ipxact:abstractionType>
-      </ipxact:abstractionTypes>
-      <ipxact:slave></ipxact:slave>
-      <ipxact:parameters>
-        <ipxact:parameter parameterId="associatedClock" type="string">
-          <ipxact:name>associatedClock</ipxact:name>
-          <ipxact:displayName>associatedClock</ipxact:displayName>
-          <ipxact:value></ipxact:value>
-        </ipxact:parameter>
-        <ipxact:parameter parameterId="associatedReset" type="string">
-          <ipxact:name>associatedReset</ipxact:name>
-          <ipxact:displayName>associatedReset</ipxact:displayName>
-          <ipxact:value></ipxact:value>
-        </ipxact:parameter>
-        <ipxact:parameter parameterId="prSafe" type="bit">
-          <ipxact:name>prSafe</ipxact:name>
-          <ipxact:displayName>Partial Reconfiguration Safe</ipxact:displayName>
-          <ipxact:value>false</ipxact:value>
-        </ipxact:parameter>
-      </ipxact:parameters>
-    </ipxact:busInterface>
-    <ipxact:busInterface>
       <ipxact:name>sector_erase</ipxact:name>
       <ipxact:busType vendor="altera" library="altera" name="conduit" version="18.1"></ipxact:busType>
       <ipxact:abstractionTypes>
@@ -783,18 +746,6 @@
         </ipxact:wire>
       </ipxact:port>
       <ipxact:port>
-        <ipxact:name>shift_bytes</ipxact:name>
-        <ipxact:wire>
-          <ipxact:direction>in</ipxact:direction>
-          <ipxact:wireTypeDefs>
-            <ipxact:wireTypeDef>
-              <ipxact:typeName>STD_LOGIC</ipxact:typeName>
-              <ipxact:viewRef>QUARTUS_SYNTH</ipxact:viewRef>
-            </ipxact:wireTypeDef>
-          </ipxact:wireTypeDefs>
-        </ipxact:wire>
-      </ipxact:port>
-      <ipxact:port>
         <ipxact:name>sector_erase</ipxact:name>
         <ipxact:wire>
           <ipxact:direction>in</ipxact:direction>
@@ -1000,22 +951,22 @@
         <ipxact:parameter parameterId="gui_wren" type="bit">
           <ipxact:name>gui_wren</ipxact:name>
           <ipxact:displayName>Use 'wren' port</ipxact:displayName>
-          <ipxact:value>false</ipxact:value>
+          <ipxact:value>true</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_single_write" type="bit">
           <ipxact:name>gui_single_write</ipxact:name>
           <ipxact:displayName>Single byte write</ipxact:displayName>
-          <ipxact:value>false</ipxact:value>
+          <ipxact:value>true</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_page_write" type="bit">
           <ipxact:name>gui_page_write</ipxact:name>
           <ipxact:displayName>Page write</ipxact:displayName>
-          <ipxact:value>true</ipxact:value>
+          <ipxact:value>false</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="PAGE_SIZE" type="int">
           <ipxact:name>PAGE_SIZE</ipxact:name>
           <ipxact:displayName>'page write' size</ipxact:displayName>
-          <ipxact:value>128</ipxact:value>
+          <ipxact:value>1</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="gui_use_eab" type="bit">
           <ipxact:name>gui_use_eab</ipxact:name>
@@ -1130,7 +1081,7 @@
         <ipxact:parameter parameterId="PORT_SHIFT_BYTES" type="string">
           <ipxact:name>PORT_SHIFT_BYTES</ipxact:name>
           <ipxact:displayName>PORT_SHIFT_BYTES</ipxact:displayName>
-          <ipxact:value>PORT_USED</ipxact:value>
+          <ipxact:value>PORT_UNUSED</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="PORT_WREN" type="string">
           <ipxact:name>PORT_WREN</ipxact:name>
@@ -1256,9 +1207,7 @@
       <altera:interface_mapping altera:name="sector_erase" altera:internal="asmi_parallel_0.sector_erase" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="sector_erase" altera:internal="sector_erase"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="shift_bytes" altera:internal="asmi_parallel_0.shift_bytes" altera:type="conduit" altera:dir="end">
-        <altera:port_mapping altera:name="shift_bytes" altera:internal="shift_bytes"></altera:port_mapping>
-      </altera:interface_mapping>
+      <altera:interface_mapping altera:name="shift_bytes" altera:internal="asmi_parallel_0.shift_bytes"></altera:interface_mapping>
       <altera:interface_mapping altera:name="wren" altera:internal="asmi_parallel_0.wren" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="wren" altera:internal="wren"></altera:port_mapping>
       </altera:interface_mapping>
