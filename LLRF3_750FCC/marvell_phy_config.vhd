@@ -45,8 +45,8 @@ signal clk_div_q			: unsigned(7 downto 0);
 signal clk_div_d			: unsigned(7 downto 0);
 signal sclk					: std_logic;
 signal en_reset_count		: std_logic;
-signal reset_count_d		: unsigned(11 downto 0);
-signal reset_count_q		: unsigned(11 downto 0);
+signal reset_count_d		: unsigned(15 downto 0);
+signal reset_count_q		: unsigned(15 downto 0);
 signal clr_bit_count		: std_logic;
 signal en_bit_count			: std_logic;
 signal bit_count_q			: unsigned(6 downto 0);
@@ -120,7 +120,7 @@ end process;
 
 -- during power up, different versions of the fpga have different pull up which may expereince brief transients
 -- this coutner helps smooth out those transients. If coutner is on half the time, then pull up is likely present
-mdioCatchCnt_d <= mdioCatchCnt_q + 1 when ((en_mdc_q = '1') and (state = init) and (mdioCatchCnt_q /= x"989")) else mdioCatchCnt_q;
+mdioCatchCnt_d <= mdioCatchCnt_q + 1 when ((en_mdc_q = '1') and (state = init) and (mdioCatchCnt_q /= x"0FF")) else mdioCatchCnt_q;
  
 addr_count_d	<= 	(others => '0') when clr_addr_count = '0' else
 					addr_count_q + 1 when en_addr_count = '1' else
@@ -168,12 +168,12 @@ begin
 		state <= init;
 	elsif (rising_edge(sclk)) then
 		case state is
-			when init		=> 	if reset_count_q = x"989" then  -- Hold in reset for 10 ms
-											state	<= enable_check;       -- x"989" after  10 ms
+			when init		=> 	if reset_count_q = x"FFFF" then  -- Hold in reset for 10 ms (we overshoot so we can work for a range of clocks)
+											state	<= enable_check;       
 								      else 
 											state <= init;
 								      end if;
-			when enable_check => if mdioCatchCnt_q >= x"4C4" then  -- Check to see if en_mdc is set.
+			when enable_check => if mdioCatchCnt_q = x"0FF" then  -- Check to see if en_mdc is set.
 											state <= load_data;            -- If HI, proceed with mdc/mdio register config. 
 										else 
 											state	<=	phy_config_done;      -- Else skip to done
@@ -216,7 +216,7 @@ clr_addr_count	<= '0' when state = phy_config_done else '1';
 en_addr_count	<=	'1' when state = addr_check and addr_count_q /= "00010" else '0';
  
 	
-en_reset_count	<=	'1' when state = init and reset_count_q /= x"989"else '0';
+en_reset_count	<=	'1' when state = init and reset_count_q /= x"FFFF"else '0';
  
 ld_data_in_phy	<=	'1' when state = load_data else '0';
 en_data_in_phy	<=	'1' when state = sclk_high else '0';

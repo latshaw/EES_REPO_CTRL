@@ -85,7 +85,10 @@ entity cyclone10gx_digitizer_main is
 				
 			  
 			  pmod_io				:	in std_logic_vector(5 downto 0);
-			  jtag_mux_sel_out   :	out std_logic -- JTAG mux select '0' - C10 and M10, '1' for M10 only
+			  jtag_mux_sel_out   :	out std_logic; -- JTAG mux select '0' - C10 and M10, '1' for M10 only
+			  gpio_led_1         :  out STD_LOGIC; -- HEART_BEAT LED
+			  gpio_led_2         :  out std_logic;  -- heart beat ioc
+			  gpio_led_3         :  out std_logic	
 --			  pll_rd_valid				:	out std_logic
 			  
 			  
@@ -688,72 +691,33 @@ begin
 -- ===============================================================
 -- Reset Loigic
 -- ===============================================================
--- reset, is a normally HI push button
+-- reset, is a normally HI push button	
+	
+inst_reset_all_1: entity  work.reset_all
+port map(clock		=>	clock,
+			brd		=>	reset,
+			reg		=>	'1',
+			pll		=>	reset,
+			
+			pllrst	=>	lmk_reset_n,
+			fwrst		=>	reset_clock_n
+			);
 
--- used to help marvel config module reset
-process (clock)
-	begin
-		if clock'event and clock = '1' then
-		   reset_clock_n <= reset;
-		end if;
-	end process;
-	
-	
---process (adc_pll_clk_data, reset)
---	begin
---		if reset = '0' then
---			epcs_reset_buf <= '0';
---			rst_count      <= (others => '0');
---		elsif	adc_pll_clk_data'event and adc_pll_clk_data = '1' then
---		   if rst_count >= x"00FF" then
---				rst_count <= x"03FF";
---				epcs_reset_buf <= '1';
---			else
---				rst_count      <= rst_count_d;
---				epcs_reset_buf <= '0';
---			end if;
---		end if;
---	end process;
---	
---	rst_count_d <= rst_count + 1 when (rst_count <= x"00FF") else rst_count;
---	epcs_reset  <= epcs_reset_buf;
-	
-	
-----used to help PLL come up after LMK is programmed	
---process (adc_dclk_p) -- ref clock for PLL
---	begin
---		if reset = '0' then -- asyn reset helps meet recovery/removal timing
---			lmk_done      <= '0'; -- lmk done signal will go HI when lmk is configured
---			lmk_done_buf  <= '0'; -- buffer needed to help with CDC from clock -> adc_dclk_p
---			lmk_done_buf2 <= '0';
---		elsif adc_dclk_p'event and adc_dclk_p = '1' then
---		   lmk_done_buf2 <= lmk_done_d;
---			lmk_done_buf  <= lmk_done_buf2;
---			lmk_done      <= lmk_done_buf;
---		end if;
---	end process;
---	
---	--combinational logic
---	lmk_done_d <= lmkconfig_done; -- registered by clock
---	
---	process (adc_dclk_p) -- ref clock for PLL
---	begin
---		if lmk_done = '0' then   -- asyn reset helps meet recovery/removal timing
---			reset_adc     <= '1'; -- active HI reset for PLL reset, keep PLL reset during initial power up
---			reset_adc_buf <= '1';
---		elsif adc_dclk_p'event and adc_dclk_p = '1' then
---		   reset_adc     <= reset_adc_buf;
---			reset_adc_buf <= '0';
---		end if;
---	end process;
---	
+			
+--inst_reset_all_2: entity  work.reset_all
+--port map(clock		=>	adc_pll_clk_data,
+--			brd		=>	reset,
+--			reg		=>	'1',
+--			--pll		=>	'0',
+--			
+--			pllrst	=>	open,
+--			fwrst		=>	reset_n
+--			);
 
 
---lmk_reset_n    <= reset_clock_n; 
-lmk_reset_n    <= reset; -- direct from pin, asyn reset
---reset_n		   <= reset_adc_n; 
+--lmk_reset_n    <= reset; -- direct from pin, asyn reset
 reset_n		   <= reset; -- direct from pin, asyn reset 
---adc_pll_reset	<=	(not reset_n) and (not lmkconfig_done);	-- note, lmkconfig_done goes HI after LMK is configured, adc_pll_reset is active HI
+
 adc_pll_reset <= NOT(reset);--reset_adc; -- active HI
 	-- ===============================================================
 	-----------------------adc_data_acq code-----------------------
@@ -1026,7 +990,7 @@ dac8831_inst_3 : entity work.dac8831
 -- FPGA board REV 1 and later we do need to configure the pins
 -- for the REV1 boards, these are tired to C10 PMOD2. make sure these are never pulled up at power up.
 
-en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1' or fpga_ver(2)= '1' or fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
+en_mdc_mdio <= '0' when fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
 
 
 marvell_phy_config_inst : entity work.marvell_phy_config
@@ -1037,7 +1001,7 @@ marvell_phy_config_inst : entity work.marvell_phy_config
 			phy_resetn	=> ETH1_RESET_N,
 			mdio	      => eth_mdio,
 			mdc		   => eth_mdc,
-			config_done	=>  open);
+			config_done	=> gpio_led_1);
 
 
 rst_wait_cnt_d		<=	std_logic_vector(unsigned(rst_wait_cnt_q) + 1) when en_rst_wait_cnt = '1' else 
@@ -2032,7 +1996,7 @@ port map(clock			=>	clock,   -- Note, We are now using the 100 MHz clock, vs v5 
 ----------------initializing dac (ad9781)
 ad9781_inst: entity work.ad9781
 port map(clock		=>	clock, ----------------------------- should we use same reset as lmk?****************************
-			reset		=>	reset_n,
+			reset		=>	reset_clock_n, -- changed from reset_n
 		
 			spi_init	=>	lmkconfig_done,		
 			nCS		=>	ad9781_ncs,
@@ -2047,7 +2011,7 @@ spi_done_d(1)			<=	spi_done_q(0);
 spi_done_d(0)			<=	ad9653_spi_done;			
 ad9653_spi_inst: entity work.ad9653
 port map(clock		=>	clock,
-			reset		=>	reset_n,		
+			reset		=>	reset_clock_n, -- changed from reset_n		
 			spi_init	=>	lmkconfig_done,
 			adc_align_done	=>	ad9653_align_done,		
 			nCS		=>	ad9653_ncs,

@@ -15,8 +15,8 @@ module udp_com
 	  
 	  output		lb_clk,
 
-     inout     sfp_sda_0,
-     output    sfp_scl_0,
+     //inout     sfp_sda_0,
+     //output    sfp_scl_0,
 
      input     sfp_refclk_p,
      input     sfp_rx_0_p,

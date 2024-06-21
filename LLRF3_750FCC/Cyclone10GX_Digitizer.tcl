@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: Cyclone10GX_Digitizer.tcl
-# Generated on: Thu Jun  6 14:49:34 2024
+# Generated on: Fri Jun 21 14:45:47 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -69,6 +69,7 @@ if {$make_assignments} {
 	set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
 	set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 	set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+	set_global_assignment -name VHDL_FILE reset_all.vhd
 	set_global_assignment -name VERILOG_FILE cyclone_ru_only.v
 	set_global_assignment -name VHDL_FILE rfwd_wrapper.vhd
 	set_global_assignment -name VERILOG_FILE dpram_lbnl.v
@@ -411,6 +412,12 @@ if {$make_assignments} {
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_E16 -to lmk04808_ld
 	set_location_assignment PIN_T2 -to jtag_mux_sel_out
+	set_location_assignment PIN_N1 -to gpio_led_1
+	set_location_assignment PIN_T1 -to gpio_led_2
+	set_location_assignment PIN_R2 -to gpio_led_3
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_1 -entity cyclone10gx_digitizer_main
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_2 -entity cyclone10gx_digitizer_main
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_3 -entity cyclone10gx_digitizer_main
 
 	# Commit assignments
 	export_assignments

@@ -386,7 +386,7 @@ module cyclone (
 		.ctl_nupdt   (1'b0)    				//   input,   width = 1,       ctl_nupdt.ctl_nupdt : regiser select, HI is Control register, LO is Update register
 	);
 	
-	always@(posedge clock_rd8) begin 
+	always@(posedge clock_rd9) begin 
 			//
 			ru_instr_q    <= ru_instr_d;
 			ru_data_in_q  <= ru_data_in_d;
@@ -414,13 +414,13 @@ module cyclone (
 	//
 	//clocked registers
 	always@(posedge clock_rd9) begin 	
-		if (reset_n == 1'b0) begin
-			autoRU     <= 3'b000;
-			autoCNT    <= 0;
-			autoINTR   <= 3'b000;
-			ru_ctrl_q2 <= 3'b000;
-			ru_ctrl_q3 <= 3'b000;
-		end else begin
+//		if (reset_n == 1'b0) begin
+//			autoRU     <= 3'b000;
+//			autoCNT    <= 0;
+//			autoINTR   <= 3'b000;
+//			ru_ctrl_q2 <= 3'b000;
+//			ru_ctrl_q3 <= 3'b000;
+//		end else begin
 			autoRU     <= autoRUnext;
 			autoCNT    <= autoCNT_d;
 			autoINTR   <= autoINTR_d;
@@ -428,7 +428,7 @@ module cyclone (
 			ru_ctrl_q3 <= ru_ctrl_q2;
 			ruBsyB     <= ruBsy;
 			ruBusyStr2 <= {ruBusyStr2[1:0], ruBsyB};
-		end
+//		end
 	end	
 	
 	// next state combinational logic

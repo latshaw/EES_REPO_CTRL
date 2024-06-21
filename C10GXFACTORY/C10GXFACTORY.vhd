@@ -11,8 +11,8 @@ ENTITY C10GXFACTORY IS
 		m10_reset : in std_logic;  -- Let's us know if Max10 was reset
 		
 		-- SFP signals
-		sfp_sda_0		:	inout std_logic;	-- I2C SFP configuartion (SDA, SFP3_SDA_0 PIN_AD14)
-		sfp_scl_0		:	out std_logic;		-- I2C SFP configuartion (SCL, SFP3_SCL_0 PIN_AD15)	  
+		--sfp_sda_0		:	inout std_logic;	-- I2C SFP configuartion (SDA, SFP3_SDA_0 PIN_AD14)
+		--sfp_scl_0		:	out std_logic;		-- I2C SFP configuartion (SCL, SFP3_SCL_0 PIN_AD15)	  
 		sfp_refclk_p	:	in std_logic;		-- 125 MHz clock (SFP2_REFCLK0_P PIN_U22, SFP2_REFCLK0_N PIN_U21)  
 		sfp_tx_0_p		:	out std_logic;		-- SFP+3_TX0_P PIN_AC26, SFP+3_TX0_N, PI	N_AC25
 		sfp_rx_0_p		:	in std_logic;		-- SFP+3_RX0_P PIN_AB24, SFP+3_RX0_N, PIN_AB23
@@ -41,28 +41,28 @@ END C10GXFACTORY;
 ARCHITECTURE bdf_type OF C10GXFACTORY IS 
 
 --SFP Module
-component udp_com is
-port(	clock				: in std_logic;
-		reset_n			: in std_logic;
-		ip_sel         : in std_logic_vector(2 downto 0);
-		lb_clk			: out std_logic;
-		sfp_sda_0		: inout std_logic;
-		sfp_scl_0		: out std_logic;
-		sfp_refclk_p	: in std_logic; 
-		sfp_rx_0_p		: in std_logic;  
-		sfp_tx_0_p		: out std_logic;
-		lb_valid			: out std_logic;
-		lb_rnw			: out std_logic;
-		lb_addr			: out std_logic_vector(23 downto 0);
-		lb_wdata			: out std_logic_vector(31 downto 0);
-		lb_renable		: out std_logic;
-		lb_rdata			: in std_logic_vector(31 downto 0); -- changed to in, 3/8/21
-	   sfp_dataw		: in STD_LOGIC_VECTOR(31 downto 0);
-		sfp_datar		: out STD_LOGIC_VECTOR(31 downto 0);
-		sfp_ctrl   	   : in STD_LOGIC_VECTOR(31 downto 0);
-		sfp_config_done0 : out std_logic
-	);
-end component;
+--component udp_com is
+--port(	clock				: in std_logic;
+--		reset_n			: in std_logic;
+--		ip_sel         : in std_logic_vector(2 downto 0);
+--		lb_clk			: out std_logic;
+--		sfp_sda_0		: inout std_logic;
+--		sfp_scl_0		: out std_logic;
+--		sfp_refclk_p	: in std_logic; 
+--		sfp_rx_0_p		: in std_logic;  
+--		sfp_tx_0_p		: out std_logic;
+--		lb_valid			: out std_logic;
+--		lb_rnw			: out std_logic;
+--		lb_addr			: out std_logic_vector(23 downto 0);
+--		lb_wdata			: out std_logic_vector(31 downto 0);
+--		lb_renable		: out std_logic;
+--		lb_rdata			: in std_logic_vector(31 downto 0); -- changed to in, 3/8/21
+--	   sfp_dataw		: in STD_LOGIC_VECTOR(31 downto 0);
+--		sfp_datar		: out STD_LOGIC_VECTOR(31 downto 0);
+--		sfp_ctrl   	   : in STD_LOGIC_VECTOR(31 downto 0);
+--		sfp_config_done0 : out std_logic
+--	);
+--end component;
 
 -- 3/6/2024 , added for new marvel PHY
 COMPONENT marvell_phy_config IS
@@ -157,33 +157,35 @@ BEGIN
 
 
 
-	process (CLOCK)
-	begin
-		if CLOCK'event and CLOCK = '1' then
-			if reset = '0' then
-				reset_count <= "000";
-			else
-				reset_count <= reset_count_d;
-			end if;
-		end if;
-	end process;
+--	process (CLOCK)
+--	begin
+--		if CLOCK'event and CLOCK = '1' then
+--			if reset = '0' then
+--				reset_count <= "000";
+--			else
+--				reset_count <= reset_count_d;
+--			end if;
+--		end if;
+--	end process;
+--
+--	reset_count_d <= reset_count + 1 when (reset_count /= "111") else reset_count;
+--	
+--	RESET_all <= '0' when (reset_count /= "111") else '1'; 
 
-	reset_count_d <= reset_count + 1 when (reset_count /= "111") else reset_count;
-	
-	RESET_all <= '0' when (reset_count /= "111") else '1'; 
+RESET_all <= reset;
 
 --
 --===================================================
 -- Ethernet Communication Module from Berkeley (with test bench option)
 --===================================================
 --
-inst_comms_top: udp_com
+inst_comms_top: entity work.udp_com
 port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from clock 
 			reset_n			=>	RESET_all,	   -- active low reset
 			ip_sel			=>	pmod_io(2 downto 0),
 			lb_clk			=> CLOCK,			-- lb_clk 125 Mhz, from gtx0_tx_usr_clk/tx phy wrapper
-			sfp_sda_0		=>	sfp_sda_0,
-			sfp_scl_0		=>	sfp_scl_0,
+			--sfp_sda_0		=>	sfp_sda_0,
+			--sfp_scl_0		=>	sfp_scl_0,
 			sfp_refclk_p	=>	sfp_refclk_p,
 			sfp_rx_0_p		=>	SGMII1_RX_P,  -- sfp_rx_0_p
 			sfp_tx_0_p		=>	SGMII1_TX_P,  -- sfp_tx_0_p
@@ -215,15 +217,16 @@ port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from 
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => clock_100,
+			clock	      => CLOCK,
 			reset	      => reset,
 			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,
 			mdio	      => eth_mdio,
 			mdc		   => eth_mdc,
-			config_done	=>  open);
+			config_done	=>  gpio_led_1);
 			
-	en_mdc_mdio <= '0' when fpga_ver(5)= '1' or fpga_ver(4)= '1' or fpga_ver(3)= '1' or fpga_ver(2)= '1' or fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
+			
+	en_mdc_mdio <= '0' when fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
 
 -- ================================================================
 --  Silly heart beat for PCB LEDS
@@ -245,7 +248,7 @@ marvell_phy_config_inst : marvell_phy_config
 	end process;
 	
 	hb_fpga    <= '1' when (strb_cnt <= x"BEBC20") else '0'; -- checks lb_reads /udp alive
-	gpio_led_1 <= '1' when (hb_cnt   >= x"1FFFFF") else '0'; -- others, silly count up
+	--gpio_led_1 <= '1' when (hb_cnt   >= x"1FFFFF") else '0'; -- others, silly count up
 	gpio_led_2 <= '1' when (hb_cnt   >= x"3FFFFF") else '0';
 	gpio_led_3 <= '1' when (hb_cnt   >= x"7FFFFF") else '0';
 			
