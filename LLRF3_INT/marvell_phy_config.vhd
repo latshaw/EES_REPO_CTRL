@@ -29,6 +29,7 @@ use ieee.numeric_std.all;
 entity marvell_phy_config is
 port(clock	:	in std_logic;
 	reset	:	in std_logic;
+	en_mdc : in std_logic; -- during power on, set HI to enable mdc/mdio register config. Marvel reset happens in any case.
 	phy_resetn	:	out std_logic;
 	mdio	:	out std_logic;
 	mdc		:	out std_logic;
@@ -44,8 +45,8 @@ signal clk_div_q			: unsigned(7 downto 0);
 signal clk_div_d			: unsigned(7 downto 0);
 signal sclk					: std_logic;
 signal en_reset_count		: std_logic;
-signal reset_count_d		: unsigned(11 downto 0);
-signal reset_count_q		: unsigned(11 downto 0);
+signal reset_count_d		: unsigned(15 downto 0);
+signal reset_count_q		: unsigned(15 downto 0);
 signal clr_bit_count		: std_logic;
 signal en_bit_count			: std_logic;
 signal bit_count_q			: unsigned(6 downto 0);
@@ -69,10 +70,12 @@ signal mdio_d, mdio_q		:	std_logic;
 signal phy_resetn_d			:	std_logic;
  
  
-type state_type is (init, load_data, sclk_low, sclk_high, addr_check, phy_config_done);
+type state_type is (init, load_data, enable_check, sclk_low, sclk_high, addr_check, phy_config_done);
 signal state			: state_type;
  
- 
+
+signal mdioCatchCnt_q, mdioCatchCnt_d    : unsigned(11 downto 0);
+signal en_mdioCatchCnt, en_mdc_q : std_logic;
  
 begin
 
@@ -95,9 +98,11 @@ begin
 		reset_count_q	<= (others => '0');
 		data_in_phy_q	<= (others => '0');
 		data_out_phy_q	<= (others => '0');
+		mdioCatchCnt_q <= (others => '0');
 --		mdc				<=	'0';
 --		mdio_q			<=	'1';
 		phy_resetn		<=	'0';	
+		en_mdc_q       <= '0';
 	elsif(rising_edge(sclk)) then
 		bit_count_q		<= bit_count_d;
 		addr_count_q	<= addr_count_d;
@@ -107,8 +112,15 @@ begin
 --		mdc				<=	mdc_d;
 --		mdio_q			<=	mdio_d;
 		phy_resetn		<=	phy_resetn_d;
+		mdioCatchCnt_q <= mdioCatchCnt_d;
+		en_mdc_q       <= en_mdc;
 	end if;
 end process;	
+ 
+
+-- during power up, different versions of the fpga have different pull up which may expereince brief transients
+-- this coutner helps smooth out those transients. If coutner is on half the time, then pull up is likely present
+mdioCatchCnt_d <= mdioCatchCnt_q + 1 when ((en_mdc_q = '1') and (state = init) and (mdioCatchCnt_q /= x"0FF")) else mdioCatchCnt_q;
  
 addr_count_d	<= 	(others => '0') when clr_addr_count = '0' else
 					addr_count_q + 1 when en_addr_count = '1' else
@@ -156,17 +168,28 @@ begin
 		state <= init;
 	elsif (rising_edge(sclk)) then
 		case state is
-			when init		=> 	if reset_count_q = x"989" then state	<= load_data;--------x"989" for 10 ms
-								else state <= init;
-								end if;
+			when init		=> 	if reset_count_q = x"FFFF" then  -- Hold in reset for 10 ms (we overshoot so we can work for a range of clocks)
+											state	<= enable_check;       
+								      else 
+											state <= init;
+								      end if;
+			when enable_check => if mdioCatchCnt_q = x"0FF" then  -- Check to see if en_mdc is set.
+											state <= load_data;            -- If HI, proceed with mdc/mdio register config. 
+										else 
+											state	<=	phy_config_done;      -- Else skip to done
+										end if;
 			when load_data	=>	state <= sclk_low;
 			when sclk_low	=> 	state <= sclk_high;
-			when sclk_high	=>	if bit_count_q = "1000000" then state <= addr_check;
-								else state <= sclk_low;
-								end if;
-			when addr_check	=>	if addr_count_q = "00010" then state <= phy_config_done;
-								else state <= load_data;
-								end if;
+			when sclk_high	=>	if bit_count_q = "1000000" then 
+										state <= addr_check;
+									else 
+										state <= sclk_low;
+									end if;
+			when addr_check	=>	if addr_count_q = "00010" then 
+											state <= phy_config_done;
+										else 
+											state <= load_data;
+										end if;
 			when phy_config_done	=>	state	<=	phy_config_done;
 
 			when others		=> state <= init;
@@ -193,7 +216,7 @@ clr_addr_count	<= '0' when state = phy_config_done else '1';
 en_addr_count	<=	'1' when state = addr_check and addr_count_q /= "00010" else '0';
  
 	
-en_reset_count	<=	'1' when state = init and reset_count_q /= x"989"else '0';
+en_reset_count	<=	'1' when state = init and reset_count_q /= x"FFFF"else '0';
  
 ld_data_in_phy	<=	'1' when state = load_data else '0';
 en_data_in_phy	<=	'1' when state = sclk_high else '0';

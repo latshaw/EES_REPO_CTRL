@@ -1,29 +1,23 @@
 -- written for ADS8684
 -- JAL  12/2/2020
 -- SDG
+-- major updates as of 6/26/24
 
 -- adc will initialize and will continue to sample the adc and offload the data.
 -- Because this adc is continously re-sampling, the rising edge of the 'ready' 
 -- output signal can be used as the Fsample for IRR/waveforms (if needed)
 
 -- Notes:
--- when adc first comes out of reset, it will output of all registers will be 0xFACE
--- 
--- 2/11/2021
 -- raw output of adc is in Bipolar Offset Binary (BOB) format.
 -- this means that FFFF = PFS = 12 VDC
 --						 8000 = FSR/2 = 0 VDC
 --						 0000 = NFS = -12 VDC
 -- to convert from BOB to 2's complement we simply add x8000 to the adc value.
---
--- 3/31/21, updates for 125 MHz local bus clock, see clk_spi process notes.
--- I think it would have been find to run at the old counter values since the max spi is 17MHz
-
--- NOTE, needed to change polarity of IR sensors becuase they are backwards (somewhere...)
+-- HOWEVER, we also invert data because the IR inputs are flipped.
+-- so we needed to change polarity of IR sensors becuase they are backwards (somewhere... on the pcb)
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 
 entity ADS8684 is
@@ -53,272 +47,156 @@ architecture synth of ADS8684 is
 	signal data_save : STD_LOGIC_VECTOR(11 downto 0);
 	signal addr	  : STD_LOGIC_VECTOR(2 downto 0) := "000";
 	signal chn_sel : STD_LOGIC_VECTOR(1 downto 0) := "00";
+	signal readyREG_d, readyREG_q : STD_LOGIC_VECTOR(3 downto 0);
 	--
-	signal spi_counter : STD_LOGIC_VECTOR(3 downto 0);
+	signal SDI_q, SDI_d, SDO_q, SDO_d : UNSIGNED(15 downto 0);
+	signal regAq, regAd, regBq, regBd, regCq, regCd, regDq, regDd : UNSIGNED(15 downto 0);
+	--
+	signal spi_counter_q, spi_counter_d : UNSIGNED(2 downto 0); -- half rate of sclk period
+	signal reset_counter_q, reset_counter_d : UNSIGNED(11 downto 0); -- hold in reset at init
+	signal delay_counter_q, delay_counter_d : UNSIGNED(11 downto 0); -- delay between samples
+	signal sclk_counter_q, sclk_counter_d   : UNSIGNED(4 downto 0); -- 32 sclk pulses
+	signal chan_sel_q, chan_sel_d           : UNSIGNED(1 downto 0); -- reading 4 channels
 
+	
+	-- arranged in general state machine order
+	type state_type is (INIT, DELAY, SCLK_LOW1, SCLK_LOW2, SCLK_HI1, SCLK_HI2, SCLK_HI3, SCLK_HI4, SCLK_LOW3, SCLK_LOW4); 
+	signal state_d, state_q			: state_type;
+	
+	
 begin
 	--===========================================================================================================================
-	-- ADC State Machine
+	-- Main Register
 	--===========================================================================================================================
+	-- Note, ADC covnersion happens at follwing edge of CSn
+	--       ADC reads them on falling edge of SCLK
 	--
-	process(clk_spi, reset_n)
-	variable counter          : STD_LOGIC_VECTOR(7 downto  0) := x"00";
-	variable man_chn_sel      : STD_LOGIC_VECTOR(1 downto  0) := "00";
-	variable sdi_bits         : STD_LOGIC_VECTOR(15 downto 0) := x"0000";
-	variable data_save_buffer : STD_LOGIC_VECTOR(15 downto 0);
-	variable hold_reg_a, hold_reg_b, hold_reg_c, hold_reg_d : STD_LOGIC_VECTOR(15 downto 0);
-	variable reset_clear 	  : STD_LOGIC; -- will be high once we come out of reset
-	begin
-		if reset_n = '0' then
-			counter := x"00"; --reset counter
-			ADC_CSn <= '1'; 	-- chip select is hi when adc is not using spi
-			ADC_SDI <= '0';	-- sdi is held low when spi not in use
-			sclk_en <= '0';	-- sclk enable is off
-			data_save_buffer  := x"0000";
-			hold_reg_a := x"face";
-			hold_reg_b := x"face";
-			hold_reg_c := x"face";
-			hold_reg_d := x"face";
-			man_chn_sel := "00";
-			state <= x"1"; -- configure the adc
-			sdi_bits := x"C000";
-			chn_sel <= "00";
-			rdy_en <= '0'; -- enable of ready pulse
-			reset_clear := '1';
-		elsif clk_spi'event and clk_spi='1' then -- makes changes on positive edge, adc reads them on falling edge
-				--
-				-- state machine
-				case state is
-				when x"1"   => -- data conversion state 
-						-- send next manuel command register over the sdi bits for the first 16 clocks (0 to 15)
-						-- then begin to read sdo data for next 16 clocks (16 to 31).
-						-- After the 31st clock, all SDO bits will have been read.
-						
-						if 	counter >= x"0F" then -- 2/17/21 updated to >= x0F
-							-- for ticks 16 to 31
-							-- this SDO data is from the previous manually selected channel
-							data_save_buffer := data_save_buffer(14 downto 0) & ADC_SDO; -- use shift register to shift in bits
-							--
-							-- check to see if we are on the last tick
-							if counter >= x"1F" then -- 2/17/21 updated to >= x1F
-								state <= x"2"; -- go to the next state
-								counter := x"00";
-								sclk_en <= '0'; -- disable sclk
-								ADC_CSn <= '1'; -- de-select chip
-							else
-								state <= x"1";
-								counter := counter + 1;
-								sclk_en <= '1'; -- keep sclk enabled
-								ADC_CSn <= '0'; -- keep chip selected
-							end if;
-							--
-							ADC_SDI <= '0'; -- keep sdi outut low low
-							sdi_bits := x"0000"; -- sdi bits for next conversion will be set in state 2
-														
-						else
-							-- for ticks 0 to 15
-							-- this provides the ADC with the next channel to be read
-							ADC_SDI <= sdi_bits(15); -- output sdi bit
-							sdi_bits := sdi_bits(14 downto 0) & '0'; -- use simple shift register to shift SDI bits out
-							--
-							state <= x"1";
-							counter := counter + 1;
-							data_save_buffer := x"0000";
-							sclk_en <= '1'; -- keep sclk enabled
-							ADC_CSn <= '0'; -- keep chip selected
-						end if;
-					-- 
-					rdy_en <= '0'; 
-					reset_clear := reset_clear;
-					--
-					hold_reg_a := hold_reg_a;
-					hold_reg_b := hold_reg_b;
-					hold_reg_c := hold_reg_c;
-					hold_reg_d := hold_reg_d;
-					--
-					-- man_chn_sel is the sdi that is being written during this state.
-					-- the data that is being offloaded on sdo was written during the
-					-- previous frame. Thus we want to 'look back one frame'
-					IF 	man_chn_sel ="00" THEN
-						chn_sel <= "11";
-					ELSIF man_chn_sel ="01" THEN
-						chn_sel <= "00";
-					ELSIF man_chn_sel ="10" THEN
-						chn_sel <= "01";
-					ELSE
-						chn_sel <= "10";
-					END IF;
-					--
-					--						
-				when others =>  -- load data into registers and add 'between samples delay'
-					--
-					-- The ready signal will pulse hi (external to this state machine) indicating that the register is ready
-					-- to be read.
-					
-					data_save_buffer := data_save_buffer;
-					-- incorporate the between samples delay
-					if counter >= x"01" then
-						state <= x"1"; -- go to the next state, ready to re-sample
-						counter := x"00";
-						ADC_CSn <= '0'; -- select the chip
-						sclk_en <= '0'; -- sclk disabled
-						--
-						reset_clear := reset_clear;
-						rdy_en <= rdy_en;
-						--
-					elsif counter = x"00" then
-					--
-						state <= x"2"; -- stay in this state
-						counter := counter + 1;
-						ADC_CSn <= '1'; -- de-select the chip
-						sclk_en <= '0'; -- sclk disabled
-					--
-						-- Setup sdi bits for next state
-						-- register output data for the address given in the previous state
-						-- hold all other output registrers. man_chn_sel is the address given in the previous state
-						--
-						-- added 2/11/2021 by JAL
-						--			convert BOB to 2's complement by adding x8000 to recieved adc data
-						--			this addition will occur first, then adc value will be assigned to its hold register
-						-- 		adc value is now in 2's complement format.
-						--			note, because we are converting from BOB, we do no want to add 1 to prevent overflow for PFS
-						data_save_buffer := std_logic_vector( NOT(unsigned(data_save_buffer) + x"8000"));
-						--
-						if    man_chn_sel = "00" then
-							man_chn_sel := "01";
-							sdi_bits := x"C400"; -- channel 1, reg_b
-							-- regsiter output data
-							hold_reg_a := hold_reg_a;
-							hold_reg_b := hold_reg_b;
-							hold_reg_c := hold_reg_c;
-							hold_reg_d := data_save_buffer;
-						elsif man_chn_sel = "01" then
-							man_chn_sel := "10";
-							sdi_bits := x"C800"; -- channel 2, reg_c
-							-- regsiter output data
-							hold_reg_a := data_save_buffer;
-							hold_reg_b := hold_reg_b;
-							hold_reg_c := hold_reg_c;
-							hold_reg_d := hold_reg_d;
-						elsif man_chn_sel = "10" then
-							man_chn_sel := "11";
-							sdi_bits := x"CC00"; -- channel 3, reg_d
-							-- regsiter output data
-							hold_reg_a := hold_reg_a;
-							hold_reg_b := data_save_buffer;
-							hold_reg_c := hold_reg_c;
-							hold_reg_d := hold_reg_d;
-						else  
-							man_chn_sel := "00";
-							sdi_bits := x"C000"; -- channel 0, reg_a
-							-- regsiter output data
-							hold_reg_a := hold_reg_a;
-							hold_reg_b := hold_reg_b;
-							hold_reg_c := data_save_buffer;
-							hold_reg_d := hold_reg_d;
-						end if;
-					--
-					-- check to see if we are coming out of reset
-						if reset_clear = '1' then
-							-- we will only be in this path if we are first coming out of reset.
-							-- the data in the buffer is not valid so do not give a ready pulse.
-							-- pull bit 1 of the ready enable low.
-							rdy_en <= '0'; 
-							reset_clear := '0';
-						else
-							-- this should be the normal path,
-							-- we are not coming out of rset, enable ready pulse
-							rdy_en <= '1';
-							reset_clear := '0';	
-						end if;	
-					--
-					else
-						state <= x"2"; -- stay in this state
-						counter := counter + 1;
-						ADC_CSn <= '1'; -- de-select the chip
-						sclk_en <= '0'; -- sclk disabled
-						--
-						reset_clear := reset_clear;
-						rdy_en <= rdy_en;
-						--
-					end if;
-					--
-					--
-					ADC_SDI <= '0'; -- keep sdi low
-				--
-				end case;
-				
-		end if; -- end reset
-		--
-		-- continous assignment
-		reg_a <= hold_reg_a;
-		reg_b <= hold_reg_b;
-		reg_c <= hold_reg_c;
-		reg_d <= hold_reg_d;
-		--
-	end process;
-	
-	-- sclk enable mux
-	ADC_SCK <= clk_spi when sclk_en = '1' else '1'; -- keep hi if not in use
-	-- let parent module know that register data is ready to be read
-	-- this seems redundant, but I believe it makes the module to module
-	-- connections easier to understand
-	ready_a <= '1' when state = x"2" and chn_sel = "00" and rdy_en ='1' else '0';
-	ready_b <= '1' when state = x"2" and chn_sel = "01" and rdy_en ='1' else '0';
-	ready_c <= '1' when state = x"2" and chn_sel = "10" and rdy_en ='1' else '0';
-	ready_d <= '1' when state = x"2" and chn_sel = "11" and rdy_en ='1' else '0';
-	
-	--===========================================================================================================================
-	-- ADC clock (125 Mhz to 12.5 MHz), max spi sclk frequecny is 20 MHz
-	--===========================================================================================================================
-	-- FOR 100 MHZ INPUT
-	-- divide by 4 to go from 100 Mhz to 12.5 Mhz (4 ticks hi, 4 ticks low at the 100 Mhz rate will make a 12.5Mhz clock)
-	-- delay 1 controls how many clock ticks the sclk will be HI for.
-	-- delay 2 controls how many clock ticks that the sclk will be LOW for plus 1. if you want a 50% duty cycle, then
-	-- set delay2 = 2*delay1 - 1
-	-- delay1 was 0x3
-	-- delay2 was 0x6
-	-- 
-	-- update for 125 Mhz clock, 3/31/21
-	-- FOR 125 MHZ INPUT
-	-- divide by 5 to go from 125 Mhz to 12.5 Mhz (5 ticks hi, 5 ticks low at the 125 Mhz rate will make a 12.5Mhz clock)
-	-- delay 1 controls how many clock ticks the sclk will be HI for.
-	-- delay 2 controls how many clock ticks that the sclk will be LOW for plus 1. if you want a 50% duty cycle, then
-	-- set delay2 = 2*delay1 - 1
---	
---	process(clk, reset_n)
---		variable counter : STD_LOGIC_VECTOR(3 downto 0) := x"0";
---		constant delay1 : STD_LOGIC_VECTOR(3 downto 0) := x"4"; -- will be hi for this duration
---		constant delay2 : STD_LOGIC_VECTOR(3 downto 0) := x"8"; -- after the hi time, it will be low for this duration + 1 tick
---	begin
---		if reset_n = '0' then
---			counter := x"0";
---			clk_spi <= '0';
---		elsif clk'event and clk = '1' then 
---				if (counter <= delay1) then -- sclk is hi
---					counter := counter + 1;
---					clk_spi  <= '1';
---				elsif (counter > delay1) and (counter <= delay2)  then -- sclk is low
---					counter := counter + 1;
---					clk_spi  <= '0';
---				else -- sclk is low, reset counter for next iteration
---					counter := x"0";
---					clk_spi  <= '0';
---				end if;
---		end if;
---	end process;
-
-	-- JAL, 6/28/2023, new SPI clock useses a simple counter. divier by 4, so
-	-- spi rate will be 125 MHz /4 = 7.8125 MHz
 	process(clk, reset_n)
 	begin
 		if reset_n = '0' then
-			spi_counter <= (OTHERS => '0');
-		elsif clk'event and clk = '1' then 
-				spi_counter <= spi_counter + 1;
-		end if;
+			state_q         <= INIT;
+			reset_counter_q <= (others	=>	'0');
+			delay_counter_q <= (others	=>	'0');
+			sclk_counter_q  <= (others	=>	'0');
+			chan_sel_q      <= (others	=>	'0');
+			SDI_q           <= (others	=>	'0');
+			SDO_q           <= (others	=>	'0');
+			readyREG_q      <= (others => '0');
+			regAq           <= (others	=>	'0');
+			regBq           <= (others	=>	'0');
+			regCq           <= (others	=>	'0');
+			regDq           <= (others	=>	'0');
+		elsif clk'event and clk='1' then 
+			state_q         <= state_d;
+			reset_counter_q <= reset_counter_d;
+			delay_counter_q <= delay_counter_d;
+			sclk_counter_q  <= sclk_counter_d;
+			chan_sel_q      <= chan_sel_d;
+			SDI_q           <= SDI_d;
+			SDO_q           <= SDO_d;
+			readyREG_q      <= readyREG_d;
+			regAq           <= regAd;
+			regBq           <= regBd;
+			regCq           <= regCd;
+			regDq           <= regDd;
+		end if; -- end reset
 	end process;
-	clk_spi <= spi_counter(3);
+	--
+	--
+	--===========================================================================================================================
+	-- ADC State Machine
+	--===========================================================================================================================
+	--	SCLK will be HI for 4 fast clock ticks and LOW for 4 fast clock ticks per one SCLK period
+	-- note this is a combinational process
+	process(reset_n, state_q, reset_counter_q, delay_counter_q, sclk_counter_q)
+	begin
+		if reset_n = '0' then
+			state_d <= INIT;
+		--elsif clk'event and clk='1' then -- fast clock
+		else
+				case state_q is
+				when INIT    => if reset_counter_q >= x"0ff" then --initial wakeup delay
+											state_d <= DELAY;
+										else
+											state_d <= INIT;
+										end if;
+				when DELAY     => if delay_counter_q >= x"0ff" then -- delay between ADC samples
+											state_d <= SCLK_LOW1;
+										else
+											state_d <= DELAY;
+										end if;
+				when SCLK_LOW1 => state_d <= SCLK_LOW2;		
+				when SCLK_LOW2 => state_d <= SCLK_HI1;
+				when SCLK_HI1  => state_d <= SCLK_HI2;
+				when SCLK_HI2  => state_d <= SCLK_HI3;
+				when SCLK_HI3  => state_d <= SCLK_HI4;
+				when SCLK_HI4  => state_d <= SCLK_LOW3;
+				when SCLK_LOW3 => state_d <= SCLK_LOW4;
+				when others    => if sclk_counter_q = x"1F" then -- SCLK_LOW4
+											state_d <= DELAY;
+										else
+											state_d <= SCLK_LOW1;
+										end if;
+				end case;		
+		end if; -- end reset
+		--
+		--
+	end process;
+	
+	-- counters
+	reset_counter_d <= x"000" when state_q /= INIT  else reset_counter_q + 1; -- only increment counter in init state, o/w reset
+	delay_counter_d <= x"000" when state_q /= DELAY else delay_counter_q + 1; -- only incrment counte rin  delay state, o/w reset
+	sclk_counter_d  <= sclk_counter_q + 1 when state_q = SCLK_LOW4  else sclk_counter_q; -- will roll over after 32 SCLK pulses
+	chan_sel_d      <= chan_sel_q + 1     when state_q = SCLK_LOW4 AND sclk_counter_q = x"1F"  else chan_sel_q; -- will roll over after all 4 channles are read
+	-- spi data word : changes based on which adc is read. 
+	-- note, the direction is from the prespective of the ADC (so it matches the datasheet)
+	-- SDO is from ADC to FPGA
+	-- SDI is from FPGA to ADC
+	--
+	-- next SDI word is established during DELAY state
+   -- MSbit is shifted out on last SCLK_LOW state	
+	SDI_d <= x"C000" when chan_sel_q = "00" AND state_q = DELAY else -- channel 0, reg_a
+	         x"C400" when chan_sel_q = "01" AND state_q = DELAY else -- channel 1, reg_b
+				x"C800" when chan_sel_q = "10" AND state_q = DELAY else -- channel 2, reg_c
+				x"CC00" when chan_sel_q = "11" AND state_q = DELAY else -- channel 3, reg_d
+				SDI_q(14 downto 0) & '0' when state_q = SCLK_LOW4  else -- shift out MSbit
+				SDI_q;                                                  -- o/w keep current value
+	--
+	-- SDO wil come in during the last 16 sclk pulses.
+   --	ADC expects data to be registered at falling edge of SCLK which for us is the rising edge of the SCLK_LLOW3 state
+	SDO_d <= SDO_q(14 downto 0) & '0'     when state_q = SCLK_LOW3 and sclk_counter_q <= x"0F" else -- first 16 ticks, shift in zeros to reset the buffer
+	         SDO_q(14 downto 0) & ADC_SDO when state_q = SCLK_LOW3 and sclk_counter_q >= x"10" else -- last 16 ticks, read in data
+				SDO_q;                                                                                 -- o/w hold register value		
+	--
+	-- ready bit will pulse HI when a given channel has clocked all bits
+	readyREG_d(0) <= '1' when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "00" else '0';
+	readyREG_d(1) <= '1' when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "01" else '0';
+	readyREG_d(2) <= '1' when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "10" else '0';
+	readyREG_d(3) <= '1' when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "11" else '0';			
+	--
+	--
+	-- When data is ready, update the corresponding register. we need to invert it and add x8000 to convert to 2's complement
+	regAd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "00" else regAq;
+	regBd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "01" else regBq;
+	regCd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "10" else regCq;
+	regDd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "11" else regDq;
+	--
+	--
+	--===========================================================================================================================
+	-- Module Outputs
+	--===========================================================================================================================
+	ADC_SDI <= SDI_q(15);
+	ADC_CSn <= '1' when state_q = INIT OR state_q = DELAY else '0';
+	ADC_SCK <= '0' when state_q = SCLK_LOW1 OR state_q = SCLK_LOW2 OR state_q = SCLK_LOW3 OR state_q = SCLK_LOW4 else '1'; -- keep hi if not in use
+	reg_a   <= STD_LOGIC_VECTOR(regAq);
+	reg_b   <= STD_LOGIC_VECTOR(regBq);
+	reg_c   <= STD_LOGIC_VECTOR(regCq);
+	reg_d   <= STD_LOGIC_VECTOR(regDq);
+	-- data is truly ready at falling edge of ready pulse
+	ready_a <= readyREG_q(0); 
+	ready_b <= readyREG_q(1);
+	ready_c <= readyREG_q(2);
+	ready_d <= readyREG_q(3);
 	--
 	--
 end architecture;

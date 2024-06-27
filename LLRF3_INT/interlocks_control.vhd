@@ -17,7 +17,7 @@ USE WORK.COMPONENTS.ALL;
 ENTITY interlocks_control IS 
 	PORT
 	(
-		--CLOCK :  IN  STD_LOGIC;		-- 100 MHz (may need to change to 80 MHz with PLL), c10_CLKUSR
+		clock_100 :  IN  STD_LOGIC; -- 100 MHz (may need to change to 80 MHz with PLL), c10_CLKUSR
 		RESET :  IN  STD_LOGIC;		-- switch 1, c10 reset
 		m10_reset : in std_logic;  -- Let's us know if Max10 was reset
 		
@@ -41,6 +41,9 @@ ENTITY interlocks_control IS
 		ETH1_RESET_N   : out std_logic;
 		eth_mdio       : out std_logic;
 		eth_mdc        : out std_logic;
+		
+		fpga_ver				: in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
+		jtag_mux_sel_out   :	out std_logic; -- JTAG mux select '0' - C10 and M10, '1' for M10 only
 		
 		-- Legacy isa info, no longer needed, keep this until we wire up the new udp module
 --		ISA_RESET_FPGA :  IN  STD_LOGIC;
@@ -595,6 +598,7 @@ COMPONENT marvell_phy_config IS
 	PORT (
 			clock	      :	in std_logic;
 			reset	      :	in std_logic;
+			en_mdc      :  in std_logic;
 			phy_resetn	:	out std_logic;
 			mdio	      :	out std_logic;
 			mdc		   :	out std_logic;
@@ -606,7 +610,7 @@ signal c10gx_tmp, c10gx_tmp_buffer	, tempb1, tempb2	:	std_logic_vector(9 downto 
 signal temp_eoc1, temp_eoc2, temp_eoc3 : STD_LOGIC;
 -- internal temperature sensore end of fetching the temp. (falling edge)
 SIGNAL fpga_tsd_int_EOC_n : STD_LOGIC;
-
+signal en_mdc_mdio : STD_LOGIC;
 signal sfp_config_done0 : STD_LOGIC;
 SIGNAL	A :  STD_LOGIC_VECTOR(19 DOWNTO 0);
 SIGNAL	ARC :  STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -709,15 +713,17 @@ BEGIN
 -- ================================================================
 -- 3/6/2024
 
+en_mdc_mdio <= '0' when fpga_ver(3)= '1' else '1'; -- note, a jumper connecting PMOD2 C10 pin 4 to GND (pin 5 or 11) is needed
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => CLOCK,
+			clock	      => clock_100,
 			reset	      => RESET_all_n,
+			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,
 			mdio	      => eth_mdio,
 			mdc		   => eth_mdc,
-			config_done	=>  open);
+			config_done	=>  LED3);
 
 
 
@@ -728,7 +734,7 @@ reset_control: RESETS
 PORT MAP(CLOCK 			=> CLOCK,			-- local bus clock (125 MHz
 			BRD_RESET 		=> RESET,			-- board level reset
 			ISA_RESET_FPGA => '0', 				-- N/C
-			REG_RESET 		=> '0',  	-- reset from control register / epics, REG_RESET from reg module removed. JAL 6/21/22
+			REG_RESET 		=> '0',  	      -- reset from control register / epics, REG_RESET from reg module removed. JAL 6/21/22
 			RESET 			=> RESET_all_n);	-- reset to reset all modules, active low
 
 
@@ -756,7 +762,7 @@ PORT MAP(clock => CLOCK,
 		 LED => LED2);
 		 
 -- loop back sfp config done bit to LED3
-LED3 <= sfp_config_done0;
+--LED3 <= sfp_config_done0;
 		 
 --HB_HB : heartbeat_fp
 --PORT MAP(clock, RESET_all_n, udp_hb);
@@ -839,10 +845,10 @@ end process;
 		ADC_SCK	=>  TMP_SCLK_1,
 		ADC_SDI	=>  TMP_SDI_1,
 		ADC_SDO	=>  TMP_SDO_1,
-		reg_a		=>  TMPWRM_DATA(2), -- IR_A/B_1 = TMPWRM1
-		reg_b		=>  TMPWRM_DATA(0), -- IR_A/B_4 = TMPWRM3
-		reg_c		=>  TMPCLD_DATA(0), -- IR_A/B_2 = TMPCLD3
-		reg_d		=>  TMPCLD_DATA(2), -- IR_A/B_3 = TMPCLD1
+		reg_a		=>  TMPCLD_DATA(2), --
+		reg_b		=>  TMPWRM_DATA(2), --
+		reg_c		=>  TMPWRM_DATA(0), --
+		reg_d		=>  TMPCLD_DATA(0), --
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
@@ -858,10 +864,10 @@ end process;
 		ADC_SCK	=>  TMP_SCLK_2,
 		ADC_SDI	=>  TMP_SDI_2,
 		ADC_SDO	=>  TMP_SDO_2,
-		reg_a		=>  TMPWRM_DATA(1), -- IR_A/B_6 = TMPWRM4
-		reg_b		=>  TMPWRM_DATA(3), -- IR_A/B_7 = TMPWRM2
-		reg_c		=>  TMPCLD_DATA(3), -- IR_A/B_5 = TMPCLD2
-		reg_d		=>  TMPCLD_DATA(1), -- IR_A/B_8 = TMPCLD4
+		reg_a		=>  TMPCLD_DATA(1), --
+		reg_b		=>  TMPWRM_DATA(1), --
+		reg_c		=>  TMPWRM_DATA(3), --
+		reg_d		=>  TMPCLD_DATA(3), --
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
@@ -876,10 +882,10 @@ end process;
 		ADC_SCK	=>  TMP_SCLK_3,
 		ADC_SDI	=>  TMP_SDI_3,
 		ADC_SDO	=>  TMP_SDO_3,
-		reg_a		=>  TMPWRM_DATA(6), -- IR_A/B_9  = TMPWRM5
-		reg_b		=>  TMPWRM_DATA(4), -- IR_A/B_12 = TMPWRM7
-		reg_c		=>  TMPCLD_DATA(4), -- IR_A/B_10 = TMPCLD7
-		reg_d		=>  TMPCLD_DATA(6), -- IR_A/B_11 = TMPCLD5
+		reg_a		=>  TMPCLD_DATA(6), -- 
+		reg_b		=>  TMPWRM_DATA(6), --
+		reg_c		=>  TMPWRM_DATA(4), --
+		reg_d		=>  TMPCLD_DATA(4), --
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
@@ -894,10 +900,10 @@ end process;
 		ADC_SCK	=>  TMP_SCLK_4,
 		ADC_SDI	=>  TMP_SDI_4,
 		ADC_SDO	=>  TMP_SDO_4,
-		reg_a		=>  TMPWRM_DATA(5), -- IR_A/B_14 = TMPWRM8
-		reg_b		=>  TMPWRM_DATA(7), -- IR_A/B_15 = TMPWRM6
-		reg_c		=>  TMPCLD_DATA(7), -- IR_A/B_13 = TMPCLD6
-		reg_d		=>  TMPCLD_DATA(5), -- IR_A/B_16 = TMPCLD8
+		reg_a		=>  TMPCLD_DATA(5), 
+		reg_b		=>  TMPWRM_DATA(5), 
+		reg_c		=>  TMPWRM_DATA(7), 
+		reg_d		=>  TMPCLD_DATA(7), 
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,

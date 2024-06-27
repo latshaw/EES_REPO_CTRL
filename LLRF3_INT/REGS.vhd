@@ -116,16 +116,19 @@ END component;
 
 --verilog component
 -- used for remote flash and reconfigure
-COMPONENT CYCLONE IS
-	PORT (
-			 lb_clk 		: IN STD_LOGIC;
-			 c10_addr 	: IN STD_LOGIC_VECTOR(31 downto 0);
-			 c10_data 	: IN STD_LOGIC_VECTOR(31 downto 0);
-			 c10_cntlr 	: IN STD_LOGIC_VECTOR(31 downto 0);
-			 c10_status : OUT STD_LOGIC_VECTOR(31 downto 0);
-			 c10_datar  : OUT STD_LOGIC_VECTOR(31 downto 0);
-			 we_cyclone_inst_c10_data : IN STD_LOGIC); 
-END COMPONENT;
+--COMPONENT CYCLONE IS
+--	PORT (
+--			 lb_clk 		: IN STD_LOGIC;
+--			 c10_addr 	: IN STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_data 	: IN STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_cntlr 	: IN STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_status : OUT STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_datar  : OUT STD_LOGIC_VECTOR(31 downto 0);
+--			 we_cyclone_inst_c10_data : IN STD_LOGIC); 
+--END COMPONENT;
+
+
+
 --
 
 
@@ -1440,7 +1443,7 @@ ARC_TST_FLT <= ARC_TST_FLT_INT;
 	-- and trigger a reconfiguration of the fpga device over the network.
 	-- module was desiged for C10GX but should also be compatible with Aria 10 devices.
 	-- note, this is a verilog module
-	CYCLONE_inst : CYCLONE
+	CYCLONE_inst : entity work.CYCLONE
 	PORT MAP(
 			 lb_clk 		=> CLOCK,
 			 c10_addr 	=> c_addr,
@@ -1448,7 +1451,8 @@ ARC_TST_FLT <= ARC_TST_FLT_INT;
 			 c10_cntlr 	=> c_cntlr,
 			 c10_status => c10_status,
 			 c10_datar  => c10_datar,
-			 we_cyclone_inst_c10_data => (lb_valid AND en_c_data));
+			 we_cyclone_inst_c10_data => (lb_valid AND en_c_data),
+			 ru_data_out => open);
 			 
 			 
 	-- fimrware update registers

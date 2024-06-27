@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: interlocks_control_fpga_rev_pr1_rev.tcl
-# Generated on: Tue Oct 17 15:49:03 2023
+# Generated on: Thu Jun 27 13:04:19 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -40,17 +40,16 @@ if {[is_project_open]} {
 
 # Make assignments
 if {$make_assignments} {
-	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:47:48  NOVEMBER 19, 2020"
 	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
+	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
 	set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 	set_global_assignment -name FAMILY "Cyclone 10 GX"
-	set_global_assignment -name TOP_LEVEL_ENTITY interlocks_control
 	set_global_assignment -name DEVICE 10CX105YF672E5G
 	set_global_assignment -name ENABLE_SIGNALTAP OFF
-	set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp2.stp
+	set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
 	set_global_assignment -name POWER_AUTO_COMPUTE_TJ ON
 	set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 	set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
@@ -171,6 +170,7 @@ if {$make_assignments} {
 	set_global_assignment -name VHDL_FILE ads8353_arc.vhd
 	set_global_assignment -name SIGNALTAP_FILE output_files/stp2.stp
 	set_global_assignment -name IP_FILE EPCQ.ip
+	set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
 	set_location_assignment PIN_Y20 -to ARC_SDO_B_3
 	set_location_assignment PIN_Y19 -to ARC_SDO_A_3
 	set_location_assignment PIN_Y17 -to ARC_SDO_A_1
@@ -391,6 +391,14 @@ if {$make_assignments} {
 	set_location_assignment PIN_T4 -to PWR_SYNC_33V
 	set_location_assignment PIN_R1 -to TST_SW
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to TST_SW -entity interlocks_control
+	set_location_assignment PIN_F7 -to fpga_ver[0]
+	set_location_assignment PIN_E9 -to fpga_ver[1]
+	set_location_assignment PIN_D8 -to fpga_ver[2]
+	set_location_assignment PIN_B5 -to fpga_ver[4]
+	set_location_assignment PIN_A4 -to fpga_ver[5]
+	set_location_assignment PIN_A12 -to fpga_ver[3]
+	set_location_assignment PIN_T2 -to jtag_mux_sel_out
+	set_location_assignment PIN_AC13 -to clock_100
 
 	# Commit assignments
 	export_assignments
