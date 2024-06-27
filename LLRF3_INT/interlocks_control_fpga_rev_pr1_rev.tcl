@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: interlocks_control_fpga_rev_pr1_rev.tcl
-# Generated on: Thu Jun 27 13:04:19 2024
+# Generated on: Thu Jun 27 13:20:48 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -40,6 +40,7 @@ if {[is_project_open]} {
 
 # Make assignments
 if {$make_assignments} {
+	set_global_assignment -name TOP_LEVEL_ENTITY interlocks_control
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:47:48  NOVEMBER 19, 2020"
 	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
