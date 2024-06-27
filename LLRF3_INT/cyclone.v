@@ -525,7 +525,7 @@ end
 	assign ruRSTd    = ( ru_ctrl_q == 3'b100) ? 1'b1 : 1'b0; // active hi reset
 	assign ruREd     = ((ru_ctrl_q == 3'b001) & (ru_ctrl_last == 3'b000)) ? 1'b1 : 1'b0; // read enable,  Rising Edge
 	assign ruWEd     = ((ru_ctrl_q == 3'b010) & (ru_ctrl_last == 3'b000)) ? 1'b1 : 1'b0; // write enable, Rising Edge
-	assign ruCONFIGd = ( ru_ctrl_q == 3'b111) ? 1'b1 : 1'b0; // device will reconfigure when this goes HI
+	assign ruCONFIGd = (( ru_ctrl_q == 3'b111) | (epcs_reconfig == 1'b1)) ? 1'b1 : 1'b0; // device will reconfigure when this goes HI, added feature to make back comptible with reset modul
 	
 	
 //	reg ru_data_out_q2, ru_data_out_q3;
