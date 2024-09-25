@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#change for quartus 19.1 LITE for max10
+echo "TEMP CHANGE TO PATH FOR QUARTUS 18.1 LITE"
+export PATH="/c/intelFPGA_lite\18.1\quartus\bin64\:$PATH" 
 GIT_ID_FULL=$(git rev-parse HEAD)
 GIT_ID=${GIT_ID_FULL:0:8}
 
@@ -9,9 +11,9 @@ PROJECT="${TCL%.*}"
 echo 'GENERATING PROJECT '$PROJECT' FROM GIT REPO COMMIT ID '$GIT_ID_FULL'...'
 
 
-quartus_sh19 -t $TCL
-quartus_sh19 --flow compile $PROJECT
+quartus_sh -t $TCL
+quartus_sh --flow compile $PROJECT
 cd output_files
-quartus_cpf19 -o auto_create_rpd=on -c -d MT25QU01G -s 10CX105Y $PROJECT.sof $PROJECT'_'$GIT_ID.jic
-
+#note project auto generates .pof, the below just renames it
+cp $PROJECT.pof $PROJECT'_'$GIT_ID.pof
 echo 'DONE!'
