@@ -990,7 +990,7 @@ dac8831_inst_3 : entity work.dac8831
 -- FPGA board REV 1 and later we do need to configure the pins
 -- for the REV1 boards, these are tired to C10 PMOD2. make sure these are never pulled up at power up.
 
-en_mdc_mdio <= '0' when fpga_ver(1)= '1' or fpga_ver(0)= '1' else '1';
+en_mdc_mdio <= '0' when fpga_ver(3)= '1' else '1'; -- note, a jumper connecting PMOD2 C10 pin 4 to GND (pin 5 or 11) is needed
 
 
 marvell_phy_config_inst : entity work.marvell_phy_config
