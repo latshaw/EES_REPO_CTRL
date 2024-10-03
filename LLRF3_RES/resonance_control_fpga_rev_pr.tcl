@@ -397,6 +397,12 @@ if {$make_assignments} {
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_2 -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_3 -entity motion_control
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_1 -entity motion_control
+	set_location_assignment PIN_F7 -to fpga_ver[0]
+	set_location_assignment PIN_E9 -to fpga_ver[1]
+	set_location_assignment PIN_D8 -to fpga_ver[2]
+	set_location_assignment PIN_B5 -to fpga_ver[4]
+	set_location_assignment PIN_A4 -to fpga_ver[5]
+	set_location_assignment PIN_A12 -to fpga_ver[3]
 
 	# Commit assignments
 	export_assignments
