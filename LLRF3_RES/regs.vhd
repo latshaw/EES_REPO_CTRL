@@ -88,7 +88,8 @@ entity regs is
 		 sfp_datar		    : IN STD_LOGIC_VECTOR(31 downto 0);  --input from i2c module
 		 out_sfp_ctrl   	 : OUT STD_LOGIC_VECTOR(31 downto 0); -- output from REGS to i2c module
 		 lb_valid		    : IN STD_LOGIC;
-		 rate_reg          : reg32_array
+		 rate_reg          : reg32_array;
+		 SINE_POS          : reg10_array
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -105,16 +106,16 @@ architecture behavior of regs is
 
 --verilog component
 -- used for remote flash and reconfigure
-COMPONENT CYCLONE IS
-	PORT (
-			 lb_clk 		: IN STD_LOGIC;
-			 c10_addr 	: IN STD_LOGIC_VECTOR(31 downto 0);
-			 c10_data 	: IN STD_LOGIC_VECTOR(31 downto 0);
-			 c10_cntlr 	: IN STD_LOGIC_VECTOR(31 downto 0);
-			 c10_status : OUT STD_LOGIC_VECTOR(31 downto 0);
-			 c10_datar  : OUT STD_LOGIC_VECTOR(31 downto 0);
-			 we_cyclone_inst_c10_data : IN STD_LOGIC); 
-END COMPONENT;
+--COMPONENT CYCLONE IS
+--	PORT (
+--			 lb_clk 		: IN STD_LOGIC;
+--			 c10_addr 	: IN STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_data 	: IN STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_cntlr 	: IN STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_status : OUT STD_LOGIC_VECTOR(31 downto 0);
+--			 c10_datar  : OUT STD_LOGIC_VECTOR(31 downto 0);
+--			 we_cyclone_inst_c10_data : IN STD_LOGIC); 
+--END COMPONENT;
 --
 COMPONENT genWave IS 
 		GENERIC (K    : integer := 4;
@@ -1320,7 +1321,7 @@ end generate;
 	-- and trigger a reconfiguration of the fpga device over the network.
 	-- module was desiged for C10GX but should also be compatible with Aria 10 devices.
 	-- note, this is a verilog module
-	CYCLONE_inst : CYCLONE
+	CYCLONE_inst : entity work.CYCLONE
 	PORT MAP(
 			 lb_clk 		=> CLOCK,
 			 c10_addr 	=> c_addr,
@@ -1328,7 +1329,8 @@ end generate;
 			 c10_cntlr 	=> c_cntlr,
 			 c10_status => c10_status,
 			 c10_datar  => c10_datar,
-			 we_cyclone_inst_c10_data => lb_strb);
+			 we_cyclone_inst_c10_data => lb_strb,
+			 ru_data_out => open);
 			 
 			 
 	-- fimrware update registers
@@ -1440,6 +1442,11 @@ end generate;
 	en_MRES(6) <= '1' when load = '1' and addr(11 downto 0) = x"0E4" else '0';
 	en_MRES(7) <= '1' when load = '1' and addr(11 downto 0) = x"0E5" else '0';
 	--
+	
+
+	
+	
+	
 	--==================================================================
 	-- Chopper Configuration (for TMC), 10/28/22
 	--==================================================================
@@ -1839,22 +1846,11 @@ end generate;
 					--when "1" & x"F" => regbank_6 <= x"0000"&CHOPCONF(0)		 ;--here it is atually DF
 					
 					
---					when "10" & x"0" => regbank_6 <= x"0000"&MRES(2)          ;--when x"0E0"
---					when "10" & x"1" => regbank_6 <= x"0000"&MRES(3)          ;--when x"0E1"
---					when "10" & x"2" => regbank_6 <= x"0000"&MRES(4)          ;--when x"0E2"
---					when "10" & x"3" => regbank_6 <= x"0000"&MRES(5)          ;--when x"0E3"
---					when "10" & x"4" => regbank_6 <= x"0000"&MRES(6)          ;--when x"0E4"
---					when "10" & x"5" => regbank_6 <= x"0000"&MRES(7)          ;--when x"0E5"
---					when "10" & x"7" => regbank_6 <= x"0000"&CHOPCONF(1)		 ;--when x"0E7"
---					when "10" & x"8" => regbank_6 <= x"0000"&CHOPCONF(2)		 ;--when x"0E8"
---					when "10" & x"9" => regbank_6 <= x"0000"&CHOPCONF(3)		 ;--when x"0E9"
---					when "10" & x"A" => regbank_6 <= x"0000"&CHOPCONF(4)		 ;--when x"0EA"
 --					when "10" & x"B" => regbank_6 <= x"0000"&CHOPCONF(5)		 ;--when x"0EB"
 --					when "10" & x"C" => regbank_6 <= x"0000"&CHOPCONF(6)		 ;--when x"0EC"
 --					when "10" & x"D" => regbank_6 <= x"0000"&CHOPCONF(7)		 ;--when x"0ED"
 					when others =>      regbank_6 <= x"00000000" 				 ;-- default case
 				end case;
-			end if; -- end for strobe /lb_valid signal
 			
 			   --==================================================================
 				-- ADDR(7 downto 5) is 111
@@ -1863,6 +1859,16 @@ end generate;
 				case ADDR(4 downto 0) is					
 					when "0" & x"0" => regbank_7 <= wf_4k_command               ;--x"0E0",
 					when "0" & x"1" => regbank_7 <= wf_4k_status                ;--x"0E1",
+
+					when "1" & x"0" => regbank_7 <= "00" & x"00000"&SINE_POS(0)  ;--when x"0F0"
+					when "1" & x"1" => regbank_7 <= "00" & x"00000"&SINE_POS(1)  ;--when x"0F1"
+					when "1" & x"2" => regbank_7 <= "00" & x"00000"&SINE_POS(2)  ;--when x"0F2"
+					when "1" & x"3" => regbank_7 <= "00" & x"00000"&SINE_POS(3)  ;--when x"0F3"
+					when "1" & x"4" => regbank_7 <= "00" & x"00000"&SINE_POS(4)  ;--when x"0F4"
+					when "1" & x"5" => regbank_7 <= "00" & x"00000"&SINE_POS(5)  ;--when x"0F5"
+					when "1" & x"6" => regbank_7 <= "00" & x"00000"&SINE_POS(6)  ;--when x"0F6"
+					when "1" & x"7" => regbank_7 <= "00" & x"00000"&SINE_POS(7)  ;--when x"0F7"
+ 
 --					when "0" & x"2" => regbank_7 <= abs_lmt(2)                  ;--x"0E2",
 --					when "0" & x"3" => regbank_7 <= abs_lmt(3)                  ;--x"0E3",
 --					when "0" & x"4" => regbank_7 <= abs_lmt(4)                  ;--x"0E4",
@@ -1895,6 +1901,9 @@ end generate;
 --					when "1" & x"F" => regbank_7 <= x"0000"&pzt_hi_int(7)       ;--x"0FF",
 					when others =>     regbank_7 <= x"C001FACE" 				      ;-- default case
 				end case;
+				
+				
+			end if; -- end for strobe /lb_valid signal
 			
 			--==================================================================
 			-- waveform Mux, configured for 4k waveforms
@@ -1965,7 +1974,7 @@ end generate;
 	-- 	counter for tracking steps, slow acceleration and velocity based on a status bit from fcc
 	status	<=  "000" & x"000" & heartbeat;
 	-- x"000E" LLRF 3.0 versions
-	version	<= x"0024"; -- LLRF 3.0 Resonance 6/3/22 (limit switch mask), 
+	version	<= x"0066"; -- LLRF 3.0 Resonance 6/3/22 (limit switch mask), 
 								-- 7/26/22,  switch to marvel chip instead of SFP, FW version x11
 								-- 10/18/22, microstepping resolution bits added, FW Version x12
 								-- 10/28/22, chopper configuration added, FW x13

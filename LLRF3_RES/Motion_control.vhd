@@ -186,6 +186,11 @@ ENTITY Motion_control IS
 		EN3_1 : out std_logic;
 		EN4_1 : out std_logic;
 		
+		fpga_ver				: in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
+		jtag_mux_sel_out   :	out std_logic; -- JTAG mux select '0' - C10 and M10, '1' for M10 only
+		
+		clock_100 : in STD_LOGIC;
+		
 		hb_fpga    :  out  STD_LOGIC; -- FPGA heart beat LED
 		gpio_led_1 :  out  STD_LOGIC; -- HEART_BEAT LED
 		gpio_led_2 :  out std_logic;  -- heart beat ioc
@@ -351,7 +356,8 @@ COMPONENT regs
 		 sfp_datar		    : IN STD_LOGIC_VECTOR(31 downto 0);  --input from i2c module
 		 out_sfp_ctrl   	 : OUT STD_LOGIC_VECTOR(31 downto 0); -- output from REGS to i2c module
 		 lb_valid		    : IN STD_LOGIC;
-		 rate_reg          : reg32_array
+		 rate_reg          : reg32_array;
+		 SINE_POS          : reg10_array
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -416,7 +422,8 @@ COMPONENT TMC2660 IS -- use to configure SPI of each stepper
 		 SCK          : OUT STD_LOGIC; -- spi sclk
 		 SDI          : OUT STD_LOGIC; -- spi data in
 		 SEN          : OUT STD_LOGIC; -- loops back INHIBIT, active low
-		 CONFIG_DONE  : OUT STD_LOGIC
+		 CONFIG_DONE  : OUT STD_LOGIC;
+		 SINE : OUT STD_LOGIC_VECTOR(9 downto 0)
 		 );
 END COMPONENT;
 
@@ -561,6 +568,7 @@ COMPONENT marvell_phy_config IS
 			clock	      :	in std_logic;
 			reset	      :	in std_logic;
 			phy_resetn	:	out std_logic;
+			en_mdc      : in std_logic;
 			mdio	      :	out std_logic;
 			mdc		   :	out std_logic;
 			config_done	:	out std_logic);
@@ -614,6 +622,9 @@ signal DETA_HI, DETA_LO, DISC_HI, DISC_LO, PZT_HI, PZT_LO, MOTOR_CURR, DETA, PZ,
 signal numer, quotient : reg27_array; -- for stepper generate statement
 --
 signal DISC : reg28_array;
+--
+-- added 7/10/2024
+signal SINE_POS : reg10_array;
 --
  -- added 3/31/21, will go to motor_status in regs
 signal deta_disc_regs :  reg2_array;
@@ -680,6 +691,7 @@ signal sfp_dataw, sfp_datar, sfp_ctrl  :  std_logic_VECTOR(31 DOWNTO 0);
 --
 -- internal temperature sensore end of fetching the temp. (falling edge)
 SIGNAL fpga_tsd_int_EOC_n : STD_LOGIC;
+signal en_mdc_mdio, reset_clock_100_n, one, zero : STD_LOGIC;
 --
 -- for buffering across clock domains 
 --	(temp senor, 1Mhz to 125 Mhz)
@@ -696,15 +708,23 @@ BEGIN
 -- ================================================================
 -- 3/6/2024
 
+reset_control : resets
+PORT MAP(clock_100, reset, one, zero, reset_clock_100_n);
+
+one  <= '1';
+zero <= '0';
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => clock,
-			reset	      => RESET_all,
+			clock	      => clock_100,
+			reset	      => reset_clock_100_n,
 			phy_resetn	=> ETH1_RESET_N,
+			en_mdc      => en_mdc_mdio,
 			mdio	      => eth_mdio,
 			mdc		   => eth_mdc,
-			config_done	=>  open);
+			config_done	=>  gpio_led_3);
+
+en_mdc_mdio <= '0' when fpga_ver(3)= '1' else '1'; -- note, a jumper connecting PMOD2 C10 pin 4 to GND (pin 5 or 11) is needed
 			
 --===================================================
 -- PLL and Clock
@@ -723,7 +743,7 @@ PLL_reset <= NOT(RESET_all);
 -- Reset Control
 --===================================================
 
-reset_control : resets
+reset_control_100 : resets
 PORT MAP(clock, reset, ISA_RESET, reg_res, RESET_all);
 -- dummy isa_reset, eventually replace this with SFP reset
 ISA_RESET <= '0'; -- note, this reset actually isn't used in the module...
@@ -808,7 +828,7 @@ end process;
 					);
 	--
 	-- 
-	gpio_led_3 <= sfp_config_done0;-- when CLOCK_IN = '1' else '0';--lb_valid; -- LED should appear on if receiving data				
+	--gpio_led_3 <= sfp_config_done0;-- when CLOCK_IN = '1' else '0';--lb_valid; -- LED should appear on if receiving data				
 	--
 	-- this signal is only needed for the test bench.
 	-- the compiler should optimize this signal away
@@ -917,17 +937,18 @@ MRES_OUT			  => MRES,
 step_hz 		 => STEP_HZ, 
 steps 			 => STEPS, 
 stop 			 => STOP, 
-vlcty 			 => vlcty, 
-c10gx_tmp 		 => c10gx_tmp, 
+vlcty 			  => vlcty, 
+c10gx_tmp 		  => c10gx_tmp, 
 out_EEPROM_ctrl  => EEPROM_ctrl, 
 out_EEPROM_addr  => EEPROM_addr, 
 out_EEPROM_data  => EEPROM_data, 
 EEPROM_datar     => EEPROM_datar, 
-out_sfp_dataw	 => sfp_dataw,
-sfp_datar	 => sfp_datar,
+out_sfp_dataw	  => sfp_dataw,
+sfp_datar	     => sfp_datar,
 out_sfp_ctrl     => sfp_ctrl,
-lb_valid		 => lb_valid,
-rate_reg   => rate_reg); 
+lb_valid		     => lb_valid,
+rate_reg         => rate_reg,
+SINE_POS         => SINE_POS); 
 --
 -- limit switch info
 -- HI means limit reached
@@ -1016,7 +1037,7 @@ SPI_ports_gen : for I in 0 to 7 generate
 	--
 	TMC2660_I : TMC2660
 	PORT MAP(clock, RESET_ALL, CHOPCONF(0), MRES(0)(3 downto 0), MOTOR_CURR(I)(4 downto 0), low_current(I), SPI_CONFIG(I), SDO_IN(I), inhibit(I), 
-	         CSN(I), SCK(I), SDI(I), SEN(I), CONFIG_DONE(I) );
+	         CSN(I), SCK(I), SDI(I), SEN(I), CONFIG_DONE(I), SINE_POS(I));
 	--
 	--
 	PRO_I : process (CLOCK, RESET_ALL)
@@ -1105,6 +1126,15 @@ end generate SPI_ports_gen;
     CSN2_1 <= CSN(5); SCLK2_1 <= SCK(5); SDI2_1 <= SDI(5); EN2_1 <= SEN(5);
     CSN3_1 <= CSN(6); SCLK3_1 <= SCK(6); SDI3_1 <= SDI(6); EN3_1 <= SEN(6);
     CSN4_1 <= CSN(7); SCLK4_1 <= SCK(7); SDI4_1 <= SDI(7); EN4_1 <= SEN(7);
+	 
+	 SDO_IN(0) <= SDO1;
+	 SDO_IN(1) <= SDO2;
+	 SDO_IN(2) <= SDO3;
+	 SDO_IN(3) <= SDO4;
+	 SDO_IN(4) <= SDO1_1;
+	 SDO_IN(5) <= SDO2_1;
+	 SDO_IN(6) <= SDO3_1;
+	 SDO_IN(7) <= SDO4_1;
 --
 --------------
 -- SPI Notes :

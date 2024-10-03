@@ -53,7 +53,8 @@ PORT(CLOCK : IN STD_LOGIC;
 	 SCK : OUT STD_LOGIC;
 	 SDI : OUT STD_LOGIC;
 	 SEN : OUT STD_LOGIC;	 -- loop back INHIBIT 
-	 CONFIG_DONE : OUT STD_LOGIC
+	 CONFIG_DONE : OUT STD_LOGIC;
+	 SINE : OUT STD_LOGIC_VECTOR(9 downto 0)
 	 
 	 );
 	 
@@ -72,10 +73,13 @@ ARCHITECTURE BEHAVIOR OF TMC2660 IS
 --
 --CONSTANT SHCSCONF 			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"c140f";
 
-CONSTANT CHOPCONF			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"90135";
+CONSTANT CHOPCONF			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"90135"; -- original settings, changed back on 9/23/24
+--CONSTANT CHOPCONF			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"9BF31";    -- based on 5/29/24 testing for for LIN and ok for SLO-SYN, not
 --CONSTANT SGCSCONF			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"d050f";
 SIGNAL SGCSCONF				: STD_LOGIC_VECTOR(19 DOWNTO 0);
-CONSTANT DRVCONF			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"ef060";
+CONSTANT DRVCONF			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"ef040"; -- 9/25/24, test with vsense 165, ef040, was ef000 for vsense 305
+																							-- 7/9/24, change to readback sine table angle (10 bit) was ef060
+																							-- 8/21/24, change to set VSENS to 310mv for better current regulation
 --CONSTANT DRVCTRL			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"00000";
 SIGNAL DRVCTRL			: STD_LOGIC_VECTOR(19 DOWNTO 0); -- micro steps are desired to be dynamic for debugging.
 CONSTANT SMARTEN			: STD_LOGIC_VECTOR(19 DOWNTO 0) := x"a0000";
@@ -111,6 +115,14 @@ SIGNAL START_VALID			: STD_LOGIC;
 
 TYPE STATE_TYPE IS (INIT, DRVI_LOAD, DATA_LOAD, CSN_LOW, CSN_WAIT, SCLK_HIGH, SCLK_LOW, DATA_CHECK, DATA_LD_DONE);
 SIGNAL STATE					: STATE_TYPE;
+
+
+SIGNAL SDO_d, SDO_q : STD_LOGIC_VECTOR(19 DOWNTO 0);
+
+
+SIGNAL position_d, position_q : STD_LOGIC_VECTOR(9 DOWNTO 0);
+
+signal SV_q, SV_d, en_SV, CLR_SV : std_logic;  -- start valid
 
 BEGIN
 -- MOSFETS are disabled when Enable pin is pulled hi
@@ -230,9 +242,11 @@ SEN <= INHIBIT;
 		ELSIF (CLOCK = '1' AND CLOCK' EVENT) THEN 
 			CASE STATE IS
 				
-				WHEN INIT			=> IF START_VALID = '1' THEN STATE <= DRVI_LOAD;
-									   ELSE STATE <= INIT;
-									   END IF;
+				WHEN INIT			=> 
+										--IF START_VALID = '1' THEN STATE <= DRVI_LOAD;
+									   --ELSE STATE <= INIT;
+									   --END IF;
+										STATE <= DRVI_LOAD;
 				
 				--WHEN DATA_LOAD		=> IF CS_WAIT_COUNT = "11" THEN STATE <= CSN_LOW;
 --								       ELSE STATE <= DATA_LOAD;
@@ -257,8 +271,10 @@ SEN <= INHIBIT;
 								   		END IF;			
 									
 				WHEN DATA_CHECK		=> 	IF 	CS_WAIT_COUNT = "1111111111" THEN 
-											IF DATA_COUNT = "100" THEN STATE <= DATA_LD_DONE;
-								   			ELSE STATE <= DATA_LOAD;
+											IF DATA_COUNT = "100" AND SV_q = '1' THEN 
+													STATE <= DATA_LD_DONE;
+								   			ELSE 
+													STATE <= DATA_LOAD;
 								   			END IF;
 										ELSE STATE <= DATA_CHECK;
 										END IF;	
@@ -268,21 +284,43 @@ SEN <= INHIBIT;
 			END CASE;
 		END IF;
 	END PROCESS;
+
 	
+	PROCESS(CLOCK, RESET)
+	BEGIN
+		IF RESET = '0' THEN
+			SDO_q      <= (others =>'0');
+			position_q <= (others => '0');
+			SV_q       <= '0';
+		ELSIF (CLOCK = '1' AND CLOCK' EVENT) THEN 
+			SDO_q      <= SDO_d;
+			position_q <= position_d;
+			SV_q       <= SV_d;
+		END IF;
+	END PROCESS;
+	
+	en_SV  <= '1' when START_VALID = '1'    else '0'; -- enable start value if rising edge detected (by fast clock)
+	CLR_SV <= '1' when STATE = DATA_LD_DONE else '0'; -- clear start value if done state reached
+	SV_d   <= '0' when CLR_SV = '1' else              -- clear when clear bit is set
+				 '1' when en_SV  = '1' else SV_q;        -- else set to HI if enable is set, else keep current value
 	
 	EN_CS_WAIT_COUNT		<= '1' WHEN STATE = DATA_CHECK ELSE '0';
-	EN_DATA_COUNT			<= '1' WHEN STATE = DATA_CHECK AND CS_WAIT_COUNT = "1111111111" ELSE '0';
+	EN_DATA_COUNT			<= '1' WHEN (STATE = DATA_CHECK AND CS_WAIT_COUNT = "1111111111") AND (DATA_COUNT /= "100") ELSE '0';
 	CLR_DATA_COUNT			<= '0' WHEN STATE = DATA_LD_DONE ELSE '1';	
 	EN_SCLK_COUNT			<= '1' WHEN STATE = SCLK_HIGH OR STATE = SCLK_LOW ELSE '0';
 	EN_SHIFT_DATA_COUNT		<= '1' WHEN STATE = SCLK_HIGH AND SCLK_COUNT = "11111111" ELSE '0';
 	CLR_SHIFT_DATA_COUNT	<= '0' WHEN STATE = DATA_CHECK ELSE '1';
 	LD_SHIFT_REG			<= '1' WHEN STATE = DATA_LOAD ELSE '0';
 	EN_SHIFT_REG			<= '1' WHEN STATE = SCLK_HIGH AND SCLK_COUNT = "11111111" ELSE '0';
+	SDO_d			         <= SDO_q(18 downto 0) & SDO WHEN STATE = SCLK_HIGH AND SCLK_COUNT = "11111111" ELSE SDO_q; -- shift in SDO data
 	SCK						<= '0' WHEN STATE = SCLK_LOW ELSE '1';
 
 	CSN						<= '0' WHEN STATE = CSN_LOW OR STATE = CSN_WAIT OR STATE = SCLK_HIGH OR STATE = SCLK_LOW ELSE '1';
-	CONFIG_DONE				<= '1' WHEN ((STATE = DATA_LD_DONE) OR (STATE = INIT)) ELSE '0'; -- 4/3/23, changed configuration done to be hi when done or in init state
+	CONFIG_DONE				<= '1' WHEN ((STATE = DATA_CHECK AND DATA_COUNT = "100") OR (STATE = DATA_LD_DONE) OR (STATE = INIT)) ELSE '0'; -- 4/3/23, changed configuration done to be hi when done or in init state
+	position_d           <= SDO_q(19 downto 10) when (STATE = DATA_CHECK AND DATA_COUNT = "100") else position_q; -- sine table microstep positon is capture in uppder 10 bits or read response
 	EN_DRVI					<= '1' WHEN STATE = DRVI_LOAD ELSE '0';	
-		
+	
+	
+	SINE <= position_q;
 									   
 END BEHAVIOR;
