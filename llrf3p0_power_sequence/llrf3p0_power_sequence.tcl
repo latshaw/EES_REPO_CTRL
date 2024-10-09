@@ -1,6 +1,6 @@
-# Copyright (C) 2019  Intel Corporation. All rights reserved.
+# Copyright (C) 2018  Intel Corporation. All rights reserved.
 # Your use of Intel Corporation's design tools, logic functions 
-# and other software and tools, and any partner logic 
+# and other software and tools, and its AMPP partner logic 
 # functions, and any output files from any of the foregoing 
 # (including device programming or simulation files), and any 
 # associated documentation or information are expressly subject 
@@ -10,12 +10,11 @@
 # agreement, including, without limitation, that your use is for
 # the sole purpose of programming logic devices manufactured by
 # Intel and sold by Intel or its authorized distributors.  Please
-# refer to the applicable agreement for further details, at
-# https://fpgasoftware.intel.com/eula.
+# refer to the applicable agreement for further details.
 
 # Quartus Prime: Generate Tcl File for Project
 # File: llrf3p0_power_sequence.tcl
-# Generated on: Wed Sep 25 10:53:40 2024
+# Generated on: Wed Oct 09 11:59:59 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -51,15 +50,11 @@ if {$make_assignments} {
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 	set_global_assignment -name DEVICE_FILTER_PIN_COUNT 144
 	set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
-	set_global_assignment -name BDF_FILE llrf3p0_power_sequence.bdf
 	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 	set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-	set_global_assignment -name VHDL_FILE heartbeat_isa.vhd
 	set_global_assignment -name ENABLE_SIGNALTAP OFF
 	set_global_assignment -name USE_SIGNALTAP_FILE tmp512.stp
-	set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
-	set_global_assignment -name VHDL_FILE power_sequence.vhd
 	set_global_assignment -name ENABLE_OCT_DONE OFF
 	set_global_assignment -name ENABLE_JTAG_PIN_SHARING OFF
 	set_global_assignment -name USE_CONFIGURATION_DEVICE ON
@@ -72,6 +67,11 @@ if {$make_assignments} {
 	set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 	set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 	set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
+	set_global_assignment -name SDC_FILE llrf3p0_power_sequence.out.sdc
+	set_global_assignment -name BDF_FILE llrf3p0_power_sequence.bdf
+	set_global_assignment -name VHDL_FILE heartbeat_isa.vhd
+	set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+	set_global_assignment -name VHDL_FILE power_sequence.vhd
 	set_global_assignment -name VHDL_FILE reset_all.vhd
 	set_global_assignment -name VHDL_FILE jtag_sel.vhd
 	set_global_assignment -name VHDL_FILE i2c_tmp512.vhd
