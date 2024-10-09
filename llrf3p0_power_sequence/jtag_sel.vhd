@@ -1,3 +1,6 @@
+-- note, init_cnt_q/init_cnt_d pulse must be after C10 turns on. i.e. ensure
+-- that the max counter >> reset counter in reset_all module
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -15,7 +18,7 @@ architecture behavior of jtag_sel is
 
 signal jtag_out_q, jtag_out_d		:	std_logic;
 signal jtag_sel_in_q					:	std_logic_vector(5 downto 0);
-signal init_cnt_d, init_cnt_q		:	integer range 0 to 2**24-1;
+signal init_cnt_d, init_cnt_q		:	integer range 0 to 2**28-1;
 signal jtag_sel_out_q				:	std_logic;
 signal init_flg_d, init_flg_q		:	std_logic_vector(4 downto 0);
 
@@ -27,11 +30,11 @@ signal init_flg_d, init_flg_q		:	std_logic_vector(4 downto 0);
 begin
 
 
-init_flg_d(0)		<=	'1' when init_cnt_q = 2**24-1 else '0';
+init_flg_d(0)		<=	'1' when init_cnt_q = 2**28-1 else '0';
 init_flg_d(4 downto 1)	<=	init_flg_q(3 downto 0);
 
 
-init_cnt_d	<=	init_cnt_q + 1 when init_cnt_q /= 2**24-1 else init_cnt_q;
+init_cnt_d	<=	init_cnt_q + 1 when init_cnt_q /= 2**28-1 else init_cnt_q;
 
 
 
