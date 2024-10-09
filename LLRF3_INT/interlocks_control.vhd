@@ -43,7 +43,6 @@ ENTITY interlocks_control IS
 		eth_mdc        : out std_logic;
 		
 		fpga_ver				: in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
-		jtag_mux_sel_out   :	out std_logic; -- JTAG mux select '0' - C10 and M10, '1' for M10 only
 		
 		-- Legacy isa info, no longer needed, keep this until we wire up the new udp module
 --		ISA_RESET_FPGA :  IN  STD_LOGIC;
@@ -187,7 +186,9 @@ ENTITY interlocks_control IS
 		PWR_EN_5V	 : OUT STD_LOGIC; 
 		PWR_SYNC_5V	 : OUT STD_LOGIC;
 		PWR_EN_33V	 : OUT STD_LOGIC;
-		PWR_SYNC_33V : OUT STD_LOGIC
+		PWR_SYNC_33V : OUT STD_LOGIC;
+		
+		jtag_mux_sel_out  : out std_logic_vector(1 downto 0) -- JTAG mux select
 		
 --		--temperature sensor info (new board does not have a temperature sensor)
 --		TMPBRD_SI :  IN  STD_LOGIC;
@@ -348,7 +349,8 @@ COMPONENT regs
 		 ready_arc	 : IN STD_LOGIC_VECTOR(7 downto 0);
 		 arc_adc_busy : IN STD_LOGIC_VECTOR(7 downto 0);
 		 HELIUM_INTERLOCK_LED : OUT STD_LOGIC;
-		 lb_valid		: IN STD_LOGIC
+		 lb_valid		: IN STD_LOGIC;
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0) -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -1297,7 +1299,8 @@ PORT MAP(HB_ISA              => HB_ISA,
 		 ready_arc				  => ready_arc,
 		 arc_adc_busy          => ADC_BUSY_8,
 		 HELIUM_INTERLOCK_LED  => HELIUM_INTERLOCK_LED,
-		 lb_valid  => lb_valid
+		 lb_valid  => lb_valid,
+		 jtag_mux_sel_out => jtag_mux_sel_out
 --		 out_c_addr				  => c_addr, 	-- JAL, 3/3/22 added for cyclone remote download 
 --		 out_c_cntlr			  => c_cntlr, 
 --		 c10_status       	  => c10_status, 

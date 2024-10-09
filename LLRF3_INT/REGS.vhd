@@ -72,7 +72,8 @@ ENTITY REGS IS
 		 arc_adc_busy : IN STD_LOGIC_VECTOR(7 downto 0);
 		
 		 HELIUM_INTERLOCK_LED : OUT STD_LOGIC; -- for front panel leds. fault is latched inside regs module
-		 lb_valid		: IN STD_LOGIC
+		 lb_valid		: IN STD_LOGIC;
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0)
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -313,6 +314,11 @@ signal en_c_data  : StD_LOGIC;
 --signal c_data		: StD_LOGIC_VECTOR(31 downto 0);
 --SIGNAL c10_status : std_logic_VECTOR(31 DOWNTO 0);
 --SIGNAL c10_datar	: std_logic_VECTOR(31 DOWNTO 0);
+
+-- JTAG Mux select, complementary bits, used to deselect the Cyclone 10 from the JTAG chain so that the max10 may be reporgrammed by itself
+signal JTAGMUX    : STD_LOGIC_VECTOR(15 downto 0);
+signal jtagmuxreg	: STD_LOGIC_VECTOR(15 downto 0);
+signal EN_JTAGMUX : STD_LOGIC;
 
 signal intrstr : STD_LOGIC_VECTOR(31 downto 0);
 signal en_intrstr : STD_LOGIC;
@@ -1350,6 +1356,38 @@ ARC_TST_FLT <= ARC_TST_FLT_INT;
 
 --===================================================================
 
+--==================================================================
+-- JTAG MUX SELECT, rw, 10/9/24
+--==================================================================
+--
+JTAG_reg_inst: regne generic map(n => 16)
+				 port map (clock	=> clock,
+							  reset	=> reset,
+							  clear	=> one,
+							  en		=> EN_JTAGMUX,
+							  input  => din(15 downto 0),
+							  output => JTAGMUX(15 downto 0)
+							  );
+							  
+-- double buffer output to pin
+PROCESS(CLOCK,reset) begin 
+  IF(reset='0') THEN 
+	  jtagmuxreg<=(others => '0'); 
+  ELSIF (CLOCK'event AND CLOCK='1') THEN 
+	  jtagmuxreg<=JTAGMUX(15 downto 0); 
+  END IF; 
+END PROCESS;
+
+
+-- Assign output
+jtag_mux_sel_out(1 downto 0) <= NOT(jtagmuxreg(3)) & jtagmuxreg(3); -- bit 3 of xB1
+--										  
+--
+-- Update enable with respect to the address
+EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
+
+--===================================================================
+
 --===================================================================
 -- ARC Buffer Record for viewing faults (fault viewer only, does not have a scope mode)
 --===================================================================
@@ -1672,12 +1710,13 @@ ARC_TST_FLT <= ARC_TST_FLT_INT;
 			x"0000"						 when (x"006c") , -- spares added
 			x"0000"						 when (x"006d") , -- spares added
 			intrstr(15 downto 0)		 when (x"006e"),  -- epics pv watchdog 
-			c_addr(15 downto 0)		 when (x"00D5"),  -- EPCQ address
-			c_cntlr(15 downto 0)	    when (x"00D6"),  -- control bits for read writing and configurting EPCQ
-			c10_status(15 downto 0)	 when (x"00D7"),  -- checksum and status
-			c10_datar(15 downto 0)	 when (x"00D8"),  -- read data
-			c_data(15 downto 0)		 when (x"00D9"),  -- data to write	
-			ARC_BUFF_DATA_out        WHEN OTHERS;
+			JTAGMUX(15 downto 0)         when (x"00B1"),  -- jtag_mux_select
+			c_addr(15 downto 0)		     when (x"00D5"),  -- EPCQ address
+			c_cntlr(15 downto 0)	     when (x"00D6"),  -- control bits for read writing and configurting EPCQ
+			c10_status(15 downto 0)	     when (x"00D7"),  -- checksum and status
+			c10_datar(15 downto 0)	     when (x"00D8"),  -- read data
+			c_data(15 downto 0)		     when (x"00D9"),  -- data to write	
+			ARC_BUFF_DATA_out            WHEN OTHERS;
 
 				
 	-- LLRF 3.0 firmware version will start with '30'
