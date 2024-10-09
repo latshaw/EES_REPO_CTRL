@@ -378,7 +378,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 792 872 968 888)
+	(rect 744 856 920 872)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "pgood" (rect 90 0 119 12)(font "Arial" ))
 	(pt 0 8)
@@ -394,7 +394,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 776 576 952 592)
+	(rect 744 840 920 856)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "pmbus_scl" (rect 90 0 140 17)(font "Intel Clear" ))
 	(pt 0 8)
@@ -407,11 +407,11 @@ refer to the applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 952 592 1008 616))
+	(annotation_block (location)(rect 920 856 976 880))
 )
 (pin
 	(output)
-	(rect 856 672 1032 688)
+	(rect 776 672 952 688)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "jtag_mux_sel" (rect 90 0 154 12)(font "Arial" ))
 	(pt 0 8)
@@ -424,7 +424,7 @@ refer to the applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1032 688 1104 728))
+	(annotation_block (location)(rect 952 688 1024 728))
 )
 (pin
 	(output)
@@ -445,7 +445,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(bidir)
-	(rect 776 592 952 608)
+	(rect 744 824 920 840)
 	(text "BIDIR" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "pmbus_sda" (rect 90 0 146 12)(font "Arial" ))
 	(pt 0 8)
@@ -459,7 +459,7 @@ refer to the applicable agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 24 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 952 608 1008 632))
+	(annotation_block (location)(rect 920 840 976 864))
 )
 (symbol
 	(rect 504 152 672 232)
@@ -688,6 +688,35 @@ refer to the applicable agreement for further details.
 		(rectangle (rect 16 16 192 96))
 	)
 )
+(symbol
+	(rect 528 800 688 880)
+	(text "reset_init" (rect 5 0 49 12)(font "Arial" ))
+	(text "inst2" (rect 8 64 30 81)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clock" (rect 0 0 25 12)(font "Arial" ))
+		(text "clock" (rect 21 27 46 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset" (rect 0 0 24 12)(font "Arial" ))
+		(text "reset" (rect 21 43 45 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 160 32)
+		(output)
+		(text "reset_out" (rect 0 0 46 12)(font "Arial" ))
+		(text "reset_out" (rect 101 27 147 39)(font "Arial" ))
+		(line (pt 160 32)(pt 144 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 144 64))
+	)
+)
 (connector
 	(pt 672 184)
 	(pt 720 184)
@@ -711,10 +740,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 528 408)
 	(pt 488 408)
-)
-(connector
-	(pt 528 424)
-	(pt 472 424)
 )
 (connector
 	(pt 728 472)
@@ -781,24 +806,8 @@ refer to the applicable agreement for further details.
 	(pt 488 408)
 )
 (connector
-	(pt 488 408)
-	(pt 488 680)
-)
-(connector
-	(pt 528 696)
-	(pt 472 696)
-)
-(connector
-	(pt 472 424)
-	(pt 472 696)
-)
-(connector
 	(pt 120 184)
 	(pt 488 184)
-)
-(connector
-	(pt 472 200)
-	(pt 472 424)
 )
 (connector
 	(pt 120 200)
@@ -809,15 +818,64 @@ refer to the applicable agreement for further details.
 	(pt 504 200)
 )
 (connector
+	(pt 736 680)
+	(pt 776 680)
+)
+(connector
 	(pt 288 712)
 	(pt 528 712)
 	(bus)
 )
 (connector
-	(pt 736 680)
-	(pt 856 680)
+	(pt 528 848)
+	(pt 472 848)
+)
+(connector
+	(pt 528 832)
+	(pt 488 832)
+)
+(connector
+	(pt 488 408)
+	(pt 488 680)
+)
+(connector
+	(pt 488 680)
+	(pt 488 832)
+)
+(connector
+	(pt 688 832)
+	(pt 712 832)
+)
+(connector
+	(pt 504 784)
+	(pt 712 784)
+)
+(connector
+	(pt 712 784)
+	(pt 712 832)
+)
+(connector
+	(pt 472 200)
+	(pt 472 848)
+)
+(connector
+	(pt 504 424)
+	(pt 528 424)
+)
+(connector
+	(pt 528 696)
+	(pt 504 696)
+)
+(connector
+	(pt 504 424)
+	(pt 504 696)
+)
+(connector
+	(pt 504 696)
+	(pt 504 784)
 )
 (junction (pt 488 184))
 (junction (pt 488 408))
-(junction (pt 472 424))
 (junction (pt 472 200))
+(junction (pt 488 680))
+(junction (pt 504 696))
