@@ -186,8 +186,8 @@ ENTITY Motion_control IS
 		EN3_1 : out std_logic;
 		EN4_1 : out std_logic;
 		
-		fpga_ver				: in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
-		jtag_mux_sel_out   :	out std_logic; -- JTAG mux select '0' - C10 and M10, '1' for M10 only
+		fpga_ver				: in std_logic_vector(5 downto 0);  -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
+		jtag_mux_sel_out  : out std_logic_vector(1 downto 0); -- JTAG mux select
 		
 		clock_100 : in STD_LOGIC;
 		
@@ -357,7 +357,8 @@ COMPONENT regs
 		 out_sfp_ctrl   	 : OUT STD_LOGIC_VECTOR(31 downto 0); -- output from REGS to i2c module
 		 lb_valid		    : IN STD_LOGIC;
 		 rate_reg          : reg32_array;
-		 SINE_POS          : reg10_array
+		 SINE_POS          : reg10_array;
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0) -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -948,7 +949,8 @@ sfp_datar	     => sfp_datar,
 out_sfp_ctrl     => sfp_ctrl,
 lb_valid		     => lb_valid,
 rate_reg         => rate_reg,
-SINE_POS         => SINE_POS); 
+SINE_POS         => SINE_POS,
+jtag_mux_sel_out => jtag_mux_sel_out); 
 --
 -- limit switch info
 -- HI means limit reached

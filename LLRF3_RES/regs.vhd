@@ -88,8 +88,9 @@ entity regs is
 		 sfp_datar		    : IN STD_LOGIC_VECTOR(31 downto 0);  --input from i2c module
 		 out_sfp_ctrl   	 : OUT STD_LOGIC_VECTOR(31 downto 0); -- output from REGS to i2c module
 		 lb_valid		    : IN STD_LOGIC;
-		 rate_reg          : reg32_array;
-		 SINE_POS          : reg10_array
+		 rate_reg          : IN  reg32_array;
+		 SINE_POS          : IN  reg10_array;
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0)
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -335,6 +336,10 @@ signal EEPROM_data   :  STD_LOGIC_VECTOR(7 downto 0);  -- data to write to byt
 signal STPRSTR    : STD_LOGIC_VECTOR(31 downto 0);
 signal en_STPRSTR : STD_LOGIC;
 
+-- JTAG Mux select, complementary bits, used to deselect the Cyclone 10 from the JTAG chain so that the max10 may be reporgrammed by itself
+signal JTAGMUX    : STD_LOGIC_VECTOR(15 downto 0);
+signal jtagmuxreg	: STD_LOGIC_VECTOR(15 downto 0);
+signal EN_JTAGMUX : STD_LOGIC;
 
 -- SFP controls signal enables
 signal en_sfp_dataw, en_sfp_datar, en_sfp_ctrl : STD_LOGIC;
@@ -1443,9 +1448,38 @@ end generate;
 	en_MRES(7) <= '1' when load = '1' and addr(11 downto 0) = x"0E5" else '0';
 	--
 	
+	--==================================================================
+	-- JTAG MUX SELECT, rw, 10/9/24
+	--==================================================================
+	--
+	JTAG_reg_inst: regne generic map(n => 16)
+					 port map (clock	=> clock,
+								  reset	=> reset,
+								  clear	=> one,
+								  en		=> EN_JTAGMUX,
+								  input  => din(15 downto 0),
+								  output => JTAGMUX(15 downto 0)
+								  );
+								  
+	-- double buffer output to pin
+	PROCESS(CLOCK,reset) begin 
+	  IF(reset='0') THEN 
+		  jtagmuxreg<=(others => '0'); 
+	  ELSIF (CLOCK'event AND CLOCK='1') THEN 
+		  jtagmuxreg<=JTAGMUX(15 downto 0); 
+	  END IF; 
+	END PROCESS;
+	
+	
+	-- Assign output
+	jtag_mux_sel_out(1 downto 0) <= NOT(jtagmuxreg(3)) & jtagmuxreg(3); -- bit 3 of xB1
+	--										  
+	--
+	-- Update enable with respect to the address
+	EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
+	
+	
 
-	
-	
 	
 	--==================================================================
 	-- Chopper Configuration (for TMC), 10/28/22
@@ -1789,7 +1823,7 @@ end generate;
 					when "0" & x"E" => regbank_5 <= x"0000"&abs_stp_sub_int(6)  ;--x"0AE",
 					when "0" & x"F" => regbank_5 <= x"0000"&abs_stp_sub_int(7)  ;--x"0AF",
 					when "1" & x"0" => regbank_5 <= x"00000000"                 ;--x"0B0", --PZT Value Cavity, 16 bit was pzt_val
-					when "1" & x"1" => regbank_5 <= x"00000000"                 ;--x"0B1", rate_reg
+					when "1" & x"1" => regbank_5 <= x"0000"&JTAGMUX(15 downto 0);--x"0B1", jtag_mux_select
 					when "1" & x"2" => regbank_5 <= x"00000000"                 ;--x"0B2",
 					when "1" & x"3" => regbank_5 <= x"00000000"                 ;--x"0B3",
 					when "1" & x"4" => regbank_5 <= x"00000000"                 ;--x"0B4",
