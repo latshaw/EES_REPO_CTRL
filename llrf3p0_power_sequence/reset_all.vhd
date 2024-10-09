@@ -1,53 +1,40 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-entity reset_all is
-	port(clock	:	in std_logic;
-			reset	:	in std_logic;
-			c10_reset_in	:	in std_logic;
+entity reset_init is
+	port(clock	: in std_logic;
+			reset	: in std_logic;
 			
-			reset_out	:	out std_logic
+			reset_out	: out std_logic
 			);
-end entity reset_all;
+end entity reset_init;
 
-architecture behavior of reset_all is
+architecture behavior of reset_init is
 
-
-signal reset_q				:	std_logic;
-signal c10_reset_d, c10_reset_q	:	std_logic_vector(2 downto 0);
-signal reset_out_d, reset_out_q	:	std_logic;
+signal rst_cnt_d, rst_cnt_q	:	integer range 0 to 2**29-1;
+signal rst_out_d, rst_out_q	:	std_logic;
 
 begin
 
 
+rst_cnt_d	<=	rst_cnt_q + 1 when rst_cnt_q /= 2**29-1 else
+					rst_cnt_q;
+					
+rst_out_d	<=	'0' when rst_cnt_q /= 2**29-1 else '1';
 
-c10_reset_d(0)		<=	c10_reset_in;
-c10_reset_d(2 downto 1)	<=	c10_reset_q(1 downto 0);
-
-
---reset_out_d		<=	'0' when (c10_reset_q(2) = '1' and c10_reset_q(1) = '0') or reset_q = '0' else '1'; 
-
-reset_out_d		<=	not (c10_reset_q(2) and not c10_reset_q(1) ) or reset_q; 
+reset_out	<=	rst_out_q;
 
 
-process(clock)
+process(clock, reset)
 begin
-	if(rising_edge(clock)) then
-			reset_q		<=	reset;
-			c10_reset_q	<=	c10_reset_q(1 downto 0)&c10_reset_in;
-			reset_out_q	<=	reset_out_d;
-			reset_out	<=	reset_out_q;
-	end if;
+		if(reset = '0') then
+			rst_cnt_q	<=	0;
+			rst_out_q	<=	'0';
+		elsif(rising_edge(clock)) then
+			rst_cnt_q	<=	rst_cnt_d;
+			rst_out_q	<=	rst_out_d;
+		end if;
 end process;
 
-
-	
-
-
-
-
-
-
-
-
-end architecture behavior;			
+end architecture behavior;		
