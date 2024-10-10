@@ -180,6 +180,8 @@ if {$make_assignments} {
 	set_location_assignment PIN_F21 -to pmod_io[2]
 	set_location_assignment PIN_A17 -to pmod_io[1]
 	set_location_assignment PIN_A18 -to pmod_io[0]
+ 	set_location_assignment PIN_T2 -to jtag_mux_sel_out[1]
+	set_location_assignment PIN_Y9 -to jtag_mux_sel_out[0]
 
 	# Commit assignments
 	export_assignments
