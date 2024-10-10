@@ -351,7 +351,7 @@ marvell_phy_config_inst : marvell_phy_config
 
 				case ADDR(4 downto 0) is					
 					when "0" & x"0" => regbank_5 <= x"00000000"                ;--x"0A0"
-					when "1' & x"1" => regbank_5 <= jtagmuxselreg              ;--x"0B1"
+					when "1" & x"1" => regbank_5 <= jtagmuxselreg              ;--x"0B1"
 					when others =>      regbank_5 <= x"00000000" 				 ;-- default case
 				end case;
 	
