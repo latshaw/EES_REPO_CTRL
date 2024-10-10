@@ -1,3 +1,5 @@
-create_clock -name {sfp_refclk_p} -period 8.000 -waveform { 0.000 4.000 } [get_ports {sfp_refclk_p}]
+create_clock -period 8.0 [get_ports sfp_refclk_p]
+create_clock -period 10.0 [get_ports clocK_100]
+
 derive_pll_clocks
 derive_clock_uncertainty

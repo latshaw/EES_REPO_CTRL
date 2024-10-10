@@ -150,25 +150,21 @@ module cyclone (
 //		busy_pulse_gen  <= {busy_pulse_gen[0], epcs_inst_busy};
 //	end
 	
-	reg busy_RE;
-	always@(posedge clock_rd3) begin
+	reg    busy_RE;
+	reg    busy_FE;
+	wire   busy_RE_d;
+	wire   busy_FE_d;
+	// if eddge detected set it, otherwise keep the previous value
+	assign busy_RE_d = (busy_pulse_RE==1'b1) ? 1'b1 : busy_RE;
+	assign busy_FE_d = ((busy_pulse_FE==1'b1) | ( (busy_RE == 1'b1) & (busy_pulse_gen == 2'b00))) ? 1'b1 : busy_FE;
+	
+	always@(posedge clock_rd2) begin
 		if (busy_clear == 1'b1 ) begin
 			busy_RE <= 1'b0;
-		end else if ((busy_pulse_RE == 1'b1) & (busy_RE == 1'b0)) begin
-			busy_RE <= 1'b1;
-		end else if (busy_RE == 1'b1) begin
-			busy_RE <= 1'b1;
-		end
-	end
-	//and now the same but for falling edge
-	reg busy_FE;
-	always@(posedge clock_rd3) begin
-		if (busy_clear == 1'b1 ) begin
 			busy_FE <= 1'b0;
-		end else if ((busy_pulse_FE == 1'b1) & (busy_FE == 1'b0)) begin
-			busy_FE <= 1'b1;
-		end else if (busy_FE == 1'b1)  begin
-			busy_FE <= 1'b1;
+		end else begin
+			busy_RE <= busy_RE_d;
+			busy_FE <= busy_FE_d;
 		end
 	end
 	

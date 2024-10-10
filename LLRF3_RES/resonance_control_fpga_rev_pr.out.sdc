@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition"
 
-## DATE    "Thu Apr 13 09:13:46 2023"
+## DATE    "Thu Oct 10 10:50:26 2024"
 
 ##
 ## DEVICE  "10CX105YF672E5G"
@@ -115,6 +115,22 @@ set_clock_uncertainty -fall_from [get_clocks {\genUDP:inst_comms_top|u0|xcvr_nat
 set_clock_uncertainty -fall_from [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -fall_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.110  
 set_clock_uncertainty -fall_from [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -rise_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
 set_clock_uncertainty -fall_from [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -fall_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {clock_100}] -rise_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {clock_100}] -fall_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {clock_100}] -rise_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -rise_from [get_clocks {clock_100}] -fall_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -rise_from [get_clocks {clock_100}] -rise_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -rise_from [get_clocks {clock_100}] -fall_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -fall_from [get_clocks {clock_100}] -rise_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {clock_100}] -fall_to [get_clocks {clock_100}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {clock_100}] -rise_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -fall_from [get_clocks {clock_100}] -fall_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -fall_from [get_clocks {clock_100}] -rise_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -fall_from [get_clocks {clock_100}] -fall_to [get_clocks {\genUDP:inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
 
 
 #**************************************************************
