@@ -30,6 +30,8 @@ ENTITY C10GXFACTORY IS
 		fpga_ver		   : in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
 		
 		pmod_io		   :	in std_logic_vector(5 downto 0);
+
+		jtag_mux_sel_out  : out std_logic_vector(1 downto 0); -- JTAG mux select
 		
 		hb_fpga    :  out  STD_LOGIC; -- FPGA heart beat LED
 		gpio_led_1 :  out  STD_LOGIC; -- HEART_BEAT LED
@@ -100,6 +102,9 @@ signal lb_rnw 	: STD_LOGIC;
 signal lb_addr	: STD_LOGIC_VECTOR(23 downto 0);
 signal lb_wdata, lb_rdata, ru_data_out, ru_data_in :STD_LOGIC_VECTOR(31 downto 0);
 signal ru_param, ru_ctrl : STD_LOGIC_VECTOR(2 downto 0); -- 3 bit
+
+signal jtagmuxselreg, jtagmuxselreg2 : STD_LOGIC_VECTOR(31 downto 0);
+signal en_jtagmuxselreg : STD_LOGIC;
 
 signal en_ru_param, en_ru_ctrl, en_ru_data_in : STD_LOGIC;
 
@@ -176,6 +181,23 @@ RESET_all <= reset;
 
 --
 --===================================================
+-- JTAG MUX SELECT
+--===================================================
+-- double buffer since output is to a pin
+PROCESS(CLOCK,RESET_all) begin 
+  IF(RESET_all='0') THEN 
+	  jtagmuxselreg2<=(others => '0'); 
+  ELSIF (CLOCK'event AND CLOCK='1') THEN 
+	  jtagmuxselreg2<=jtagmuxselreg; 
+  END IF; 
+END PROCESS; 
+
+-- Assign output
+jtag_mux_sel_out(1 downto 0) <= NOT(jtagmuxselreg2(3)) & jtagmuxselreg2(3); -- bit 3 of xB1
+	  
+	  
+--===================================================
+	  
 -- Ethernet Communication Module from Berkeley (with test bench option)
 --===================================================
 --
@@ -329,6 +351,7 @@ marvell_phy_config_inst : marvell_phy_config
 
 				case ADDR(4 downto 0) is					
 					when "0" & x"0" => regbank_5 <= x"00000000"                ;--x"0A0"
+					when "1' & x"1" => regbank_5 <= jtagmuxselreg              ;--x"0B1"
 					when others =>      regbank_5 <= x"00000000" 				 ;-- default case
 				end case;
 	
@@ -463,7 +486,14 @@ CYCLONE_inst : CYCLONE
 	  END IF; 
 	END PROCESS; 
 	
-	
+	en_jtagmuxselreg <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
+	PROCESS(CLOCK,RESET_all) begin 
+	  IF(RESET_all='0') THEN 
+		  jtagmuxselreg<=(others => '0'); 
+	  ELSIF (CLOCK'event AND CLOCK='1' AND en_jtagmuxselreg='1') THEN 
+		  jtagmuxselreg<=din(31 downto 0); 
+	  END IF; 
+	END PROCESS; 
 	
 	
 	
