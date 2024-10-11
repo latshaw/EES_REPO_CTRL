@@ -72,8 +72,8 @@ if {$make_assignments} {
 	set_global_assignment -name VERILOG_FILE dpram_lbnl.v
 	set_global_assignment -name VHDL_FILE marvell_phy_config.vhd
 	set_global_assignment -name QIP_FILE EPCQ/EPCQ.qip
-	set_global_assignment -name SDC_FILE C10GXFACTORY.out.sdc
 	set_global_assignment -name SDC_FILE cyclone10gx_main.sdc
+	set_global_assignment -name SDC_FILE C10GXFACTORY.out.sdc
 	set_global_assignment -name QIP_FILE fpga_tsd_int/fpga_tsd_int.qip
 	set_global_assignment -name QIP_FILE transceiver_phy_wrap/transceiver_phy_wrap.qip
 	set_global_assignment -name VERILOG_FILE dpram.v

@@ -103,7 +103,7 @@ signal lb_addr	: STD_LOGIC_VECTOR(23 downto 0);
 signal lb_wdata, lb_rdata, ru_data_out, ru_data_in :STD_LOGIC_VECTOR(31 downto 0);
 signal ru_param, ru_ctrl : STD_LOGIC_VECTOR(2 downto 0); -- 3 bit
 
-signal jtagmuxselreg, jtagmuxselreg2 : STD_LOGIC_VECTOR(31 downto 0);
+signal jtagmuxselreg, jtagmuxselreg1, jtagmuxselreg2 : STD_LOGIC_VECTOR(31 downto 0);
 signal en_jtagmuxselreg : STD_LOGIC;
 
 signal en_ru_param, en_ru_ctrl, en_ru_data_in : STD_LOGIC;
@@ -188,7 +188,8 @@ PROCESS(CLOCK,RESET_all) begin
   IF(RESET_all='0') THEN 
 	  jtagmuxselreg2<=(others => '0'); 
   ELSIF (CLOCK'event AND CLOCK='1') THEN 
-	  jtagmuxselreg2<=jtagmuxselreg; 
+	  jtagmuxselreg2 <= jtagmuxselreg1;
+	  jtagmuxselreg1 <= jtagmuxselreg; 
   END IF; 
 END PROCESS; 
 
