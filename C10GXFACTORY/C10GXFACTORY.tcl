@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: C10GXFACTORY.tcl
-# Generated on: Mon Jun 10 12:11:47 2024
+# Generated on: Fri Oct 18 09:46:57 2024
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -68,14 +68,17 @@ if {$make_assignments} {
 	set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 	set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 	set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-	set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+	set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
+	set_global_assignment -name SDC_FILE cyclone10gx_main.sdc
+	set_global_assignment -name SDC_FILE C10GXFACTORY.out.sdc
+	set_global_assignment -name SDC_FILE C10GXFACTORY_MULTI_CYCLE.sdc
+	set_global_assignment -name QIP_FILE fpga_tsd_int/fpga_tsd_int.qip
+	set_global_assignment -name QIP_FILE transceiver_phy_wrap/transceiver_phy_wrap.qip
+	set_global_assignment -name VERILOG_FILE flag_xdomain.v
+	set_global_assignment -name VERILOG_FILE data_xdomain.v
 	set_global_assignment -name VERILOG_FILE dpram_lbnl.v
 	set_global_assignment -name VHDL_FILE marvell_phy_config.vhd
 	set_global_assignment -name QIP_FILE EPCQ/EPCQ.qip
-	set_global_assignment -name SDC_FILE cyclone10gx_main.sdc
-	set_global_assignment -name SDC_FILE C10GXFACTORY.out.sdc
-	set_global_assignment -name QIP_FILE fpga_tsd_int/fpga_tsd_int.qip
-	set_global_assignment -name QIP_FILE transceiver_phy_wrap/transceiver_phy_wrap.qip
 	set_global_assignment -name VERILOG_FILE dpram.v
 	set_global_assignment -name QIP_FILE remote_download/remote_download.qip
 	set_global_assignment -name QIP_FILE epcs/epcs.qip
@@ -126,6 +129,9 @@ if {$make_assignments} {
 	set_global_assignment -name VHDL_FILE COMPONENTS.vhd
 	set_global_assignment -name VHDL_FILE C10GXFACTORY.vhd
 	set_global_assignment -name IP_FILE EPCQ.ip
+	set_global_assignment -name IP_FILE pll20.ip
+	set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+	set_global_assignment -name SIGNALTAP_FILE stp1.stp
 	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_rx_0_p -entity C10GXFACTORY
 	set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to sfp_tx_0_p -entity C10GXFACTORY
 	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_refclk_p -entity C10GXFACTORY
@@ -142,7 +148,6 @@ if {$make_assignments} {
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_2 -entity C10GXFACTORY
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_3 -entity C10GXFACTORY
 	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_led_1 -entity C10GXFACTORY
-	set_location_assignment PIN_AC13 -to clock_100
 	set_location_assignment PIN_M1 -to reset
 	set_location_assignment PIN_Y10 -to m10_reset
 	set_location_assignment PIN_P2 -to hb_fpga
@@ -180,7 +185,7 @@ if {$make_assignments} {
 	set_location_assignment PIN_F21 -to pmod_io[2]
 	set_location_assignment PIN_A17 -to pmod_io[1]
 	set_location_assignment PIN_A18 -to pmod_io[0]
- 	set_location_assignment PIN_T2 -to jtag_mux_sel_out[1]
+	set_location_assignment PIN_T2 -to jtag_mux_sel_out[1]
 	set_location_assignment PIN_Y9 -to jtag_mux_sel_out[0]
 
 	# Commit assignments

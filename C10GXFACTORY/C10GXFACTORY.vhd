@@ -6,8 +6,7 @@ use work.all;
 
 ENTITY C10GXFACTORY IS 
 	PORT
-	(  clock_100 : in STD_LOGIC;
-		reset     : in  STD_LOGIC; -- switch 1, c10 reset
+	(  reset     : in  STD_LOGIC; -- switch 1, c10 reset
 		m10_reset : in std_logic;  -- Let's us know if Max10 was reset
 		
 		-- SFP signals
@@ -130,21 +129,20 @@ attribute noprune of regbank_6 : signal is true;
 attribute noprune of regbank_7 : signal is true;
 --signal wf_4k_command, wf_4k_status : STD_LOGIC_VECTOR(31 downto 0);
 SIGNAL c_addr : STD_LOGIC_VECTOR(31 downto 0);
-attribute noprune of c_addr : signal is true;
 SIGNAL c_cntlr : STD_LOGIC_VECTOR(31 downto 0);
-attribute noprune of c_cntlr : signal is true;
 SIGNAL c_data : STD_LOGIC_VECTOR(31 downto 0);
-attribute noprune of c_data : signal is true;
 SIGNAL c_status : STD_LOGIC_VECTOR(31 downto 0); -- RO
-attribute noprune of c_status : signal is true;
 SIGNAL c_datar : STD_LOGIC_VECTOR(31 downto 0); -- RO
-attribute noprune of c_datar : signal is true;
 signal lb_strb : STD_LOGIC;
-attribute noprune of lb_strb : signal is true;
---
+attribute noprune of c_addr : signal is true;
+attribute noprune of c_cntlr : signal is true;
+attribute noprune of c_data : signal is true;
+attribute noprune of c_status : signal is true;
+attribute noprune of c_datar : signal is true;
 attribute noprune of ru_ctrl : signal is true;
 attribute noprune of ru_param : signal is true;
 attribute noprune of ru_data_in : signal is true;
+--
 
 signal reset_count, reset_count_d : UNSIGNED(2 downto 0);
 
@@ -240,8 +238,8 @@ port map(clock				=>	sfp_refclk_p,  -- 100 MHz input clock, 3/9/21 changed from 
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => CLOCK,
-			reset	      => reset,
+			clock	      => clock,
+			reset	      => RESET_all,
 			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,
 			mdio	      => eth_mdio,
@@ -432,7 +430,7 @@ CYCLONE_inst : CYCLONE
 	-- Enables for RWs for this firmware block ======================
 	-- enables for RW registers 
 	en_c_addr <= '1' when load = '1' and addr(11 downto 0) = x"0D5" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_c_addr) begin 
 	  IF(RESET_all='0') THEN 
 		  c_addr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_addr='1') THEN 
@@ -441,7 +439,7 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_c_cntl <= '1' when load = '1' and addr(11 downto 0) = x"0D6" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_c_cntl) begin 
 	  IF(RESET_all='0') THEN 
 		  c_cntlr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_cntl='1') THEN 
@@ -450,7 +448,7 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_c_data <= '1' when load = '1' and addr(11 downto 0) = x"0D9" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_c_data) begin 
 	  IF(RESET_all='0') THEN 
 		  c_data<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_data='1') THEN 
@@ -461,7 +459,7 @@ CYCLONE_inst : CYCLONE
 	-- remote update specific
 	
 	en_ru_param <= '1' when load = '1' and addr(11 downto 0) = x"001" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_ru_param) begin 
 	  IF(RESET_all='0') THEN 
 		  ru_param<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_ru_param='1') THEN 
@@ -470,7 +468,7 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_ru_ctrl <= '1' when load = '1' and addr(11 downto 0) = x"002" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_ru_ctrl) begin 
 	  IF(RESET_all='0') THEN 
 		  ru_ctrl<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_ru_ctrl='1') THEN 
@@ -479,7 +477,7 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_ru_data_in <= '1' when load = '1' and addr(11 downto 0) = x"003" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_ru_data_in) begin 
 	  IF(RESET_all='0') THEN 
 		  ru_data_in<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_ru_data_in='1') THEN 
@@ -488,7 +486,7 @@ CYCLONE_inst : CYCLONE
 	END PROCESS; 
 	
 	en_jtagmuxselreg <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
-	PROCESS(CLOCK,RESET_all) begin 
+	PROCESS(CLOCK,RESET_all, en_jtagmuxselreg) begin 
 	  IF(RESET_all='0') THEN 
 		  jtagmuxselreg<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_jtagmuxselreg='1') THEN 

@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition"
 
-## DATE    "Fri Jun 21 11:26:47 2024"
+## DATE    "Fri Oct 18 09:39:55 2024"
 
 ##
 ## DEVICE  "10CX105YF672E5G"
@@ -38,7 +38,6 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {clock_100} -period 10.000 -waveform { 0.000 5.000 } [get_ports {clock_100}]
 create_clock -name {sfp_refclk_p} -period 8.000 -waveform { 0.000 4.000 } [get_ports {sfp_refclk_p}]
 
 
@@ -50,6 +49,7 @@ create_generated_clock -name {inst_comms_top|u0|xcvr_native_a10_0|rx_coreclkin} 
 create_generated_clock -name {inst_comms_top|u0|xcvr_native_a10_0|tx_coreclkin} -source [get_pins {inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].twentynm_xcvr_native_inst|twentynm_xcvr_native_inst|inst_twentynm_pcs|out_pld_pcs_tx_clk_out~CLKENA0|outclk}] -duty_cycle 50/1 -multiply_by 1 -master_clock {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk} [get_pins {inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].twentynm_xcvr_native_inst|twentynm_xcvr_native_inst|inst_twentynm_pcs|gen_twentynm_hssi_tx_pld_pcs_interface.inst_twentynm_hssi_tx_pld_pcs_interface|pld_tx_clk}] 
 create_generated_clock -name {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk} -source [get_pins {inst_comms_top|u2|xcvr_atx_pll_a10_0|a10_xcvr_atx_pll_inst|twentynm_hssi_pma_lc_refclk_select_mux_inst|lvpecl_in}] -duty_cycle 50/1 -multiply_by 1 -master_clock {sfp_refclk_p} [get_pins {inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].twentynm_xcvr_native_inst|twentynm_xcvr_native_inst|inst_twentynm_pma|gen_twentynm_hssi_pma_tx_cgb.inst_twentynm_hssi_pma_tx_cgb|cpulse_out_bus[0]}] 
 create_generated_clock -name {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk} -source [get_pins {inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].twentynm_xcvr_native_inst|twentynm_xcvr_native_inst|inst_twentynm_pma|gen_twentynm_hssi_pma_cdr_refclk_select_mux.inst_twentynm_hssi_pma_cdr_refclk_select_mux|ref_iqclk[0]}] -duty_cycle 50/1 -multiply_by 1 -master_clock {sfp_refclk_p} [get_pins {inst_comms_top|u0|xcvr_native_a10_0|g_xcvr_native_insts[0].twentynm_xcvr_native_inst|twentynm_xcvr_native_inst|inst_twentynm_pma|gen_twentynm_hssi_pma_rx_deser.inst_twentynm_hssi_pma_rx_deser|clkdiv}] 
+create_generated_clock -name {CYCLONE_inst|pll20_inst|iopll_0|clk20} -source [get_pins {CYCLONE_inst|pll20_inst|iopll_0|altera_iopll_i|c10gx_pll|iopll_inst|refclk[0]}] -duty_cycle 50/1 -multiply_by 8 -divide_by 50 -master_clock {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk} [get_pins {CYCLONE_inst|pll20_inst|iopll_0|altera_iopll_i|c10gx_pll|iopll_inst|outclk[0]}] 
 
 
 #**************************************************************
@@ -62,6 +62,14 @@ create_generated_clock -name {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk} -s
 # Set Clock Uncertainty
 #**************************************************************
 
+set_clock_uncertainty -rise_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -rise_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.250  
+set_clock_uncertainty -rise_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -fall_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.250  
+set_clock_uncertainty -rise_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.320  
+set_clock_uncertainty -rise_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.320  
+set_clock_uncertainty -fall_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -rise_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.250  
+set_clock_uncertainty -fall_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -fall_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.250  
+set_clock_uncertainty -fall_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.320  
+set_clock_uncertainty -fall_from [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.320  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.110  
@@ -70,12 +78,16 @@ set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_
 set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
 set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.110  
 set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.110  
+set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.320  
+set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -fall_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.320  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.020  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.020  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_coreclkin}] -setup 0.040  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_coreclkin}] -hold 0.069  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_coreclkin}] -setup 0.040  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_coreclkin}] -hold 0.069  
+set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.320  
+set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -fall_to [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  0.320  
 set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.020  
 set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.020  
 set_clock_uncertainty -fall_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_coreclkin}] -setup 0.040  
@@ -104,28 +116,12 @@ set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -rise_to [get_clock
 set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
 set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {sfp_refclk_p}]  0.040  
 set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {sfp_refclk_p}]  0.040  
-set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {clock_100}]  0.030  
-set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {clock_100}]  0.030  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {sfp_refclk_p}]  0.040  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {sfp_refclk_p}]  0.040  
-set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {clock_100}]  0.030  
-set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {clock_100}]  0.030  
-set_clock_uncertainty -rise_from [get_clocks {clock_100}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
-set_clock_uncertainty -rise_from [get_clocks {clock_100}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
-set_clock_uncertainty -rise_from [get_clocks {clock_100}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
-set_clock_uncertainty -rise_from [get_clocks {clock_100}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
-set_clock_uncertainty -rise_from [get_clocks {clock_100}] -rise_to [get_clocks {clock_100}]  0.030  
-set_clock_uncertainty -rise_from [get_clocks {clock_100}] -fall_to [get_clocks {clock_100}]  0.030  
-set_clock_uncertainty -fall_from [get_clocks {clock_100}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
-set_clock_uncertainty -fall_from [get_clocks {clock_100}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
-set_clock_uncertainty -fall_from [get_clocks {clock_100}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
-set_clock_uncertainty -fall_from [get_clocks {clock_100}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
-set_clock_uncertainty -fall_from [get_clocks {clock_100}] -rise_to [get_clocks {clock_100}]  0.030  
-set_clock_uncertainty -fall_from [get_clocks {clock_100}] -fall_to [get_clocks {clock_100}]  0.030  
 
 
 #**************************************************************
@@ -164,6 +160,12 @@ set_false_path -to [get_pins -compatibility_mode {*twentynm_xcvr_native_inst|*in
 # Set Multicycle Path
 #**************************************************************
 
+set_multicycle_path -setup -end -from  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
+set_multicycle_path -hold -end -from  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
+set_multicycle_path -setup -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
+set_multicycle_path -hold -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
+set_multicycle_path -setup -end -from [get_keepers {CYCLONE_inst|cdc_*|data_latch[*]}] -to [get_keepers {CYCLONE_inst|cdc_4|data_pipe[*]}] 8
+set_multicycle_path -hold -end -from [get_keepers {CYCLONE_inst|cdc_*|data_latch[*]}] -to [get_keepers {CYCLONE_inst|cdc_4|data_pipe[*]}] 8
 
 
 #**************************************************************
