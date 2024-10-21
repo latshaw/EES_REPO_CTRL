@@ -418,13 +418,13 @@ module cyclone (
 	wire [2:0]  ru_ctrl_d3;
 	reg  [2:0]  ru_sm, ru_instr_q;
 	wire [2:0]  ru_instr_d, ru_param_d, ru_ctrl_d;
-	reg  [31:0] rst_cnt, ru_data_in_q, ru_data_out_q;
+	reg  [31:0] rst_cnt, ru_data_in_q, ru_data_out_q /* synthesis noprune*/;
 	wire [31:0] ru_data_in_d, ru_data_out_d;
-	reg  [2:0]  ru_param_q, ru_ctrl_last, ru_ctrl_q;
+	reg  [2:0]  ru_param_q, ru_ctrl_last, ru_ctrl_q /* synthesis noprune*/;
 	wire [31:0] ru_dout;
 	reg  [2:0] ruBusyStr, ruBusyStr2;
-	reg ruREq, ruWEq, ruRSTq;
-	reg ruBsyA, ruBsyB;
+	reg ruREq, ruWEq, ruRSTq /* synthesis noprune*/;
+	reg ruBsyA, ruBsyB /* synthesis noprune*/;
 	wire ruREd, ruWEd, ruBsy, ruRSTd;
 	//
 	// sm regs
