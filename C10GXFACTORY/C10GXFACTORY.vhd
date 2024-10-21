@@ -313,7 +313,7 @@ marvell_phy_config_inst : marvell_phy_config
 				
 				case ADDR(4 downto 0) is
 					when "0" & x"0" => regbank_1 <= x"00000000"             ;--x"020" next block example
-					when "0" & x"A" => regbank_1 <= x"0008ABCD"             ;--x"02A"  
+					when "0" & x"A" => regbank_1 <= x"c0010001"             ;--x"02A"  
 					when others =>     regbank_1 <= x"00000000"				  ;-- default case
 				end case;
 

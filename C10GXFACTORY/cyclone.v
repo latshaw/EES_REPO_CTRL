@@ -469,7 +469,9 @@ module cyclone (
 	end
 	//
 	// Simple SM to take over bus if no interupt is present within so many seconds
-	//
+	//	
+	wire reconfig_fault_d;
+	reg  reconfig_fault /* synthesis noprune*/;
 	//clocked registers
 	always@(posedge clk_20) begin 	
 		autoRU     <= autoRUnext;
@@ -479,6 +481,7 @@ module cyclone (
 		ru_ctrl_q3 <= ru_ctrl_q2;
 		ruBsyB     <= ruBsy;
 		ruBusyStr2 <= {ruBusyStr2[1:0], ruBsyB};
+		reconfig_fault <= reconfig_fault_d;
 	end	
 	//
 	// Next state combinational logic
@@ -487,6 +490,7 @@ module cyclone (
 	wire [2:0] delay_start000;
 	wire [2:0] bsy_check100;
 	wire [2:0] done_check101;
+
 	//
 	always @(*)
 	begin
@@ -504,7 +508,12 @@ module cyclone (
 	//
 	assign delay_start000 = (ru_ctrl_d3 == 3'b101)?  (3'b111) : ((autoCNT >= 31'h07735940)? 3'b001 : 3'b000);
 	assign bsy_check100   = (ruBusyStr2[2:1] == 2'b00)? 3'b101 : 3'b100;
-	assign done_check101  = (autoINTR >= 3'b011)? 3'b110 : 3'b001;
+	//
+	// done_check101 logic:
+	// 		if either ru_data_out_q[1:0] are HI there is a reconfigration error, go to user mode and stay in Golden image 
+	//			else, if there are NO reconfiguation errors, once all instructions are written, jump/reconfigure
+	assign reconfig_fault_d = ((ru_data_out_q[1]==1'b1) | (ru_data_out_q[0]==1'b1))? 1'b1 : 1'b0; // check to see if there is a reconfig fault (from a previous attempt to jump to another image)
+	assign done_check101    = (reconfig_fault==1'b1)? (3'b111) : ((autoINTR >= 3'b110)? 3'b110 : 3'b001);
 	//
 	assign autoCNT_d  = (autoRU==3'b000)? autoCNT  + 1 : autoCNT;
 	assign autoINTR_d = (autoRU==3'b101)? autoINTR + 3'b001 : autoINTR;
@@ -515,10 +524,12 @@ module cyclone (
 			3'b000		:	autoPARAM	 =	3'b101;			
 			3'b001		:	autoPARAM	 =	3'b100;
 			3'b010		:	autoPARAM	 =	3'b010;
-			default		:	autoPARAM	 =	3'b011;
+			3'b011      :	autoPARAM	 =	3'b011;
+			default		:	autoPARAM	 =	3'b000; // read the reconfigure trigger register, note we read this twice
 		endcase
 	end
 	//
+	// note reconfig register (param 0) is RO
 	always @(*)
 	begin
 		case(autoINTR)
@@ -529,12 +540,15 @@ module cyclone (
 		endcase
 	end
 	//
+	wire [2:0] sel_RW; // x2 is write, x1 is read
+	// last two instructions are reads
+	assign sel_RW = ((autoINTR==3'b100) | (autoINTR==3'b101))? 3'b001 : 3'b010;
 	always @(*)
 	begin
 		case(autoRU)
 			3'b000		:	autoCTRL		=	3'b100; // reset			
 			3'b001		:	autoCTRL		=	3'b000;
-			3'b010		:	autoCTRL		=	3'b010; // WE
+			3'b010		:	autoCTRL		=	sel_RW; // WE, 2 or RE, 1
 			3'b011		:	autoCTRL		=	3'b000;
 			3'b100		:	autoCTRL		=	3'b000;
 			3'b101		:	autoCTRL		=	3'b000;

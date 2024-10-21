@@ -43,7 +43,6 @@ if {$make_assignments} {
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:59:13  JUNE 30, 2020"
 	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
-	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION ON
 	set_global_assignment -name FAMILY "Cyclone 10 GX"
 	set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 	set_global_assignment -name DEVICE 10CX105YF672E5G
