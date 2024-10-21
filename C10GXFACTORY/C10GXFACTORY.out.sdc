@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition"
 
-## DATE    "Fri Oct 18 09:39:55 2024"
+## DATE    "Mon Oct 21 10:48:23 2024"
 
 ##
 ## DEVICE  "10CX105YF672E5G"
@@ -38,6 +38,7 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
+create_clock -name {~ALTERA_CLKUSR~} -period 8.000 -waveform { 0.000 4.000 } [get_pins -compatibility_mode {~ALTERA_CLKUSR~~ibuf|o}]
 create_clock -name {sfp_refclk_p} -period 8.000 -waveform { 0.000 4.000 } [get_ports {sfp_refclk_p}]
 
 
@@ -122,6 +123,22 @@ set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clock
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {sfp_refclk_p}]  0.040  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {sfp_refclk_p}]  0.040  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
 
 
 #**************************************************************
@@ -160,10 +177,10 @@ set_false_path -to [get_pins -compatibility_mode {*twentynm_xcvr_native_inst|*in
 # Set Multicycle Path
 #**************************************************************
 
-set_multicycle_path -setup -end -from  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
 set_multicycle_path -hold -end -from  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
-set_multicycle_path -setup -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
 set_multicycle_path -hold -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
+set_multicycle_path -setup -end -from  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
+set_multicycle_path -setup -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
 set_multicycle_path -setup -end -from [get_keepers {CYCLONE_inst|cdc_*|data_latch[*]}] -to [get_keepers {CYCLONE_inst|cdc_4|data_pipe[*]}] 8
 set_multicycle_path -hold -end -from [get_keepers {CYCLONE_inst|cdc_*|data_latch[*]}] -to [get_keepers {CYCLONE_inst|cdc_4|data_pipe[*]}] 8
 
