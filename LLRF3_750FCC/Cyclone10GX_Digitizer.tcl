@@ -337,7 +337,6 @@ if {$make_assignments} {
 	set_location_assignment PIN_AC20 -to ad9653_ncs
 	set_location_assignment PIN_A11 -to ad9653_sdio
 	set_location_assignment PIN_AC21 -to ad9653_sclk
-	set_location_assignment PIN_AC13 -to clock
 	set_location_assignment PIN_M1 -to reset
 	set_location_assignment PIN_Y10 -to m10_reset
 	set_location_assignment PIN_P2 -to hb_fpga
@@ -411,7 +410,8 @@ if {$make_assignments} {
 	set_location_assignment PIN_A4 -to fpga_ver[5]
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_E16 -to lmk04808_ld
-	set_location_assignment PIN_T2 -to jtag_mux_sel_out
+	set_location_assignment PIN_T2 -to jtag_mux_sel_out[1]
+	set_location_assignment PIN_Y9 -to jtag_mux_sel_out[0]
 	set_location_assignment PIN_N1 -to gpio_led_1
 	set_location_assignment PIN_T1 -to gpio_led_2
 	set_location_assignment PIN_R2 -to gpio_led_3

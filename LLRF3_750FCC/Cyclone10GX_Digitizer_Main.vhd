@@ -7,7 +7,7 @@ use work.components.all;
 use work.all;
 
 entity cyclone10gx_digitizer_main is
-    Port ( clock 					: 	in std_logic;-----this is the 100 MHz user clock
+    Port ( --clock 					: 	in std_logic;-----this is the 100 MHz user clock
 			  
            reset 					: 	in std_logic;
 			  m10_reset				:	in std_logic;
@@ -85,7 +85,7 @@ entity cyclone10gx_digitizer_main is
 				
 			  
 			  pmod_io				:	in std_logic_vector(5 downto 0);
-			  jtag_mux_sel_out   :	out std_logic; -- JTAG mux select '0' - C10 and M10, '1' for M10 only
+			  jtag_mux_sel_out   :  out std_logic_vector(1 downto 0); -- JTAG mux select
 			  gpio_led_1         :  out STD_LOGIC; -- HEART_BEAT LED
 			  gpio_led_2         :  out std_logic;  -- heart beat ioc
 			  gpio_led_3         :  out std_logic	
@@ -643,7 +643,7 @@ signal lb_strb : STD_LOGIC;
 
 signal jtag_mux_sel : std_logic;
 
---attribute noprune: boolean;
+attribute noprune: boolean;
 ---- cyclone.v neded no prune signals
 --attribute noprune of c_cntlr : signal is true;--
 --attribute noprune of c_data : signal is true;--
@@ -686,7 +686,16 @@ signal lmk_done, lmk_done_buf, lmk_done_buf2, lmk_done_d, reset_adc_buf : std_lo
 signal rst_count, rst_count_d : unsigned(15 downto 0);
 signal epcs_reset, epcs_reset_buf : std_logic;
 
+signal clock : STD_LOGIC;
+
+signal jtag_mux_sel_reg1, jtag_mux_sel_reg2 : STD_LOGIC_VECTOR(1 downto 0);
+attribute noprune of jtag_mux_sel_reg1 : signal is true;
+attribute noprune of jtag_mux_sel_reg2 : signal is true;
+
 begin
+
+
+clock <= sfp_refclk_p; -- moving away from using AC13 100 MHz clock and now are using the 125 MHz clock
 
 -- ===============================================================
 -- Reset Loigic
@@ -703,27 +712,13 @@ port map(clock		=>	clock,
 			fwrst		=>	reset_clock_n
 			);
 
-			
---inst_reset_all_2: entity  work.reset_all
---port map(clock		=>	adc_pll_clk_data,
---			brd		=>	reset,
---			reg		=>	'1',
---			--pll		=>	'0',
---			
---			pllrst	=>	open,
---			fwrst		=>	reset_n
---			);
-
-
---lmk_reset_n    <= reset; -- direct from pin, asyn reset
 reset_n		   <= reset; -- direct from pin, asyn reset 
 
 adc_pll_reset <= NOT(reset);--reset_adc; -- active HI
-	-- ===============================================================
-	-----------------------adc_data_acq code-----------------------
-	-- ===============================================================
-	
 
+-- ===============================================================
+-----------------------adc_data_acq code-----------------------
+-- ===============================================================
 	
 adc_pllo_inst: adc_pll0
 	port map (
@@ -812,6 +807,9 @@ port map(clock		=>	adc_pll_clk_data,
 			regbank_in(1)(9)	  <=	glde;
 			regbank_in(1)(10)   <=	plde;
 			
+			--x40, FPGA version
+			regbank_in(4)(0)(15 downto 0)   <= x"0001";				
+			
 			--x43 STAT2
 			regbank_in(4)(3)(1)					<=	sft_flt_q(6);----gdcl fault
 			regbank_in(4)(3)(0)					<=	sft_flt_q(2);
@@ -850,28 +848,7 @@ port map(clock		=>	adc_pll_clk_data,
 			-- glde -> CNTRL4 bit E (really bit 4)
 			sftmsk			<=	'1' & reg_rw_bank(3)(3)(4) & reg_rw_bank(3)(4)(5) & reg_rw_bank(3)(4)(4);
 			
--- clock domain crossing from adc_pll_clk_data -> lb_clk (93 MHz-> 100 MHz)
---inst_clk_dom_xing : entity work.dpram_clkdom_xing
---port map(reset_n				=>	reset_n,
---			rdclock				=>	clock,                 -- udp clock, 100 MHz
---			wrclock				=>	adc_pll_clk_data,      -- 93 MHz clock
---			deta_stp_in			=>	x"0000",               --deta_stp(17 downto 2), -- detune angle
---			deta_disc_stp_in	=>	"000",                 --deta_disc_pzt,         -- stepper select([1..0]:deta=0, disc=1, pzt=2), [2] slow step)
---			disc_stp_in			=>	x"0000000",            --disc_stp,              -- 28 bit discriminator for stepper chassis
---			stpena_in			=>	fault_clear,                   --stpena_q,
---			beam_fsd_in			=>	beam_fsd(1),           -- beam permit signal
---			gmesstat_in			=>	'0',                   --gmesstat(1),
---			ratn_in				=>	"000000",              --ratn,  -- <<<<<< ************************* I think this is backwards. ratn needs to go from 125 to 93
---			deta_stp_out		=>	open,                  --deta_stp_fib,
---			deta_disc_stp_out	=>	open,                  --deta_disc_pzt_fib,
---			disc_stp_out		=>	open,                  --disc_stp_fib,
---			stpena_out			=>	fault_clear_100,                  --stpena_fib,
---			beam_fsd_out		=>	beam_fsd_fib,
---			gmesstat_out		=>	open,                   --gmesflt, <<<<<< ************************* is this needed for separator to kill SSA? isn't this captured in beam_fsd_fib?
---			ratn_out				=>	open                    --ratn_cdc-- <<<<<< ************************* Not used?
---			);	
-			
-			
+						
 fib_ctl_inst: entity work.fib_ctl -- Note, this is the 93 MHz version
 port map(clock		=>	adc_pll_clk_data, -- 93 MHz clock domain
 			reset		=>	reset_n,
@@ -1007,10 +984,10 @@ marvell_phy_config_inst : entity work.marvell_phy_config
 rst_wait_cnt_d		<=	std_logic_vector(unsigned(rst_wait_cnt_q) + 1) when en_rst_wait_cnt = '1' else 
 							rst_wait_cnt_q;
 en_rst_wait_cnt	<=	'1' when rst_wait_cnt_q /= (x"fffffff") else '0';
---pwr_sync_d			<=	'1' when rst_wait_cnt_q	> (x"0ffffff") else '0';
+
 pwr_sync_d			<=	'1';
 pwr_en_d				<=	'1';
---pwr_en_d				<=	'1' when rst_wait_cnt_q > (x"0ffffff") else '0';
+
 lmk_init_d			<=	'1' when pwr_sync_q = '1' and rst_wait_cnt_q = (x"fffffff") else '0';
 
 en_dac_cnt			<= '1' when pwr_sync_q = '1' and dac_cnt_q /= (x"fffffff") else '0';
@@ -1039,8 +1016,7 @@ begin
 		dac_rst_q		<= '0';
 		lmk_init_q		<=	'0';
 		lmk_lock(1)		<=	'0';
-		lmk_ref(1)		<=	'0';
---		reset_n			<=	'0';			
+		lmk_ref(1)		<=	'0';		
 	elsif(rising_edge(clock)) then
 		rst_wait_cnt_q	<=	rst_wait_cnt_d;
 		hb_cntr_q		<=	hb_cntr_d;
@@ -1051,13 +1027,10 @@ begin
 		lmk_init_q		<=	lmk_init_d;
 		lmk_lock(1)		<=	lmk_lock_d;
 		lmk_ref(1)		<=	lmk_ref_d;
---		reset_n			<=	not lmk_ref(0) and not lmk_lock(0);
-		
 	end if;
 end process;
 
 
---pmod_io(5 downto 3)	<=	pmod_io(2 downto 0);
 	
 
 fclk_d							<=	adc_data_out(71 downto 64);
@@ -1126,7 +1099,9 @@ begin
 				flt_clr_cnt_q		<=	0;
 				sft_flt_q			<=	(others	=>	'0');
 				sft_flt_edge_q		<=	(others	=>	'0');
-				jtag_mux_sel_out  <= '0';
+				jtag_mux_sel_out  <= "00";
+				jtag_mux_sel_reg1 <= "00";
+				jtag_mux_sel_reg2 <= "00";
 			elsif(rising_edge(adc_pll_clk_data)) then
 				adc_pll_lock_q		<=	adc_pll_lock_d;
 				fclk_match_q		<=	fclk_match_d;
@@ -1162,10 +1137,11 @@ begin
 				flt_clr_cnt_q		<=	flt_clr_cnt_d;
 				sft_flt_q			<=	sft_flt;
 				sft_flt_edge_q		<=	sft_flt_edge_d;
-				jtag_mux_sel_out	<=	jtag_mux_sel;
+				jtag_mux_sel_reg1 <= NOT(jtag_mux_sel) & jtag_mux_sel;
+				jtag_mux_sel_reg2 <= jtag_mux_sel_reg1;
+				jtag_mux_sel_out	<=	jtag_mux_sel_reg2; -- bit 3 of xB1
 			end if;
 end process;
-
 
 fclk_match_d	<=	'1' when fclk_q = x"ff" or fclk_q = x"00" else '0';
 
@@ -1273,21 +1249,24 @@ wav_data_in(7)	<=	fltrd(13);
 wav_takei		<=	reg_rw_bank(3)(1)(0);
 jtag_mux_sel	<=	reg_rw_bank(3)(1)(3); -- MAX10/C10 JTAG chain control. set to '0' for default (C10 and M10 in chain) or set to '1' to just have M10 in chain.
 
--- Note, these are a different order than for 1497 FCC
+
+
+-- Note, that the 750 FCC ramp control bits are a different order than for 1497 FCC
 -- 750    version: [0]--DRMP PAUSE, [1]--DRMP FORCE, [2]--PRMP PAUSE, [3]--PRMP FORCE	
--- pause = pause th eramp, force = skip ramping and assume final value
+-- pause = pause the ramp, force = skip ramping and assume final value
 --**  1497   version is below: 
 --rmpctl(3)		<=	reg_rw_bank(3)(1)(15);
 --rmpctl(2)		<=	reg_rw_bank(3)(1)(13);
 --rmpctl(0)		<=	reg_rw_bank(3)(1)(12);
 --rmpctl(1)		<=	reg_rw_bank(3)(1)(8);
 -- end 1497 version **
-
-
+--
+---**  750   version is below: 
 rmpctl(0)		<=	reg_rw_bank(3)(1)(8);
 rmpctl(1)		<=	reg_rw_bank(3)(1)(12); 
 rmpctl(2)		<=	reg_rw_bank(3)(1)(15);
 rmpctl(3)		<=	reg_rw_bank(3)(1)(13);
+-- end 750 version **
 
 ---[0]--DRMP PAUSE, [1]--DRMP FORCE, [2]--PRMP PAUSE, [3]--PRMP FORCE	
 

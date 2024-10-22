@@ -505,8 +505,9 @@ module cyclone (
 			default		:	autoRUnext	 =	3'b111;         // USER CONTROL
 		endcase
 	end
-	//
-	assign delay_start000 = (ru_ctrl_d3 == 3'b101)?  (3'b111) : ((autoCNT >= 31'h07735940)? 3'b001 : 3'b000);
+	// 31'h07735940 was too short
+	// 31'h0BEBC200 is to increase time before auto jump
+	assign delay_start000 = (ru_ctrl_d3 == 3'b101)?  (3'b111) : ((autoCNT >= 31'h0BEBC200)? 3'b001 : 3'b000);
 	assign bsy_check100   = (ruBusyStr2[2:1] == 2'b00)? 3'b101 : 3'b100;
 	//
 	// done_check101 logic:
