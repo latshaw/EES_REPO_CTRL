@@ -2008,7 +2008,7 @@ end generate;
 	-- 	counter for tracking steps, slow acceleration and velocity based on a status bit from fcc
 	status	<=  "000" & x"000" & heartbeat;
 	-- x"000E" LLRF 3.0 versions
-	version	<= x"0066"; -- LLRF 3.0 Resonance 6/3/22 (limit switch mask), 
+	version	<= x"0067"; -- LLRF 3.0 Resonance 6/3/22 (limit switch mask), 
 								-- 7/26/22,  switch to marvel chip instead of SFP, FW version x11
 								-- 10/18/22, microstepping resolution bits added, FW Version x12
 								-- 10/28/22, chopper configuration added, FW x13
@@ -2020,6 +2020,7 @@ end generate;
 								-- 4/13/23, Fixed cyclone.v module to work with newer version of python (caused by red hat version upgrade) FWx23
 								--9/5/23, x24,  making default hold current is full. mask has to be applied to allow for low current when not moving.
 								--						and abs subtract slow decounter.
+								-- 11/7/24, removing AC13/100 MHz clock x67
 	thrt     <= x"0006"; -- LLRF 3.0 Resonance 3/2/2021
 	--
 	--==================================================================

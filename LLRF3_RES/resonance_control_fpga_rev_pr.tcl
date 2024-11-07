@@ -40,7 +40,6 @@ if {[is_project_open]} {
 
 # Make assignments
 if {$make_assignments} {
-	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
 	set_global_assignment -name FAMILY "Cyclone 10 GX"
 	set_global_assignment -name TOP_LEVEL_ENTITY motion_control
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
@@ -405,7 +404,6 @@ if {$make_assignments} {
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_T2 -to jtag_mux_sel_out[1]
 	set_location_assignment PIN_Y9 -to jtag_mux_sel_out[0]
-	set_location_assignment PIN_AC13 -to clock_100
 	
 	# Commit assignments
 	export_assignments

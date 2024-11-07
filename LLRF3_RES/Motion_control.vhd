@@ -189,7 +189,7 @@ ENTITY Motion_control IS
 		fpga_ver				: in std_logic_vector(5 downto 0);  -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
 		jtag_mux_sel_out  : out std_logic_vector(1 downto 0); -- JTAG mux select
 		
-		clock_100 : in STD_LOGIC;
+		--clock_100 : in STD_LOGIC;
 		
 		hb_fpga    :  out  STD_LOGIC; -- FPGA heart beat LED
 		gpio_led_1 :  out  STD_LOGIC; -- HEART_BEAT LED
@@ -692,7 +692,7 @@ signal sfp_dataw, sfp_datar, sfp_ctrl  :  std_logic_VECTOR(31 DOWNTO 0);
 --
 -- internal temperature sensore end of fetching the temp. (falling edge)
 SIGNAL fpga_tsd_int_EOC_n : STD_LOGIC;
-signal en_mdc_mdio, reset_clock_100_n, one, zero : STD_LOGIC;
+signal en_mdc_mdio, reset_marvel, reset_led, one, zero : STD_LOGIC;
 --
 -- for buffering across clock domains 
 --	(temp senor, 1Mhz to 125 Mhz)
@@ -709,16 +709,19 @@ BEGIN
 -- ================================================================
 -- 3/6/2024
 
-reset_control : resets
-PORT MAP(clock_100, reset, one, zero, reset_clock_100_n);
+reset_control_marvel : resets
+PORT MAP(CLOCK, reset, one, zero, reset_marvel); -- moved away from 100 MHz clocking, just use 125 MHz local bus clock
+
+reset_control_led : resets
+PORT MAP(CLOCK, reset, one, zero, reset_led);
 
 one  <= '1';
 zero <= '0';
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => clock_100,
-			reset	      => reset_clock_100_n,
+			clock	      => CLOCK,
+			reset	      => reset_marvel,
 			phy_resetn	=> ETH1_RESET_N,
 			en_mdc      => en_mdc_mdio,
 			mdio	      => eth_mdio,
@@ -744,7 +747,7 @@ PLL_reset <= NOT(RESET_all);
 -- Reset Control
 --===================================================
 
-reset_control_100 : resets
+reset_control : resets
 PORT MAP(clock, reset, ISA_RESET, reg_res, RESET_all);
 -- dummy isa_reset, eventually replace this with SFP reset
 ISA_RESET <= '0'; -- note, this reset actually isn't used in the module...
@@ -1164,7 +1167,7 @@ end generate SPI_ports_gen;
 	 generic map (testBench=>testBench)
 	 PORT MAP	(	
 		clock      => clock,
-		reset_n    => RESET_ALL,
+		reset_n    => reset_led,
 		LED_TOP	  => LED_TOP,
 		LED_BOTTOM => LED_BOTTOM,
 		SCL 	     => LED_SCL,
