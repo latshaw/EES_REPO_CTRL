@@ -1720,7 +1720,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 
 				
 	-- LLRF 3.0 firmware version will start with '30'
-	VERSION <= x"7537"; -- UPDATE BY JAL FOR LLRF 3.0
+	VERSION <= x"7538"; -- UPDATE BY JAL FOR LLRF 3.0
 							  -- 3001, init
 							  -- 3002, hrt change to move arc buffer data to end of hrt.
 							  -- 3004, ramas arc adc code
@@ -1734,5 +1734,6 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 							  -- decimal 30,005 'simple' fimrware download, lowered IR sPI to 7.8 MHz
 							  -- decimal 30,006 new name to make 2 versions of 30,005 less confusing
 							  -- decimal 30,007 fix timing issue caused by temp sensore that may have been breaking remote firmware download
+							  -- x7538, removed AC13 10 MHZ clock
 	
 END ARCHITECTURE;

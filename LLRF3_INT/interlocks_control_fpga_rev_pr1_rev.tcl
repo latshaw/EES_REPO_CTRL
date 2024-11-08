@@ -44,7 +44,6 @@ if {$make_assignments} {
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:47:48  NOVEMBER 19, 2020"
 	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
-	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
 	set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 	set_global_assignment -name FAMILY "Cyclone 10 GX"
@@ -400,7 +399,6 @@ if {$make_assignments} {
 	set_location_assignment PIN_A12 -to fpga_ver[3]
 	set_location_assignment PIN_T2 -to jtag_mux_sel_out[1]
 	set_location_assignment PIN_Y9 -to jtag_mux_sel_out[0]
-	set_location_assignment PIN_AC13 -to clock_100
 
 	# Commit assignments
 	export_assignments

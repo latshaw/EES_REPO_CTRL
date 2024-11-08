@@ -17,7 +17,7 @@ USE WORK.COMPONENTS.ALL;
 ENTITY interlocks_control IS 
 	PORT
 	(
-		clock_100 :  IN  STD_LOGIC; -- 100 MHz (may need to change to 80 MHz with PLL), c10_CLKUSR
+		--clock_100 :  IN  STD_LOGIC; -- 100 MHz (may need to change to 80 MHz with PLL), c10_CLKUSR
 		RESET :  IN  STD_LOGIC;		-- switch 1, c10 reset
 		m10_reset : in std_logic;  -- Let's us know if Max10 was reset
 		
@@ -719,7 +719,7 @@ en_mdc_mdio <= '0' when fpga_ver(3)= '1' else '1'; -- note, a jumper connecting 
 
 marvell_phy_config_inst : marvell_phy_config
 	PORT MAP(
-			clock	      => clock_100,
+			clock	      => CLOCK,
 			reset	      => RESET_all_n,
 			en_mdc      => en_mdc_mdio,
 			phy_resetn	=> ETH1_RESET_N,

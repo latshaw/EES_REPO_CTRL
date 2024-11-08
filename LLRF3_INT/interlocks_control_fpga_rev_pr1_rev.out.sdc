@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition"
 
-## DATE    "Thu Aug  3 16:38:19 2023"
+## DATE    "Fri Nov  8 10:34:51 2024"
 
 ##
 ## DEVICE  "10CX105YF672E5G"
@@ -38,8 +38,8 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
+create_clock -name {~ALTERA_CLKUSR~} -period 8.000 -waveform { 0.000 4.000 } [get_pins -compatibility_mode {~ALTERA_CLKUSR~~ibuf|o}]
 create_clock -name {sfp_refclk_p} -period 8.000 -waveform { 0.000 4.000 } [get_ports {sfp_refclk_p}]
-create_clock -name {clock_100} -period 10.000 -waveform { 0.000 5.000 } [get_ports {sfp_refclk_p}]
 create_clock -name {altera_ts_clk} -period 1000.000 -waveform { 0.000 500.000 } [get_nodes {*|sd1~sn_adc_ts_clk.reg}]
 
 
@@ -64,14 +64,14 @@ create_generated_clock -name {PLL_5MHZ|iopll_0|clk_5} -source [get_pins {PLL_5MH
 # Set Clock Uncertainty
 #**************************************************************
 
-set_clock_uncertainty -rise_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -rise_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
-set_clock_uncertainty -rise_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -fall_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
-set_clock_uncertainty -fall_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -rise_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
-set_clock_uncertainty -fall_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -fall_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
 set_clock_uncertainty -rise_from [get_clocks {altera_ts_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.050  
 set_clock_uncertainty -rise_from [get_clocks {altera_ts_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.050  
 set_clock_uncertainty -fall_from [get_clocks {altera_ts_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.050  
 set_clock_uncertainty -fall_from [get_clocks {altera_ts_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.050  
+set_clock_uncertainty -rise_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -rise_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
+set_clock_uncertainty -rise_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -fall_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
+set_clock_uncertainty -fall_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -rise_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
+set_clock_uncertainty -fall_from [get_clocks {PLL_5MHZ|iopll_0|clk_5}] -fall_to [get_clocks {PLL_5MHZ|iopll_0|clk_5}]  0.360  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.030  
 set_clock_uncertainty -rise_from [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.110  
@@ -124,6 +124,22 @@ set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clock
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {sfp_refclk_p}]  0.040  
 set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {sfp_refclk_p}]  0.040  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|rx_pma_clk}]  0.080  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  0.070  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {~ALTERA_CLKUSR~}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -rise_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -rise_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
+set_clock_uncertainty -fall_from [get_clocks {sfp_refclk_p}] -fall_to [get_clocks {~ALTERA_CLKUSR~}]  0.030  
 
 
 #**************************************************************
