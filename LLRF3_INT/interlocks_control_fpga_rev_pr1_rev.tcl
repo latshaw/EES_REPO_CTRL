@@ -67,6 +67,8 @@ if {$make_assignments} {
 	set_global_assignment -name VHDL_FILE LED_CONTROL.vhd
 	set_global_assignment -name SDC_FILE cyclone10gx_main.sdc
 	set_global_assignment -name SDC_FILE interlocks_control_fpga_rev_pr1_rev.out.sdc
+	set_global_assignment -name SDC_FILE multicycle.sdc
+	set_global_assignment -name QIP_FILE pll20/pll20.qip
 	set_global_assignment -name QIP_FILE fpga_tsd_int/fpga_tsd_int.qip
 	set_global_assignment -name QIP_FILE transceiver_phy_wrap/transceiver_phy_wrap.qip
 	set_global_assignment -name QIP_FILE remote_download/remote_download.qip

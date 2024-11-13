@@ -12,10 +12,14 @@
 -- this means that FFFF = PFS = 12 VDC
 --						 8000 = FSR/2 = 0 VDC
 --						 0000 = NFS = -12 VDC
--- to convert from BOB to 2's complement we simply add x8000 to the adc value.
+-- 				FALSE: -> to convert from BOB to 2's complement we simply add x8000 to the adc value. ** false, results will be off by 1
+--             True : -> to convert form BOBs to 2's complement, just flip the MSbit only! 
 -- HOWEVER, we also invert data because the IR inputs are flipped.
 -- so we needed to change polarity of IR sensors becuase they are backwards (somewhere... on the pcb)
-
+--
+-- 1/12/24, putting this together, but it looks like the polarity of the IR sensor is opposite between C100 and C75.
+-- 			I added a bit (from status register) which will handle this polarity flip for us. C75 is the default.
+--
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -35,21 +39,22 @@ entity ADS8684 is
 		ready_a	    : out std_logic;
 		ready_b	    : out std_logic;
 		ready_c	    : out std_logic;
-		ready_d	    : out std_logic -- will go hi when data is loaded into registers.
+		ready_d	    : out std_logic; -- will go hi when data is loaded into registers.
+		c100			 : in std_logic  -- 1 if c100, 0 if c75
 		);
 	
 end ADS8684;
 
 architecture synth of ADS8684 is
 	--ADC signals
-	signal clk_spi, sclk_en, rdy_en : STD_LOGIC;
+	signal clk_spi, sclk_en, rdy_en, c100_d, c100_q : STD_LOGIC;
 	signal last_state, state : STD_LOGIC_VECTOR(3 downto 0) := x"0";
 	signal data_save : STD_LOGIC_VECTOR(11 downto 0);
 	signal addr	  : STD_LOGIC_VECTOR(2 downto 0) := "000";
 	signal chn_sel : STD_LOGIC_VECTOR(1 downto 0) := "00";
 	signal readyREG_d, readyREG_q : STD_LOGIC_VECTOR(3 downto 0);
 	--
-	signal SDI_q, SDI_d, SDO_q, SDO_d : UNSIGNED(15 downto 0);
+	signal SDI_q, SDI_d, SDO_q, SDO_d, SDO_helper : UNSIGNED(15 downto 0);
 	signal regAq, regAd, regBq, regBd, regCq, regCd, regDq, regDd : UNSIGNED(15 downto 0);
 	--
 	signal spi_counter_q, spi_counter_d : UNSIGNED(2 downto 0); -- half rate of sclk period
@@ -86,6 +91,7 @@ begin
 			regBq           <= (others	=>	'0');
 			regCq           <= (others	=>	'0');
 			regDq           <= (others	=>	'0');
+			c100_q          <= '0';
 		elsif clk'event and clk='1' then 
 			state_q         <= state_d;
 			reset_counter_q <= reset_counter_d;
@@ -99,6 +105,7 @@ begin
 			regBq           <= regBd;
 			regCq           <= regCd;
 			regDq           <= regDd;
+			c100_q          <= c100_d;
 		end if; -- end reset
 	end process;
 	--
@@ -175,11 +182,20 @@ begin
 	readyREG_d(3) <= '1' when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "11" else '0';			
 	--
 	--
+	-- For c75, no polarity flip is needed, for c100, polarity flip is needed
+	-- Polarity Flip:
+	--		C75 case,  c100=0, keep polarity as is (convert from BOB to 2's complement)
+	--    c100 case, c100=1, flip polarity (convert from BOM to 2's complement, then invert)
+	c100_d <= c100; -- input buffer
+	-- make combinational logic readable
+	SDO_helper <= NOT(SDO_q(15)) & SDO_q(14 downto 0) when c100_q = '1' else NOT(NOT(SDO_q(15)) & SDO_q(14 downto 0)) + x"0001";
+	--
+	--
 	-- When data is ready, update the corresponding register. we need to invert it and add x8000 to convert to 2's complement
-	regAd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "00" else regAq;
-	regBd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "01" else regBq;
-	regCd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "10" else regCq;
-	regDd <= NOT(SDO_q) + x"8000" when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "11" else regDq;
+	regAd <= SDO_helper when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "00" else regAq;
+	regBd <= SDO_helper when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "01" else regBq;
+	regCd <= SDO_helper when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "10" else regCq;
+	regDd <= SDO_helper when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "11" else regDq;
 	--
 	--
 	--===========================================================================================================================

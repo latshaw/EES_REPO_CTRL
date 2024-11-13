@@ -350,7 +350,8 @@ COMPONENT regs
 		 arc_adc_busy : IN STD_LOGIC_VECTOR(7 downto 0);
 		 HELIUM_INTERLOCK_LED : OUT STD_LOGIC;
 		 lb_valid		: IN STD_LOGIC;
-		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0) -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0); -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
+		 intrstr_C100_out  : OUT STD_LOGIC -- 11/12/24, use hrt register to determine if C100 style or C75 style
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -534,9 +535,20 @@ COMPONENT ADS8684
 		ready_a	    : out std_logic;
 		ready_b	    : out std_logic;
 		ready_c	    : out std_logic;
-		ready_d	    : out std_logic -- will go hi when data is loaded into registers.
+		ready_d	    : out std_logic; -- will go hi when data is loaded into registers.
+		c100         : in  std_logic
 		);
 END COMPONENT;
+
+-- PLL to convert 125 Mhz to 5Mhz, 3/31/21
+component pll20 is
+	port (
+		rst      : in  std_logic := 'X'; -- reset
+		refclk   : in  std_logic := 'X'; -- clk
+		locked   : out std_logic;        -- export
+		outclk_0 : out std_logic         -- clk
+	);
+end component pll20;
 
 -- PLL to convert 125 Mhz to 5Mhz, 3/31/21
 component PLL_125_to_5 is
@@ -708,6 +720,8 @@ SIGNAL c10_datar	: std_logic_VECTOR(31 DOWNTO 0);
 SIGNAL en_c_data	: std_logic; -- note, this is intended to capture the enable strobe when the c_data signal is written by the udp_com module
 SIGNAL lb_valid   : STD_LOGIC;
 --
+SIGNAL intrstr_C100_out, ETH1_RESET_marvel_N, RESET_regs_N, clk_20 : STD_LOGIC; -- if HI, c100 style, else C75 style
+--
 BEGIN 
 
 -- ================================================================
@@ -717,21 +731,48 @@ BEGIN
 
 en_mdc_mdio <= '0' when fpga_ver(3)= '1' else '1'; -- note, a jumper connecting PMOD2 C10 pin 4 to GND (pin 5 or 11) is needed
 
+-- 11/13/24, choosing to run marvel logic from a derived clock
+-- the hope here is to 
+--PLL_marvel : component pll20
+--	port map (
+--		rst      => NOT(RESET), -- PLL will reset when this input is HI.
+--		refclk   => CLOCK, -- 125 Mhz in phase with local bus clock
+--		outclk_0 => clk_20 -- produces a 20 MHz clock
+--	);
+
+
 marvell_phy_config_inst : marvell_phy_config
-	PORT MAP(
-			clock	      => CLOCK,
-			reset	      => RESET_all_n,
-			en_mdc      => en_mdc_mdio,
-			phy_resetn	=> ETH1_RESET_N,
-			mdio	      => eth_mdio,
-			mdc		   => eth_mdc,
-			config_done	=>  LED3);
+PORT MAP(
+		clock	      => CLOCK,
+		reset	      => ETH1_RESET_marvel_N,
+		en_mdc      => en_mdc_mdio,
+		phy_resetn	=> ETH1_RESET_N,
+		mdio	      => eth_mdio,
+		mdc		   => eth_mdc,
+		config_done	=> LED3);
 
 
 
 -- ================================================================
 -- Reset Control
 -- ================================================================
+
+
+reset_control_marvel: RESETS
+PORT MAP(CLOCK 			=> CLOCK,			-- drive with 20 MHz clock
+			BRD_RESET 		=> RESET,			-- board level reset
+			ISA_RESET_FPGA => '0', 				-- N/C
+			REG_RESET 		=> '0',  	      -- reset from control register / epics, REG_RESET from reg module removed. JAL 6/21/22
+			RESET 			=> ETH1_RESET_marvel_N);	-- dedicated reset for marvel
+
+
+reset_control_regs: RESETS
+PORT MAP(CLOCK 			=> CLOCK,			-- local bus clock (125 MHz
+			BRD_RESET 		=> RESET,			-- board level reset
+			ISA_RESET_FPGA => '0', 				-- N/C
+			REG_RESET 		=> '0',  	      -- reset from control register / epics, REG_RESET from reg module removed. JAL 6/21/22
+			RESET 			=> RESET_regs_N);	-- reset to reset all modules, active low
+
 reset_control: RESETS
 PORT MAP(CLOCK 			=> CLOCK,			-- local bus clock (125 MHz
 			BRD_RESET 		=> RESET,			-- board level reset
@@ -854,7 +895,8 @@ end process;
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
-		ready_d	=>  open
+		ready_d	=>  open,
+		c100     => intrstr_C100_out
 		);
 		
 		
@@ -873,7 +915,8 @@ end process;
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
-		ready_d	=>  open
+		ready_d	=>  open,
+		c100     => intrstr_C100_out
 		);
 		
 		IR_ADC_3 : ADS8684 
@@ -891,7 +934,8 @@ end process;
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
-		ready_d	=>  open
+		ready_d	=>  open,
+		c100     => intrstr_C100_out
 		);
 		
 		IR_ADC_4 : ADS8684 
@@ -909,7 +953,8 @@ end process;
 		ready_a	=>  open,
 		ready_b	=>  open,
 		ready_c	=>  open,
-		ready_d	=>  open
+		ready_d	=>  open,
+		c100     => intrstr_C100_out
 		);
 		
 		
@@ -1255,7 +1300,7 @@ lb_rnw_n <= not(lb_rnw); -- for input into reg module
 b2v_inst16 : regs
 PORT MAP(HB_ISA              => HB_ISA,
 		 CLOCK                 => CLOCK,
-		 RESET                 => RESET_all_n,
+		 RESET                 => RESET_regs_N,
 		 LOAD                  => lb_rnw_n,
 		 ADDR                  => lb_addr(23 DOWNTO 0),
 		 --ARC_BUFF_READY        => ARC_BUFF_READY,
@@ -1300,7 +1345,8 @@ PORT MAP(HB_ISA              => HB_ISA,
 		 arc_adc_busy          => ADC_BUSY_8,
 		 HELIUM_INTERLOCK_LED  => HELIUM_INTERLOCK_LED,
 		 lb_valid  => lb_valid,
-		 jtag_mux_sel_out => jtag_mux_sel_out
+		 jtag_mux_sel_out => jtag_mux_sel_out,
+		 intrstr_C100_out => intrstr_C100_out
 --		 out_c_addr				  => c_addr, 	-- JAL, 3/3/22 added for cyclone remote download 
 --		 out_c_cntlr			  => c_cntlr, 
 --		 c10_status       	  => c10_status, 

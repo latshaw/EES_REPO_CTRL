@@ -73,7 +73,8 @@ ENTITY REGS IS
 		
 		 HELIUM_INTERLOCK_LED : OUT STD_LOGIC; -- for front panel leds. fault is latched inside regs module
 		 lb_valid		: IN STD_LOGIC;
-		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0)
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0);
+		 intrstr_C100_out : OUT STD_LOGIC
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -132,6 +133,7 @@ END component;
 
 --
 
+SIGNAL intrstr_C100           : STD_LOGIC;
 
 SIGNAL EN_ARC_LIMIT_ISA			: STD_LOGIC_VECTOR(7 DOWNTO 0);
 SIGNAL ARC_LIMIT_ISA				: REG16_ARRAY;
@@ -1459,16 +1461,25 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 	-- and epics will reload all registers as if doing a IOC restore.
 	-- 
 	en_intrstr <= '1' when load = '1' and addr(11 downto 0) = x"06e" else '0';
-	PROCESS(CLOCK,reset) begin 
+	PROCESS(CLOCK,reset, en_intrstr) begin 
 	  IF(reset='0') THEN 
 		  intrstr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_intrstr='1') THEN 
 		  intrstr<=din(31 downto 0); 
 	  END IF; 
 	END PROCESS;
+	--
+	-- bit 0, is save restore status (0=not restored, 1=restored)
+	-- bit 1, C100 status (0=C75, 1=C100)
+	PROCESS(CLOCK,reset) begin 
+	  IF(reset='0') THEN 
+		  intrstr_C100 <= '0';
+	  ELSIF (CLOCK'event AND CLOCK='1') THEN 
+		  intrstr_C100<=intrstr(1); 
+	  END IF; 
+	END PROCESS;
 	
-	
-	
+	intrstr_C100_out <= intrstr_C100;
 	
 	--==================================================================
 	-- Cyclone 10 GX remote download/reconfig
@@ -1484,6 +1495,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 	CYCLONE_inst : entity work.CYCLONE
 	PORT MAP(
 			 lb_clk 		=> CLOCK,
+			 reset_n    => RESET,
 			 c10_addr 	=> c_addr,
 			 c10_data 	=> c_data,
 			 c10_cntlr 	=> c_cntlr,
@@ -1500,7 +1512,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 			 
 	-- enables for RW registers 
 	en_c_addr <= '1' when load = '1' and addr(11 downto 0) = x"0D5" else '0';
-	PROCESS(CLOCK,reset) begin 
+	PROCESS(CLOCK,reset, en_c_addr) begin 
 	  IF(reset='0') THEN 
 		  c_addr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_addr='1') THEN 
@@ -1509,7 +1521,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 	END PROCESS; 
 	
 	en_c_cntl <= '1' when load = '1' and addr(11 downto 0) = x"0D6" else '0';
-	PROCESS(CLOCK,reset) begin 
+	PROCESS(CLOCK,reset, en_c_cntl) begin 
 	  IF(reset='0') THEN 
 		  c_cntlr<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_cntl='1') THEN 
@@ -1521,7 +1533,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 	END PROCESS; 
 	
 	en_c_data <= '1' when load = '1' and addr(11 downto 0) = x"0D9" else '0';
-	PROCESS(CLOCK,reset) begin 
+	PROCESS(CLOCK,reset, en_c_data) begin 
 	  IF(reset='0') THEN 
 		  c_data<=(others => '0'); 
 	  ELSIF (CLOCK'event AND CLOCK='1' AND en_c_data='1') THEN 
@@ -1720,7 +1732,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 
 				
 	-- LLRF 3.0 firmware version will start with '30'
-	VERSION <= x"7538"; -- UPDATE BY JAL FOR LLRF 3.0
+	VERSION <= x"7539"; -- UPDATE BY JAL FOR LLRF 3.0
 							  -- 3001, init
 							  -- 3002, hrt change to move arc buffer data to end of hrt.
 							  -- 3004, ramas arc adc code
@@ -1735,5 +1747,6 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 							  -- decimal 30,006 new name to make 2 versions of 30,005 less confusing
 							  -- decimal 30,007 fix timing issue caused by temp sensore that may have been breaking remote firmware download
 							  -- x7538, removed AC13 10 MHZ clock
+							  -- x"7539", added c100/c75 switch to IR sensor
 	
 END ARCHITECTURE;
