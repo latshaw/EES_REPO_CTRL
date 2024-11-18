@@ -20,6 +20,9 @@
 -- 1/12/24, putting this together, but it looks like the polarity of the IR sensor is opposite between C100 and C75.
 -- 			I added a bit (from status register) which will handle this polarity flip for us. C75 is the default.
 --
+--
+-- added LPF filter to smooth channel outputs
+--
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -46,6 +49,19 @@ entity ADS8684 is
 end ADS8684;
 
 architecture synth of ADS8684 is
+
+
+	COMPONENT iir_lpf
+	PORT(lb_clk : IN STD_LOGIC;
+		 reset_n : IN STD_LOGIC;
+		 strobe  : IN STD_LOGIC; -- strobe, sample ready
+		 x       : IN STD_LOGIC_VECTOR(15 downto 0); -- 16 bit input
+		 y       :OUT STD_LOGIC_VECTOR(15 downto 0)  -- 16 but filtered output
+		);
+	END COMPONENT;
+
+
+
 	--ADC signals
 	signal clk_spi, sclk_en, rdy_en, c100_d, c100_q : STD_LOGIC;
 	signal last_state, state : STD_LOGIC_VECTOR(3 downto 0) := x"0";
@@ -59,7 +75,7 @@ architecture synth of ADS8684 is
 	--
 	signal spi_counter_q, spi_counter_d : UNSIGNED(2 downto 0); -- half rate of sclk period
 	signal reset_counter_q, reset_counter_d : UNSIGNED(11 downto 0); -- hold in reset at init
-	signal delay_counter_q, delay_counter_d : UNSIGNED(11 downto 0); -- delay between samples
+	signal delay_counter_q, delay_counter_d : UNSIGNED(19 downto 0); -- delay between samples
 	signal sclk_counter_q, sclk_counter_d   : UNSIGNED(4 downto 0); -- 32 sclk pulses
 	signal chan_sel_q, chan_sel_d           : UNSIGNED(1 downto 0); -- reading 4 channels
 
@@ -127,7 +143,7 @@ begin
 										else
 											state_d <= INIT;
 										end if;
-				when DELAY     => if delay_counter_q >= x"0ff" then -- delay between ADC samples
+				when DELAY     => if delay_counter_q >= x"000ff" then -- delay between ADC samples
 											state_d <= SCLK_LOW1;
 										else
 											state_d <= DELAY;
@@ -152,7 +168,7 @@ begin
 	
 	-- counters
 	reset_counter_d <= x"000" when state_q /= INIT  else reset_counter_q + 1; -- only increment counter in init state, o/w reset
-	delay_counter_d <= x"000" when state_q /= DELAY else delay_counter_q + 1; -- only incrment counte rin  delay state, o/w reset
+	delay_counter_d <= x"00000" when state_q /= DELAY else delay_counter_q + 1; -- only incrment counte rin  delay state, o/w reset
 	sclk_counter_d  <= sclk_counter_q + 1 when state_q = SCLK_LOW4  else sclk_counter_q; -- will roll over after 32 SCLK pulses
 	chan_sel_d      <= chan_sel_q + 1     when state_q = SCLK_LOW4 AND sclk_counter_q = x"1F"  else chan_sel_q; -- will roll over after all 4 channles are read
 	-- spi data word : changes based on which adc is read. 
@@ -198,16 +214,60 @@ begin
 	regDd <= SDO_helper when state_q = SCLK_LOW4 and sclk_counter_q = x"1F" and chan_sel_q = "11" else regDq;
 	--
 	--
-	--===========================================================================================================================
-	-- Module Outputs
+	--=============================================
+	-- IIR LPF
+	--=============================================
+	iirlpf_A: iir_lpf
+	PORT MAP(
+		lb_clk  => clk,
+		reset_n => reset_n,
+		strobe  => readyREG_q(0),
+		x       => STD_LOGIC_VECTOR(regAq),
+		y       =>reg_a
+	);
+	
+	iirlpf_B: iir_lpf
+	PORT MAP(
+		lb_clk  => clk,
+		reset_n => reset_n,
+		strobe  => readyREG_q(1),
+		x       => STD_LOGIC_VECTOR(regBq),
+		y       =>reg_b
+	);
+	
+	iirlpf_C: iir_lpf
+	PORT MAP(
+		lb_clk  => clk,
+		reset_n => reset_n,
+		strobe  => readyREG_q(2),
+		x       => STD_LOGIC_VECTOR(regCq),
+		y       =>reg_c
+	);
+	
+	iirlpf_D: iir_lpf
+	PORT MAP(
+		lb_clk  => clk,
+		reset_n => reset_n,
+		strobe  => readyREG_q(3),
+		x       => STD_LOGIC_VECTOR(regDq),
+		y       =>reg_d
+	);
+	
+	
+	--=============================================
+	-- SPI and ready pulse Module Outputs
 	--===========================================================================================================================
 	ADC_SDI <= SDI_q(15);
 	ADC_CSn <= '1' when state_q = INIT OR state_q = DELAY else '0';
 	ADC_SCK <= '0' when state_q = SCLK_LOW1 OR state_q = SCLK_LOW2 OR state_q = SCLK_LOW3 OR state_q = SCLK_LOW4 else '1'; -- keep hi if not in use
-	reg_a   <= STD_LOGIC_VECTOR(regAq);
-	reg_b   <= STD_LOGIC_VECTOR(regBq);
-	reg_c   <= STD_LOGIC_VECTOR(regCq);
-	reg_d   <= STD_LOGIC_VECTOR(regDq);
+	--reg_a   <= STD_LOGIC_VECTOR(regAq);
+--	reg_b   <= STD_LOGIC_VECTOR(regBq);
+--	reg_c   <= STD_LOGIC_VECTOR(regCq);
+--	reg_d   <= STD_LOGIC_VECTOR(regDq);
+	--	reg_a   <= STD_LOGIC_VECTOR(regAq);
+--	reg_b   <= STD_LOGIC_VECTOR(regBq);
+--	reg_c   <= STD_LOGIC_VECTOR(regCq);
+--	reg_d   <= STD_LOGIC_VECTOR(regDq);
 	-- data is truly ready at falling edge of ready pulse
 	ready_a <= readyREG_q(0); 
 	ready_b <= readyREG_q(1);
