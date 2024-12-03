@@ -325,6 +325,9 @@ signal EN_JTAGMUX : STD_LOGIC;
 signal intrstr : STD_LOGIC_VECTOR(31 downto 0);
 signal en_intrstr : STD_LOGIC;
 
+signal CAVCONFIG : STD_LOGIC_VECTOR(31 downto 0);
+signal en_CAVCONFIG : STD_LOGIC;
+
 signal c10_datar, c10_status : STD_LOGIC_VECTOR(31 downto 0);
 
 attribute noprune: boolean;
@@ -1460,6 +1463,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 	-- all pvs are set. If a power cycle or glitch occurs, this register will returnback to zero
 	-- and epics will reload all registers as if doing a IOC restore.
 	-- 
+	-- bit 0, is save restore status (0=not restored, 1=restored)
 	en_intrstr <= '1' when load = '1' and addr(11 downto 0) = x"06e" else '0';
 	PROCESS(CLOCK,reset, en_intrstr) begin 
 	  IF(reset='0') THEN 
@@ -1468,14 +1472,27 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 		  intrstr<=din(31 downto 0); 
 	  END IF; 
 	END PROCESS;
+	--==================================================================
+	-- CAVCONFIG  sets the C100_intrstr
+	--==================================================================
+	-- The IR sensor for C100 and C75s has flipped polarity. 
+	-- this register configures the IR sensor limits/readbacks for the respective IR sensor
 	--
-	-- bit 0, is save restore status (0=not restored, 1=restored)
+	en_CAVCONFIG <= '1' when load = '1' and addr(11 downto 0) = x"06d" else '0';
+	PROCESS(CLOCK,reset, en_CAVCONFIG) begin 
+	  IF(reset='0') THEN 
+		  CAVCONFIG<=(others => '0'); 
+	  ELSIF (CLOCK'event AND CLOCK='1' AND en_CAVCONFIG='1') THEN 
+		  CAVCONFIG<=din(31 downto 0); 
+	  END IF; 
+	END PROCESS;
+	-- bit 0, not used
 	-- bit 1, C100 status (0=C75, 1=C100)
 	PROCESS(CLOCK,reset) begin 
 	  IF(reset='0') THEN 
 		  intrstr_C100 <= '0';
 	  ELSIF (CLOCK'event AND CLOCK='1') THEN 
-		  intrstr_C100<=intrstr(1); 
+		  intrstr_C100<=CAVCONFIG(1); 
 	  END IF; 
 	END PROCESS;
 	
@@ -1599,6 +1616,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 								( OTHERS =>TMPCLD_LIMIT_ISA(5)(15))      WHEN (x"0049") ,
 								( OTHERS =>TMPCLD_LIMIT_ISA(6)(15))      WHEN (x"004A") ,
 								( OTHERS =>TMPCLD_LIMIT_ISA(7)(15))      WHEN (x"004B") ,
+		                                                CAVCONFIG(31 downto 16)               	  when (x"006d"),
 								intrstr(31 downto 16)               	  when (x"006e"),
 								c_addr(31 downto 16)							  when (x"00D5"), -- EPCQ address
 								c_cntlr(31 downto 16)	    				  when (x"00D6"), -- control bits for read writing and configurting EPCQ
@@ -1720,7 +1738,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 			x"0000"						 when (x"006a") , -- spares added
 			x"0000"						 when (x"006b") , -- spares added
 			x"0000"						 when (x"006c") , -- spares added
-			x"0000"						 when (x"006d") , -- spares added
+			CAVCONFIG   				         when (x"006d") , -- cavity configuration
 			intrstr(15 downto 0)		 when (x"006e"),  -- epics pv watchdog 
 			JTAGMUX(15 downto 0)         when (x"00B1"),  -- jtag_mux_select
 			c_addr(15 downto 0)		     when (x"00D5"),  -- EPCQ address
