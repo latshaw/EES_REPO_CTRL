@@ -1738,7 +1738,7 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 			x"0000"						 when (x"006a") , -- spares added
 			x"0000"						 when (x"006b") , -- spares added
 			x"0000"						 when (x"006c") , -- spares added
-			CAVCONFIG   				         when (x"006d") , -- cavity configuration
+			CAVCONFIG(15 downto 0)	   	                 when (x"006d") , -- cavity configuration
 			intrstr(15 downto 0)		 when (x"006e"),  -- epics pv watchdog 
 			JTAGMUX(15 downto 0)         when (x"00B1"),  -- jtag_mux_select
 			c_addr(15 downto 0)		     when (x"00D5"),  -- EPCQ address
