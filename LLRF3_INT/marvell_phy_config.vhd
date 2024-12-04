@@ -77,6 +77,14 @@ signal state			: state_type;
 signal mdioCatchCnt_q, mdioCatchCnt_d    : unsigned(11 downto 0);
 signal en_mdioCatchCnt, en_mdc_q : std_logic;
  
+ 
+-- 12/4/24, somehow, this module was being synch away without a noprune
+attribute noprune: boolean;
+
+attribute noprune of clk_div_q : signal is true;
+attribute noprune of en_mdc_q : signal is true;
+attribute noprune of phy_resetn : signal is true;
+ 
 begin
 
 clk_div_d	<= clk_div_q + 1;	
@@ -90,6 +98,8 @@ begin
 		clk_div_q	<= clk_div_d;
 	end if;
 end process;
+
+
 process(reset,sclk)
 begin
 	if(reset = '0') then
