@@ -65,6 +65,7 @@ if {$make_assignments} {
 	set_global_assignment -name ENABLE_LOGIC_ANALYZER_INTERFACE OFF
 	set_global_assignment -name VHDL_FILE gen_i2c.vhd
 	set_global_assignment -name VHDL_FILE LED_CONTROL.vhd
+	set_global_assignment -name SDC_FILE cyclone10gx_main.sdc
 	set_global_assignment -name SDC_FILE interlocks_control_fpga_rev_pr1_rev.out.sdc
 	set_global_assignment -name SDC_FILE multicycle.sdc
 	set_global_assignment -name QIP_FILE pll20/pll20.qip

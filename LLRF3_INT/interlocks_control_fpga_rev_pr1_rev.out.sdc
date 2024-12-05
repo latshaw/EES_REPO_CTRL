@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition"
 
-## DATE    "Fri Nov 15 13:17:02 2024"
+## DATE    "Thu Dec  5 08:34:01 2024"
 
 ##
 ## DEVICE  "10CX105YF672E5G"
@@ -191,6 +191,8 @@ set_false_path -to [get_pins -compatibility_mode {*twentynm_xcvr_native_inst|*in
 # Set Multicycle Path
 #**************************************************************
 
+set_multicycle_path -hold -end -from  [get_clocks {b2v_inst16|CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
+set_multicycle_path -hold -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {b2v_inst16|CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
 set_multicycle_path -hold -end -from  [get_clocks {b2v_inst16|CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
 set_multicycle_path -hold -end -from  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}]  -to  [get_clocks {b2v_inst16|CYCLONE_inst|pll20_inst|iopll_0|clk20}] 8
 set_multicycle_path -setup -end -from  [get_clocks {b2v_inst16|CYCLONE_inst|pll20_inst|iopll_0|clk20}]  -to  [get_clocks {inst_comms_top|u0|xcvr_native_a10_0|tx_pma_clk}] 8
