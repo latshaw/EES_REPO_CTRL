@@ -808,7 +808,9 @@ port map(clock		=>	adc_pll_clk_data,
 			regbank_in(1)(10)   <=	plde;
 			
 			--x40, FPGA version
-			regbank_in(4)(0)(15 downto 0)   <= x"0001";				
+			regbank_in(4)(0)(15 downto 0)   <= x"0002";
+			-- 1: baseline
+			-- 2: removed remote update module, added busy delay for fcc_id readback, added go pulse RE in epcs_cntl.vhd
 			
 			--x43 STAT2
 			regbank_in(4)(3)(1)					<=	sft_flt_q(6);----gdcl fault
@@ -1912,29 +1914,29 @@ port map(clock				=>	clock,
 	
 --================================================================ 
 -- start cyclone remote update specific
---================================================================ 	
+--================================================================ 	removed 2/6/2025
 -- cyclone specific remote update (RU), use this to hop to golden image/reconfig fpga
 --
+--
+--cyclone_ru_only_init : entity work.cyclone_ru_only 
+--port map(
+--	lb_clk      => adc_pll_clk_data, -- note, 93MHz clock which is slower than 125MHz.
+--	reset_n     => reset_n,
+--	--c10_addr, 
+--	--c10_data, 
+--	--c10_cntlr, 
+--	--c10_status,
+--	c10_datar   => open,
+--	--ru_param    => ru_param,
+--	--ru_data_in  => ru_data_in,
+--	ru_ctrl     => ru_ctrl, -- signal in 93 MHz clock domain, xF7
+--	ru_data_out => open
+--	--input we_cyclone_inst_c10_data
+--  );
+--  
+-- 	-- remote update specific registers 
 
-cyclone_ru_only_init : entity work.cyclone_ru_only 
-port map(
-	lb_clk      => adc_pll_clk_data, -- note, 93MHz clock which is slower than 125MHz.
-	reset_n     => reset_n,
-	--c10_addr, 
-	--c10_data, 
-	--c10_cntlr, 
-	--c10_status,
-	c10_datar   => open,
-	--ru_param    => ru_param,
-	--ru_data_in  => ru_data_in,
-	ru_ctrl     => ru_ctrl, -- signal in 93 MHz clock domain, xF7
-	ru_data_out => open
-	--input we_cyclone_inst_c10_data
-  );
-  
- 	-- remote update specific registers 
-
-
+--
 --================================================================ 
 -- end cyclone emote update specific
 --================================================================ 	

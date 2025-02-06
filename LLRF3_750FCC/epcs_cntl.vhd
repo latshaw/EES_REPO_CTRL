@@ -55,6 +55,8 @@ signal epcs_busy_int	: std_logic;
 signal addr_int		:	std_logic_vector(31 downto 0);
 signal cntl_int		:	std_logic_vector(3 downto 0);	
 
+signal go_last : std_logic;
+
 signal epcs_addr_new	:	std_logic_vector(31 downto 0);
 
 type state_type is (init, sync_clk, load, busy);
@@ -132,7 +134,8 @@ begin
 		epcs_wr		<=	'0';
 		epcs_rd		<=	'0';
 		epcs_wr_en	<=	'0';
-		epcs_addr_new	<=	x"00af0000";		
+		epcs_addr_new	<=	x"00af0000";	
+	   go_last     <= '0';	
 	elsif(rising_edge(clock)) then
 		clk_count	<=	clk_count_d;
 		clk_14mhz	<=	clk_count(2);
@@ -140,7 +143,8 @@ begin
 		epcs_wr		<=	wr;
 		epcs_rd		<=	rd;
 		epcs_wr_en	<=	wr_en;
-		epcs_addr_new	<=	address;		
+		epcs_addr_new	<=	address;	
+	   go_last     <= cntl_int(0);	
 	end if;
 end process;	
 clk_count_d		<=	std_logic_vector(unsigned(clk_count) + 1);		
@@ -150,7 +154,7 @@ er		<= cntl_int(3) when state = load else '0';
 wr		<= cntl_int(2) when state = load else '0';
 rd		<= cntl_int(1) when state = load else '0';				
 wr_en	<= (wr or er) when state = load else '0';				
-go		<= cntl_int(0);
+go		<= cntl_int(0) and NOT(go_last); -- add rising edge detection for 'go' so that read/writes/erases only happen once per command (esp important for erases)
 
 				
 process(clock, reset)
