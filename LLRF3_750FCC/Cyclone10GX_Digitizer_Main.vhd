@@ -619,6 +619,9 @@ signal ssa_prmt            : std_logic_vector(1 downto 0);
 signal ssa_prmt_cnt_q, ssa_prmt_cnt_d    : unsigned(7 downto 0);
 signal ssa_prmt_stretch, ssa_prmt_stretch_d : std_logic_vector(7 downto 0);
 signal ssa_flt_latch_d, ssa_flt_latch_q				: std_logic;
+signal ssa_mask : std_logic;
+signal ssa_force_if_masked : std_logic;
+signal ssa_mux : std_logic;
 
 -- remote firmware download singals
 signal en_c_addr, en_c_cntl, en_c_data, en_c_bus_ctl : STD_LOGIC;
@@ -808,9 +811,10 @@ port map(clock		=>	adc_pll_clk_data,
 			regbank_in(1)(10)   <=	plde;
 			
 			--x40, FPGA version
-			regbank_in(4)(0)(15 downto 0)   <= x"0002";
+			regbank_in(4)(0)(15 downto 0)   <= x"0003";
 			-- 1: baseline
 			-- 2: removed remote update module, added busy delay for fcc_id readback, added go pulse RE in epcs_cntl.vhd
+			-- 3: added masking option to SSA Permit (from SSA)
 			
 			--x43 STAT2
 			regbank_in(4)(3)(1)					<=	sft_flt_q(6);----gdcl fault
@@ -895,11 +899,18 @@ fault_clear		<=	fault_clear_q;
 --signal ssa_prmt_stretch, ssa_prmt_stretch_d : std_logic_vector(7 downto 0);
 --signal ssa_flt_latch_d, ssa_flt_latch_q				: std_logic;
 
+ssa_mask            <= reg_rw_bank(3)(9)(0); -- xB9, FBRIOM bit 0
+ssa_force_if_masked <= reg_rw_bank(3)(9)(4); -- xB9, FBRIOM bit 4
+
+--ssa_mux:  if masked, look at the force on button (0 or 1).
+--          else will select the dig_in(2), the BNC permit coming from the SSA if the mask bit is set LOW.
+ssa_mux <= ssa_force_if_masked when ssa_mask='1' else dig_in(2);
+
 ssa_mon_inst : ssa_mon 
 	PORT MAP(clk            => adc_pll_clk_data,
 	         --reset_n        => ,
 				clear          => fault_clear,
-				ssa_en         => dig_in(2),
+				ssa_en         => ssa_mux,
 				ssa_prmt_pulse => ssa_prmt_pulse,
 				ssa_prmt_out   => ssa_prmt);
   
