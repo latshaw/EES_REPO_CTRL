@@ -1,0 +1,104 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 64 64 296 424)
+	(text "bus_mux" (rect 16 0 60 12)(font "Arial" ))
+	(text "inst" (rect 32 344 49 356)(font "Arial" ))
+	(port
+		(pt 0 40)
+		(input)
+		(text "lb_addr[23..0]" (rect 0 24 67 36)(font "Arial" ))
+		(text "lb_addr[23..0]" (rect 21 35 88 47)(font "Arial" ))
+		(line (pt 0 40)(pt 16 40)(line_width 3))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "registers[15..0]" (rect 0 24 74 36)(font "Arial" ))
+		(text "registers[15..0]" (rect 21 123 95 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "adc[15..0]" (rect 0 24 49 36)(font "Arial" ))
+		(text "adc[15..0]" (rect 21 155 70 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "fil[15..0]" (rect 0 24 41 36)(font "Arial" ))
+		(text "fil[15..0]" (rect 21 187 62 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192)(line_width 3))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "dac[15..0]" (rect 0 24 49 36)(font "Arial" ))
+		(text "dac[15..0]" (rect 21 219 70 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224)(line_width 3))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "hv[15..0]" (rect 0 24 44 36)(font "Arial" ))
+		(text "hv[15..0]" (rect 21 251 65 263)(font "Arial" ))
+		(line (pt 0 256)(pt 16 256)(line_width 3))
+	)
+	(port
+		(pt 0 288)
+		(input)
+		(text "trip[15..0]" (rect 0 24 47 36)(font "Arial" ))
+		(text "trip[15..0]" (rect 21 283 68 295)(font "Arial" ))
+		(line (pt 0 288)(pt 16 288)(line_width 3))
+	)
+	(port
+		(pt 0 88)
+		(input)
+		(text "clock" (rect 24 80 53 99)(font "Intel Clear" (font_size 8)))
+		(text "clock" (rect 24 80 53 99)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 88)(pt 16 88))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "lb_valid" (rect 24 104 72 123)(font "Intel Clear" (font_size 8)))
+		(text "lb_valid" (rect 24 104 72 123)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 232 208)
+		(output)
+		(text "lb_rdata[31..0]" (rect 16 24 86 36)(font "Arial" ))
+		(text "lb_rdata[31..0]" (rect 152 203 222 215)(font "Arial" ))
+		(line (pt 232 208)(pt 216 208)(line_width 3))
+	)
+	(drawing
+		(line (pt 16 352)(pt 104 288)(color 0 0 0)(line_width 2))
+		(line (pt 104 120)(pt 16 64)(color 0 0 0)(line_width 2))
+		(line (pt 104 208)(pt 144 208)(color 128 0 255)(line_width 3))
+		(line (pt 104 120)(pt 104 288)(color 0 0 0)(line_width 2))
+		(line (pt 16 64)(pt 16 352)(color 0 0 0)(line_width 2))
+		(line (pt 64 48)(pt 64 94)(color 128 0 255)(line_width 3))
+	)
+)

@@ -10,6 +10,7 @@ module udp_com
 (
      input     clock,
      input     reset,
+	  output    lb_clk,
 
      inout     sfp_sda_0,
      output    sfp_scl_0,
@@ -193,5 +194,6 @@ i_eth_gtx_bridge (
      .lb_rdata          (lb_rdata)
 );
 
+assign lb_clk = gtx0_tx_usr_clk;
 
 endmodule

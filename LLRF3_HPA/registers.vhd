@@ -39,7 +39,7 @@ end registers;
 architecture rtl of registers is
 
 constant HRT_VERSION  :std_logic_vector(15 downto 0) := x"0001";--x"0001"; -- Hardware Register Table Version
-constant FIRM_VERSION :std_logic_vector(15 downto 0) := x"0003";--x"0001"; -- Firmware Version
+constant FIRM_VERSION :std_logic_vector(15 downto 0) := x"0004";--x"0001"; -- Firmware Version
 constant CLK_FREQ     :integer := 125000000;
 
 

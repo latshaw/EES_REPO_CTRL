@@ -1,0 +1,93 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 56 56 296 224)
+	(text "adc_ctrl" (rect 13 8 51 20)(font "Arial" ))
+	(text "inst" (rect 16 152 33 164)(font "Arial" ))
+	(port
+		(pt 0 40)
+		(input)
+		(text "reset_n" (rect 0 8 36 20)(font "Arial" ))
+		(text "reset_n" (rect 21 35 57 47)(font "Arial" ))
+		(line (pt 0 40)(pt 16 40))
+	)
+	(port
+		(pt 0 56)
+		(input)
+		(text "clock" (rect 0 8 25 20)(font "Arial" ))
+		(text "clock" (rect 21 51 46 63)(font "Arial" ))
+		(line (pt 0 56)(pt 16 56))
+	)
+	(port
+		(pt 0 88)
+		(input)
+		(text "db[15..0]" (rect 0 8 43 20)(font "Arial" ))
+		(text "db[15..0]" (rect 21 83 64 95)(font "Arial" ))
+		(line (pt 0 88)(pt 16 88)(line_width 3))
+	)
+	(port
+		(pt 240 40)
+		(output)
+		(text "convst_n[7..0]" (rect 16 8 87 20)(font "Arial" ))
+		(text "convst_n[7..0]" (rect 159 35 219 47)(font "Arial" ))
+		(line (pt 240 40)(pt 224 40)(line_width 3))
+	)
+	(port
+		(pt 240 56)
+		(output)
+		(text "rd_n[7..0]" (rect 16 8 63 20)(font "Arial" ))
+		(text "rd_n[7..0]" (rect 180 51 219 63)(font "Arial" ))
+		(line (pt 240 56)(pt 224 56)(line_width 3))
+	)
+	(port
+		(pt 240 72)
+		(output)
+		(text "wr_n[7..0]" (rect 16 8 64 20)(font "Arial" ))
+		(text "wr_n[7..0]" (rect 179 67 219 79)(font "Arial" ))
+		(line (pt 240 72)(pt 224 72)(line_width 3))
+	)
+	(port
+		(pt 240 88)
+		(output)
+		(text "cs_n[7..0]" (rect 16 8 65 20)(font "Arial" ))
+		(text "cs_n[7..0]" (rect 178 83 219 95)(font "Arial" ))
+		(line (pt 240 88)(pt 224 88)(line_width 3))
+	)
+	(port
+		(pt 240 120)
+		(output)
+		(text "we" (rect 16 8 28 20)(font "Arial" ))
+		(text "we" (rect 209 115 219 127)(font "Arial" ))
+		(line (pt 240 120)(pt 224 120))
+	)
+	(port
+		(pt 240 136)
+		(output)
+		(text "adc_regs[0..63][15..0]" (rect 16 8 124 20)(font "Arial" ))
+		(text "adc_regs[0..63][15..0]" (rect 128 131 219 143)(font "Arial" ))
+		(line (pt 240 136)(pt 224 136)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 24 224 152))
+	)
+)

@@ -1,0 +1,127 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 64 64 280 240)
+	(text "udp_com" (rect 5 0 49 12)(font "Arial" ))
+	(text "inst" (rect 8 160 25 172)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clock" (rect 0 0 25 12)(font "Arial" ))
+		(text "clock" (rect 21 27 46 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset" (rect 0 0 24 12)(font "Arial" ))
+		(text "reset" (rect 21 43 45 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "sfp_refclk_p" (rect 0 0 62 12)(font "Arial" ))
+		(text "sfp_refclk_p" (rect 21 59 83 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "sfp_rx_0_p" (rect 0 0 55 12)(font "Arial" ))
+		(text "sfp_rx_0_p" (rect 21 75 76 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "lb_rdata[31..0]" (rect 0 0 70 12)(font "Arial" ))
+		(text "lb_rdata[31..0]" (rect 21 91 91 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 216 48)
+		(output)
+		(text "sfp_scl_0" (rect 0 0 48 12)(font "Arial" ))
+		(text "sfp_scl_0" (rect 142 43 190 55)(font "Arial" ))
+		(line (pt 216 48)(pt 200 48))
+	)
+	(port
+		(pt 216 64)
+		(output)
+		(text "sfp_tx_0_p" (rect 0 0 55 12)(font "Arial" ))
+		(text "sfp_tx_0_p" (rect 136 59 191 71)(font "Arial" ))
+		(line (pt 216 64)(pt 200 64))
+	)
+	(port
+		(pt 216 80)
+		(output)
+		(text "lb_valid" (rect 0 0 37 12)(font "Arial" ))
+		(text "lb_valid" (rect 154 75 191 87)(font "Arial" ))
+		(line (pt 216 80)(pt 200 80))
+	)
+	(port
+		(pt 216 96)
+		(output)
+		(text "lb_rnw" (rect 0 0 30 12)(font "Arial" ))
+		(text "lb_rnw" (rect 159 91 189 103)(font "Arial" ))
+		(line (pt 216 96)(pt 200 96))
+	)
+	(port
+		(pt 216 112)
+		(output)
+		(text "lb_addr[23..0]" (rect 0 0 67 12)(font "Arial" ))
+		(text "lb_addr[23..0]" (rect 121 107 188 119)(font "Arial" ))
+		(line (pt 216 112)(pt 200 112)(line_width 3))
+	)
+	(port
+		(pt 216 128)
+		(output)
+		(text "lb_wdata[31..0]" (rect 0 0 74 12)(font "Arial" ))
+		(text "lb_wdata[31..0]" (rect 113 123 187 135)(font "Arial" ))
+		(line (pt 216 128)(pt 200 128)(line_width 3))
+	)
+	(port
+		(pt 216 144)
+		(output)
+		(text "lb_renable" (rect 0 0 49 12)(font "Arial" ))
+		(text "lb_renable" (rect 137 139 186 151)(font "Arial" ))
+		(line (pt 216 144)(pt 200 144))
+	)
+	(port
+		(pt 216 160)
+		(output)
+		(text "lb_clk" (rect 165 152 200 171)(font "Intel Clear" (font_size 8)))
+		(text "lb_clk" (rect 165 152 200 171)(font "Intel Clear" (font_size 8)))
+		(line (pt 216 160)(pt 200 160))
+	)
+	(port
+		(pt 216 32)
+		(bidir)
+		(text "sfp_sda_0" (rect 0 0 51 12)(font "Arial" ))
+		(text "sfp_sda_0" (rect 136 27 187 39)(font "Arial" ))
+		(line (pt 216 32)(pt 200 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 200 160))
+	)
+)
