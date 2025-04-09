@@ -13,8 +13,8 @@
 # refer to the applicable agreement for further details.
 
 # Quartus Prime: Generate Tcl File for Project
-# File: hpa.tcl
-# Generated on: Thu Mar 20 09:50:17 2025
+# File: LLRF3_HPA_FPGA.tcl
+# Generated on: Wed Apr  9 09:24:02 2025
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -40,10 +40,10 @@ if {[is_project_open]} {
 
 # Make assignments
 if {$make_assignments} {
-	set_global_assignment -name FAMILY "Cyclone 10 GX"
 	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:46:43  OCTOBER 09, 2020"
 	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Pro Edition"
+	set_global_assignment -name FAMILY "Cyclone 10 GX"
 	set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 	set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
@@ -65,8 +65,11 @@ if {$make_assignments} {
 	set_global_assignment -name CONFIGURATION_VCCIO_LEVEL 1.8V
 	set_global_assignment -name RESERVE_DATA0_AFTER_CONFIGURATION "USE AS REGULAR IO"
 	set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
-	set_global_assignment -name ENABLE_SIGNALTAP OFF
-	set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
+	set_global_assignment -name ENABLE_SIGNALTAP ON
+	set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+	set_global_assignment -name OPTIMIZATION_MODE "SUPERIOR PERFORMANCE WITH MAXIMUM PLACEMENT EFFORT"
+	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
+	set_global_assignment -name FLOW_DISABLE_ASSEMBLER OFF
 	set_global_assignment -name VHDL_FILE adc_remap.vhd
 	set_global_assignment -name SDC_FILE hpa.sdc
 	set_global_assignment -name QIP_FILE xcvr_phy_pll/xcvr_phy_pll.qip
@@ -121,24 +124,17 @@ if {$make_assignments} {
 	set_global_assignment -name BDF_FILE LLRF3_HPA_FPGA.bdf
 	set_global_assignment -name IP_FILE temp.ip
 	set_global_assignment -name SIGNALTAP_FILE stp1.stp
-	set_global_assignment -name OPTIMIZATION_MODE "SUPERIOR PERFORMANCE WITH MAXIMUM PLACEMENT EFFORT"
 	set_global_assignment -name VHDL_FILE counter.vhd
-	set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
+	set_global_assignment -name VHDL_FILE marvell_phy_config.vhd
+	set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+	set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 	set_location_assignment PIN_U22 -to sfp_refclk_p
 	set_location_assignment PIN_U21 -to "sfp_refclk_p(n)"
 	set_location_assignment PIN_AD14 -to sfp_sda_0
 	set_location_assignment PIN_AD15 -to sfp_scl_0
-	set_location_assignment PIN_AB24 -to sfp_rx_0_p
-	set_location_assignment PIN_AC26 -to sfp_tx_0_p
 	set_location_assignment PIN_M1 -to reset_n
 	set_location_assignment PIN_AC13 -to clock
-	set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to sfp_tx_0_p -entity LLRF3_HPA_FPGA
-	set_location_assignment PIN_AC25 -to "sfp_tx_0_p(n)"
 	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_refclk_p -entity LLRF3_HPA_FPGA
-	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to sfp_rx_0_p -entity LLRF3_HPA_FPGA
-	set_location_assignment PIN_AB23 -to "sfp_rx_0_p(n)"
-	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to "sfp_refclk_p(n)" -entity LLRF3_HPA_FPGA
-	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to "sfp_rx_0_p(n)" -entity LLRF3_HPA_FPGA
 	set_location_assignment PIN_P2 -to FPGA_HB
 	set_location_assignment PIN_J4 -to FPGA_IO_HB
 	set_location_assignment PIN_R4 -to FPGA_OE
@@ -274,6 +270,158 @@ if {$make_assignments} {
 	set_location_assignment PIN_N5 -to gpio_dir2
 	set_location_assignment PIN_W15 -to gpio_oe1
 	set_location_assignment PIN_L4 -to gpio_oe2
+	set_location_assignment PIN_AF18 -to MDIO
+	set_location_assignment PIN_AE17 -to MDC
+	set_location_assignment PIN_AF17 -to phy_resetn
+	set_location_assignment PIN_R2 -to marvel_done
+	set_location_assignment PIN_AD24 -to SGMII1_RX_P
+	set_instance_assignment -name IO_STANDARD "CURRENT MODE LOGIC (CML)" -to SGMII1_RX_P -entity LLRF3_HPA_FPGA
+	set_location_assignment PIN_AD23 -to "SGMII1_RX_P(n)"
+	set_location_assignment PIN_AE26 -to SGMII1_TX_P
+	set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to SGMII1_TX_P -entity LLRF3_HPA_FPGA
+	set_location_assignment PIN_AE25 -to "SGMII1_TX_P(n)"
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to MDIO -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to MDC -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to phy_resetn -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to marvel_done -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_FAULT -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_HB -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_IOC_HB -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_IO_HB -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to FPGA_OE -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to RX -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to TX -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_convst_n[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_cs_n[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[9] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[8] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[15] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[13] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[11] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[10] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[14] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_db[12] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_eoc[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_rd_n[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_shdn[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_wr_n[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_clr_n[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_sck[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_cs_n[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_clr_n[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_clr_n[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_cs_n[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_sck[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_cs_n[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_sck[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_sdi[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_sdi[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_sdi[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to din[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to dout[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[11] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[10] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[9] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[8] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[15] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[14] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[13] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio[12] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_oe2 -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_oe1 -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_dir2 -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to gpio_dir1 -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to hv_permit[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[4] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[3] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[2] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[1] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[0] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to reset_n -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[7] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[6] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to rf_permit[5] -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to sfp_sda_0 -entity LLRF3_HPA_FPGA
+	set_instance_assignment -name IO_STANDARD "1.8 V" -to sfp_scl_0 -entity LLRF3_HPA_FPGA
 
 	# Commit assignments
 	export_assignments

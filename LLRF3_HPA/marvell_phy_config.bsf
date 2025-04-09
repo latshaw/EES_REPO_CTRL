@@ -1,0 +1,78 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 64 64 192 264)
+	(text "marvell_phy_config" (rect 21 16 118 28)(font "Arial" ))
+	(text "inst" (rect 24 96 41 108)(font "Arial" ))
+	(port
+		(pt 0 48)
+		(input)
+		(text "clock" (rect 24 40 53 59)(font "Intel Clear" (font_size 8)))
+		(text "clock" (rect 24 40 53 59)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "reset" (rect 24 56 53 75)(font "Intel Clear" (font_size 8)))
+		(text "reset" (rect 24 56 53 75)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "en_mdc" (rect 24 72 71 91)(font "Intel Clear" (font_size 8)))
+		(text "en_mdc" (rect 24 72 71 91)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 128 184)
+		(output)
+		(text "phy_resetn" (rect 32 88 98 107)(font "Intel Clear" (font_size 8)))
+		(text "phy_resetn" (rect 29 176 95 195)(font "Intel Clear" (font_size 8)))
+		(line (pt 104 184)(pt 128 184))
+	)
+	(port
+		(pt 128 128)
+		(output)
+		(text "mdc" (rect 69 120 94 139)(font "Intel Clear" (font_size 8)))
+		(text "mdc" (rect 69 120 94 139)(font "Intel Clear" (font_size 8)))
+		(line (pt 128 128)(pt 104 128))
+	)
+	(port
+		(pt 128 160)
+		(output)
+		(text "config_done" (rect 69 152 140 171)(font "Intel Clear" (font_size 8)))
+		(text "config_done" (rect 69 152 140 171)(font "Intel Clear" (font_size 8)))
+		(line (pt 128 160)(pt 104 160))
+	)
+	(port
+		(pt 0 112)
+		(bidir)
+		(text "mdio" (rect 40 104 70 123)(font "Intel Clear" (font_size 8)))
+		(text "mdio" (rect 40 104 70 123)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 112)(pt 32 112))
+	)
+	(drawing
+		(rectangle (rect 32 32 96 184))
+	)
+)
