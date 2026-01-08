@@ -39,7 +39,7 @@ ENTITY interlocks_control IS
 		SGMII1_RX_P    : in std_logic;
 		SGMII1_TX_P    : out  std_logic;
 		ETH1_RESET_N   : out std_logic;
-		eth_mdio       : out std_logic;
+		eth_mdio       : inout std_logic;
 		eth_mdc        : out std_logic;
 		
 		fpga_ver				: in std_logic_vector(5 downto 0); -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
@@ -351,7 +351,8 @@ COMPONENT regs
 		 HELIUM_INTERLOCK_LED : OUT STD_LOGIC;
 		 lb_valid		: IN STD_LOGIC;
 		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0); -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
-		 intrstr_C100_out  : OUT STD_LOGIC -- 11/12/24, use hrt register to determine if C100 style or C75 style
+		 intrstr_C100_out  : OUT STD_LOGIC; -- 11/12/24, use hrt register to determine if C100 style or C75 style
+		 ethChipID         : IN  STD_LOGIC_VECTOR(15 downto 0) -- 1/8/26, will tell which ethernet chip is used
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -614,9 +615,10 @@ COMPONENT marvell_phy_config IS
 			reset	      :	in std_logic;
 			en_mdc      :  in std_logic;
 			phy_resetn	:	out std_logic;
-			mdio	      :	out std_logic;
+			mdio	      :	inout std_logic;
 			mdc		   :	out std_logic;
-			config_done	:	out std_logic);
+			config_done	:	out std_logic;
+			chipId : out std_logic_vector(15 downto 0));
 END COMPONENT;
 
 --
@@ -719,6 +721,8 @@ SIGNAL c_data		: std_logic_VECTOR(31 DOWNTO 0);
 SIGNAL c10_datar	: std_logic_VECTOR(31 DOWNTO 0);
 SIGNAL en_c_data	: std_logic; -- note, this is intended to capture the enable strobe when the c_data signal is written by the udp_com module
 SIGNAL lb_valid   : STD_LOGIC;
+
+signal ethChipID : std_logic_vector(15 downto 0);
 --
 SIGNAL intrstr_C100_out, ETH1_RESET_marvel_N, RESET_regs_N, clk_20 : STD_LOGIC; -- if HI, c100 style, else C75 style
 --
@@ -749,7 +753,8 @@ PORT MAP(
 		phy_resetn	=> ETH1_RESET_N,
 		mdio	      => eth_mdio,
 		mdc		   => eth_mdc,
-		config_done	=> LED3);
+		config_done	=> LED3,
+		chipId      => ethChipID);
 
 
 
@@ -1346,7 +1351,8 @@ PORT MAP(HB_ISA              => HB_ISA,
 		 HELIUM_INTERLOCK_LED  => HELIUM_INTERLOCK_LED,
 		 lb_valid  => lb_valid,
 		 jtag_mux_sel_out => jtag_mux_sel_out,
-		 intrstr_C100_out => intrstr_C100_out
+		 intrstr_C100_out => intrstr_C100_out,
+		 ethChipID => ethChipID
 --		 out_c_addr				  => c_addr, 	-- JAL, 3/3/22 added for cyclone remote download 
 --		 out_c_cntlr			  => c_cntlr, 
 --		 c10_status       	  => c10_status, 

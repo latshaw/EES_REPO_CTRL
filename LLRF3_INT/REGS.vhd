@@ -74,7 +74,8 @@ ENTITY REGS IS
 		 HELIUM_INTERLOCK_LED : OUT STD_LOGIC; -- for front panel leds. fault is latched inside regs module
 		 lb_valid		: IN STD_LOGIC;
 		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0);
-		 intrstr_C100_out : OUT STD_LOGIC
+		 intrstr_C100_out : OUT STD_LOGIC;
+		 ethChipID         : IN STD_LOGIC_VECTOR(15 downto 0) -- 1/8/26, will tell which ethernet chip is used
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -1746,11 +1747,12 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 			c10_status(15 downto 0)	     when (x"00D7"),  -- checksum and status
 			c10_datar(15 downto 0)	     when (x"00D8"),  -- read data
 			c_data(15 downto 0)		     when (x"00D9"),  -- data to write	
+			ethChipID                    when (x"00DA"),
 			ARC_BUFF_DATA_out            WHEN OTHERS;
 
 				
 	-- LLRF 3.0 firmware version will start with '30'
-	VERSION <= x"7539"; -- UPDATE BY JAL FOR LLRF 3.0
+	VERSION <= x"753A"; -- UPDATE BY JAL FOR LLRF 3.0
 							  -- 3001, init
 							  -- 3002, hrt change to move arc buffer data to end of hrt.
 							  -- 3004, ramas arc adc code
@@ -1766,5 +1768,6 @@ EN_JTAGMUX <= '1' when load = '1' and addr(11 downto 0) = x"0B1" else '0';
 							  -- decimal 30,007 fix timing issue caused by temp sensore that may have been breaking remote firmware download
 							  -- x7538, removed AC13 10 MHZ clock
 							  -- x"7539", added c100/c75 switch to IR sensor
+							  -- x"753A", added marvell ID chip detection
 	
 END ARCHITECTURE;
