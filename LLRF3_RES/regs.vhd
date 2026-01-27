@@ -90,7 +90,8 @@ entity regs is
 		 lb_valid		    : IN STD_LOGIC;
 		 rate_reg          : IN  reg32_array;
 		 SINE_POS          : IN  reg10_array;
-		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0)
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0);
+		 chipId            : IN STD_LOGIC_VECTOR(15 downto 0)
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -1902,6 +1903,7 @@ end generate;
 					when "1" & x"5" => regbank_7 <= "00" & x"00000"&SINE_POS(5)  ;--when x"0F5"
 					when "1" & x"6" => regbank_7 <= "00" & x"00000"&SINE_POS(6)  ;--when x"0F6"
 					when "1" & x"7" => regbank_7 <= "00" & x"00000"&SINE_POS(7)  ;--when x"0F7"
+					when "1" & x"8" => regbank_7 <= x"0000"&chipId;               --when x"0F8"
  
 --					when "0" & x"2" => regbank_7 <= abs_lmt(2)                  ;--x"0E2",
 --					when "0" & x"3" => regbank_7 <= abs_lmt(3)                  ;--x"0E3",
@@ -2008,7 +2010,7 @@ end generate;
 	-- 	counter for tracking steps, slow acceleration and velocity based on a status bit from fcc
 	status	<=  "000" & x"000" & heartbeat;
 	-- x"000E" LLRF 3.0 versions
-	version	<= x"0067"; -- LLRF 3.0 Resonance 6/3/22 (limit switch mask), 
+	version	<= x"0068"; -- LLRF 3.0 Resonance 6/3/22 (limit switch mask), 
 								-- 7/26/22,  switch to marvel chip instead of SFP, FW version x11
 								-- 10/18/22, microstepping resolution bits added, FW Version x12
 								-- 10/28/22, chopper configuration added, FW x13
@@ -2021,6 +2023,7 @@ end generate;
 								--9/5/23, x24,  making default hold current is full. mask has to be applied to allow for low current when not moving.
 								--						and abs subtract slow decounter.
 								-- 11/7/24, removing AC13/100 MHz clock x67
+								-- 1/22/2026, adding module to configure marvell if needed code x68
 	thrt     <= x"0006"; -- LLRF 3.0 Resonance 3/2/2021
 	--
 	--==================================================================

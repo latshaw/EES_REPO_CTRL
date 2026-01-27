@@ -48,7 +48,7 @@ ENTITY Motion_control IS
 		SGMII1_TX_P		:	out std_logic;		-- SGMII TX, to marvel chip
 		SGMII1_RX_P		:	in std_logic;		-- SGMII RX, to marvel chip
 		ETH1_RESET_N   :  out std_logic;    -- SGMII active low reset
-		eth_mdio       : out std_logic;
+		eth_mdio       : inout std_logic;
 		eth_mdc        : out std_logic;
 		
 		-- use only for testing with test bench (testBench = 1)
@@ -186,7 +186,7 @@ ENTITY Motion_control IS
 		EN3_1 : out std_logic;
 		EN4_1 : out std_logic;
 		
-		fpga_ver				: in std_logic_vector(5 downto 0);  -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
+		fpga_ver		  : in std_logic_vector(5 downto 0);  -- c10 pmod 2 for REv - and later, misc connectors with some pulls ups for older versions
 		jtag_mux_sel_out  : out std_logic_vector(1 downto 0); -- JTAG mux select
 		
 		--clock_100 : in STD_LOGIC;
@@ -358,7 +358,8 @@ COMPONENT regs
 		 lb_valid		    : IN STD_LOGIC;
 		 rate_reg          : reg32_array;
 		 SINE_POS          : reg10_array;
-		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0) -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
+		 jtag_mux_sel_out  : OUT STD_LOGIC_VECTOR(1 downto 0); -- 10/9/24, used to remove c10 from jtag chain if reprograming max10 is desired
+		 chipId            : in STD_LOGIC_VECTOR(15 downto 0)
 --		 out_c_addr		    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 out_c_cntlr	    : OUT std_logic_VECTOR(31 DOWNTO 0);
 --		 c10_status        : IN  std_logic_VECTOR(31 DOWNTO 0);
@@ -570,9 +571,10 @@ COMPONENT marvell_phy_config IS
 			reset	      :	in std_logic;
 			phy_resetn	:	out std_logic;
 			en_mdc      : in std_logic;
-			mdio	      :	out std_logic;
+			mdio	      :	inout std_logic;
 			mdc		   :	out std_logic;
-			config_done	:	out std_logic);
+			config_done	:	out std_logic;
+			chipId : out std_logic_vector(15 downto 0));
 END COMPONENT;
 --
 --verilog component
@@ -694,6 +696,8 @@ signal sfp_dataw, sfp_datar, sfp_ctrl  :  std_logic_VECTOR(31 DOWNTO 0);
 SIGNAL fpga_tsd_int_EOC_n : STD_LOGIC;
 signal en_mdc_mdio, reset_marvel, reset_led, one, zero : STD_LOGIC;
 --
+signal chipId : std_logic_vector(15 downto 0);
+--
 -- for buffering across clock domains 
 --	(temp senor, 1Mhz to 125 Mhz)
 --TYPE mem_2k IS ARRAY(0 TO 127) OF STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -726,7 +730,8 @@ marvell_phy_config_inst : marvell_phy_config
 			en_mdc      => en_mdc_mdio,
 			mdio	      => eth_mdio,
 			mdc		   => eth_mdc,
-			config_done	=>  gpio_led_3);
+			config_done	=>  gpio_led_3,
+			chipId      => chipId);
 
 en_mdc_mdio <= '0' when fpga_ver(3)= '1' else '1'; -- note, a jumper connecting PMOD2 C10 pin 4 to GND (pin 5 or 11) is needed
 			
@@ -953,7 +958,8 @@ out_sfp_ctrl     => sfp_ctrl,
 lb_valid		     => lb_valid,
 rate_reg         => rate_reg,
 SINE_POS         => SINE_POS,
-jtag_mux_sel_out => jtag_mux_sel_out); 
+jtag_mux_sel_out => jtag_mux_sel_out,
+chipId           => chipId); 
 --
 -- limit switch info
 -- HI means limit reached
