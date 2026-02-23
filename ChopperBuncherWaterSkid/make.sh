@@ -7,6 +7,6 @@ TCL=$(ls | grep *.tcl)
 PROJECT="${TCL%.*}"
 
 echo 'GENERATING PROJECT '$PROJECT' FROM GIT REPO COMMIT ID '$GIT_ID_FULL'...'
-#vivado -mode tcl -source $TCL
+vivado -mode tcl -source $TCL
 
 echo 'DONE!'
