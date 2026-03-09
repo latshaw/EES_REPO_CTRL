@@ -17,14 +17,14 @@ for i in range(0, NumDefinitionFiles):
     for line in lines:
         #Break each line into its components
         contents = line.split(',')
-        if int(contents[1]) == 0:
+        if contents[1] == "0":
             if contents[0][0:2] == ("LA" or  "HA"):
                 assignment = "assign FMC" + str(i+1) + "_" + contents[0][0:2] + contents[0][4:6] + "[" + str(int(contents[0][2:4])) + "] = 1'bz;"
                 FmcHeader.write(assignment+"\n")
         else:
             if contents[0][0:2] == ("LA" or  "HA"):
-                assignment = "assign FMC" + str(i+1) + "_" + contents[0][0:2] + contents[0][4:6] + "[" + str(int(contents[0][2:4])) + "] = " + contents[1] +"; //Direction" + contents[2]
-                FmcHeader.write(assignment+"\n")
+                assignment = "assign FMC" + str(i+1) + "_" + contents[0][0:2] + contents[0][4:6] + "[" + str(int(contents[0][2:4])) + "] = " + contents[1] +"; //Direction: " + contents[2]
+                FmcHeader.write(assignment)
         print(line)
     DefinitionFile.close()
 #Pin mapping syntax:
