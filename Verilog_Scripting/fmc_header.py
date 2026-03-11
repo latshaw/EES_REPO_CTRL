@@ -107,6 +107,7 @@ FmcHeader.write("//FMC pin mapping for " + FPGAPart + " FPGA.\n")
 NumDefinitionFiles = int(NumFMCHeaders)
 DefinitionFilePaths = []
 print(NumDefinitionFiles)
+print("Definition file type should be '.csv,' eg ('Test.csv')")
 for i in range(0, NumDefinitionFiles):
     DefinitionFilePaths.append(input("Type file name for definition file " + str(i+1) + " of " + str(NumDefinitionFiles) + ": "))
 #Reserving to add the ability to define gigabit transcevers and user clocks
