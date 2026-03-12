@@ -22,61 +22,69 @@ def WritePinLineToFile(contents, File, PinName, PinList):
         PinList.append(PinName)
     else:
         if "Input" in contents[2]:
-            assignment =  "assign " + contents[1] + " = " + PinName + "; //Direction: " + contents[2]
+            assignment =  "assign " + contents[1] + " = " + PinName + "; //Direction: " + contents[2] + "\n"
             File.write(assignment)
             PinList.append(PinName)
         elif "Output" in contents[2]:
-            assignment = "assign " + PinName + " = " + contents[1] + "; //Direction: " + contents[2]
+            assignment = "assign " + PinName + " = " + contents[1] + "; //Direction: " + contents[2] + "\n"
             File.write(assignment)
             PinList.append(PinName)
         else:
             print("Bad direction idenfier, skipping pin: " + contents[0])
 
-def LAHADefinition(line, File, PinList):
+def LAHADefinition(line, File, PinList, Connector):
         #Break each line into its components
         contents = line.split(',')
-        #Check if line is for the correct type of pin
-        if (contents[0][0:2] == "LA") or  (contents[0][0:2] == "HA") or  (contents[0][0:2] == "HB"):
-            #Create name for pin to be used
-            PinName = "FMC" + str(i+1) + "_" + contents[0][0:2] + contents[0][4:6] + "[" + str(int(contents[0][2:4])) + "]"
-            WritePinLineToFile(contents, File, PinName, PinList)
-        #print(line)
+        #Check if pin is part of HPC or LPC connector
+        if(int(contents[3]) > Connector):
+            #Check if line is for the correct type of pin
+            if (contents[0][0:2] == "LA") or  (contents[0][0:2] == "HA") or  (contents[0][0:2] == "HB"):
+                #Create name for pin to be used
+                PinName = "FMC" + str(i+1) + "_" + contents[0][0:2] + contents[0][4:6] + "[" + str(int(contents[0][2:4])) + "]"
+                WritePinLineToFile(contents, File, PinName, PinList)
+            #print(line)
 
-def UserClockDefinition(line, File, PinList):
+def UserClockDefinition(line, File, PinList, Connector):
         #Break each line into its components
         contents = line.split(',')
-        #Check if line is for the correct type of pin
-        if contents[0][0:3] == ("CLK"):
-            Name = contents[0].split("_")
-            #Create name for pin to be used
-            if len(Name) == 2:
-                PinName = "FMC" + str(i+1) + "_" + Name[0][0:3] + "_" + Name[1]
-            else:
-                PinName = "FMC" + str(i+1) + "_" + Name[0][0:3] + "_" + Name[1] + "_" + Name[2] + "[" + str(int(Name[0][3])) + "]"
-            WritePinLineToFile(contents, File, PinName, PinList)
-        #print(line)
+        #Check if pin is part of HPC or LPC connector
+        if(int(contents[3]) > Connector):
+            #Check if line is for the correct type of pin
+            if contents[0][0:3] == ("CLK"):
+                Name = contents[0].split("_")
+                #Create name for pin to be used
+                if len(Name) == 2:
+                    PinName = "FMC" + str(i+1) + "_" + Name[0][0:3] + "_" + Name[1]
+                else:
+                    PinName = "FMC" + str(i+1) + "_" + Name[0][0:3] + "_" + Name[1] + "_" + Name[2] + "[" + str(int(Name[0][3])) + "]"
+                WritePinLineToFile(contents, File, PinName, PinList)
+            #print(line)
 
-def GigTXRXDefinition(line, File, PinList):
+def GigTXRXDefinition(line, File, PinList, Connector):
         #Break each line into its components
         contents = line.split(',')
-        #Check if line is for the correct type of pin
-        if contents[0][0:2] == ("DP"):
-            Name = contents[0].split("_")
-            #Create name for pin to be used
-            PinName = "FMC" + str(i+1) + "_" + Name[0][0:2] + "_" + Name[1] + "_" + Name[2] + "[" + str(int(Name[0][2])) + "]"
-            WritePinLineToFile(contents, File, PinName, PinList)
-        #print(line)
+        #Check if pin is part of HPC or LPC connector
+        if(int(contents[3]) > Connector):
+            #Check if line is for the correct type of pin
+            if contents[0][0:2] == ("DP"):
+                Name = contents[0].split("_")
+                #Create name for pin to be used
+                PinName = "FMC" + str(i+1) + "_" + Name[0][0:2] + "_" + Name[1] + "_" + Name[2] + "[" + str(int(Name[0][2])) + "]"
+                WritePinLineToFile(contents, File, PinName, PinList)
+            #print(line)
 
-def GigClockDefinition(line, File, PinList):
+def GigClockDefinition(line, File, PinList, Connector):
         #Break each line into its components
         contents = line.split(',')
-        #Check if line is for the correct type of pin
-        if contents[0][0:2] == ("GB"):
-            Name = contents[0].split("_")
-            #Create name for pin to be used
-            PinName = "FMC" + str(i+1) + "_" + Name[0][0:6] + "_" + Name[1] + "_" + Name[2] + "[" + str(int(Name[0][6])) +"]"
-            WritePinLineToFile(contents, File, PinName, PinList)
-        #print(line)
+        #Check if pin is part of HPC or LPC connector
+        if(int(contents[3]) > Connector):
+            #Check if line is for the correct type of pin
+            if contents[0][0:2] == ("GB"):
+                Name = contents[0].split("_")
+                #Create name for pin to be used
+                PinName = "FMC" + str(i+1) + "_" + Name[0][0:6] + "_" + Name[1] + "_" + Name[2] + "[" + str(int(Name[0][6])) +"]"
+                WritePinLineToFile(contents, File, PinName, PinList)
+            #print(line)
 
 OutputFileName = input("Enter output file name, leave field blank for default. EX. 'Test_File'\n")
 InvalidInput = True
@@ -106,10 +114,16 @@ if FPGAPart == "":
 FmcHeader.write("//FMC pin mapping for " + FPGAPart + " FPGA.\n")
 NumDefinitionFiles = int(NumFMCHeaders)
 DefinitionFilePaths = []
-print(NumDefinitionFiles)
+HPCLPC = []
 print("Definition file type should be '.csv,' eg ('Test.csv')")
 for i in range(0, NumDefinitionFiles):
     DefinitionFilePaths.append(input("Type file name for definition file " + str(i+1) + " of " + str(NumDefinitionFiles) + ": "))
+    while True:
+        Choice = input("Is this a HPC or LPC connector? (HPC, LPC): ").upper()
+        if Choice == "HPC" or Choice == "LPC":
+            HPCLPC.append(Choice)
+            break
+
 #Reserving to add the ability to define gigabit transcevers and user clocks
 DefineUserClocks = False
 DefineMultiGigabitTranscever = False
@@ -118,27 +132,33 @@ DefineMultiGigabitTranscever = YesNoInput("Do you want to define Multi-gigabit t
 UsedPins = []
 for i in range(0, NumDefinitionFiles):
     #Open files
+    Connector = -1
     DefinitionFile = open(DefinitionFilePaths[i], 'r')
+    if HPCLPC[i] == "HPC":
+        Connector = 0
+    elif HPCLPC[i] == "LPC":
+        Connector = 1
     #Get lines from the open file
-    lines = DefinitionFile.readlines()
+    #lines = DefinitionFile.readlines()
+    next(DefinitionFile)
     if (DefineUserClocks == False) and (DefineMultiGigabitTranscever == False):
-        for line in lines:
-            LAHADefinition(line, FmcHeader, UsedPins)
+        for line in DefinitionFile:
+            LAHADefinition(line, FmcHeader, UsedPins, Connector)
     elif (DefineUserClocks == True) and (DefineMultiGigabitTranscever == False):
-        for line in lines:
-            LAHADefinition(line, FmcHeader, UsedPins)
-            UserClockDefinition(line, FmcHeader, UsedPins)
+        for line in DefinitionFile:
+            LAHADefinition(line, FmcHeader, UsedPins, Connector)
+            UserClockDefinition(line, FmcHeader, UsedPins, Connector)
     elif (DefineUserClocks == False) and (DefineMultiGigabitTranscever == True):
-        for line in lines:
-            LAHADefinition(line, FmcHeader, UsedPins)
-            GigTXRXDefinition(line, FmcHeader, UsedPins)
-            GigClockDefinition(line, FmcHeader, UsedPins)
+        for line in DefinitionFile:
+            LAHADefinition(line, FmcHeader, UsedPins, Connector)
+            GigTXRXDefinition(line, FmcHeader, UsedPins, Connector)
+            GigClockDefinition(line, FmcHeader, UsedPins, Connector)
     elif (DefineUserClocks == True) and (DefineMultiGigabitTranscever == True):
-        for line in lines:
-            LAHADefinition(line, FmcHeader, UsedPins)
-            UserClockDefinition(line, FmcHeader, UsedPins)
-            GigTXRXDefinition(line, FmcHeader, UsedPins)
-            GigClockDefinition(line, FmcHeader, UsedPins)
+        for line in DefinitionFile:
+            LAHADefinition(line, FmcHeader, UsedPins, Connector)
+            UserClockDefinition(line, FmcHeader, UsedPins, Connector)
+            GigTXRXDefinition(line, FmcHeader, UsedPins, Connector)
+            GigClockDefinition(line, FmcHeader, UsedPins, Connector)
     DefinitionFile.close()
 if len(set(UsedPins)) < len(UsedPins):
     print(UsedPins)
