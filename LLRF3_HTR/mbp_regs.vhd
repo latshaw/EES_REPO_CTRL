@@ -51,6 +51,10 @@ architecture mixed of mbp_regs is
 	signal HTRIRB		: std_logic_vector(15 downto 0);
 	signal HTRVRB		: std_logic_vector(15 downto 0);
 	signal HTRCNTLMD	: std_logic_vector(15 downto 0);
+	signal VFILTIIR	: std_logic_vector(15 downto 0);
+	signal IFILTIIR	: std_logic_vector(15 downto 0);
+	signal VFILTCIC	: std_logic_vector(15 downto 0);
+	signal IFILTCIC	: std_logic_vector(15 downto 0);
 	--signal reg_d : word_array(0 to (HRTREGS -1)) := (others => x"0000");
 	--signal reg_q : word_array(0 to (HRTREGS -1)) := (others => x"0000");
 	
@@ -73,6 +77,7 @@ begin
 			end if;
 		end process;
 	end generate Reg_GEN;
+	
 	--
 	--Register logic:
 	--Paste VHDL code from "VHDL_HRT" table in Excel spreadsheet

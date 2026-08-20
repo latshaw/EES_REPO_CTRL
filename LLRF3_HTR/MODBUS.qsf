@@ -106,7 +106,6 @@ set_location_assignment PIN_123 -to GPIO[1]
 set_location_assignment PIN_119 -to GPIO[2]
 set_location_assignment PIN_127 -to GPIO[5]
 set_location_assignment PIN_129 -to REMOTE_LOCAL
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
@@ -115,7 +114,6 @@ set_global_assignment -name VERILOG_FILE cic_8.v
 set_global_assignment -name VERILOG_FILE iir_lpf.v
 set_global_assignment -name VHDL_FILE IIRK_SIMPLE.vhd
 set_global_assignment -name VHDL_FILE components.vhd
-set_global_assignment -name VHDL_FILE old_mbp_bad_timers.vhd
 set_global_assignment -name VHDL_FILE mbp_regs_new.vhd
 set_global_assignment -name VHDL_FILE DAC8568_CONTROL.vhd
 set_global_assignment -name VHDL_FILE ADS8688.vhd
@@ -125,4 +123,5 @@ set_global_assignment -name VHDL_FILE mbp_top_level.vhd
 set_global_assignment -name VHDL_FILE mbp_regs.vhd
 set_global_assignment -name VHDL_FILE mbp.vhd
 set_global_assignment -name BDF_FILE MODBUS.bdf
-set_global_assignment -name VHDL_FILE C75HeaterCore.vhd
+set_global_assignment -name VHDL_FILE Filters.vhd
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
