@@ -1,5 +1,5 @@
 Flow report for MODBUS
-Thu Aug 20 09:07:09 2026
+Thu Aug 20 14:03:03 2026
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -9,8 +9,12 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   1. Legal Notice
   2. Flow Summary
   3. Flow Settings
-  4. Flow Messages
-  5. Flow Suppressed Messages
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
 
 
 
@@ -36,24 +40,24 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Aug 20 09:07:09 2026       ;
+; Flow Status                        ; Flow Failed - Thu Aug 20 14:03:03 2026      ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; MODBUS                                      ;
 ; Top-level Entity Name              ; MODBUS                                      ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50SAE144I7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 1 / 49,760 ( < 1 % )                        ;
-;     Total combinational functions  ; 1 / 49,760 ( < 1 % )                        ;
-;     Dedicated logic registers      ; 0 / 49,760 ( 0 % )                          ;
-; Total registers                    ; 0                                           ;
-; Total pins                         ; 0 / 101 ( 0 % )                             ;
-; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 0 / 1,677,312 ( 0 % )                       ;
-; Embedded Multiplier 9-bit elements ; 0 / 288 ( 0 % )                             ;
-; Total PLLs                         ; 0 / 1 ( 0 % )                               ;
-; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
-; ADC blocks                         ; 0 / 1 ( 0 % )                               ;
+; Total logic elements               ; N/A until Partition Merge                   ;
+;     Total combinational functions  ; N/A until Partition Merge                   ;
+;     Dedicated logic registers      ; N/A until Partition Merge                   ;
+; Total registers                    ; N/A until Partition Merge                   ;
+; Total pins                         ; N/A until Partition Merge                   ;
+; Total virtual pins                 ; N/A until Partition Merge                   ;
+; Total memory bits                  ; N/A until Partition Merge                   ;
+; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                   ;
+; Total PLLs                         ; N/A until Partition Merge                   ;
+; UFM blocks                         ; N/A until Partition Merge                   ;
+; ADC blocks                         ; N/A until Partition Merge                   ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -62,9 +66,54 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 08/20/2026 09:07:08 ;
+; Start date & time ; 08/20/2026 14:02:56 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; MODBUS              ;
 +-------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                        ;
++-------------------------------------+----------------------------------------+---------------+-------------+------------+
+; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
++-------------------------------------+----------------------------------------+---------------+-------------+------------+
+; COMPILER_SIGNATURE_ID               ; 184978421569798.178724897633212        ; --            ; --          ; --         ;
+; FLOW_ENABLE_POWER_ANALYZER          ; On                                     ; Off           ; --          ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 100                                    ; --            ; --          ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; -40                                    ; --            ; --          ; --         ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --          ; --         ;
+; POWER_DEFAULT_INPUT_IO_TOGGLE_RATE  ; 12.5 %                                 ; 12.5%         ; --          ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --            ; --          ; --         ;
++-------------------------------------+----------------------------------------+---------------+-------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:00:07     ; 1.0                     ; 4792 MB             ; 00:00:15                           ;
+; Total                ; 00:00:07     ; --                      ; --                  ; 00:00:15                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                    ;
++----------------------+------------------+------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++----------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis ; AESGEESAMAN      ; Windows 10 ; 10.0       ; x86_64         ;
++----------------------+------------------+------------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off MODBUS -c MODBUS
+
 
 

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MODBUS
-Wed Jul 28 10:55:28 2021
+Thu Aug 20 14:03:03 2026
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -36,7 +36,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Wed Jul 28 10:55:28 2021           ;
+; Analysis & Synthesis Status        ; Failed - Thu Aug 20 14:03:02 2026           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; MODBUS                                      ;
 ; Top-level Entity Name              ; MODBUS                                      ;
@@ -146,8 +146,8 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 8           ;
-; Maximum allowed            ; 4           ;
+; Number detected on machine ; 20          ;
+; Maximum allowed            ; 14          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
 ; Maximum used               ; 1           ;
@@ -163,32 +163,79 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Wed Jul 28 10:55:15 2021
+    Info: Processing started: Thu Aug 20 14:02:55 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MODBUS -c MODBUS
+Warning (125096): Overriding device family setting Cyclone III -- part 10M50SAE144I7G belongs to device family MAX 10
+    Info (125063): set_global_assignment -name FAMILY "Cyclone III"
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file cic_8.v
+    Info (12023): Found entity 1: cic_8 File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/cic_8.v Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file iir_lpf.v
+    Info (12023): Found entity 1: iir_lpf File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/iir_lpf.v Line: 21
+Info (12021): Found 2 design units, including 1 entities, in source file iirk_simple.vhd
+    Info (12022): Found design unit 1: IIR_SIMPLE-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/IIRK_SIMPLE.vhd Line: 17
+    Info (12023): Found entity 1: IIR_SIMPLE File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/IIRK_SIMPLE.vhd Line: 6
+Info (12021): Found 23 design units, including 11 entities, in source file components.vhd
+    Info (12022): Found design unit 1: components File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 4
+    Info (12022): Found design unit 2: regne-regne File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 161
+    Info (12022): Found design unit 3: counter-counter File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 197
+    Info (12022): Found design unit 4: FLIP_FLOP-FLIP_FLOP File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 231
+    Info (12022): Found design unit 5: SHIFT_LEFT_REG-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 263
+    Info (12022): Found design unit 6: SHIFT_REG-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 305
+    Info (12022): Found design unit 7: shift_reg_fcc-behavior File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 347
+    Info (12022): Found design unit 8: SHIFT_LEFT_BIT-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 390
+    Info (12022): Found design unit 9: SHIFT_LEFT_REG_FCC-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 432
+    Info (12022): Found design unit 10: SHIFT_SQUARE_ROOT-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 480
+    Info (12022): Found design unit 11: SQUARE_ROOT-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 529
+    Info (12022): Found design unit 12: SHIFT_LEFT_REG_ADS8353-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 756
+    Info (12023): Found entity 1: regne File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 150
+    Info (12023): Found entity 2: counter File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 187
+    Info (12023): Found entity 3: FLIP_FLOP File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 221
+    Info (12023): Found entity 4: SHIFT_LEFT_REG File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 253
+    Info (12023): Found entity 5: SHIFT_REG File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 294
+    Info (12023): Found entity 6: shift_reg_fcc File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 336
+    Info (12023): Found entity 7: SHIFT_LEFT_BIT File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 378
+    Info (12023): Found entity 8: SHIFT_LEFT_REG_FCC File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 420
+    Info (12023): Found entity 9: SHIFT_SQUARE_ROOT File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 465
+    Info (12023): Found entity 10: SQUARE_ROOT File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 517
+    Info (12023): Found entity 11: SHIFT_LEFT_REG_ADS8353 File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/components.vhd Line: 745
+Info (12021): Found 2 design units, including 1 entities, in source file mbp_regs_new.vhd
+    Info (12022): Found design unit 1: mbp_regs_new-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs_new.vhd Line: 29
+    Info (12023): Found entity 1: mbp_regs_new File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs_new.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file dac8568_control.vhd
+    Info (12022): Found design unit 1: DAC8568_CONTROL-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/DAC8568_CONTROL.vhd Line: 21
+    Info (12023): Found entity 1: DAC8568_CONTROL File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/DAC8568_CONTROL.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file ads8688.vhd
+    Info (12022): Found design unit 1: ADS8688-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 19
+    Info (12023): Found entity 1: ADS8688 File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file heartbeat.tdf
+    Info (12023): Found entity 1: Heartbeat File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Heartbeat.tdf Line: 1
 Info (12021): Found 2 design units, including 1 entities, in source file slim_txrx.vhd
-    Info (12022): Found design unit 1: slim_txrx-mixed File: X:/XPORT/MODBUS/slim_txrx.vhd Line: 29
-    Info (12023): Found entity 1: slim_txrx File: X:/XPORT/MODBUS/slim_txrx.vhd Line: 6
+    Info (12022): Found design unit 1: slim_txrx-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/slim_txrx.vhd Line: 29
+    Info (12023): Found entity 1: slim_txrx File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/slim_txrx.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file mbp_top_level.vhd
-    Info (12022): Found design unit 1: mbp_top_level-mixed File: X:/XPORT/MODBUS/mbp_top_level.vhd Line: 30
-    Info (12023): Found entity 1: mbp_top_level File: X:/XPORT/MODBUS/mbp_top_level.vhd Line: 10
+    Info (12022): Found design unit 1: mbp_top_level-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_top_level.vhd Line: 30
+    Info (12023): Found entity 1: mbp_top_level File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_top_level.vhd Line: 10
 Info (12021): Found 2 design units, including 1 entities, in source file mbp_regs.vhd
-    Info (12022): Found design unit 1: mbp_regs-mixed File: X:/XPORT/MODBUS/mbp_regs.vhd Line: 37
-    Info (12023): Found entity 1: mbp_regs File: X:/XPORT/MODBUS/mbp_regs.vhd Line: 8
+    Info (12022): Found design unit 1: mbp_regs-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs.vhd Line: 40
+    Info (12023): Found entity 1: mbp_regs File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs.vhd Line: 9
 Info (12021): Found 3 design units, including 1 entities, in source file mbp.vhd
-    Info (12022): Found design unit 1: mbp_lib File: X:/XPORT/MODBUS/mbp.vhd Line: 8
-    Info (12022): Found design unit 2: mbp-mixed File: X:/XPORT/MODBUS/mbp.vhd Line: 45
-    Info (12023): Found entity 1: mbp File: X:/XPORT/MODBUS/mbp.vhd Line: 20
+    Info (12022): Found design unit 1: mbp_lib File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp.vhd Line: 8
+    Info (12022): Found design unit 2: mbp-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp.vhd Line: 45
+    Info (12023): Found entity 1: mbp File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp.vhd Line: 20
 Info (12021): Found 1 design units, including 1 entities, in source file modbus.bdf
     Info (12023): Found entity 1: MODBUS
+Info (12021): Found 2 design units, including 1 entities, in source file filters.vhd
+    Info (12022): Found design unit 1: FILTERS-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 15
+    Info (12023): Found entity 1: FILTERS File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 5
 Info (12127): Elaborating entity "MODBUS" for the top level hierarchy
 Error (275044): Port "RX_IN" of type mbp_top_level of instance "inst" is missing source signal
 Error (12153): Can't elaborate top-level user hierarchy
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 1 warning
-    Error: Peak virtual memory: 4793 megabytes
-    Error: Processing ended: Wed Jul 28 10:55:29 2021
-    Error: Elapsed time: 00:00:14
-    Error: Total CPU time (on all processors): 00:00:25
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 2 warnings
+    Error: Peak virtual memory: 4792 megabytes
+    Error: Processing ended: Thu Aug 20 14:03:03 2026
+    Error: Elapsed time: 00:00:08
+    Error: Total CPU time (on all processors): 00:00:15
 
 
