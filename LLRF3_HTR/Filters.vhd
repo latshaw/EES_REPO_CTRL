@@ -93,16 +93,25 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	
 		PROCESS(CLOCK, RESET)
 		BEGIN
-				IF (FILTER_CONTROL(2 downto 0) = "000") then
-					DATA_OUT <= BUFFER_OUT;
-				ELSIF (FILTER_CONTROL(2 downto 0) = "001") then
-					DATA_OUT <= CIC_OUT;
-				ELSIF (FILTER_CONTROL(2 downto 0) = "010") then
-					DATA_OUT <= FULL_IIR_OUT;
-				ELSIF (FILTER_CONTROL(2 downto 0) = "011") then
-					DATA_OUT <= SIMPLE_IIR_OUT;
-				ELSIF (FILTER_CONTROL(2 downto 0) = "100") then
-					DATA_OUT <= FULL_IIR_CHAIN_OUT;
+				IF RESET = '0' then
+					CIC_OUT					<= (others => '0');					
+					BUFFER_OUT				<= (others => '0');		
+					FULL_IIR_OUT			<= (others => '0');		
+					SIMPLE_IIR_OUT			<= (others => '0');	
+					FULL_IIR_CHAIN_OUT	<= (others => '0');
+				
+				ELSIF CLOCK'event and CLK = '1' then
+					IF (FILTER_CONTROL(2 downto 0) = "000") then
+						DATA_OUT <= BUFFER_OUT;
+					ELSIF (FILTER_CONTROL(2 downto 0) = "001") then
+						DATA_OUT <= CIC_OUT;
+					ELSIF (FILTER_CONTROL(2 downto 0) = "010") then
+						DATA_OUT <= FULL_IIR_OUT;
+					ELSIF (FILTER_CONTROL(2 downto 0) = "011") then
+						DATA_OUT <= SIMPLE_IIR_OUT;
+					ELSIF (FILTER_CONTROL(2 downto 0) = "100") then
+						DATA_OUT <= FULL_IIR_CHAIN_OUT;
+					END IF;
 				END IF;
 			END PROCESS;
 		END ARCHITECTURE BEHAVIOR;
