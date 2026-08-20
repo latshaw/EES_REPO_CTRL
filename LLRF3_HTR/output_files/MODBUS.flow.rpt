@@ -1,0 +1,70 @@
+Flow report for MODBUS
+Thu Aug 13 13:33:41 2026
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Messages
+  5. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Flow Summary                                                                     ;
++------------------------------------+---------------------------------------------+
+; Flow Status                        ; Successful - Thu Aug 13 13:33:41 2026       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; MODBUS                                      ;
+; Top-level Entity Name              ; MODBUS                                      ;
+; Family                             ; MAX 10                                      ;
+; Device                             ; 10M50SAE144I7G                              ;
+; Timing Models                      ; Final                                       ;
+; Total logic elements               ; 1 / 49,760 ( < 1 % )                        ;
+;     Total combinational functions  ; 1 / 49,760 ( < 1 % )                        ;
+;     Dedicated logic registers      ; 0 / 49,760 ( 0 % )                          ;
+; Total registers                    ; 0                                           ;
+; Total pins                         ; 0 / 101 ( 0 % )                             ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0 / 1,677,312 ( 0 % )                       ;
+; Embedded Multiplier 9-bit elements ; 0 / 288 ( 0 % )                             ;
+; Total PLLs                         ; 0 / 1 ( 0 % )                               ;
+; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
+; ADC blocks                         ; 0 / 1 ( 0 % )                               ;
++------------------------------------+---------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 08/13/2026 13:33:40 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; MODBUS              ;
++-------------------+---------------------+
+
+

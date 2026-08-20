@@ -1,0 +1,12 @@
+I/O Assignment Analysis Status : Successful - Thu Aug 13 13:33:41 2026
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : MODBUS
+Top-level Entity Name : MODBUS
+Family : MAX 10
+Device : 10M50SAE144I7G
+Timing Models : Final
+Total pins : 0 / 101 ( 0 % )
+Total virtual pins : 0
+Total PLLs : 0 / 1 ( 0 % )
+UFM blocks : 0 / 1 ( 0 % )
+ADC blocks : 0 / 1 ( 0 % )
