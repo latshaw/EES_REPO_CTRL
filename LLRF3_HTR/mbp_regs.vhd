@@ -14,14 +14,15 @@ entity mbp_regs is
 			);
 	port(
 		--Static MBP ports begin
-		CLK	:	in std_logic;
-		RESET	:	in std_logic;
-		LOAD	:	in std_logic;
-		ADDR	:	in std_logic_vector(15 downto 0);
-		DIN	:	in std_logic_vector(15 downto 0);
-		DOUT	:	out std_logic_vector(15 downto 0);
-		ADCIN :  in REG16_ARRAY;
-		DACOUT:  out REG16_ARRAY
+		CLK				: in std_logic;
+		RESET				: in std_logic;
+		LOAD				: in std_logic;
+		ADDR				: in std_logic_vector(15 downto 0);
+		DIN				: in std_logic_vector(15 downto 0);
+		DOUT				: out std_logic_vector(15 downto 0);
+		ADCIN 			: in REG16_ARRAY;
+		DACOUT			: out REG16_ARRAY;
+		FILTER_CONTROL	: out std_logic_vector(15 downto 0)
 		--Static MBP ports begin
 		--User ports begin:
 		-- reg0	:	in std_logic_vector(15 downto 0);

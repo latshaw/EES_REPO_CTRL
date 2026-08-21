@@ -24,11 +24,12 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	END COMPONENT;
 	
 	COMPONENT cic_8
-	PORT(lb_clk : IN STD_LOGIC;
-		 reset_n : IN STD_LOGIC;
-		 strobe  : IN STD_LOGIC; -- strobe, sample ready
-		 x       : IN STD_LOGIC_VECTOR(15 downto 0); -- 16 bit input
-		 y       :OUT STD_LOGIC_VECTOR(15 downto 0)  -- 16 but filtered output
+	PORT(lb_clk 	: IN STD_LOGIC;
+		 reset_n 	: IN STD_LOGIC;
+		 strobe  	: IN STD_LOGIC; -- strobe, sample ready
+		 x       	: IN STD_LOGIC_VECTOR(15 downto 0); -- 16 bit input
+		 y       	: OUT STD_LOGIC_VECTOR(15 downto 0);  -- 16 but filtered output
+		 strobe_out : OUT STD_LOGIC
 		);
 	END COMPONENT;
 	
@@ -47,6 +48,7 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	SIGNAL FULL_IIR_OUT			: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL SIMPLE_IIR_OUT		: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL FULL_IIR_CHAIN_OUT	: STD_LOGIC_VECTOR(15 downto 0);
+	SIGNAL CIC_STROBE				: STD_LOGIC;
 	
 	BEGIN
 		DATA_BUF: REGNE
@@ -61,10 +63,11 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 						
 		CIC: cic_8
 					PORT MAP(lb_clk 	=> CLOCK,
-						reset_n 	=> RESET,
-						strobe  	=> STROBE,
-						x       	=> DATA_IN,
-						y       	=> CIC_OUT
+						reset_n 		=> RESET,
+						strobe  		=> STROBE,
+						x       		=> DATA_IN,
+						y       		=> CIC_OUT,
+						strobe_out 	=> CIC_STROBE
 					);			
 		
 		FULLIIR: iir_lpf
@@ -86,7 +89,7 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 		FULLIIR_CHAIN: iir_lpf
 						PORT MAP(lb_clk  => CLOCK,
 							reset_n => RESET,
-							strobe  => STROBE,
+							strobe  => CIC_STROBE,
 							x       => CIC_OUT,
 							y       => FULL_IIR_CHAIN_OUT
 						);			
@@ -100,7 +103,7 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 					SIMPLE_IIR_OUT			<= (others => '0');	
 					FULL_IIR_CHAIN_OUT	<= (others => '0');
 				
-				ELSIF CLOCK'event and CLK = '1' then
+				ELSIF CLOCK'event and CLOCK = '1' then
 					IF (FILTER_CONTROL(2 downto 0) = "000") then
 						DATA_OUT <= BUFFER_OUT;
 					ELSIF (FILTER_CONTROL(2 downto 0) = "001") then
