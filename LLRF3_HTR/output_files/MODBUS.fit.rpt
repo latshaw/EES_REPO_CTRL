@@ -1,5 +1,5 @@
 I/O Assignment Analysis report for MODBUS
-Thu Aug 20 09:07:09 2026
+Mon Aug 24 08:29:20 2026
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +------------------------------------------------------------------------------+
 ; I/O Assignment Analysis Summary                                              ;
 +--------------------------------+---------------------------------------------+
-; I/O Assignment Analysis Status ; Successful - Thu Aug 20 09:07:09 2026       ;
+; I/O Assignment Analysis Status ; Successful - Mon Aug 24 08:29:20 2026       ;
 ; Quartus Prime Version          ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                  ; MODBUS                                      ;
 ; Top-level Entity Name          ; MODBUS                                      ;
@@ -152,12 +152,14 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "TMPHS_ADC_SCLK" is assigned to location or region, but does not exist in design
     Warning (15706): Node "TMPHS_ADC_SDI" is assigned to location or region, but does not exist in design
     Warning (15706): Node "TMPHS_ADC_SDO" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
+    Warning (15706): Node "XPORT_RX" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "XPORT_TX" is assigned to location or region, but does not exist in design
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
-Info: Quartus Prime I/O Assignment Analysis was successful. 0 errors, 61 warnings
+Info: Quartus Prime I/O Assignment Analysis was successful. 0 errors, 63 warnings
     Info: Peak virtual memory: 4957 megabytes
-    Info: Processing ended: Thu Aug 20 09:07:09 2026
-    Info: Elapsed time: 00:00:02
+    Info: Processing ended: Mon Aug 24 08:29:20 2026
+    Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
 
@@ -220,6 +222,8 @@ Info: Quartus Prime I/O Assignment Analysis was successful. 0 errors, 61 warning
 ; Location     ;                ;              ; TMPHS_ADC_SCLK  ; PIN_83                ; QSF Assignment ;
 ; Location     ;                ;              ; TMPHS_ADC_SDI   ; PIN_85                ; QSF Assignment ;
 ; Location     ;                ;              ; TMPHS_ADC_SDO   ; PIN_87                ; QSF Assignment ;
+; Location     ;                ;              ; XPORT_RX        ; PIN_141               ; QSF Assignment ;
+; Location     ;                ;              ; XPORT_TX        ; PIN_140               ; QSF Assignment ;
 ; I/O Standard ; MODBUS         ;              ; SYSCLOCK        ; 3.3 V SCHMITT TRIGGER ; QSF Assignment ;
 +--------------+----------------+--------------+-----------------+-----------------------+----------------+
 
@@ -481,12 +485,14 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "TMPHS_ADC_SCLK" is assigned to location or region, but does not exist in design
     Warning (15706): Node "TMPHS_ADC_SDI" is assigned to location or region, but does not exist in design
     Warning (15706): Node "TMPHS_ADC_SDO" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
+    Warning (15706): Node "XPORT_RX" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "XPORT_TX" is assigned to location or region, but does not exist in design
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
-Info: Quartus Prime I/O Assignment Analysis was successful. 0 errors, 61 warnings
+Info: Quartus Prime I/O Assignment Analysis was successful. 0 errors, 63 warnings
     Info: Peak virtual memory: 4957 megabytes
-    Info: Processing ended: Thu Aug 20 09:07:09 2026
-    Info: Elapsed time: 00:00:02
+    Info: Processing ended: Mon Aug 24 08:29:20 2026
+    Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
 

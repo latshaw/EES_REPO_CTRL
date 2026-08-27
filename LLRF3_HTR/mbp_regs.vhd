@@ -48,18 +48,48 @@ architecture mixed of mbp_regs is
 	signal reg_q 		: word_array(0 to (HRTREGS -1)) := (x"F1F1",x"0002",x"0003",x"0004",x"0005",x"0006",x"0007",x"0008",x"0009",x"000A",x"000B",x"1389",x"138A",x"138B",x"138C",x"138D",x"138E",x"138F",x"1390",x"1391",x"1392",x"1393",x"000C",x"000D",x"100E",x"000F",x"0010",x"0011",x"0012",x"0013",x"0014",x"0015",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"0000",x"FFFF",x"FFFF",x"0000",x"0000",x"FFFF",x"FFFF",x"0000",x"0000",x"0000",x"FFFF",x"FFFF",x"01F8",x"0004",x"0000",x"000A",x"0002",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"FFFF");
 	signal Version 	: std_logic_vector(15 downto 0);
 	signal FaultClear	: std_logic;
-	signal HTRPWR		: std_logic_vector(15 downto 0);
-	signal HTRIRB		: std_logic_vector(15 downto 0);
-	signal HTRVRB		: std_logic_vector(15 downto 0);
+	signal HTRPWR		: unsigned(15 downto 0);
+	signal HTRIRB		: signed(15 downto 0);
+	signal HTRVRB		: signed(15 downto 0);
 	signal HTRCNTLMD	: std_logic_vector(15 downto 0);
-	signal VFILTIIR	: std_logic_vector(15 downto 0);
-	signal IFILTIIR	: std_logic_vector(15 downto 0);
-	signal VFILTCIC	: std_logic_vector(15 downto 0);
-	signal IFILTCIC	: std_logic_vector(15 downto 0);
+	signal HTRP			: unsigned(15 downto 0);
+	signal HTRI			: unsigned(15 downto 0);
+	signal HTRD			: unsigned(15 downto 0);
+	signal DACCNTLd	: REG16_ARRAY;
+	signal DACCNTLq	: REG16_ARRAY;
 	--signal reg_d : word_array(0 to (HRTREGS -1)) := (others => x"0000");
 	--signal reg_q : word_array(0 to (HRTREGS -1)) := (others => x"0000");
 	
+	component HEAT_CONTROL
+	port(	clock					: in std_logic;
+			reset					: in std_logic;
+			requested_watts	: in unsigned(15 downto 0);
+			current_readback	: in signed(15 downto 0);
+			voltage_readback	: in signed(15 downto 0);
+			DAC_setpoint		: in std_logic_vector(15 downto 0);
+			p_gain				: in unsigned(15 downto 0);
+			i_gain				: in unsigned(15 downto 0);
+			d_gain				: in unsigned(15 downto 0);
+			new_DAC_setpoint	: out std_logic_vector(15 downto 0)
+			);
+	end component HEAT_CONTROL;
+	
 begin
+
+
+
+	HeaterPID: HEAT_CONTROL
+	port map(clock					=> CLK,
+				reset					=> RESET,
+				requested_watts	=> HTRPWR,
+				current_readback	=> HTRIRB,
+				voltage_readback	=> HTRVRB,
+				DAC_setpoint		=> DACCNTLq(0),
+				p_gain				=> HTRP,
+				i_gain				=> HTRI,
+				d_gain				=> HTRD,
+				new_DAC_setpoint	=> DACCNTLd(0)
+			);
 	--ISA addr conversion
 	shrt_addr <= ADDR(7 downto 0);
 	--Register flip flops
@@ -79,118 +109,126 @@ begin
 		end process;
 	end generate Reg_GEN;
 	
+	process(RESET,CLK)
+		begin
+			if(RESET = '0') then
+				DACCNTLq(0) <= (others => '0');
+			elsif(CLK'event and CLK = '1') then
+				DACCNTLq <= DACCNTLd;
+			end if;
+		end process;
 	--
 	--Register logic:
 	--Paste VHDL code from "VHDL_HRT" table in Excel spreadsheet
 	--You can add conditions to the enable statement to control R/W access
 	reg_ena(0) <= '1' when (LOAD = '1') and (shrt_addr = x"00") else '0';   reg_d(0) <= DIN;
-reg_ena(1) <= '1' when (LOAD = '1') and (shrt_addr = x"01") else '0';   reg_d(1) <= DIN;
-reg_ena(2) <= '1' when (LOAD = '1') and (shrt_addr = x"02") else '0';   reg_d(2) <= DIN;
-reg_ena(3) <= '1' when (LOAD = '1') and (shrt_addr = x"03") else '0';   reg_d(3) <= DIN;
-reg_ena(4) <= '1' when (LOAD = '1') and (shrt_addr = x"04") else '0';   reg_d(4) <= DIN;
-reg_ena(5) <= '1' when (LOAD = '1') and (shrt_addr = x"05") else '0';   reg_d(5) <= DIN;
-reg_ena(6) <= '1' when (LOAD = '1') and (shrt_addr = x"06") else '0';   reg_d(6) <= DIN;
-reg_ena(7) <= '1' when (LOAD = '1') and (shrt_addr = x"07") else '0';   reg_d(7) <= DIN;
-reg_ena(8) <= '1' when (LOAD = '1') and (shrt_addr = x"08") else '0';   reg_d(8) <= DIN;
-reg_ena(9) <= '1' when (LOAD = '1') and (shrt_addr = x"09") else '0';   reg_d(9) <= DIN;
-reg_ena(10) <= '1' when (LOAD = '1') and (shrt_addr = x"0A") else '0';   reg_d(10) <= DIN;
-reg_ena(11) <= '1' when (LOAD = '1') and (shrt_addr = x"0B") else '0';   reg_d(11) <= DIN;
-reg_ena(12) <= '1' when (LOAD = '1') and (shrt_addr = x"0C") else '0';   reg_d(12) <= DIN;
-reg_ena(13) <= '1' when (LOAD = '1') and (shrt_addr = x"0D") else '0';   reg_d(13) <= DIN;
-reg_ena(14) <= '1' when (LOAD = '1') and (shrt_addr = x"0E") else '0';   reg_d(14) <= DIN;
-reg_ena(15) <= '1' when (LOAD = '1') and (shrt_addr = x"0F") else '0';   reg_d(15) <= DIN;
-reg_ena(16) <= '1' when (LOAD = '1') and (shrt_addr = x"10") else '0';   reg_d(16) <= DIN;
-reg_ena(17) <= '1' when (LOAD = '1') and (shrt_addr = x"11") else '0';   reg_d(17) <= DIN;
-reg_ena(18) <= '1' when (LOAD = '1') and (shrt_addr = x"12") else '0';   reg_d(18) <= DIN;
-reg_ena(19) <= '1' when (LOAD = '1') and (shrt_addr = x"13") else '0';   reg_d(19) <= DIN;
-reg_ena(20) <= '1' when (LOAD = '1') and (shrt_addr = x"14") else '0';   reg_d(20) <= DIN;
-reg_ena(21) <= '1' when (LOAD = '1') and (shrt_addr = x"15") else '0';   reg_d(21) <= DIN;
-reg_ena(22) <= '1' when (LOAD = '1') and (shrt_addr = x"16") else '0';   reg_d(22) <= DIN;
-reg_ena(23) <= '1' when (LOAD = '1') and (shrt_addr = x"17") else '0';   reg_d(23) <= DIN;
-reg_ena(24) <= '1' when (LOAD = '1') and (shrt_addr = x"18") else '0';   reg_d(24) <= DIN;
-reg_ena(25) <= '1' when (LOAD = '1') and (shrt_addr = x"19") else '0';   reg_d(25) <= DIN;
-reg_ena(26) <= '1' when (LOAD = '1') and (shrt_addr = x"1A") else '0';   reg_d(26) <= DIN;
-reg_ena(27) <= '1' when (LOAD = '1') and (shrt_addr = x"1B") else '0';   reg_d(27) <= DIN;
-reg_ena(28) <= '1' when (LOAD = '1') and (shrt_addr = x"1C") else '0';   reg_d(28) <= DIN;
-reg_ena(29) <= '1' when (LOAD = '1') and (shrt_addr = x"1D") else '0';   reg_d(29) <= DIN;
-reg_ena(30) <= '1' when (LOAD = '1') and (shrt_addr = x"1E") else '0';   reg_d(30) <= DIN;
-reg_ena(31) <= '1' when (LOAD = '1') and (shrt_addr = x"1F") else '0';   reg_d(31) <= DIN;
-reg_ena(32) <= '1' when (LOAD = '1') and (shrt_addr = x"20") else '0';   reg_d(32) <= DIN;
-reg_ena(33) <= '1' when (LOAD = '1') and (shrt_addr = x"21") else '0';   reg_d(33) <= DIN;
-reg_ena(34) <= '1' when (LOAD = '1') and (shrt_addr = x"22") else '0';   reg_d(34) <= DIN;
-reg_ena(35) <= '1' when (LOAD = '1') and (shrt_addr = x"23") else '0';   reg_d(35) <= DIN;
-reg_ena(36) <= '1' when (LOAD = '1') and (shrt_addr = x"24") else '0';   reg_d(36) <= DIN;
-reg_ena(37) <= '1' when (LOAD = '1') and (shrt_addr = x"25") else '0';   reg_d(37) <= DIN;
-reg_ena(38) <= '1' when (LOAD = '1') and (shrt_addr = x"26") else '0';   reg_d(38) <= DIN;
-reg_ena(39) <= '1' when (LOAD = '1') and (shrt_addr = x"27") else '0';   reg_d(39) <= DIN;
-reg_ena(40) <= '1' when (LOAD = '1') and (shrt_addr = x"28") else '0';   reg_d(40) <= DIN;
-reg_ena(41) <= '1' when (LOAD = '1') and (shrt_addr = x"29") else '0';   reg_d(41) <= DIN;
-reg_ena(42) <= '1' when (LOAD = '1') and (shrt_addr = x"2A") else '0';   reg_d(42) <= DIN;
-reg_ena(43) <= '1' when (LOAD = '1') and (shrt_addr = x"2B") else '0';   reg_d(43) <= DIN;
-reg_ena(44) <= '1' when (LOAD = '1') and (shrt_addr = x"2C") else '0';   reg_d(44) <= DIN;
-reg_ena(45) <= '1' when (LOAD = '1') and (shrt_addr = x"2D") else '0';   reg_d(45) <= DIN;
-reg_ena(46) <= '1' when (LOAD = '1') and (shrt_addr = x"2E") else '0';   reg_d(46) <= DIN;
-reg_ena(47) <= '1' when (LOAD = '1') and (shrt_addr = x"2F") else '0';   reg_d(47) <= DIN;
-reg_ena(48) <= '1' when (LOAD = '1') and (shrt_addr = x"30") else '0';   reg_d(48) <= DIN;
-reg_ena(49) <= '1' when (LOAD = '1') and (shrt_addr = x"31") else '0';   reg_d(49) <= DIN;
-reg_ena(50) <= '1' when (LOAD = '1') and (shrt_addr = x"32") else '0';   reg_d(50) <= DIN;
-reg_ena(51) <= '1' when (LOAD = '1') and (shrt_addr = x"33") else '0';   reg_d(51) <= DIN;
-reg_ena(52) <= '1' when (LOAD = '1') and (shrt_addr = x"34") else '0';   reg_d(52) <= DIN;
-reg_ena(53) <= '1' when (LOAD = '1') and (shrt_addr = x"35") else '0';   reg_d(53) <= DIN;
-reg_ena(54) <= '1' when (LOAD = '1') and (shrt_addr = x"36") else '0';   reg_d(54) <= DIN;
-reg_ena(55) <= '1' when (LOAD = '1') and (shrt_addr = x"37") else '0';   reg_d(55) <= DIN;
-reg_ena(56) <= '1' when (LOAD = '1') and (shrt_addr = x"38") else '0';   reg_d(56) <= DIN;
-reg_ena(57) <= '1' when (LOAD = '1') and (shrt_addr = x"39") else '0';   reg_d(57) <= DIN;
-reg_ena(58) <= '1' when (LOAD = '1') and (shrt_addr = x"3A") else '0';   reg_d(58) <= DIN;
-reg_ena(59) <= '1' when (LOAD = '1') and (shrt_addr = x"3B") else '0';   reg_d(59) <= DIN;
-reg_ena(60) <= '1' when (LOAD = '1') and (shrt_addr = x"3C") else '0';   reg_d(60) <= DIN;
-reg_ena(61) <= '1' when (LOAD = '1') and (shrt_addr = x"3D") else '0';   reg_d(61) <= DIN;
-reg_ena(62) <= '1' when (LOAD = '1') and (shrt_addr = x"3E") else '0';   reg_d(62) <= DIN;
-reg_ena(63) <= '1' when (LOAD = '1') and (shrt_addr = x"3F") else '0';   reg_d(63) <= DIN;
-reg_ena(64) <= '1' when (LOAD = '1') and (shrt_addr = x"40") else '0';   reg_d(64) <= DIN;
-reg_ena(65) <= '1' when (LOAD = '1') and (shrt_addr = x"41") else '0';   reg_d(65) <= DIN;
-reg_ena(66) <= '1' when (LOAD = '1') and (shrt_addr = x"42") else '0';   reg_d(66) <= DIN;
-reg_ena(67) <= '1' when (LOAD = '1') and (shrt_addr = x"43") else '0';   reg_d(67) <= DIN;
-reg_ena(68) <= '1' when (LOAD = '1') and (shrt_addr = x"44") else '0';   reg_d(68) <= DIN;
-reg_ena(69) <= '1' when (LOAD = '1') and (shrt_addr = x"45") else '0';   reg_d(69) <= DIN;
-reg_ena(70) <= '1' when (LOAD = '1') and (shrt_addr = x"46") else '0';   reg_d(70) <= DIN;
-reg_ena(71) <= '1' when (LOAD = '1') and (shrt_addr = x"47") else '0';   reg_d(71) <= DIN;
-reg_ena(72) <= '1' when (LOAD = '1') and (shrt_addr = x"48") else '0';   reg_d(72) <= DIN;
-reg_ena(73) <= '1' when (LOAD = '1') and (shrt_addr = x"49") else '0';   reg_d(73) <= DIN;
-reg_ena(74) <= '1' when (LOAD = '1') and (shrt_addr = x"4A") else '0';   reg_d(74) <= DIN;
-reg_ena(75) <= '1' when (LOAD = '1') and (shrt_addr = x"4B") else '0';   reg_d(75) <= DIN;
-reg_ena(76) <= '1' when (LOAD = '1') and (shrt_addr = x"4C") else '0';   reg_d(76) <= DIN;
-reg_ena(77) <= '1' when (LOAD = '1') and (shrt_addr = x"4D") else '0';   reg_d(77) <= DIN;
-reg_ena(78) <= '1' when (LOAD = '1') and (shrt_addr = x"4E") else '0';   reg_d(78) <= DIN;
-reg_ena(79) <= '1' when (LOAD = '1') and (shrt_addr = x"4F") else '0';   reg_d(79) <= DIN;
-reg_ena(80) <= '1' when (LOAD = '1') and (shrt_addr = x"50") else '0';   reg_d(80) <= DIN;
-reg_ena(81) <= '1' when (LOAD = '1') and (shrt_addr = x"51") else '0';   reg_d(81) <= DIN;
-reg_ena(82) <= '1' when (LOAD = '1') and (shrt_addr = x"52") else '0';   reg_d(82) <= DIN;
-reg_ena(83) <= '1' when (LOAD = '1') and (shrt_addr = x"53") else '0';   reg_d(83) <= DIN;
-reg_ena(84) <= '1' when (LOAD = '1') and (shrt_addr = x"54") else '0';   reg_d(84) <= DIN;
-reg_ena(85) <= '1' when (LOAD = '1') and (shrt_addr = x"55") else '0';   reg_d(85) <= DIN;
-reg_ena(86) <= '1' when (LOAD = '1') and (shrt_addr = x"56") else '0';   reg_d(86) <= DIN;
-reg_ena(87) <= '1' when (LOAD = '1') and (shrt_addr = x"57") else '0';   reg_d(87) <= DIN;
-reg_ena(88) <= '1' when (LOAD = '1') and (shrt_addr = x"58") else '0';   reg_d(88) <= DIN;
-reg_ena(89) <= '1' when (LOAD = '1') and (shrt_addr = x"59") else '0';   reg_d(89) <= DIN;
-reg_ena(90) <= '1' when (LOAD = '1') and (shrt_addr = x"5A") else '0';   reg_d(90) <= DIN;
-reg_ena(91) <= '1' when (LOAD = '1') and (shrt_addr = x"5B") else '0';   reg_d(91) <= DIN;
-reg_ena(92) <= '1' when (LOAD = '1') and (shrt_addr = x"5C") else '0';   reg_d(92) <= DIN;
-reg_ena(93) <= '1' when (LOAD = '1') and (shrt_addr = x"5D") else '0';   reg_d(93) <= DIN;
-reg_ena(94) <= '1' when (LOAD = '1') and (shrt_addr = x"5E") else '0';   reg_d(94) <= DIN;
-reg_ena(95) <= '1' when (LOAD = '1') and (shrt_addr = x"5F") else '0';   reg_d(95) <= DIN;
-reg_ena(96) <= '1' when (LOAD = '1') and (shrt_addr = x"60") else '0';   reg_d(96) <= DIN;
-reg_ena(97) <= '1' when (LOAD = '1') and (shrt_addr = x"61") else '0';   reg_d(97) <= DIN;
-reg_ena(98) <= '1' when (LOAD = '1') and (shrt_addr = x"62") else '0';   reg_d(98) <= DIN;
-reg_ena(99) <= '1' when (LOAD = '1') and (shrt_addr = x"63") else '0';   reg_d(99) <= DIN;
-reg_ena(100) <= '1' when (LOAD = '1') and (shrt_addr = x"64") else '0';   reg_d(100) <= DIN;
-reg_ena(101) <= '1' when (LOAD = '1') and (shrt_addr = x"65") else '0';   reg_d(101) <= DIN;
-reg_ena(102) <= '1' when (LOAD = '1') and (shrt_addr = x"66") else '0';   reg_d(102) <= DIN;
-reg_ena(103) <= '1' when (LOAD = '1') and (shrt_addr = x"67") else '0';   reg_d(103) <= DIN;
-reg_ena(104) <= '1' when (LOAD = '1') and (shrt_addr = x"68") else '0';   reg_d(104) <= DIN;
-reg_ena(105) <= '1' when (LOAD = '1') and (shrt_addr = x"69") else '0';   reg_d(105) <= DIN;
+	reg_ena(1) <= '1' when (LOAD = '1') and (shrt_addr = x"01") else '0';   reg_d(1) <= DIN;
+	reg_ena(2) <= '1' when (LOAD = '1') and (shrt_addr = x"02") else '0';   reg_d(2) <= DIN;
+	reg_ena(3) <= '1' when (LOAD = '1') and (shrt_addr = x"03") else '0';   reg_d(3) <= DIN;
+	reg_ena(4) <= '1' when (LOAD = '1') and (shrt_addr = x"04") else '0';   reg_d(4) <= DIN;
+	reg_ena(5) <= '1' when (LOAD = '1') and (shrt_addr = x"05") else '0';   reg_d(5) <= DIN;
+	reg_ena(6) <= '1' when (LOAD = '1') and (shrt_addr = x"06") else '0';   reg_d(6) <= DIN;
+	reg_ena(7) <= '1' when (LOAD = '1') and (shrt_addr = x"07") else '0';   reg_d(7) <= DIN;
+	reg_ena(8) <= '1' when (LOAD = '1') and (shrt_addr = x"08") else '0';   reg_d(8) <= DIN;
+	reg_ena(9) <= '1' when (LOAD = '1') and (shrt_addr = x"09") else '0';   reg_d(9) <= DIN;
+	reg_ena(10) <= '1' when (LOAD = '1') and (shrt_addr = x"0A") else '0';   reg_d(10) <= DIN;
+	reg_ena(11) <= '1' when (LOAD = '1') and (shrt_addr = x"0B") else '0';   reg_d(11) <= DIN;
+	reg_ena(12) <= '1' when (LOAD = '1') and (shrt_addr = x"0C") else '0';   reg_d(12) <= DIN;
+	reg_ena(13) <= '1' when (LOAD = '1') and (shrt_addr = x"0D") else '0';   reg_d(13) <= DIN;
+	reg_ena(14) <= '1' when (LOAD = '1') and (shrt_addr = x"0E") else '0';   reg_d(14) <= DIN;
+	reg_ena(15) <= '1' when (LOAD = '1') and (shrt_addr = x"0F") else '0';   reg_d(15) <= DIN;
+	reg_ena(16) <= '1' when (LOAD = '1') and (shrt_addr = x"10") else '0';   reg_d(16) <= DIN;
+	reg_ena(17) <= '1' when (LOAD = '1') and (shrt_addr = x"11") else '0';   reg_d(17) <= DIN;
+	reg_ena(18) <= '1' when (LOAD = '1') and (shrt_addr = x"12") else '0';   reg_d(18) <= DIN;
+	reg_ena(19) <= '1' when (LOAD = '1') and (shrt_addr = x"13") else '0';   reg_d(19) <= DIN;
+	reg_ena(20) <= '1' when (LOAD = '1') and (shrt_addr = x"14") else '0';   reg_d(20) <= DIN;
+	reg_ena(21) <= '1' when (LOAD = '1') and (shrt_addr = x"15") else '0';   reg_d(21) <= DIN;
+	reg_ena(22) <= '1' when (LOAD = '1') and (shrt_addr = x"16") else '0';   reg_d(22) <= DIN;
+	reg_ena(23) <= '1' when (LOAD = '1') and (shrt_addr = x"17") else '0';   reg_d(23) <= DIN;
+	reg_ena(24) <= '1' when (LOAD = '1') and (shrt_addr = x"18") else '0';   reg_d(24) <= DIN;
+	reg_ena(25) <= '1' when (LOAD = '1') and (shrt_addr = x"19") else '0';   reg_d(25) <= DIN;
+	reg_ena(26) <= '1' when (LOAD = '1') and (shrt_addr = x"1A") else '0';   reg_d(26) <= DIN;
+	reg_ena(27) <= '1' when (LOAD = '1') and (shrt_addr = x"1B") else '0';   reg_d(27) <= DIN;
+	reg_ena(28) <= '1' when (LOAD = '1') and (shrt_addr = x"1C") else '0';   reg_d(28) <= DIN;
+	reg_ena(29) <= '1' when (LOAD = '1') and (shrt_addr = x"1D") else '0';   reg_d(29) <= DIN;
+	reg_ena(30) <= '1' when (LOAD = '1') and (shrt_addr = x"1E") else '0';   reg_d(30) <= DIN;
+	reg_ena(31) <= '1' when (LOAD = '1') and (shrt_addr = x"1F") else '0';   reg_d(31) <= DIN;
+	reg_ena(32) <= '1' when (LOAD = '1') and (shrt_addr = x"20") else '0';   reg_d(32) <= DIN;
+	reg_ena(33) <= '1' when (LOAD = '1') and (shrt_addr = x"21") else '0';   reg_d(33) <= DIN;
+	reg_ena(34) <= '1' when (LOAD = '1') and (shrt_addr = x"22") else '0';   reg_d(34) <= DIN;
+	reg_ena(35) <= '1' when (LOAD = '1') and (shrt_addr = x"23") else '0';   reg_d(35) <= DIN;
+	reg_ena(36) <= '1' when (LOAD = '1') and (shrt_addr = x"24") else '0';   reg_d(36) <= DIN;
+	reg_ena(37) <= '1' when (LOAD = '1') and (shrt_addr = x"25") else '0';   reg_d(37) <= DIN;
+	reg_ena(38) <= '1' when (LOAD = '1') and (shrt_addr = x"26") else '0';   reg_d(38) <= DIN;
+	reg_ena(39) <= '1' when (LOAD = '1') and (shrt_addr = x"27") else '0';   reg_d(39) <= DIN;
+	reg_ena(40) <= '1' when (LOAD = '1') and (shrt_addr = x"28") else '0';   reg_d(40) <= DIN;
+	reg_ena(41) <= '1' when (LOAD = '1') and (shrt_addr = x"29") else '0';   reg_d(41) <= DIN;
+	reg_ena(42) <= '1' when (LOAD = '1') and (shrt_addr = x"2A") else '0';   reg_d(42) <= DIN;
+	reg_ena(43) <= '1' when (LOAD = '1') and (shrt_addr = x"2B") else '0';   reg_d(43) <= DIN;
+	reg_ena(44) <= '1' when (LOAD = '1') and (shrt_addr = x"2C") else '0';   reg_d(44) <= DIN;
+	reg_ena(45) <= '1' when (LOAD = '1') and (shrt_addr = x"2D") else '0';   reg_d(45) <= DIN;
+	reg_ena(46) <= '1' when (LOAD = '1') and (shrt_addr = x"2E") else '0';   reg_d(46) <= DIN;
+	reg_ena(47) <= '1' when (LOAD = '1') and (shrt_addr = x"2F") else '0';   reg_d(47) <= DIN;
+	reg_ena(48) <= '1' when (LOAD = '1') and (shrt_addr = x"30") else '0';   reg_d(48) <= DIN;
+	reg_ena(49) <= '1' when (LOAD = '1') and (shrt_addr = x"31") else '0';   reg_d(49) <= DIN;
+	reg_ena(50) <= '1' when (LOAD = '1') and (shrt_addr = x"32") else '0';   reg_d(50) <= DIN;
+	reg_ena(51) <= '1' when (LOAD = '1') and (shrt_addr = x"33") else '0';   reg_d(51) <= DIN;
+	reg_ena(52) <= '1' when (LOAD = '1') and (shrt_addr = x"34") else '0';   reg_d(52) <= DIN;
+	reg_ena(53) <= '1' when (LOAD = '1') and (shrt_addr = x"35") else '0';   reg_d(53) <= DIN;
+	reg_ena(54) <= '1' when (LOAD = '1') and (shrt_addr = x"36") else '0';   reg_d(54) <= DIN;
+	reg_ena(55) <= '1' when (LOAD = '1') and (shrt_addr = x"37") else '0';   reg_d(55) <= DIN;
+	reg_ena(56) <= '1' when (LOAD = '1') and (shrt_addr = x"38") else '0';   reg_d(56) <= DIN;
+	reg_ena(57) <= '1' when (LOAD = '1') and (shrt_addr = x"39") else '0';   reg_d(57) <= DIN;
+	reg_ena(58) <= '1' when (LOAD = '1') and (shrt_addr = x"3A") else '0';   reg_d(58) <= DIN;
+	reg_ena(59) <= '1' when (LOAD = '1') and (shrt_addr = x"3B") else '0';   reg_d(59) <= DIN;
+	reg_ena(60) <= '1' when (LOAD = '1') and (shrt_addr = x"3C") else '0';   reg_d(60) <= DIN;
+	reg_ena(61) <= '1' when (LOAD = '1') and (shrt_addr = x"3D") else '0';   reg_d(61) <= DIN;
+	reg_ena(62) <= '1' when (LOAD = '1') and (shrt_addr = x"3E") else '0';   reg_d(62) <= DIN;
+	reg_ena(63) <= '1' when (LOAD = '1') and (shrt_addr = x"3F") else '0';   reg_d(63) <= DIN;
+	reg_ena(64) <= '1' when (LOAD = '1') and (shrt_addr = x"40") else '0';   reg_d(64) <= DIN;
+	reg_ena(65) <= '1' when (LOAD = '1') and (shrt_addr = x"41") else '0';   reg_d(65) <= DIN;
+	reg_ena(66) <= '1' when (LOAD = '1') and (shrt_addr = x"42") else '0';   reg_d(66) <= DIN;
+	reg_ena(67) <= '1' when (LOAD = '1') and (shrt_addr = x"43") else '0';   reg_d(67) <= DIN;
+	reg_ena(68) <= '1' when (LOAD = '1') and (shrt_addr = x"44") else '0';   reg_d(68) <= DIN;
+	reg_ena(69) <= '1' when (LOAD = '1') and (shrt_addr = x"45") else '0';   reg_d(69) <= DIN;
+	reg_ena(70) <= '1' when (LOAD = '1') and (shrt_addr = x"46") else '0';   reg_d(70) <= DIN;
+	reg_ena(71) <= '1' when (LOAD = '1') and (shrt_addr = x"47") else '0';   reg_d(71) <= DIN;
+	reg_ena(72) <= '1' when (LOAD = '1') and (shrt_addr = x"48") else '0';   reg_d(72) <= DIN;
+	reg_ena(73) <= '1' when (LOAD = '1') and (shrt_addr = x"49") else '0';   reg_d(73) <= DIN;
+	reg_ena(74) <= '1' when (LOAD = '1') and (shrt_addr = x"4A") else '0';   reg_d(74) <= DIN;
+	reg_ena(75) <= '1' when (LOAD = '1') and (shrt_addr = x"4B") else '0';   reg_d(75) <= DIN;
+	reg_ena(76) <= '1' when (LOAD = '1') and (shrt_addr = x"4C") else '0';   reg_d(76) <= DIN;
+	reg_ena(77) <= '1' when (LOAD = '1') and (shrt_addr = x"4D") else '0';   reg_d(77) <= DIN;
+	reg_ena(78) <= '1' when (LOAD = '1') and (shrt_addr = x"4E") else '0';   reg_d(78) <= DIN;
+	reg_ena(79) <= '1' when (LOAD = '1') and (shrt_addr = x"4F") else '0';   reg_d(79) <= DIN;
+	reg_ena(80) <= '1' when (LOAD = '1') and (shrt_addr = x"50") else '0';   reg_d(80) <= DIN;
+	reg_ena(81) <= '1' when (LOAD = '1') and (shrt_addr = x"51") else '0';   reg_d(81) <= DIN;
+	reg_ena(82) <= '1' when (LOAD = '1') and (shrt_addr = x"52") else '0';   reg_d(82) <= DIN;
+	reg_ena(83) <= '1' when (LOAD = '1') and (shrt_addr = x"53") else '0';   reg_d(83) <= DIN;
+	reg_ena(84) <= '1' when (LOAD = '1') and (shrt_addr = x"54") else '0';   reg_d(84) <= DIN;
+	reg_ena(85) <= '1' when (LOAD = '1') and (shrt_addr = x"55") else '0';   reg_d(85) <= DIN;
+	reg_ena(86) <= '1' when (LOAD = '1') and (shrt_addr = x"56") else '0';   reg_d(86) <= DIN;
+	reg_ena(87) <= '1' when (LOAD = '1') and (shrt_addr = x"57") else '0';   reg_d(87) <= DIN;
+	reg_ena(88) <= '1' when (LOAD = '1') and (shrt_addr = x"58") else '0';   reg_d(88) <= DIN;
+	reg_ena(89) <= '1' when (LOAD = '1') and (shrt_addr = x"59") else '0';   reg_d(89) <= DIN;
+	reg_ena(90) <= '1' when (LOAD = '1') and (shrt_addr = x"5A") else '0';   reg_d(90) <= DIN;
+	reg_ena(91) <= '1' when (LOAD = '1') and (shrt_addr = x"5B") else '0';   reg_d(91) <= DIN;
+	reg_ena(92) <= '1' when (LOAD = '1') and (shrt_addr = x"5C") else '0';   reg_d(92) <= DIN;
+	reg_ena(93) <= '1' when (LOAD = '1') and (shrt_addr = x"5D") else '0';   reg_d(93) <= DIN;
+	reg_ena(94) <= '1' when (LOAD = '1') and (shrt_addr = x"5E") else '0';   reg_d(94) <= DIN;
+	reg_ena(95) <= '1' when (LOAD = '1') and (shrt_addr = x"5F") else '0';   reg_d(95) <= DIN;
+	reg_ena(96) <= '1' when (LOAD = '1') and (shrt_addr = x"60") else '0';   reg_d(96) <= DIN;
+	reg_ena(97) <= '1' when (LOAD = '1') and (shrt_addr = x"61") else '0';   reg_d(97) <= DIN;
+	reg_ena(98) <= '1' when (LOAD = '1') and (shrt_addr = x"62") else '0';   reg_d(98) <= DIN;
+	reg_ena(99) <= '1' when (LOAD = '1') and (shrt_addr = x"63") else '0';   reg_d(99) <= DIN;
+	reg_ena(100) <= '1' when (LOAD = '1') and (shrt_addr = x"64") else '0';   reg_d(100) <= DIN;
+	reg_ena(101) <= '1' when (LOAD = '1') and (shrt_addr = x"65") else '0';   reg_d(101) <= DIN;
+	reg_ena(102) <= '1' when (LOAD = '1') and (shrt_addr = x"66") else '0';   reg_d(102) <= DIN;
+	reg_ena(103) <= '1' when (LOAD = '1') and (shrt_addr = x"67") else '0';   reg_d(103) <= DIN;
+	reg_ena(104) <= '1' when (LOAD = '1') and (shrt_addr = x"68") else '0';   reg_d(104) <= DIN;
+	reg_ena(105) <= '1' when (LOAD = '1') and (shrt_addr = x"69") else '0';   reg_d(105) <= DIN;
 
-with shrt_addr select DOUT <=
+	with shrt_addr select DOUT <=
      reg_q(0) when x"00",
      reg_q(1) when x"01",
      reg_q(2) when x"02",
@@ -298,7 +336,5 @@ with shrt_addr select DOUT <=
      reg_q(104) when x"68",
      reg_q(105) when x"69",
      x"FFFF" when others;
-
-
 
 end mixed;

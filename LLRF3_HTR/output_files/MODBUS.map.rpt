@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MODBUS
-Thu Aug 20 14:03:03 2026
+Thu Aug 27 13:49:18 2026
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -36,7 +36,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Thu Aug 20 14:03:02 2026           ;
+; Analysis & Synthesis Status        ; Failed - Thu Aug 27 13:49:18 2026           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; MODBUS                                      ;
 ; Top-level Entity Name              ; MODBUS                                      ;
@@ -163,7 +163,7 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu Aug 20 14:02:55 2026
+    Info: Processing started: Thu Aug 27 13:49:11 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MODBUS -c MODBUS
 Warning (125096): Overriding device family setting Cyclone III -- part 10M50SAE144I7G belongs to device family MAX 10
     Info (125063): set_global_assignment -name FAMILY "Cyclone III"
@@ -207,7 +207,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file dac8568
     Info (12022): Found design unit 1: DAC8568_CONTROL-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/DAC8568_CONTROL.vhd Line: 21
     Info (12023): Found entity 1: DAC8568_CONTROL File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/DAC8568_CONTROL.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file ads8688.vhd
-    Info (12022): Found design unit 1: ADS8688-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 19
+    Info (12022): Found design unit 1: ADS8688-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 20
     Info (12023): Found entity 1: ADS8688 File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 5
 Info (12021): Found 1 design units, including 1 entities, in source file heartbeat.tdf
     Info (12023): Found entity 1: Heartbeat File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Heartbeat.tdf Line: 1
@@ -218,7 +218,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file mbp_top
     Info (12022): Found design unit 1: mbp_top_level-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_top_level.vhd Line: 30
     Info (12023): Found entity 1: mbp_top_level File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_top_level.vhd Line: 10
 Info (12021): Found 2 design units, including 1 entities, in source file mbp_regs.vhd
-    Info (12022): Found design unit 1: mbp_regs-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs.vhd Line: 40
+    Info (12022): Found design unit 1: mbp_regs-mixed File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs.vhd Line: 41
     Info (12023): Found entity 1: mbp_regs File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp_regs.vhd Line: 9
 Info (12021): Found 3 design units, including 1 entities, in source file mbp.vhd
     Info (12022): Found design unit 1: mbp_lib File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/mbp.vhd Line: 8
@@ -229,13 +229,98 @@ Info (12021): Found 1 design units, including 1 entities, in source file modbus.
 Info (12021): Found 2 design units, including 1 entities, in source file filters.vhd
     Info (12022): Found design unit 1: FILTERS-BEHAVIOR File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 15
     Info (12023): Found entity 1: FILTERS File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file heat_control.vhd
+    Info (12022): Found design unit 1: HEAT_CONTROL-behavior File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Heat_Control.vhd Line: 20
+    Info (12023): Found entity 1: HEAT_CONTROL File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Heat_Control.vhd Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file heartbeat_fp.tdf
+    Info (12023): Found entity 1: Heartbeat_FP File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Heartbeat_FP.tdf Line: 1
 Info (12127): Elaborating entity "MODBUS" for the top level hierarchy
-Error (275044): Port "RX_IN" of type mbp_top_level of instance "inst" is missing source signal
-Error (12153): Can't elaborate top-level user hierarchy
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 2 warnings
-    Error: Peak virtual memory: 4792 megabytes
-    Error: Processing ended: Thu Aug 20 14:03:03 2026
-    Error: Elapsed time: 00:00:08
-    Error: Total CPU time (on all processors): 00:00:15
+Warning (275043): Pin "LED[4..0]" is missing source
+Info (12128): Elaborating entity "Heartbeat" for hierarchy "Heartbeat:inst7"
+Info (12128): Elaborating entity "ADS8688" for hierarchy "ADS8688:inst5"
+Info (12128): Elaborating entity "counter" for hierarchy "ADS8688:inst5|counter:DATA_COUNTER" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 96
+Info (12128): Elaborating entity "FLIP_FLOP" for hierarchy "ADS8688:inst5|FLIP_FLOP:CTRL_REG_SEL_FF" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 139
+Info (12128): Elaborating entity "SHIFT_LEFT_REG_ADS8353" for hierarchy "ADS8688:inst5|SHIFT_LEFT_REG_ADS8353:ADC_DIN_REG" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 148
+Info (12128): Elaborating entity "counter" for hierarchy "ADS8688:inst5|counter:SCLK_COUNTER" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 167
+Info (12128): Elaborating entity "counter" for hierarchy "ADS8688:inst5|counter:BIT_COUNTER" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 194
+Info (12128): Elaborating entity "SHIFT_LEFT_REG" for hierarchy "ADS8688:inst5|SHIFT_LEFT_REG:CONV_DATA_CHA" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 212
+Info (12128): Elaborating entity "regne" for hierarchy "ADS8688:inst5|regne:CHA_DATA_BUF" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 221
+Info (12128): Elaborating entity "FILTERS" for hierarchy "ADS8688:inst5|FILTERS:CHA_DATA_FILTER" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 290
+Warning (10631): VHDL Process Statement warning at Filters.vhd(97): inferring latch(es) for signal or variable "FULL_IIR_OUT", which holds its previous value in one or more paths through the process File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Warning (10631): VHDL Process Statement warning at Filters.vhd(97): inferring latch(es) for signal or variable "SIMPLE_IIR_OUT", which holds its previous value in one or more paths through the process File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Warning (10631): VHDL Process Statement warning at Filters.vhd(97): inferring latch(es) for signal or variable "FULL_IIR_CHAIN_OUT", which holds its previous value in one or more paths through the process File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[0]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[1]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[2]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[3]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[4]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[5]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[6]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[7]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[8]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[9]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[10]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[11]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[12]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[13]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[14]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_CHAIN_OUT[15]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[0]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[1]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[2]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[3]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[4]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[5]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[6]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[7]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[8]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[9]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[10]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[11]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[12]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[13]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[14]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "SIMPLE_IIR_OUT[15]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[0]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[1]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[2]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[3]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[4]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[5]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[6]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[7]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[8]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[9]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[10]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[11]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[12]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[13]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[14]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Info (10041): Inferred latch for "FULL_IIR_OUT[15]" at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[15]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10029): Constant driver at Filters.vhd(97) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 97
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[14]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[13]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[12]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[11]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[10]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[9]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[8]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[7]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[6]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[5]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[4]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[3]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[2]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[1]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "FULL_IIR_OUT[0]" at Filters.vhd(73) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 73
+Error (10028): Can't resolve multiple constant drivers for net "SIMPLE_IIR_OUT[15]" at Filters.vhd(81) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 81
+Error (10028): Can't resolve multiple constant drivers for net "SIMPLE_IIR_OUT[14]" at Filters.vhd(81) File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/Filters.vhd Line: 81
+Error (12152): Can't elaborate user hierarchy "ADS8688:inst5|FILTERS:CHA_DATA_FILTER" File: C:/Users/geesamen/Documents/GitProjects/EES_REPO_CTRL/LLRF3_HTR/ADS8688.vhd Line: 290
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 20 errors, 6 warnings
+    Error: Peak virtual memory: 4793 megabytes
+    Error: Processing ended: Thu Aug 27 13:49:18 2026
+    Error: Elapsed time: 00:00:07
+    Error: Total CPU time (on all processors): 00:00:14
 
 
