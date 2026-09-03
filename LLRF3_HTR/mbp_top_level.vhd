@@ -15,16 +15,17 @@ entity mbp_top_level is
 		HRTREGS	: natural := 106
 	);
 	port(
-		CLK		:	in std_logic; --system clock input
-		RESET	:	in std_logic; --active low
-		RX_IN : in  std_logic; --serial input line
-		REGS_DIN	: in std_logic_vector(15 downto 0);
-		REGS_LD		: out std_logic;
-		REGS_ADDR	: out std_logic_vector(15 downto 0);
-		REGS_DOUT	: out std_logic_vector(15 downto 0);
-		TX_OUT : out std_logic; --Serial Output
-		ISA_ADDR_OUT : out std_logic_vector(7 downto 0);
-		test_out : out std_logic_vector(30 downto 0)
+		CLK				:	in std_logic; --system clock input
+		RESET				:	in std_logic; --active low
+		RX_IN 			: in  std_logic; --serial input line
+		REGS_DIN			: in std_logic_vector(15 downto 0);
+		REGS_LD			: out std_logic;
+		REGS_ADDR		: out std_logic_vector(15 downto 0);
+		REGS_DOUT		: out std_logic_vector(15 downto 0);
+		TX_OUT 			: out std_logic; --Serial Output
+		ISA_ADDR_OUT 	: out std_logic_vector(7 downto 0);
+		test_out 		: out std_logic_vector(30 downto 0);
+		ISA_OE			: out std_logic
 	);
 end mbp_top_level;
 architecture mixed of mbp_top_level is
@@ -117,4 +118,5 @@ begin
 				ISA_ADDR_OUT => ISA_ADDR_OUT
 				);
 	---
+	ISA_OE <= s1;
 end mixed;

@@ -6,9 +6,9 @@ USE IEEE.NUMERIC_STD.ALL;
 entity HEAT_CONTROL is
 	port(	clock					: in std_logic;
 			reset					: in std_logic;
-			requested_watts	: in unsigned(15 downto 0);
-			current_readback	: in signed(15 downto 0);
-			voltage_readback	: in signed(15 downto 0);
+			requested_watts	: in unsigned(31 downto 0);
+			current_readback	: in unsigned(15 downto 0); -- Full scale = ~5.12V
+			voltage_readback	: in unsigned(15 downto 0); -- Full scale = ~5.12V
 			DAC_setpoint		: in std_logic_vector(15 downto 0);
 			p_gain				: in unsigned(15 downto 0);
 			i_gain				: in unsigned(15 downto 0);
@@ -20,24 +20,29 @@ end entity HEAT_CONTROL;
 architecture behavior of HEAT_CONTROL is
 	
 	type reg is record
-		computed_watts	: unsigned(15 downto 0);
-		integral			: unsigned(31 downto 0);
-		derivative		: unsigned(15 downto 0);
-		proportional	: unsigned(15 downto 0);
-		prior_error		: unsigned(15 downto 0);
+		computed_watts	: unsigned(31 downto 0);
+		integral			: unsigned(47 downto 0);
+		derivative		: unsigned(47 downto 0);
+		proportional	: unsigned(47 downto 0);
+		control_signal	: unsigned(47 downto 0);
+		prior_error		: unsigned(31 downto 0);
+		new_to_old		: unsigned(47 downto 0);
 	end record reg;
 	signal d,q : reg;
 	
-	
+	-- Supply readbacks:
+	-- Voltage 0.1V/V
+	-- Current 0.1V/A
+	-- Supply max wattage = 24A*30V = 720W
+	-- ADC max power readback = 5.12V*5.12V*100 = 2,621.44W
+	-- computed_watts full scale = 2,621.44W
 	begin
 	d.computed_watts <= unsigned(current_readback * voltage_readback);
 	d.integral <= q.integral + i_gain * (requested_watts - q.computed_watts);
 	d.derivative <= d_gain * (requested_watts - q.computed_watts) - q.prior_error;
 	d.proportional <= p_gain * (requested_watts - q.computed_watts);
-	d.prior_error <= (requested_watts - q.computed_watts);
 	
-	new_DAC_setpoint <= std_logic_vector(q.proportional + q.integral + q.derivative);
-	
+	d.control_signal <= q.proportional + q.integral + q.derivative;
 	
 	
 	

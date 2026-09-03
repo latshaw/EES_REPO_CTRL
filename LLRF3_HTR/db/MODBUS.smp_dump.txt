@@ -1,0 +1,95 @@
+
+State Machine - |MODBUS|Heartbeat_FP:inst2|ss
+Name s7 s6 s5 s4 s3 s2 s1 s0 
+s0 0 0 0 0 0 0 0 0 
+s1 0 0 0 0 0 0 1 1 
+s2 0 0 0 0 0 1 0 1 
+s3 0 0 0 0 1 0 0 1 
+s4 0 0 0 1 0 0 0 1 
+s5 0 0 1 0 0 0 0 1 
+s6 0 1 0 0 0 0 0 1 
+s7 1 0 0 0 0 0 0 1 
+
+State Machine - |MODBUS|DAC8568_CONTROL:inst4|STATE
+Name STATE.DATA_NEW_WAIT STATE.TWAIT STATE.SCLK_DATA_LOW STATE.SCLK_DATA_HIGH STATE.DAC_DATA_LOAD STATE.DATA_LOAD STATE.DATA_INIT STATE.SCLK_REF_LOW STATE.SCLK_REF_HIGH STATE.REF_ENABLE STATE.INIT 
+STATE.INIT 0 0 0 0 0 0 0 0 0 0 0 
+STATE.REF_ENABLE 0 0 0 0 0 0 0 0 0 1 1 
+STATE.SCLK_REF_HIGH 0 0 0 0 0 0 0 0 1 0 1 
+STATE.SCLK_REF_LOW 0 0 0 0 0 0 0 1 0 0 1 
+STATE.DATA_INIT 0 0 0 0 0 0 1 0 0 0 1 
+STATE.DATA_LOAD 0 0 0 0 0 1 0 0 0 0 1 
+STATE.DAC_DATA_LOAD 0 0 0 0 1 0 0 0 0 0 1 
+STATE.SCLK_DATA_HIGH 0 0 0 1 0 0 0 0 0 0 1 
+STATE.SCLK_DATA_LOW 0 0 1 0 0 0 0 0 0 0 1 
+STATE.TWAIT 0 1 0 0 0 0 0 0 0 0 1 
+STATE.DATA_NEW_WAIT 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |MODBUS|mbp_top_level:inst|mbp:inst2|state_q
+Name state_q.ram_wait2 state_q.ram_wait1 state_q.ld_low state_q.ltch_upr_byte state_q.ld_hi state_q.read_data state_q.write_data_lower state_q.write_data_upper state_q.ltch_ram_addr state_q.print_hdr state_q.ltch_op state_q.calc_exc state_q.ltch_data state_q.get_data state_q.idle state_q.cnt_st 
+state_q.cnt_st 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.get_data 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state_q.ltch_data 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state_q.calc_exc 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state_q.ltch_op 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state_q.print_hdr 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state_q.ltch_ram_addr 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state_q.write_data_upper 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state_q.write_data_lower 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state_q.read_data 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state_q.ld_hi 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state_q.ltch_upr_byte 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.ld_low 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.ram_wait1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.ram_wait2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |MODBUS|mbp_top_level:inst|slim_txrx:inst1|r_SM_Main
+Name r_SM_Main.s_Cleanup r_SM_Main.s_TX_Stop_Bit r_SM_Main.s_TX_Data_Bits r_SM_Main.s_TX_Start_Bit r_SM_Main.s_Idle 
+r_SM_Main.s_Idle 0 0 0 0 0 
+r_SM_Main.s_TX_Start_Bit 0 0 0 1 1 
+r_SM_Main.s_TX_Data_Bits 0 0 1 0 1 
+r_SM_Main.s_TX_Stop_Bit 0 1 0 0 1 
+r_SM_Main.s_Cleanup 1 0 0 0 1 
+
+State Machine - |MODBUS|mbp_top_level:inst|slim_txrx:inst1|r_SM_Main_R
+Name r_SM_Main_R.s_Cleanup_R r_SM_Main_R.s_RX_Stop_Bit r_SM_Main_R.s_RX_Data_Bits r_SM_Main_R.s_RX_Start_Bit r_SM_Main_R.s_Idle_R 
+r_SM_Main_R.s_Idle_R 0 0 0 0 0 
+r_SM_Main_R.s_RX_Start_Bit 0 0 0 1 1 
+r_SM_Main_R.s_RX_Data_Bits 0 0 1 0 1 
+r_SM_Main_R.s_RX_Stop_Bit 0 1 0 0 1 
+r_SM_Main_R.s_Cleanup_R 1 0 0 0 1 
+
+State Machine - |MODBUS|ADS8688:inst5|STATE
+Name STATE.DATA_ACQ STATE.CS_HIGH_DATA_WAIT1 STATE.CS_HIGH_DATA_WAIT STATE.CS_HIGH_DATA STATE.DATA_SCLK_LOW STATE.DATA_SCLK_HIGH STATE.CS_LOW_DATA_WAIT STATE.CS_LOW_DATA STATE.CS_HIGH_WAIT1 STATE.CS_HIGH_WAIT STATE.CS_HIGH STATE.CTRL_SCLK_LOW STATE.CTRL_SCLK_HIGH STATE.CTRL_LD STATE.CS_LOW_WAIT STATE.CS_LOW STATE.CTRL_RNG_CS_HIGH_WAIT1 STATE.CTRL_RNG_CS_HIGH_WAIT STATE.CTRL_RNG_CS_HIGH STATE.CTRL_RNG_SCLK_LOW STATE.CTRL_RNG_SCLK_HIGH STATE.CTRL_RNG_LD STATE.CS_LOW_RNG_WAIT STATE.CS_LOW_RNG STATE.INIT 
+STATE.INIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+STATE.CS_LOW_RNG 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+STATE.CS_LOW_RNG_WAIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+STATE.CTRL_RNG_LD 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+STATE.CTRL_RNG_SCLK_HIGH 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+STATE.CTRL_RNG_SCLK_LOW 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+STATE.CTRL_RNG_CS_HIGH 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+STATE.CTRL_RNG_CS_HIGH_WAIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+STATE.CTRL_RNG_CS_HIGH_WAIT1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+STATE.CS_LOW 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+STATE.CS_LOW_WAIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+STATE.CTRL_LD 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CTRL_SCLK_HIGH 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CTRL_SCLK_LOW 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_HIGH 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_HIGH_WAIT 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_HIGH_WAIT1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_LOW_DATA 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_LOW_DATA_WAIT 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.DATA_SCLK_HIGH 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.DATA_SCLK_LOW 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_HIGH_DATA 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_HIGH_DATA_WAIT 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.CS_HIGH_DATA_WAIT1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+STATE.DATA_ACQ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |MODBUS|Heartbeat:inst7|ss
+Name s3 s2 s1 s0 
+s0 0 0 0 0 
+s1 0 0 1 1 
+s2 0 1 0 1 
+s3 1 0 0 1 

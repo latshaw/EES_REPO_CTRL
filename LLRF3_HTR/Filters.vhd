@@ -24,16 +24,16 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	END COMPONENT;
 	
 	COMPONENT cic_8
-	PORT(lb_clk 	: IN STD_LOGIC;
+	PORT(clk 	: IN STD_LOGIC;
 		 reset_n 	: IN STD_LOGIC;
-		 strobe  	: IN STD_LOGIC; -- strobe, sample ready
-		 x       	: IN STD_LOGIC_VECTOR(15 downto 0); -- 16 bit input
-		 y       	: OUT STD_LOGIC_VECTOR(15 downto 0);  -- 16 but filtered output
-		 strobe_out : OUT STD_LOGIC
+		 strobein  	: IN STD_LOGIC; -- strobe, sample ready
+		 xin       	: IN STD_LOGIC_VECTOR(15 downto 0); -- 16 bit input
+		 yout       : OUT STD_LOGIC_VECTOR(15 downto 0);  -- 16 but filtered output
+		 triggerout : OUT STD_LOGIC
 		);
 	END COMPONENT;
 	
-	COMPONENT IIRK_SIMPLE
+	COMPONENT IIR_SIMPLE
 	PORT(CLOCK 	: IN STD_LOGIC;
 		  RESET 	: IN STD_LOGIC;
 		  LOAD	: IN STD_LOGIC;
@@ -62,12 +62,12 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 						);
 						
 		CIC: cic_8
-					PORT MAP(lb_clk 	=> CLOCK,
+					PORT MAP(clk 	=> CLOCK,
 						reset_n 		=> RESET,
-						strobe  		=> STROBE,
-						x       		=> DATA_IN,
-						y       		=> CIC_OUT,
-						strobe_out 	=> CIC_STROBE
+						strobein		=> STROBE,
+						xin      	=> DATA_IN,
+						yout     	=> CIC_OUT,
+						triggerout 	=> CIC_STROBE
 					);			
 		
 		FULLIIR: iir_lpf
@@ -78,7 +78,7 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 							y       => FULL_IIR_OUT
 						);
 		
-		SIMPLEIIR: IIRK_SIMPLE
+		SIMPLEIIR: IIR_SIMPLE
 						PORT MAP(CLOCK  	=> CLOCK,
 							RESET 	=> RESET,
 							LOAD  	=> STROBE,
@@ -96,12 +96,7 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	
 		PROCESS(CLOCK, RESET)
 		BEGIN
-				IF RESET = '0' then
-					CIC_OUT					<= (others => '0');					
-					BUFFER_OUT				<= (others => '0');		
-					FULL_IIR_OUT			<= (others => '0');		
-					SIMPLE_IIR_OUT			<= (others => '0');	
-					FULL_IIR_CHAIN_OUT	<= (others => '0');
+				IF RESET = '0' then	
 				
 				ELSIF CLOCK'event and CLOCK = '1' then
 					IF (FILTER_CONTROL(2 downto 0) = "000") then

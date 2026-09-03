@@ -48,9 +48,9 @@ architecture mixed of mbp_regs is
 	signal reg_q 		: word_array(0 to (HRTREGS -1)) := (x"F1F1",x"0002",x"0003",x"0004",x"0005",x"0006",x"0007",x"0008",x"0009",x"000A",x"000B",x"1389",x"138A",x"138B",x"138C",x"138D",x"138E",x"138F",x"1390",x"1391",x"1392",x"1393",x"000C",x"000D",x"100E",x"000F",x"0010",x"0011",x"0012",x"0013",x"0014",x"0015",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"1000",x"0000",x"FFFF",x"FFFF",x"0000",x"0000",x"FFFF",x"FFFF",x"0000",x"0000",x"0000",x"FFFF",x"FFFF",x"01F8",x"0004",x"0000",x"000A",x"0002",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"0000",x"FFFF");
 	signal Version 	: std_logic_vector(15 downto 0);
 	signal FaultClear	: std_logic;
-	signal HTRPWR		: unsigned(15 downto 0);
-	signal HTRIRB		: signed(15 downto 0);
-	signal HTRVRB		: signed(15 downto 0);
+	signal HTRPWR		: unsigned(31 downto 0);
+	signal HTRIRB		: unsigned(15 downto 0);
+	signal HTRVRB		: unsigned(15 downto 0);
 	signal HTRCNTLMD	: std_logic_vector(15 downto 0);
 	signal HTRP			: unsigned(15 downto 0);
 	signal HTRI			: unsigned(15 downto 0);
@@ -63,9 +63,9 @@ architecture mixed of mbp_regs is
 	component HEAT_CONTROL
 	port(	clock					: in std_logic;
 			reset					: in std_logic;
-			requested_watts	: in unsigned(15 downto 0);
-			current_readback	: in signed(15 downto 0);
-			voltage_readback	: in signed(15 downto 0);
+			requested_watts	: in unsigned(31 downto 0);
+			current_readback	: in unsigned(15 downto 0);
+			voltage_readback	: in unsigned(15 downto 0);
 			DAC_setpoint		: in std_logic_vector(15 downto 0);
 			p_gain				: in unsigned(15 downto 0);
 			i_gain				: in unsigned(15 downto 0);

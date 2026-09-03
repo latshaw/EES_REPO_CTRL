@@ -1,0 +1,61 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "HEARTBEAT",
+					"strict" : false
+				},
+				{
+					"name" : "HTRV_ADC_CSI",
+					"strict" : false
+				},
+				{
+					"name" : "HTRV_ADC_SCLK",
+					"strict" : false
+				},
+				{
+					"name" : "HTRV_ADC_SDI",
+					"strict" : false
+				},
+				{
+					"name" : "HTRV_DAC_SCLK",
+					"strict" : false
+				},
+				{
+					"name" : "HTRV_DAC_DIN",
+					"strict" : false
+				},
+				{
+					"name" : "HTRV_DAC_SYNC",
+					"strict" : false
+				},
+				{
+					"name" : "XPORT_TX",
+					"strict" : false
+				},
+				{
+					"name" : "LED[3]",
+					"strict" : false
+				},
+				{
+					"name" : "LED[2]",
+					"strict" : false
+				},
+				{
+					"name" : "SYSCLOCK",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO[6]",
+					"strict" : false
+				},
+				{
+					"name" : "XPORT_RX",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
