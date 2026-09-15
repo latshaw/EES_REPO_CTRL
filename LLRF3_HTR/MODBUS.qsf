@@ -112,14 +112,12 @@ set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 set_location_assignment PIN_140 -to XPORT_TX
 set_location_assignment PIN_141 -to XPORT_RX
-set_global_assignment -name VHDL_FILE spi_master.vhd
 set_global_assignment -name VERILOG_FILE cic_8.v
 set_global_assignment -name VERILOG_FILE iir_lpf.v
 set_global_assignment -name VHDL_FILE IIRK_SIMPLE.vhd
 set_global_assignment -name VHDL_FILE components.vhd
 set_global_assignment -name VHDL_FILE mbp_regs_new.vhd
 set_global_assignment -name VHDL_FILE DAC8568_CONTROL.vhd
-set_global_assignment -name VHDL_FILE ADS8688.vhd
 set_global_assignment -name AHDL_FILE Heartbeat.tdf
 set_global_assignment -name VHDL_FILE slim_txrx.vhd
 set_global_assignment -name VHDL_FILE mbp_top_level.vhd

@@ -54,6 +54,10 @@
 				{
 					"name" : "XPORT_RX",
 					"strict" : false
+				},
+				{
+					"name" : "HTRV_ADC_SDO",
+					"strict" : false
 				}
 			]
 		}

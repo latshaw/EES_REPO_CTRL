@@ -113,8 +113,11 @@ begin
 		begin
 			if(RESET = '0') then
 				DACCNTLq(0) <= (others => '0');
+				FILTER_CONTROL	<= x"0000";
 			elsif(CLK'event and CLK = '1') then
+				FILTER_CONTROL	<= x"0000";
 				DACCNTLq <= DACCNTLd;
+				DACOUT	<= ADCIN;
 			end if;
 		end process;
 	--

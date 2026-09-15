@@ -1,0 +1,18 @@
+Fitter Status : Successful - Tue Sep 15 14:52:20 2026
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : MODBUS
+Top-level Entity Name : MODBUS
+Family : MAX 10
+Device : 10M50SAE144I7G
+Timing Models : Final
+Total logic elements : 3,998 / 49,760 ( 8 % )
+    Total combinational functions : 2,635 / 49,760 ( 5 % )
+    Dedicated logic registers : 3,018 / 49,760 ( 6 % )
+Total registers : 3018
+Total pins : 17 / 101 ( 17 % )
+Total virtual pins : 0
+Total memory bits : 2,048 / 1,677,312 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 288 ( 0 % )
+Total PLLs : 0 / 1 ( 0 % )
+UFM blocks : 0 / 1 ( 0 % )
+ADC blocks : 0 / 1 ( 0 % )
