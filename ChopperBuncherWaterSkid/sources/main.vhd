@@ -147,10 +147,16 @@ signal timer, timer_d : UNSIGNED(31 downto 0);
 signal softReset, softReset_d : std_logic;
 signal PIsoftReset, PIsoftReset_d : std_logic;
 
+--JAL 9/9/26, adding a pulse stretch for the reset so slower clocks can catch it
+signal resetPulse, resetPulse_d : unsigned(15 downto 0);
+
 signal pgain1, igain1, onMin1, maxPeriod1, timebase1, onPeriod1 : STD_LOGIC_VECTOR(31 downto 0);
 signal pgain1_en, igain1_en, onMin1_en, maxPeriod1_en, timebase1_en, onPeriod1_en :std_logic;
 signal pgain2, igain2, onMin2, maxPeriod2, timebase2, onPeriod2 : STD_LOGIC_VECTOR(31 downto 0);
 signal pgain2_en, igain2_en, onMin2_en, maxPeriod2_en, timebase2_en, onPeriod2_en :std_logic;
+
+-- JAL, 9/9/26, added protection to prevent running heaters if the RTD is unplugged
+signal heatCheck1, heatCheck2 : STD_LOGIC; -- check to ensure rtd is not 0 (unplugged) before allowing it to drive
 
 BEGIN 
 
@@ -207,7 +213,7 @@ cool_d(3 downto 0) <= cool(2 downto 0) & cool(3) when timer = x"017D7840" else c
 --
 IP    <= x"C0A83278"; -- 192.168.50.120
 MAC   <= x"125555000207";
-fw_ID <= x"CB000001"; -- version control
+fw_ID <= x"CB000002"; -- version control
 --
  rgmii_hw_test_inst : entity work.rgmii_hw_test
 PORT MAP(
@@ -401,7 +407,7 @@ PORT MAP(
     clock        => clock,
     reset_n      => PIsoftReset, --RESET_ALL,
     rtd1         => rtdS1_2,   -- regulate on cavity temp
-    heatGo1      => heatGo1,
+    heatGo1      => heatCheck1, -- was heatGo1,
     set          => set1,
     pgain        => pgain1(22 downto 0),
     igain       =>  igain1(22 downto 0),
@@ -417,7 +423,7 @@ PORT MAP(
     clock        => clock,
     reset_n      => PIsoftReset, --RESET_ALL,
     rtd1         => rtdS2_2,   -- regulate on cavity temp
-    heatGo1      => heatGo2,
+    heatGo1      => heatCheck2, --was heatGo2,
     set          => set2,
     pgain        => pgain2(22 downto 0),
     igain       =>  igain2(22 downto 0),
@@ -427,6 +433,10 @@ PORT MAP(
     driveOut     => driveOut2,
     counter      => counterSPI2, 
     onPeriod     => onPeriod2);
+    
+    --9/8/26, see notes in signal decleration, added to prevent driving heater when unplugged OR main power is off
+    heatGo1 <= '0' when (rb1 = x"00000000" or clearCloseLast = '0') else heatCheck1;
+    heatGo2 <= '0' when (rb2 = x"00000000" or clearCloseLast = '0') else heatCheck2;
     
     --11/19/25, swapped order b/c 'Relay Power Chassis' has AB going to MH2 and CD going to MH1
     J8_SSR <= heatGo2 & heatGo1; -- when high, the respective SSR will be driven on
@@ -481,13 +491,21 @@ PORT MAP(
     -- power chassis enable
     DRIVE24OK_d <= '1' when fault_SM =x"4" else '0';
     -- all module reset
-    softReset_d   <= '0' when fault_SM =x"1" else '1';
+    -- softReset_d   <= '0' when fault_SM =x"1" else '1';
     PIsoftReset_d <= '0' when clearClose(3) = '1' else '1'; -- 12/1/2025
+    -- 9/9/26, pulse stretch of reset to help reset slower modules
+    resetPulse_d  <= x"0000"        when clearClose(3) = '1'    else 
+                     resetPulse + 1 when (resetPulse<= x"7fff") else resetPulse;
+    softReset_d   <= '0' when (resetPulse < x"7fff") else '1';
     ------------------------------------------------- 
+    -- Notes on clearClose (which is the same as) "15 Command register: 
+    -- b0 Main heater on/off, b1 heater1 on/off, b2 heater 2 on/off, b3 Reset" },
+    -- b1, b2 don't really do anything
     --
     PROCESS(CLOCK) begin 
       IF (CLOCK'event AND CLOCK='1') THEN 
          IF    fault_SM = x"0" THEN 
+            -- (main power is on and was recently off) or reset button is pressed
             IF (clearClose(0) = '1' and clearCloseLast = '0') or clearClose(3) = '1' THEN
                 fault_SM <= x"1";
             ELSE
@@ -541,6 +559,7 @@ PORT MAP(
             fault_counter5     <= fault_counter5_d;
          END IF;
          -- 
+         resetPulse         <= resetPulse_d;
          softReset          <= softReset_d;    
          PIsoftReset        <= PIsoftReset_d;  
          clearCloseLast     <= clearClose(0);
