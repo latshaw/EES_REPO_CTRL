@@ -12,7 +12,7 @@ entity mbp_top_level is
 		CLK_FREQ	:	integer := 80000000;
 		BAUD_RATE	:	natural := 921600;
 		DEVICEADDR	:	natural := 0;
-		HRTREGS	: natural := 106
+		HRTREGS	: natural := 7
 	);
 	port(
 		CLK				:	in std_logic; --system clock input
@@ -55,7 +55,7 @@ architecture mixed of mbp_top_level is
 		CLK_FREQ	:	integer := 80000000;
 		BAUD_RATE	:	natural := 921600;
 		DEVICEADDR	:	natural := 0;
-		HRTREGS	: natural := 106
+		HRTREGS	: natural := 7
 		);
 	port(
 		CLK		:	in std_logic; --system clock input

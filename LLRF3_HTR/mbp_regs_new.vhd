@@ -10,7 +10,7 @@ entity mbp_regs_new is
 	generic(
 			--This number must equal the number of registers you use.
 			--Example: 10 is Registers 0-9
-			HRTREGS	:	natural := 106
+			HRTREGS	:	natural := 7
 			);
 	port(
 		--Static MBP ports begin

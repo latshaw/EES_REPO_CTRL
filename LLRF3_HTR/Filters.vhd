@@ -43,29 +43,35 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	  
 	END COMPONENT;
 	
+	SIGNAL IData, OData			: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL CIC_OUT					: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL BUFFER_OUT				: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL FULL_IIR_OUT			: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL SIMPLE_IIR_OUT		: STD_LOGIC_VECTOR(15 downto 0);
 	SIGNAL FULL_IIR_CHAIN_OUT	: STD_LOGIC_VECTOR(15 downto 0);
+	SIGNAL IStrobe, OStrobe		: STD_LOGIC;
 	SIGNAL CIC_STROBE				: STD_LOGIC;
 	
 	BEGIN
+		
+		IData			<= DATA_IN;
+		IStrobe		<= STROBE;
+		
 		DATA_BUF: REGNE
 						GENERIC MAP(N => 16) 
 						PORT MAP(CLOCK	=> CLOCK,
 							RESET	=> RESET,
 							CLEAR	=> '1',
 							EN		=> '1',
-							INPUT	=> DATA_IN,
+							INPUT	=> OData,
 							OUTPUT	=> BUFFER_OUT
 						);
 						
 		CIC: cic_8
 					PORT MAP(clk 	=> CLOCK,
 						reset_n 		=> RESET,
-						strobein		=> STROBE,
-						xin      	=> DATA_IN,
+						strobein		=> OStrobe,
+						xin      	=> OData,
 						yout     	=> CIC_OUT,
 						triggerout 	=> CIC_STROBE
 					);			
@@ -73,16 +79,16 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 		FULLIIR: iir_lpf
 						PORT MAP(lb_clk  => CLOCK,
 							reset_n => RESET,
-							strobe  => STROBE,
-							x       => DATA_IN,
+							strobe  => OStrobe,
+							x       => OData,
 							y       => FULL_IIR_OUT
 						);
 		
 		SIMPLEIIR: IIR_SIMPLE
 						PORT MAP(CLOCK  	=> CLOCK,
 							RESET 	=> RESET,
-							LOAD  	=> STROBE,
-							I       	=> DATA_IN,
+							LOAD  	=> OStrobe,
+							I       	=> OData,
 							O       	=> SIMPLE_IIR_OUT
 						);
 						
@@ -97,8 +103,11 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 		PROCESS(CLOCK, RESET)
 		BEGIN
 				IF RESET = '0' then	
-				
+					OData			<= (others => '0');
+					OStrobe		<= '0';
 				ELSIF CLOCK'event and CLOCK = '1' then
+					OData			<= IData;
+					OStrobe		<= IStrobe;
 					IF (FILTER_CONTROL(2 downto 0) = "000") then
 						DATA_OUT <= BUFFER_OUT;
 					ELSIF (FILTER_CONTROL(2 downto 0) = "001") then

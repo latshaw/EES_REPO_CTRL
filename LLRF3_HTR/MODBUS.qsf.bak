@@ -1,0 +1,513 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2018  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+# Date created = 17:56:49  February 23, 2021
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		MODBUS_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name DEVICE 10M50SAE144I7G
+set_global_assignment -name FAMILY "Cyclone III"
+set_global_assignment -name TOP_LEVEL_ENTITY MODBUS
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:56:48  FEBRUARY 23, 2021"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+# Obsolete assignment in <Version 18.1> "set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top"
+
+set_location_assignment PIN_88 -to SYSCLOCK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SYSCLOCK
+set_location_assignment PIN_25 -to HTRI_ADC_SDO
+set_location_assignment PIN_26 -to HTRI_ADC_CSI
+set_location_assignment PIN_27 -to HTRI_ADC_SCLK
+set_location_assignment PIN_28 -to HTRI_ADC_SDI
+set_location_assignment PIN_77 -to HTRV_DAC_SCLK
+set_location_assignment PIN_76 -to HEARTBEAT
+set_location_assignment PIN_74 -to HTRV_DAC_DIN
+set_location_assignment PIN_75 -to HTRV_DAC_SYNC
+set_location_assignment PIN_82 -to TMPHS_ADC_CSI
+set_location_assignment PIN_83 -to TMPHS_ADC_SCLK
+set_location_assignment PIN_85 -to TMPHS_ADC_SDI
+set_location_assignment PIN_87 -to TMPHS_ADC_SDO
+set_location_assignment PIN_60 -to AMP_TS_FPGA[0]
+set_location_assignment PIN_61 -to AMP_TS_FPGA[1]
+set_location_assignment PIN_63 -to AMP_TS_FPGA[2]
+set_location_assignment PIN_64 -to AMP_TS_FPGA[3]
+set_location_assignment PIN_70 -to AMP_TS_FPGA[4]
+set_location_assignment PIN_69 -to AMP_TS_FPGA[5]
+set_location_assignment PIN_66 -to AMP_TS_FPGA[6]
+set_location_assignment PIN_65 -to AMP_TS_FPGA[7]
+set_location_assignment PIN_10 -to LED[0]
+set_location_assignment PIN_11 -to LED[1]
+set_location_assignment PIN_12 -to LED[2]
+set_location_assignment PIN_13 -to LED[3]
+set_location_assignment PIN_14 -to LED[4]
+set_location_assignment PIN_38 -to FLT_CAV_FPGA[7]
+set_location_assignment PIN_39 -to FLT_CAV_FPGA[6]
+set_location_assignment PIN_40 -to FLT_CAV_FPGA[5]
+set_location_assignment PIN_41 -to FLT_CAV_FPGA[4]
+set_location_assignment PIN_42 -to FLT_CAV_FPGA[3]
+set_location_assignment PIN_43 -to FLT_CAV_FPGA[2]
+set_location_assignment PIN_46 -to FLT_CAV_FPGA[1]
+set_location_assignment PIN_49 -to FLT_CAV_FPGA[0]
+set_location_assignment PIN_90 -to HTRV_ADC_SDI
+set_location_assignment PIN_91 -to HTRV_ADC_SCLK
+set_location_assignment PIN_92 -to HTRV_ADC_CSI
+set_location_assignment PIN_93 -to HTRV_ADC_SDO
+set_location_assignment PIN_96 -to FSD_CAV_FPGA[7]
+set_location_assignment PIN_98 -to FSD_CAV_FPGA[6]
+set_location_assignment PIN_99 -to FSD_CAV_FPGA[5]
+set_location_assignment PIN_100 -to FSD_CAV_FPGA[4]
+set_location_assignment PIN_101 -to FSD_CAV_FPGA[3]
+set_location_assignment PIN_102 -to FSD_CAV_FPGA[2]
+set_location_assignment PIN_105 -to FSD_CAV_FPGA[1]
+set_location_assignment PIN_106 -to FSD_CAV_FPGA[0]
+set_location_assignment PIN_117 -to GPIO[6]
+set_location_assignment PIN_118 -to GPIO[4]
+set_location_assignment PIN_124 -to GPIO[3]
+set_location_assignment PIN_120 -to GPIO[0]
+set_location_assignment PIN_123 -to GPIO[1]
+set_location_assignment PIN_119 -to GPIO[2]
+set_location_assignment PIN_127 -to GPIO[5]
+set_location_assignment PIN_129 -to REMOTE_LOCAL
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
+set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
+set_location_assignment PIN_140 -to XPORT_TX
+set_location_assignment PIN_141 -to XPORT_RX
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE LLRF3_HTR_SGNLTP_OLD_ADC_BLOCK.stp
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to SYSCLOCK -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=8192" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=8192" -section_id auto_signaltap_0
+set_global_assignment -name VHDL_FILE ADS8688.vhd
+set_global_assignment -name VERILOG_FILE cic_8.v
+set_global_assignment -name VERILOG_FILE iir_lpf.v
+set_global_assignment -name VHDL_FILE IIRK_SIMPLE.vhd
+set_global_assignment -name VHDL_FILE components.vhd
+set_global_assignment -name VHDL_FILE mbp_regs_new.vhd
+set_global_assignment -name VHDL_FILE DAC8568_CONTROL.vhd
+set_global_assignment -name AHDL_FILE Heartbeat.tdf
+set_global_assignment -name VHDL_FILE slim_txrx.vhd
+set_global_assignment -name VHDL_FILE mbp_top_level.vhd
+set_global_assignment -name VHDL_FILE mbp_regs.vhd
+set_global_assignment -name VHDL_FILE mbp.vhd
+set_global_assignment -name BDF_FILE MODBUS.bdf
+set_global_assignment -name VHDL_FILE Filters.vhd
+set_global_assignment -name VHDL_FILE Heat_Control.vhd
+set_global_assignment -name AHDL_FILE Heartbeat_FP.tdf
+set_global_assignment -name SDC_FILE MODBUS.sdc
+set_global_assignment -name VHDL_FILE ADS8688v2.vhd
+set_global_assignment -name SIGNALTAP_FILE LLRF3_HTR_SGNLTP.stp
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "ADS8688:inst3|regne:CHA_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "ADS8688:inst3|regne:CHB_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "ADS8688:inst3|regne:CHC_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "ADS8688:inst3|regne:CHD_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "ADS8688:inst3|regne:CHE_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to altera_reserved_tck
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to altera_reserved_tdi
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to altera_reserved_tdo
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to altera_reserved_tms
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEARTBEAT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_ADC_CSI
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_ADC_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_ADC_SDI
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_ADC_SDO
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_DAC_DIN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_DAC_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRV_DAC_SYNC
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to XPORT_RX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to XPORT_TX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRI_ADC_SDO
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRI_ADC_CSI
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRI_ADC_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HTRI_ADC_SDI
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TMPHS_ADC_CSI
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TMPHS_ADC_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TMPHS_ADC_SDI
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TMPHS_ADC_SDO
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AMP_TS_FPGA[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FLT_CAV_FPGA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FSD_CAV_FPGA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to REMOTE_LOCAL
+set_global_assignment -name SIGNALTAP_FILE LLRF3_HTR_SGNLTP_OLD_ADC_BLOCK.stp
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=128" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=128" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=128" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=411" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[86] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[87] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[88] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[89] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[90] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[91] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[92] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[93] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[94] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[95] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[96] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[97] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[98] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[99] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[100] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[101] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[102] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[103] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[104] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[105] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[106] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[107] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[108] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[109] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[110] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[111] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[112] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[113] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[114] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[115] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[116] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[117] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[118] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[119] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[120] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[121] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[122] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[123] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[124] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[125] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[126] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[127] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[90] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[91] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[92] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[93] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[94] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "ADS8688:inst3|regne:CHF_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[99] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[100] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[101] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[102] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[103] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[104] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[105] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[106] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[107] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[108] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[109] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[110] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[111] -to "ADS8688:inst3|regne:CHG_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[112] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[113] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[114] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[115] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[116] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[117] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[118] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[119] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[120] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[121] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[122] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[123] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[124] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[125] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[126] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[127] -to "ADS8688:inst3|regne:CHH_DATA_BUF|output[9]" -section_id auto_signaltap_0
+set_global_assignment -name SLD_FILE db/LLRF3_HTR_SGNLTP_OLD_ADC_BLOCK_auto_stripped.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

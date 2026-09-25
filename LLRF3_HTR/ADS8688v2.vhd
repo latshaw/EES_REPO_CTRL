@@ -12,7 +12,7 @@ entity ADS8688v2 is
 			SDI					: out std_logic;
 			CS						: out std_logic;
 			SCLK					: out std_logic;
-			DATA_OUT 			: OUT REG16_ARRAY
+			DATA_OUT 			: out REG16_ARRAY
 			);
 			
 end entity ADS8688v2;
@@ -28,17 +28,6 @@ architecture behavior of ADS8688v2 is
 				DATA_OUT 			: OUT STD_LOGIC_VECTOR(15 downto 0)
 				);
 	END COMPONENT;
-
---	component regne is
---		generic map(n => 16)
---		port( clock			: in std_logic;
---				reset			: in std_logic;
---				clear			: in std_logic;
---				en				: in std_logic;
---				input			: in std_logic_vector(15 downto 0);
---				output		: out std_logic_vector(15 downto 0)
---				);
---	end component;
 
 	type	 state_type is (init, cs_low, cs_low_wait, load_cntrl_reg, sclk_low_cntrl, sclk_high_cntrl, cs_high, wait_cs_high, data_cs_low, data_cs_low_wait, sclk_data_high, sclk_data_low, data_cs_high, data_cs_high_wait, data_acquired);
 
@@ -56,6 +45,7 @@ architecture behavior of ADS8688v2 is
 	ActiveChannel		: integer range 0 to 7;
 	channel_enable		: std_logic_vector(7 downto 0);
 	ADC_data				: REG16_ARRAY;
+	FilteredData		: REG16_ARRAY;
 	end record RegisterRecord;
 	
 	signal d, q					: RegisterRecord;
@@ -66,10 +56,21 @@ architecture behavior of ADS8688v2 is
 	
 	begin
 	
+		--Assign SPI pins to signals
 		sdi				<= q.sdi;
 		cs					<= q.cs;
 		sclk				<= q.sclk;
 		d.sdo				<= sdo;
+		
+		--Remap filtered data to correct ordering for CH1-8 to DATA_OUT(0)-DATA_OUT(7).
+		DATA_OUT(0)		<= q.FilteredData(5);
+		DATA_OUT(1)		<= q.FilteredData(4);
+		DATA_OUT(2)		<= q.FilteredData(3);
+		DATA_OUT(3)		<= q.FilteredData(2);
+		DATA_OUT(4)		<= q.FilteredData(1);
+		DATA_OUT(5)		<= q.FilteredData(0);
+		DATA_OUT(6)		<= q.FilteredData(7);
+		DATA_OUT(7)		<= q.FilteredData(6);
 			
 		--Filter selection for ADC data
 		ADCDataFilter : for i in 0 to 7 generate
@@ -79,57 +80,54 @@ architecture behavior of ADS8688v2 is
 								reset				=>	reset,
 								filter_control	=> filter_control,
 								data_in			=>	q.ADC_data(i),
-								data_out			=> DATA_OUT(i)
+								data_out			=> d.FilteredData(i)
 								);
-			end generate;	
-					
+			end generate;
 			
 		-- 0x6 = 0-5.12V must be written for each channel
 		RangeSelect	<= x"06";
 
 		--Set command word for output
-		InputShiftReg	<= x"05" & RangeSelect when d.cntrl_count = 0 else --Range select ch0
-								x"06" & RangeSelect when d.cntrl_count = 1 else --Range select ch1
-								x"07" & RangeSelect when d.cntrl_count = 2 else --Range select ch2
-								x"08" & RangeSelect when d.cntrl_count = 3 else --Range select ch3
-								x"09" & RangeSelect when d.cntrl_count = 4 else --Range select ch4
-								x"0A" & RangeSelect when d.cntrl_count = 5 else --Range select ch5
-								x"0B" & RangeSelect when d.cntrl_count = 6 else --Range select ch6
-								x"0C" & RangeSelect when d.cntrl_count = 7 else --Range select ch7
+		--Each channel address is as follows 0x05 = CH1 = 0b0000101, 0x06 = CH2 = 0b0000110... add '1' bit at the end (CH1 = 0x05 & 0b1 (7 downto 0)) for a write command.
+		InputShiftReg	<= x"0B" & RangeSelect when d.cntrl_count = 0 else --Range select ch0
+								x"0D" & RangeSelect when d.cntrl_count = 1 else --Range select ch1
+								x"0F" & RangeSelect when d.cntrl_count = 2 else --Range select ch2
+								x"11" & RangeSelect when d.cntrl_count = 3 else --Range select ch3
+								x"13" & RangeSelect when d.cntrl_count = 4 else --Range select ch4
+								x"15" & RangeSelect when d.cntrl_count = 5 else --Range select ch5
+								x"17" & RangeSelect when d.cntrl_count = 6 else --Range select ch6
+								x"19" & RangeSelect when d.cntrl_count = 7 else --Range select ch7
 								--Auto channel incrementing.
 								x"A000" when d.cntrl_count = 8 else
 								(others => '0');
 		
 		process(clock, reset)
 		begin
-			if(reset = '0') then
-				q.state				<= init;
-				q.sdo					<=	'0';
-				q.sdi					<=	'0';
-				q.cs					<=	'1';
-				q.sclk				<= '0';
-				q.SPI_data			<= (others => '0');
-				q.bit_count			<= 0;
-				q.input_din_reg	<= (others => '0');
-				q.sclkDivider		<= 0;
-				q.cntrl_count		<= 0;
-				q.SPI_data			<= (others => '0');
-				q.ActiveChannel	<= 0;
-				q.channel_enable	<= x"00";
---				for i in 0 to 7 loop
---					q.ADC_data(i)	<= (others => '0');
---				end loop;
-				q.ADC_data	<= (others => (others	=>	'0'));
-
-
-
-			elsif(rising_edge(clock)) then
-				q						<= d;
+			if(rising_edge(clock)) then
+				if(reset = '0') then
+					q.state				<= init;
+					q.sdo					<=	'0';
+					q.sdi					<=	'0';
+					q.cs					<=	'1';
+					q.sclk				<= '0';
+					q.SPI_data			<= (others => '0');
+					q.bit_count			<= 0;
+					q.input_din_reg	<= (others => '0');
+					q.sclkDivider		<= 0;
+					q.cntrl_count		<= 0;
+					q.ActiveChannel	<= 0;
+					q.channel_enable	<= x"00";
+					q.ADC_data			<= (others => (others	=>	'0'));
+					q.FilteredData		<= (others => (others	=>	'0'));
+				else
+					q						<= d;
+				end if;
 			end if;
 		end process;
 		
 		process(q)
 		begin
+			--Hold previous value unless changed.
 			d.state				<= q.state;
 			d.sdi					<=	q.sdi;
 			d.cs					<=	q.cs;
@@ -139,16 +137,9 @@ architecture behavior of ADS8688v2 is
 			d.input_din_reg	<= q.input_din_reg;
 			d.sclkDivider		<= q.sclkDivider;
 			d.cntrl_count		<= q.cntrl_count;
-			d.SPI_data			<= q.SPI_data;
 			d.ActiveChannel	<= q.ActiveChannel;
 			d.channel_enable	<= q.channel_enable;
---			for i in 0 to 7 loop
---				d.ADC_data(i)	<= q.ADC_data(i);
---			end loop;
-
-			d.ADC_data	<= q.ADC_data;
-
-
+			d.ADC_data			<= q.ADC_data;
 
 			case q.state is
 				--Start
@@ -161,6 +152,7 @@ architecture behavior of ADS8688v2 is
 				when cs_low						=> 
 					d.cs							<= '0';
 					d.state						<= cs_low_wait;
+				--Propagate CS
 				when cs_low_wait				=>
 					d.state <= load_cntrl_reg;
 				when load_cntrl_reg			=> 
@@ -199,6 +191,7 @@ architecture behavior of ADS8688v2 is
 					d.state						<= wait_cs_high;
 				when wait_cs_high				=> 
 					d.sdi							<= q.input_din_reg(15);
+					--Check if all command words have been written.
 					if(q.cntrl_count = 8) then
 						d.state					<= data_cs_low;
 						d.cntrl_count			<= 0;

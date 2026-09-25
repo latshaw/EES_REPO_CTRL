@@ -1,0 +1,618 @@
+Partition Merge report for MODBUS
+Fri Sep 18 13:14:35 2026
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Partition Merge Summary
+  3. Partition Merge Netlist Types Used
+  4. Connections to In-System Debugging Instance "auto_signaltap_0"
+  5. Partition Merge Partition Statistics
+  6. Partition Merge Partition Pin Processing
+  7. Partition Merge Resource Usage Summary
+  8. Partition Merge RAM Summary
+  9. Partition Merge Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Partition Merge Summary                                                          ;
++------------------------------------+---------------------------------------------+
+; Partition Merge Status             ; Successful - Fri Sep 18 13:14:35 2026       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; MODBUS                                      ;
+; Top-level Entity Name              ; MODBUS                                      ;
+; Family                             ; MAX 10                                      ;
+; Total logic elements               ; 8,378                                       ;
+;     Total combinational functions  ; 4,585                                       ;
+;     Dedicated logic registers      ; 5,715                                       ;
+; Total registers                    ; 5715                                        ;
+; Total pins                         ; 21                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 1,050,624                                   ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
+; UFM blocks                         ; 0                                           ;
+; ADC blocks                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Netlist Types Used                                                                                            ;
++--------------------------------+----------------+-------------------+------------------------+--------------------------------+
+; Partition Name                 ; Partition Type ; Netlist Type Used ; Netlist Type Requested ; Partition Contents             ;
++--------------------------------+----------------+-------------------+------------------------+--------------------------------+
+; Top                            ; User-created   ; Source File       ; Source File            ;                                ;
+; sld_hub:auto_hub               ; Auto-generated ; Post-Synthesis    ; Post-Synthesis         ; sld_hub:auto_hub               ;
+; sld_signaltap:auto_signaltap_0 ; Auto-generated ; Post-Synthesis    ; Post-Synthesis         ; sld_signaltap:auto_signaltap_0 ;
+; hard_block:auto_generated_inst ; Auto-generated ; Source File       ; Source File            ; hard_block:auto_generated_inst ;
++--------------------------------+----------------+-------------------+------------------------+--------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Connections to In-System Debugging Instance "auto_signaltap_0"                                                                                                                                                                ;
++------------------------------------------------------------------+--------------+-----------+--------------------------------+-------------------+------------------------------------------------------------------+---------+
+; Name                                                             ; Type         ; Status    ; Partition Name                 ; Netlist Type Used ; Actual Connection                                                ; Details ;
++------------------------------------------------------------------+--------------+-----------+--------------------------------+-------------------+------------------------------------------------------------------+---------+
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:0:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:1:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:2:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:3:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:4:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:5:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:6:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[0]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[0]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[10] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[10] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[11] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[11] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[12] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[12] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[13] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[13] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[14] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[14] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[15] ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[15] ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[1]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[1]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[2]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[2]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[3]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[3]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[4]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[4]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[5]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[5]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[6]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[6]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[7]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[7]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[8]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[8]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[9]  ; post-fitting ; connected ; Top                            ; post-synthesis    ; ADS8688v2:inst3|FILTERS:\ADCDataFilter:7:ADC_Filter|DATA_OUT[9]  ; N/A     ;
+; SYSCLOCK                                                         ; post-fitting ; connected ; Top                            ; post-synthesis    ; SYSCLOCK                                                         ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|gnd                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
+; auto_signaltap_0|vcc                                             ; post-fitting ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                              ; N/A     ;
++------------------------------------------------------------------+--------------+-----------+--------------------------------+-------------------+------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Partition Statistics                                                                                                     ;
++---------------------------------------------+-------+------------------+--------------------------------+--------------------------------+
+; Statistic                                   ; Top   ; sld_hub:auto_hub ; sld_signaltap:auto_signaltap_0 ; hard_block:auto_generated_inst ;
++---------------------------------------------+-------+------------------+--------------------------------+--------------------------------+
+; Estimated Total logic elements              ; 5999  ; 151              ; 2228                           ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Total combinational functions               ; 3656  ; 124              ; 805                            ; 0                              ;
+; Logic element usage by number of LUT inputs ;       ;                  ;                                ;                                ;
+;     -- 4 input functions                    ; 1871  ; 54               ; 421                            ; 0                              ;
+;     -- 3 input functions                    ; 984   ; 34               ; 246                            ; 0                              ;
+;     -- <=2 input functions                  ; 801   ; 36               ; 138                            ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Logic elements by mode                      ;       ;                  ;                                ;                                ;
+;     -- normal mode                          ; 2880  ; 116              ; 713                            ; 0                              ;
+;     -- arithmetic mode                      ; 776   ; 8                ; 92                             ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Total registers                             ; 3699  ; 91               ; 1925                           ; 0                              ;
+;     -- Dedicated logic registers            ; 3699  ; 91               ; 1925                           ; 0                              ;
+;     -- I/O registers                        ; 0     ; 0                ; 0                              ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Virtual pins                                ; 0     ; 0                ; 0                              ; 0                              ;
+; I/O pins                                    ; 21    ; 0                ; 0                              ; 0                              ;
+; Embedded Multiplier 9-bit elements          ; 0     ; 0                ; 0                              ; 0                              ;
+; Total memory bits                           ; 2048  ; 0                ; 1048576                        ; 0                              ;
+; Total RAM block bits                        ; 0     ; 0                ; 0                              ; 0                              ;
+; JTAG                                        ; 1     ; 0                ; 0                              ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Connections                                 ;       ;                  ;                                ;                                ;
+;     -- Input Connections                    ; 1     ; 134              ; 2749                           ; 0                              ;
+;     -- Registered Input Connections         ; 0     ; 102              ; 2217                           ; 0                              ;
+;     -- Output Connections                   ; 2565  ; 285              ; 34                             ; 0                              ;
+;     -- Registered Output Connections        ; 256   ; 285              ; 0                              ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Internal Connections                        ;       ;                  ;                                ;                                ;
+;     -- Total Connections                    ; 26386 ; 968              ; 12111                          ; 0                              ;
+;     -- Registered Connections               ; 10912 ; 742              ; 9466                           ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; External Connections                        ;       ;                  ;                                ;                                ;
+;     -- Top                                  ; 0     ; 123              ; 2443                           ; 0                              ;
+;     -- sld_hub:auto_hub                     ; 123   ; 20               ; 276                            ; 0                              ;
+;     -- sld_signaltap:auto_signaltap_0       ; 2443  ; 276              ; 64                             ; 0                              ;
+;     -- hard_block:auto_generated_inst       ; 0     ; 0                ; 0                              ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Partition Interface                         ;       ;                  ;                                ;                                ;
+;     -- Input Ports                          ; 8     ; 45               ; 453                            ; 0                              ;
+;     -- Output Ports                         ; 17    ; 62               ; 271                            ; 0                              ;
+;     -- Bidir Ports                          ; 0     ; 0                ; 0                              ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Registered Ports                            ;       ;                  ;                                ;                                ;
+;     -- Registered Input Ports               ; 0     ; 4                ; 262                            ; 0                              ;
+;     -- Registered Output Ports              ; 0     ; 29               ; 257                            ; 0                              ;
+;                                             ;       ;                  ;                                ;                                ;
+; Port Connectivity                           ;       ;                  ;                                ;                                ;
+;     -- Input Ports driven by GND            ; 0     ; 0                ; 16                             ; 0                              ;
+;     -- Output Ports driven by GND           ; 0     ; 28               ; 2                              ; 0                              ;
+;     -- Input Ports driven by VCC            ; 0     ; 0                ; 16                             ; 0                              ;
+;     -- Output Ports driven by VCC           ; 0     ; 0                ; 1                              ; 0                              ;
+;     -- Input Ports with no Source           ; 0     ; 25               ; 132                            ; 0                              ;
+;     -- Output Ports with no Source          ; 0     ; 0                ; 0                              ; 0                              ;
+;     -- Input Ports with no Fanout           ; 0     ; 30               ; 146                            ; 0                              ;
+;     -- Output Ports with no Fanout          ; 0     ; 29               ; 259                            ; 0                              ;
++---------------------------------------------+-------+------------------+--------------------------------+--------------------------------+
+Note: Resource usage numbers presented for Partitions containing post-synthesis logic are estimates.  For Partitions containing post-fit logic, resource usage numbers are accurate based on previous placement information.  Actual Fitter results may vary depending on current Fitter Preservation Level assignments.
+
+
++----------------------------------------------------------------------------------------+
+; Partition Merge Partition Pin Processing                                               ;
++-----------------------------------+-----------+---------------+----------+-------------+
+; Name                              ; Partition ; Type          ; Location ; Status      ;
++-----------------------------------+-----------+---------------+----------+-------------+
+; GPIO[6]                           ; Top       ; Input Port    ; n/a      ;             ;
+;     -- GPIO[6]                    ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- GPIO[6]~input              ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HEARTBEAT                         ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HEARTBEAT                  ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HEARTBEAT~output           ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRI_ADC_CSI                      ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRI_ADC_CSI               ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRI_ADC_CSI~output        ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRI_ADC_SCLK                     ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRI_ADC_SCLK              ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRI_ADC_SCLK~output       ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRI_ADC_SDI                      ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRI_ADC_SDI               ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRI_ADC_SDI~output        ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRI_ADC_SDO                      ; Top       ; Input Port    ; n/a      ;             ;
+;     -- HTRI_ADC_SDO               ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- HTRI_ADC_SDO~input         ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_ADC_CSI                      ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRV_ADC_CSI               ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRV_ADC_CSI~output        ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_ADC_SCLK                     ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRV_ADC_SCLK              ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRV_ADC_SCLK~output       ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_ADC_SDI                      ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRV_ADC_SDI               ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRV_ADC_SDI~output        ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_ADC_SDO                      ; Top       ; Input Port    ; n/a      ;             ;
+;     -- HTRV_ADC_SDO               ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- HTRV_ADC_SDO~input         ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_DAC_DIN                      ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRV_DAC_DIN               ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRV_DAC_DIN~output        ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_DAC_SCLK                     ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRV_DAC_SCLK              ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRV_DAC_SCLK~output       ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; HTRV_DAC_SYNC                     ; Top       ; Output Port   ; n/a      ;             ;
+;     -- HTRV_DAC_SYNC              ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- HTRV_DAC_SYNC~output       ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; LED[0]                            ; Top       ; Output Port   ; n/a      ;             ;
+;     -- LED[0]                     ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- LED[0]~output              ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; LED[1]                            ; Top       ; Output Port   ; n/a      ;             ;
+;     -- LED[1]                     ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- LED[1]~output              ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; LED[2]                            ; Top       ; Output Port   ; n/a      ;             ;
+;     -- LED[2]                     ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- LED[2]~output              ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; LED[3]                            ; Top       ; Output Port   ; n/a      ;             ;
+;     -- LED[3]                     ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- LED[3]~output              ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; LED[4]                            ; Top       ; Output Port   ; n/a      ;             ;
+;     -- LED[4]                     ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- LED[4]~output              ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; SYSCLOCK                          ; Top       ; Input Port    ; n/a      ;             ;
+;     -- SYSCLOCK                   ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- SYSCLOCK~input             ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; XPORT_RX                          ; Top       ; Input Port    ; n/a      ;             ;
+;     -- XPORT_RX                   ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- XPORT_RX~input             ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; XPORT_TX                          ; Top       ; Output Port   ; n/a      ;             ;
+;     -- XPORT_TX                   ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- XPORT_TX~output            ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; altera_reserved_tck               ; Top       ; Input Port    ; n/a      ;             ;
+;     -- altera_reserved_tck        ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- altera_reserved_tck~input  ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; altera_reserved_tdi               ; Top       ; Input Port    ; n/a      ;             ;
+;     -- altera_reserved_tdi        ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- altera_reserved_tdi~input  ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; altera_reserved_tdo               ; Top       ; Output Port   ; n/a      ;             ;
+;     -- altera_reserved_tdo        ; Top       ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- altera_reserved_tdo~output ; Top       ; Output Buffer ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
+; altera_reserved_tms               ; Top       ; Input Port    ; n/a      ;             ;
+;     -- altera_reserved_tms        ; Top       ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- altera_reserved_tms~input  ; Top       ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                   ;           ;               ;          ;             ;
++-----------------------------------+-----------+---------------+----------+-------------+
+
+
++--------------------------------------------------------------+
+; Partition Merge Resource Usage Summary                       ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 8,378          ;
+;                                             ;                ;
+; Total combinational functions               ; 4585           ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 2346           ;
+;     -- 3 input functions                    ; 1264           ;
+;     -- <=2 input functions                  ; 975            ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 3709           ;
+;     -- arithmetic mode                      ; 876            ;
+;                                             ;                ;
+; Total registers                             ; 5715           ;
+;     -- Dedicated logic registers            ; 5715           ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 21             ;
+; Total memory bits                           ; 1050624        ;
+;                                             ;                ;
+; Embedded Multiplier 9-bit elements          ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; SYSCLOCK~input ;
+; Maximum fan-out                             ; 5025           ;
+; Total fan-out                               ; 36475          ;
+; Average fan-out                             ; 3.48           ;
++---------------------------------------------+----------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge RAM Summary                                                                                                                                                                                                                                                                                  ;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+---------+------+
+; Name                                                                                                                                                                                                  ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size    ; MIF  ;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+---------+------+
+; mbp_top_level:inst|mbp:inst2|altsyncram:ram_block_rtl_0|altsyncram_4n71:auto_generated|ALTSYNCRAM                                                                                                     ; AUTO ; Single Port      ; 256          ; 8            ; --           ; --           ; 2048    ; None ;
+; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram|altsyncram_fp14:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 8192         ; 128          ; 8192         ; 128          ; 1048576 ; None ;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+---------+------+
+
+
++--------------------------+
+; Partition Merge Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Partition Merge
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Fri Sep 18 13:14:33 2026
+Info: Command: quartus_cdb --read_settings_files=off --write_settings_files=off MODBUS -c MODBUS --merge=on
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (35007): Using synthesis netlist for partition "Top"
+Info (35007): Using synthesis netlist for partition "sld_hub:auto_hub"
+Info (35007): Using synthesis netlist for partition "sld_signaltap:auto_signaltap_0"
+Info (35024): Successfully connected in-system debug instance "auto_signaltap_0" to all 289 required data inputs, trigger inputs, acquisition clocks, and dynamic pins
+Info (35002): Resolved and merged 3 partition(s)
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "HTRI_ADC_SDO"
+Info (21057): Implemented 8577 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 8 input pins
+    Info (21059): Implemented 17 output pins
+    Info (21061): Implemented 8415 logic cells
+    Info (21064): Implemented 136 RAM segments
+Info: Quartus Prime Partition Merge was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 4736 megabytes
+    Info: Processing ended: Fri Sep 18 13:14:35 2026
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:02
+
+

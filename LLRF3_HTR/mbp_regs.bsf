@@ -88,7 +88,7 @@ refer to the applicable agreement for further details.
 	)
 	(parameter
 		"HRTREGS"
-		"106"
+		"7"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing

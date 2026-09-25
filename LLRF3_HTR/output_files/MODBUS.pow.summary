@@ -1,12 +1,12 @@
-Power Analyzer Status : Successful - Tue Sep 15 14:52:27 2026
+Power Analyzer Status : Successful - Fri Sep 25 12:22:55 2026
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : MODBUS
 Top-level Entity Name : MODBUS
 Family : MAX 10
 Device : 10M50SAE144I7G
 Power Models : Final
-Total Thermal Power Dissipation : 371.99 mW
-Core Dynamic Thermal Power Dissipation : 117.51 mW
-Core Static Thermal Power Dissipation : 242.93 mW
-I/O Thermal Power Dissipation : 11.55 mW
+Total Thermal Power Dissipation : 624.48 mW
+Core Dynamic Thermal Power Dissipation : 319.95 mW
+Core Static Thermal Power Dissipation : 247.03 mW
+I/O Thermal Power Dissipation : 57.51 mW
 Power Estimation Confidence : Low: user provided insufficient toggle rate data

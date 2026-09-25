@@ -26,15 +26,15 @@
  -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
  -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
  --                 of its bank.
- --                  Bank 1A:       2.5V
+ --                  Bank 1A:       3.3V
  --                  Bank 1B:       2.5V
- --                  Bank 2:       2.5V
+ --                  Bank 2:       3.3V
  --                  Bank 3:       2.5V
  --                  Bank 4:       2.5V
- --                  Bank 5:       2.5V
- --                  Bank 6:       2.5V
- --                  Bank 7:       2.5V
- --                  Bank 8:       2.5V
+ --                  Bank 5:       3.3V
+ --                  Bank 6:       3.3V
+ --                  Bank 7:       3.3V
+ --                  Bank 8:       3.3V
  -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
  --                  It can also be used to report unused dedicated pins. The connection
  --                  on the board for unused dedicated pins depends on whether this will
@@ -77,29 +77,29 @@ ADC_VREF                     : 5         :        :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : 6         :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 7         :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 8         :        :                   :         : 1A        :                
-VCCIO1A                      : 9         : power  :                   : 2.5V    : 1A        :                
-LED[0]                       : 10        : output : 2.5 V             :         : 1A        : Y              
-LED[1]                       : 11        : output : 2.5 V             :         : 1A        : Y              
-LED[2]                       : 12        : output : 2.5 V             :         : 1A        : Y              
-LED[3]                       : 13        : output : 2.5 V             :         : 1A        : Y              
-LED[4]                       : 14        : output : 2.5 V             :         : 1A        : Y              
+VCCIO1A                      : 9         : power  :                   : 3.3V    : 1A        :                
+LED[0]                       : 10        : output : 3.3-V LVTTL       :         : 1A        : Y              
+LED[1]                       : 11        : output : 3.3-V LVTTL       :         : 1A        : Y              
+LED[2]                       : 12        : output : 3.3-V LVTTL       :         : 1A        : Y              
+LED[3]                       : 13        : output : 3.3-V LVTTL       :         : 1A        : Y              
+LED[4]                       : 14        : output : 3.3-V LVTTL       :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 15        :        :                   :         : 1B        :                
-~ALTERA_TMS~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-~ALTERA_TCK~ / RESERVED_INPUT : 17        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-~ALTERA_TDI~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-~ALTERA_TDO~                 : 19        : output : 2.5 V             :         : 1B        : N              
+altera_reserved_tms          : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+altera_reserved_tck          : 17        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+altera_reserved_tdi          : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+altera_reserved_tdo          : 19        : output : 2.5 V             :         : 1B        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 20        :        :                   :         : 1B        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 21        :        :                   :         : 1B        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 22        :        :                   :         : 1B        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 23        :        :                   :         : 1B        :                
 VCCIO1B                      : 24        : power  :                   : 2.5V    : 1B        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 25        :        :                   :         : 2         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 26        :        :                   :         : 2         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 27        :        :                   :         : 2         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 28        :        :                   :         : 2         :                
+HTRI_ADC_SDO                 : 25        : input  : 3.3-V LVTTL       :         : 2         : Y              
+HTRI_ADC_CSI                 : 26        : output : 3.3-V LVTTL       :         : 2         : Y              
+HTRI_ADC_SCLK                : 27        : output : 3.3-V LVTTL       :         : 2         : Y              
+HTRI_ADC_SDI                 : 28        : output : 3.3-V LVTTL       :         : 2         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 29        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 30        :        :                   :         : 2         :                
-VCCIO2                       : 31        : power  :                   : 2.5V    : 2         :                
+VCCIO2                       : 31        : power  :                   : 3.3V    : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 32        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 33        :        :                   :         : 2         :                
 VCCA2                        : 34        : power  :                   : 3.0V/3.3V :           :                
@@ -142,11 +142,11 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : 70        :        :                   :      
 VCCA5                        : 71        : power  :                   : 3.0V/3.3V :           :                
 VCC_ONE                      : 72        : power  :                   : 3.0V/3.3V :           :                
 VCC_ONE                      : 73        : power  :                   : 3.0V/3.3V :           :                
-HTRV_DAC_DIN                 : 74        : output : 2.5 V             :         : 5         : Y              
-HTRV_DAC_SYNC                : 75        : output : 2.5 V             :         : 5         : Y              
-HEARTBEAT                    : 76        : output : 2.5 V             :         : 5         : Y              
-HTRV_DAC_SCLK                : 77        : output : 2.5 V             :         : 5         : Y              
-VCCIO5                       : 78        : power  :                   : 2.5V    : 5         :                
+HTRV_DAC_DIN                 : 74        : output : 3.3-V LVTTL       :         : 5         : Y              
+HTRV_DAC_SYNC                : 75        : output : 3.3-V LVTTL       :         : 5         : Y              
+HEARTBEAT                    : 76        : output : 3.3-V LVTTL       :         : 5         : Y              
+HTRV_DAC_SCLK                : 77        : output : 3.3-V LVTTL       :         : 5         : Y              
+VCCIO5                       : 78        : power  :                   : 3.3V    : 5         :                
 GND                          : 79        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 80        :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 81        :        :                   :         : 5         :                
@@ -156,13 +156,13 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : 84        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : 85        :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 86        :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 87        :        :                   :         : 5         :                
-SYSCLOCK                     : 88        : input  : 3.3-V LVCMOS      :         : 6         : Y              
+SYSCLOCK                     : 88        : input  : 3.3-V LVTTL       :         : 6         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 89        :        :                   :         : 6         :                
-HTRV_ADC_SDI                 : 90        : output : 2.5 V             :         : 6         : Y              
-HTRV_ADC_SCLK                : 91        : output : 2.5 V             :         : 6         : Y              
-HTRV_ADC_CSI                 : 92        : output : 2.5 V             :         : 6         : Y              
-HTRV_ADC_SDO                 : 93        : input  : 2.5 V             :         : 6         : Y              
-VCCIO6                       : 94        : power  :                   : 2.5V    : 6         :                
+HTRV_ADC_SDI                 : 90        : output : 3.3-V LVTTL       :         : 6         : Y              
+HTRV_ADC_SCLK                : 91        : output : 3.3-V LVTTL       :         : 6         : Y              
+HTRV_ADC_CSI                 : 92        : output : 3.3-V LVTTL       :         : 6         : Y              
+HTRV_ADC_SDO                 : 93        : input  : 3.3-V LVTTL       :         : 6         : Y              
+VCCIO6                       : 94        : power  :                   : 3.3V    : 6         :                
 GND                          : 95        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 96        :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 97        :        :                   :         : 6         :                
@@ -171,7 +171,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : 99        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : 100       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 101       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 102       :        :                   :         : 6         :                
-VCCIO6                       : 103       : power  :                   : 2.5V    : 6         :                
+VCCIO6                       : 103       : power  :                   : 3.3V    : 6         :                
 GND                          : 104       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 105       :        :                   :         : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 106       :        :                   :         : 6         :                
@@ -181,35 +181,35 @@ VCC_ONE                      : 109       : power  :                   : 3.0V/3.3
 RESERVED_INPUT_WITH_WEAK_PULLUP : 110       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 111       :        :                   :         : 7         :                
 GND                          : 112       : gnd    :                   :         :           :                
-VCCIO7                       : 113       : power  :                   : 2.5V    : 7         :                
+VCCIO7                       : 113       : power  :                   : 3.3V    : 7         :                
 VCC_ONE                      : 114       : power  :                   : 3.0V/3.3V :           :                
 GND                          : 115       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 116       :        :                   :         : 7         :                
-GPIO[6]                      : 117       : input  : 2.5 V             :         : 7         : Y              
+GPIO[6]                      : 117       : input  : 3.3-V LVTTL       :         : 7         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 118       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 119       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 120       :        :                   :         : 7         :                
 GND                          : 121       : gnd    :                   :         :           :                
-VCCIO8                       : 122       : power  :                   : 2.5V    : 8         :                
+VCCIO8                       : 122       : power  :                   : 3.3V    : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 123       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 124       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 125       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 126       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 127       :        :                   :         : 8         :                
-~ALTERA_CONFIG_SEL~ / RESERVED_INPUT : 128       : input  : 2.5 V             :         : 8         : N              
+~ALTERA_CONFIG_SEL~ / RESERVED_INPUT : 128       : input  : 3.3-V LVTTL       :         : 8         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 129       :        :                   :         : 8         :                
-~ALTERA_nCONFIG~ / RESERVED_INPUT : 130       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+~ALTERA_nCONFIG~ / RESERVED_INPUT : 130       : input  : 3.3 V Schmitt Trigger :         : 8         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 131       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 132       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 133       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 134       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 135       :        :                   :         : 8         :                
-~ALTERA_nSTATUS~ / RESERVED_INPUT : 136       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+~ALTERA_nSTATUS~ / RESERVED_INPUT : 136       : input  : 3.3 V Schmitt Trigger :         : 8         : N              
 GND                          : 137       : gnd    :                   :         :           :                
-~ALTERA_CONF_DONE~ / RESERVED_INPUT : 138       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
-VCCIO8                       : 139       : power  :                   : 2.5V    : 8         :                
-XPORT_TX                     : 140       : output : 2.5 V             :         : 8         : Y              
-XPORT_RX                     : 141       : input  : 2.5 V             :         : 8         : Y              
+~ALTERA_CONF_DONE~ / RESERVED_INPUT : 138       : input  : 3.3 V Schmitt Trigger :         : 8         : N              
+VCCIO8                       : 139       : power  :                   : 3.3V    : 8         :                
+XPORT_TX                     : 140       : output : 3.3-V LVTTL       :         : 8         : Y              
+XPORT_RX                     : 141       : input  : 3.3-V LVTTL       :         : 8         : Y              
 GND                          : 142       : gnd    :                   :         :           :                
 VCCA4                        : 143       : power  :                   : 3.0V/3.3V :           :                
 VCC_ONE                      : 144       : power  :                   : 3.0V/3.3V :           :                

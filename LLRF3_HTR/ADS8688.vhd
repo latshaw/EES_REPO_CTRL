@@ -2,34 +2,22 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE WORK.COMPONENTS.ALL;
 
--- Need to set input range to 0V to 5.12V
-
 ENTITY ADS8688 IS
-	PORT(	CLOCK 				: IN STD_LOGIC;
-			nRESET 				: IN STD_LOGIC;
+	PORT(CLOCK : IN STD_LOGIC;
+		 nRESET : IN STD_LOGIC;
 	
-			SDO 					: IN STD_LOGIC;
-			FILTER_CONTROL		: IN STD_LOGIC_VECTOR(15 downto 0);		 
+		 SDO : IN STD_LOGIC;		 
 		 
-			nCS 					: OUT STD_LOGIC;
-			SCLK 					: OUT STD_LOGIC;
-			SDI 					: OUT STD_LOGIC;
-			DATA_OUT 			: OUT REG16_ARRAY
+		 SDI : OUT STD_LOGIC;
+		 nCS : OUT STD_LOGIC;
+		 SCLK : OUT STD_LOGIC;
+		 
+		 DATA_OUT : OUT REG16_ARRAY
 		 
 		 );
 END ENTITY ADS8688;
 
 ARCHITECTURE BEHAVIOR OF ADS8688 IS
-
-COMPONENT FILTERS IS
-	PORT(	CLOCK 				: IN STD_LOGIC;
-			STROBE				: IN STD_LOGIC;
-			RESET 				: IN STD_LOGIC;
-			FILTER_CONTROL		: IN STD_LOGIC_VECTOR(15 downto 0);
-			DATA_IN 				: IN STD_LOGIC_VECTOR(15 downto 0);
-			DATA_OUT 			: OUT STD_LOGIC_VECTOR(15 downto 0)
-			);
-END COMPONENT;
 
 SIGNAL INP_DIN_REG	: STD_LOGIC_VECTOR(15 DOWNTO 0);
 SIGNAL EN_DIN_REG		: STD_LOGIC;
@@ -229,7 +217,15 @@ CHA_DATA_BUF: REGNE
 			  	 INPUT	=> DATA_BUF(15 DOWNTO 0),
 			  	 OUTPUT	=> DATA_CHA
 				 );	
-
+CHB_DATA_BUF: REGNE
+		GENERIC MAP(N => 16) 
+		PORT MAP(CLOCK	=> CLOCK,
+			  	 RESET	=> nRESET,
+			  	 CLEAR	=> '1',
+			  	 EN		=> EN_DATA_CHB,
+			  	 INPUT	=> DATA_BUF(15 DOWNTO 0),
+			  	 OUTPUT	=> DATA_CHB
+				 );
 CHC_DATA_BUF: REGNE
 		GENERIC MAP(N => 16) 
 		PORT MAP(CLOCK	=> CLOCK,
@@ -283,79 +279,7 @@ CHH_DATA_BUF: REGNE
 			  	 EN		=> EN_DATA_CHH,
 			  	 INPUT	=> DATA_BUF(15 DOWNTO 0),
 			  	 OUTPUT	=> DATA_CHH
-				 );
-
-----------------------------------------------------------------------------------
---Filtering ADC data before sending it out of the block.
-----------------------------------------------------------------------------------
-
-CHA_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHA,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN				=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHA
-				 );
-				
-CHB_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHB,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN				=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHB
-				 );	
-
-CHC_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHC,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN				=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHC
-				 );
-CHD_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHD,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN					=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHD
-				 );
-CHE_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHE,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN					=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHE
-				 );	
-CHF_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHF,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN				=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHF
-				 );	
-CHG_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHG,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN				=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHG
-				 );	
-CHH_DATA_FILTER: FILTERS
-		PORT MAP(CLOCK					=> CLOCK,
-					STROBE				=> EN_DATA_CHH,
-					RESET					=> nRESET,
-					FILTER_CONTROL		=> FILTER_CONTROL,
-					DATA_IN				=> DATA_BUF(15 DOWNTO 0),
-					DATA_OUT				=> DATA_CHH
-				 );
-				 
+				 );				 
 				 
 	PROCESS(CLOCK, nRESET)
 	BEGIN
