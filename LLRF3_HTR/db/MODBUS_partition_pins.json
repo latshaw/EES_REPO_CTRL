@@ -32,7 +32,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "XPORT_TX",
+					"name" : "XPORT_RX",
 					"strict" : false
 				},
 				{
@@ -44,6 +44,14 @@
 					"strict" : false
 				},
 				{
+					"name" : "LED[1]",
+					"strict" : false
+				},
+				{
+					"name" : "LED[0]",
+					"strict" : false
+				},
+				{
 					"name" : "SYSCLOCK",
 					"strict" : false
 				},
@@ -52,27 +60,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "XPORT_RX",
+					"name" : "REMOTE_LOCAL",
+					"strict" : false
+				},
+				{
+					"name" : "XPORT_TX",
 					"strict" : false
 				},
 				{
 					"name" : "HTRV_ADC_SDO",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tms",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tck",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tdi",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tdo",
 					"strict" : false
 				}
 			]

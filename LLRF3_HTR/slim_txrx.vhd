@@ -6,7 +6,7 @@ use ieee.numeric_std.all;
 entity slim_txrx is
 	generic(
 		--g_CLKS_PER_BIT : integer := 87     -- Needs to be set correctly
-		CLK_FREQ : natural := 80e6;
+		CLK_FREQ : natural := 100e6;
 		BAUD_RATE : natural := 921600
     );
 	port(

@@ -20,10 +20,10 @@ use work.mbp_lib.all;
 entity mbp is
 	generic(
 		--CLK_FREQ	:	natural := 80000000; --defines clock rate of system clock
-		CLK_FREQ	:	integer := 80000000;
+		CLK_FREQ	:	integer := 100000000;
 		BAUD_RATE	:	natural := 921600;
 		DEVICEADDR	:	natural := 0;
-		HRTREGS	: natural := 106
+		HRTREGS	: natural := 7
 		);
 	port(
 		CLK		:	in std_logic; --system clock input

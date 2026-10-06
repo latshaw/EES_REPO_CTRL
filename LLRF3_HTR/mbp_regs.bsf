@@ -20,9 +20,9 @@ refer to the applicable agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 304 160)
+	(rect 16 16 304 192)
 	(text "mbp_regs" (rect 5 0 46 12)(font "Arial" ))
-	(text "inst" (rect 8 128 20 140)(font "Arial" ))
+	(text "inst" (rect 8 160 20 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -61,9 +61,16 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 0 112)
 		(input)
+		(text "LCLMDIN" (rect 0 0 43 12)(font "Arial" ))
+		(text "LCLMDIN" (rect 21 107 64 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
 		(text "ADCIN[7..0][15..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "ADCIN[7..0][15..0]" (rect 21 107 96 119)(font "Arial" ))
-		(line (pt 0 112)(pt 16 112)(line_width 3))
+		(text "ADCIN[7..0][15..0]" (rect 21 123 96 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
 	)
 	(port
 		(pt 288 32)
@@ -86,13 +93,27 @@ refer to the applicable agreement for further details.
 		(text "FILTER_CONTROL[15..0]" (rect 154 59 267 71)(font "Arial" ))
 		(line (pt 288 64)(pt 272 64)(line_width 3))
 	)
+	(port
+		(pt 288 80)
+		(output)
+		(text "REMOTE" (rect 0 0 43 12)(font "Arial" ))
+		(text "REMOTE" (rect 224 75 267 87)(font "Arial" ))
+		(line (pt 288 80)(pt 272 80)(line_width 1))
+	)
+	(port
+		(pt 288 96)
+		(output)
+		(text "LOCAL" (rect 0 0 34 12)(font "Arial" ))
+		(text "LOCAL" (rect 233 91 267 103)(font "Arial" ))
+		(line (pt 288 96)(pt 272 96)(line_width 1))
+	)
 	(parameter
 		"HRTREGS"
 		"7"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 272 128)(line_width 1))
+		(rectangle (rect 16 16 272 160)(line_width 1))
 	)
 	(annotation_block (parameter)(rect 304 -64 404 16))
 )

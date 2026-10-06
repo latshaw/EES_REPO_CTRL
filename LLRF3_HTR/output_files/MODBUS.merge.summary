@@ -1,15 +1,15 @@
-Partition Merge Status : Successful - Fri Sep 18 13:14:35 2026
+Partition Merge Status : Successful - Wed Sep 30 13:25:24 2026
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : MODBUS
 Top-level Entity Name : MODBUS
 Family : MAX 10
-Total logic elements : 8,378
-    Total combinational functions : 4,585
-    Dedicated logic registers : 5,715
-Total registers : 5715
+Total logic elements : 2,828
+    Total combinational functions : 2,141
+    Dedicated logic registers : 1,895
+Total registers : 1895
 Total pins : 21
 Total virtual pins : 0
-Total memory bits : 1,050,624
+Total memory bits : 51,200
 Embedded Multiplier 9-bit elements : 0
 Total PLLs : 0
 UFM blocks : 0

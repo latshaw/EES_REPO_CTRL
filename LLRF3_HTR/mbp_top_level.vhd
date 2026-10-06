@@ -9,7 +9,7 @@ use ieee.math_real.all;
 --
 entity mbp_top_level is
 	generic(
-		CLK_FREQ	:	integer := 80000000;
+		CLK_FREQ	:	integer := 100000000;
 		BAUD_RATE	:	natural := 921600;
 		DEVICEADDR	:	natural := 0;
 		HRTREGS	: natural := 7
@@ -31,7 +31,7 @@ end mbp_top_level;
 architecture mixed of mbp_top_level is
 	component slim_txrx is
 		generic(
-			CLK_FREQ : natural := 80000000;
+			CLK_FREQ : natural := 100000000;
 			BAUD_RATE : natural := 921600
 		);
 		port(
@@ -52,7 +52,7 @@ architecture mixed of mbp_top_level is
 	---
 	component mbp is
 	generic(
-		CLK_FREQ	:	integer := 80000000;
+		CLK_FREQ	:	integer := 100000000;
 		BAUD_RATE	:	natural := 921600;
 		DEVICEADDR	:	natural := 0;
 		HRTREGS	: natural := 7
