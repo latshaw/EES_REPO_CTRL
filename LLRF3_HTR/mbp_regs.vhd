@@ -10,7 +10,7 @@ entity mbp_regs is
 	generic(
 			--This number must equal the number of registers you use.
 			--Example: 10 is Registers 0-9
-			HRTREGS	:	natural := 7
+			HRTREGS	:	natural := 8
 			);
 	port(
 		--Static MBP ports begin
@@ -51,8 +51,8 @@ architecture mixed of mbp_regs is
 	signal shrt_addr 	: std_logic_vector(7 downto 0) := x"00";
 	signal reg_ena 	: std_logic_vector(0 to (HRTREGS -1)) := (others => '0');
 	signal exc_ff 		: std_logic_vector(7 downto 0) := (others => '0');
-	signal reg_d 		: word_array(0 to (HRTREGS -1)) := (x"0000",x"7A7D",x"0003",x"0004",x"0005",x"0006",x"0007");
-	signal reg_q 		: word_array(0 to (HRTREGS -1)) := (x"0000",x"7A7D",x"0003",x"0004",x"0005",x"0006",x"0007");
+	signal reg_d 		: word_array(0 to (HRTREGS -1)) := (x"0000", x"7A7D", x"0003", x"0004", x"0005", x"0006", x"0007", x"0000");
+	signal reg_q 		: word_array(0 to (HRTREGS -1)) := (x"0000", x"7A7D", x"0003", x"0004", x"0005", x"0006", x"0007", x"0000");
 	signal Version 	: std_logic_vector(15 downto 0);
 	signal FaultClear	: std_logic;
 	signal HTRPWR		: unsigned(31 downto 0);
@@ -71,6 +71,8 @@ architecture mixed of mbp_regs is
 	signal LCLPWRq		: std_logic_vector(15 downto 0);
 	signal FVER			: std_logic_vector(15 downto 0) := (x"0001");
 	signal HVER			: std_logic_vector(15 downto 0) := (x"0001");
+	signal RSTRd		: std_logic_vector(15 downto 0);
+	signal RSTRq		: std_logic_vector(15 downto 0);
 	--signal reg_d : word_array(0 to (HRTREGS -1)) := (others => x"0000");
 	--signal reg_q : word_array(0 to (HRTREGS -1)) := (others => x"0000");	
 begin
@@ -117,6 +119,7 @@ begin
 				DACSETq		<= (others => '0');
 				CNTLMDFBq	<= (others => '0');
 				FILTER_CONTROL	<= x"0000";
+				RSTRq			<= (others => '0');
 			elsif(CLK'event and CLK = '1') then
 				FILTER_CONTROL	<= x"0001";
 				DACCNTLq 	<= DACCNTLd;
@@ -138,12 +141,16 @@ begin
 			reg_ena(4) <= '1';   reg_d(4) <= FVER;
 			reg_ena(5) <= '1';   reg_d(5) <= HVER;
 			reg_ena(6) <= '1' when (LOAD = '1') and (shrt_addr = x"06") else '0';   reg_d(6) <= DIN;
+			reg_ena(7) <= '1' when (LOAD = '1') and (shrt_addr = x"07") else '0';   reg_d(7) <= DIN;
+
+
 		  
 			
 			CNTLMDd			<= reg_q(0)(0) or LCLMDIN;
 			CNTLMDFBd		<= reg_q(0)(15 downto 2) & CNTLMDq & reg_q(0)(0);
 			LCLPWRd			<= reg_q(1);
 			DACCNTLd			<=	reg_q(6);
+			RSTRd				<= reg_q(7);
 			
 			DACSETd	<= DACCNTLq when CNTLMDq = '0' else LCLPWRq;
 			
@@ -160,6 +167,7 @@ begin
 		  reg_q(4)	when x"04",
 		  reg_q(5)	when x"05",
 		  reg_q(6)	when x"06",
+		  reg_q(7)  when x"07",
 		  x"FFFF" 	when others;
 
 end mixed;

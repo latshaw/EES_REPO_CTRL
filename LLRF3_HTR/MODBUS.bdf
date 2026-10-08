@@ -91,7 +91,7 @@ refer to the applicable agreement for further details.
 	(input)
 	(rect 80 272 248 288)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "XPORT_TX" (rect 5 0 59 12)(font "Arial" ))
+	(text "XPORT_TX" (rect 5 0 58 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -108,7 +108,7 @@ refer to the applicable agreement for further details.
 	(input)
 	(rect 1000 448 1184 464)
 	(text "INPUT" (rect 141 0 169 10)(font "Arial" (font_size 6)))
-	(text "REMOTE_LOCAL" (rect 5 0 92 12)(font "Arial" ))
+	(text "REMOTE_LOCAL" (rect 5 0 91 12)(font "Arial" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -677,7 +677,7 @@ refer to the applicable agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"HRTREGS"
-		"7"
+		"8"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
@@ -688,7 +688,7 @@ refer to the applicable agreement for further details.
 (symbol
 	(rect 1040 208 1328 384)
 	(text "mbp_regs" (rect 5 0 53 12)(font "Arial" ))
-	(text "inst9" (rect 8 160 30 177)(font "Intel Clear" ))
+	(text "inst5" (rect 8 160 30 177)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -775,7 +775,7 @@ refer to the applicable agreement for further details.
 	)
 	(parameter
 		"HRTREGS"
-		"7"
+		"8"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
