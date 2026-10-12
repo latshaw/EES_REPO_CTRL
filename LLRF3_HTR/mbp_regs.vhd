@@ -99,10 +99,10 @@ begin
 		process(RESET,CLK)
 		begin
 			if(RESET = '0') then
-				--reg_q(i) <= (others => '0'); --initialize 0's to registers
+				reg_q(i) <= (others => '0'); --initialize 0's to registers
 				--reg_q(i) <= x"FFFF";
 				--reg_q(i) <= std_logic_vector(to_unsigned(i + 1,16)); --initalize random values
-				reg_q(i) <= reg_q(i);
+				--reg_q(i) <= reg_q(i);
 			elsif(CLK'event and CLK = '1') then
 				if(reg_ena(i) = '1') then
 					reg_q(i) <= reg_d(i);
