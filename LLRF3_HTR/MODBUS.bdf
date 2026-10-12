@@ -677,13 +677,13 @@ refer to the applicable agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"HRTREGS"
-		"8"
+		"9"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 256 160))
 	)
-	(annotation_block (parameter)(rect 624 120 848 216))
+	(annotation_block (parameter)(rect 624 120 843 215))
 )
 (symbol
 	(rect 1040 208 1328 384)
@@ -734,9 +734,16 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 0 128)
 		(input)
+		(text "HEARTBEAT" (rect 0 0 63 12)(font "Arial" ))
+		(text "HEARTBEAT" (rect 21 123 84 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
 		(text "ADCIN[7..0][15..0]" (rect 0 0 93 12)(font "Arial" ))
-		(text "ADCIN[7..0][15..0]" (rect 21 123 114 135)(font "Arial" ))
-		(line (pt 0 128)(pt 16 128)(line_width 3))
+		(text "ADCIN[7..0][15..0]" (rect 21 139 114 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 3))
 	)
 	(port
 		(pt 288 32)
@@ -775,7 +782,7 @@ refer to the applicable agreement for further details.
 	)
 	(parameter
 		"HRTREGS"
-		"8"
+		"9"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
@@ -800,11 +807,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 624 280)
 	(pt 760 280)
-	(bus)
-)
-(connector
-	(pt 720 872)
-	(pt 656 872)
 	(bus)
 )
 (connector
@@ -885,16 +887,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 336 720)
 	(pt 424 720)
-	(bus)
-)
-(connector
-	(pt 656 720)
-	(pt 520 720)
-	(bus)
-)
-(connector
-	(pt 656 872)
-	(pt 656 720)
 	(bus)
 )
 (connector
@@ -1083,11 +1075,6 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 936 488)
-	(pt 936 336)
-	(bus)
-)
-(connector
 	(pt 912 -32)
 	(pt 912 72)
 	(bus)
@@ -1129,11 +1116,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 760 304)
 	(pt 1040 304)
-	(bus)
-)
-(connector
-	(pt 936 336)
-	(pt 1040 336)
 	(bus)
 )
 (connector
@@ -1180,6 +1162,51 @@ refer to the applicable agreement for further details.
 	(pt 1328 304)
 	(pt 1424 304)
 )
+(connector
+	(pt 936 488)
+	(pt 936 352)
+	(bus)
+)
+(connector
+	(pt 936 352)
+	(pt 1040 352)
+	(bus)
+)
+(connector
+	(pt 976 448)
+	(pt 976 336)
+	(bus)
+)
+(connector
+	(pt 976 336)
+	(pt 1040 336)
+	(bus)
+)
+(connector
+	(pt 976 448)
+	(pt 640 448)
+	(bus)
+)
+(connector
+	(pt 520 720)
+	(pt 640 720)
+	(bus)
+)
+(connector
+	(pt 720 872)
+	(pt 640 872)
+	(bus)
+)
+(connector
+	(pt 640 448)
+	(pt 640 720)
+	(bus)
+)
+(connector
+	(pt 640 720)
+	(pt 640 872)
+	(bus)
+)
 (junction (pt 336 536))
 (junction (pt 296 248))
 (junction (pt 544 536))
@@ -1189,3 +1216,4 @@ refer to the applicable agreement for further details.
 (junction (pt 896 552))
 (junction (pt 912 72))
 (junction (pt 896 256))
+(junction (pt 640 720))

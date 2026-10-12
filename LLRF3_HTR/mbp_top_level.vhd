@@ -12,7 +12,7 @@ entity mbp_top_level is
 		CLK_FREQ	:	integer := 100000000;
 		BAUD_RATE	:	natural := 921600;
 		DEVICEADDR	:	natural := 0;
-		HRTREGS	: natural := 8
+		HRTREGS	: natural := 9
 	);
 	port(
 		CLK				:	in std_logic; --system clock input
