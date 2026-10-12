@@ -48,130 +48,88 @@ end mbp_regs;
 
 architecture mixed of mbp_regs is
 	type word_array is array(natural range <>) of std_logic_vector(15 downto 0);
+	
+	type	RegisterRecord is record
+	CNTLMD				: std_logic_vector(15 downto 0);
+	LCLPWR				: std_logic_vector(15 downto 0);
+	IRB					: std_logic_vector(15 downto 0);
+	VRB					: std_logic_vector(15 downto 0);
+	FVER					: std_logic_vector(15 downto 0);
+	HVER					: std_logic_vector(15 downto 0);
+	DAC					: std_logic_vector(15 downto 0);
+	RSTR					: std_logic_vector(15 downto 0);
+	HB						: std_logic_vector(15 downto 0);
+	DACSET				: std_logic_vector(15 downto 0);
+	CNTLMDFB				: std_logic_vector(15 downto 0);
+	LCLRMT				: std_logic;
+	end record RegisterRecord;
+
 	--
+	signal d, q			: RegisterRecord;
 	signal shrt_addr 	: std_logic_vector(7 downto 0) := x"00";
-	signal reg_ena 	: std_logic_vector(0 to (HRTREGS -1)) := (others => '0');
-	signal exc_ff 		: std_logic_vector(7 downto 0) := (others => '0');
-	signal reg_d 		: word_array(0 to (HRTREGS -1)) := (x"0000", x"7A7D", x"0003", x"0004", x"0005", x"0006", x"0007", x"0000", x"0000");
-	signal reg_q 		: word_array(0 to (HRTREGS -1)) := (x"0000", x"7A7D", x"0003", x"0004", x"0005", x"0006", x"0007", x"0000", x"0000");
-	signal Version 	: std_logic_vector(15 downto 0);
-	signal FaultClear	: std_logic;
-	signal HTRPWR		: unsigned(31 downto 0);
-	signal HTRIRB		: unsigned(15 downto 0);
-	signal HTRVRB		: unsigned(15 downto 0);
-	signal HTRCNTLMD	: std_logic_vector(15 downto 0);
-	signal DACCNTLd	: std_logic_vector(15 downto 0);
-	signal DACCNTLq	: std_logic_vector(15 downto 0);
-	signal DACSETd		: std_logic_vector(15 downto 0);
-	signal DACSETq		: std_logic_vector(15 downto 0);
-	signal CNTLMDd		: std_logic;
-	signal CNTLMDq		: std_logic;
-	signal CNTLMDFBd	: std_logic_vector(15 downto 0);
-	signal CNTLMDFBq	: std_logic_vector(15 downto 0);
-	signal LCLPWRd		: std_logic_vector(15 downto 0);
-	signal LCLPWRq		: std_logic_vector(15 downto 0);
-	signal FVER			: std_logic_vector(15 downto 0) := (x"0001");
-	signal HVER			: std_logic_vector(15 downto 0) := (x"0001");
-	signal RSTRd		: std_logic_vector(15 downto 0);
-	signal RSTRq		: std_logic_vector(15 downto 0);
-	--signal reg_d : word_array(0 to (HRTREGS -1)) := (others => x"0000");
-	--signal reg_q : word_array(0 to (HRTREGS -1)) := (others => x"0000");	
+	signal FaultClear	: std_logic;	
 begin
 
-
-
---	HeaterPID: HEAT_CONTROL
---	port map(clock					=> CLK,
---				reset					=> RESET,
---				requested_watts	=> HTRPWR,
---				current_readback	=> HTRIRB,
---				voltage_readback	=> HTRVRB,
---				DAC_setpoint		=> DACCNTLq(0),
---				p_gain				=> HTRP,
---				i_gain				=> HTRI,
---				d_gain				=> HTRD,
---				new_DAC_setpoint	=> DACCNTLd(0)
---			);
 	--ISA addr conversion
 	shrt_addr <= ADDR(7 downto 0);
 	--Register flip flops
-	Reg_GEN : for i in 0 to (HRTREGS -1) generate
-		process(RESET,CLK)
-		begin
-			if(RESET = '0') then
-				reg_q(i) <= (others => '0'); --initialize 0's to registers
-				--reg_q(i) <= x"FFFF";
-				--reg_q(i) <= std_logic_vector(to_unsigned(i + 1,16)); --initalize random values
-				--reg_q(i) <= reg_q(i);
-			elsif(CLK'event and CLK = '1') then
-				if(reg_ena(i) = '1') then
-					reg_q(i) <= reg_d(i);
-				end if;
-			end if;
-		end process;
-	end generate Reg_GEN;
-	
 	process(RESET,CLK)
-		begin
-			if(RESET = '0') then
-				DACCNTLq 	<= (others => '0');
-				CNTLMDq		<= '0';
-				LCLPWRq		<= x"7A7D";				-- Initalize with DAC output in local mode for ~100W.
-				DACSETq		<= (others => '0');
-				CNTLMDFBq	<= (others => '0');
-				FILTER_CONTROL	<= x"0000";
-				RSTRq			<= (others => '0');
-			elsif(CLK'event and CLK = '1') then
+	begin
+		if(RESET = '0') then
+			q.CNTLMD 	<= (others => '0'); --initialize 0's to registers
+			q.LCLPWR 	<= x"7A7D";			  -- Initalize with DAC output in local mode for ~100W.
+			q.IRB 		<= (others => '0'); --initialize 0's to registers
+			q.VRB			<= (others => '0'); --initialize 0's to registers
+			q.FVER		<= (x"0001");
+			q.HVER		<= (x"0001"); 
+			q.DAC			<= (others => '0'); --initialize 0's to registers
+			q.RSTR 		<= (others => '0'); --initialize 0's to registers
+			q.HB 			<= (others => '0'); --initialize 0's to registers
+			q.DACSET		<= (others => '0'); --initialize 0's to registers
+		elsif(CLK'event and CLK = '1') then
 				FILTER_CONTROL	<= x"0001";
-				DACCNTLq 	<= DACCNTLd;
-				CNTLMDq		<= CNTLMDd;
-				LCLPWRq		<= LCLPWRd;
-				DACSETq		<= DACSETd;
-				CNTLMDFBq	<= CNTLMDFBd;
-				RSTRq			<= RSTRd;
-				DACOUT(0)	<= DACSETq;
-			end if;
-		end process;
-	--
+				q <= d;
+		end if;
+	end process;
+	
 	--Register logic:
 	--Paste VHDL code from "VHDL_HRT" table in Excel spreadsheet
 	--You can add conditions to the enable statement to control R/W access
-			reg_ena(0) <= '1' when (LOAD = '1') and (shrt_addr = x"00") else '0';   reg_d(0) <= DIN;
-			reg_ena(1) <= '1' when (LOAD = '1') and (shrt_addr = x"01") else '0';   reg_d(1) <= DIN;
-			reg_ena(2) <= '1';   reg_d(2) <= ADCIN(0);	-- IRB
-			reg_ena(3) <= '1';   reg_d(3) <= ADCIN(1);	-- VRB
-			reg_ena(4) <= '1';   reg_d(4) <= FVER;
-			reg_ena(5) <= '1';   reg_d(5) <= HVER;
-			reg_ena(6) <= '1' when (LOAD = '1') and (shrt_addr = x"06") else '0';   reg_d(6) <= DIN;
-			reg_ena(7) <= '1' when (LOAD = '1') and (shrt_addr = x"07") else '0';   reg_d(7) <= DIN;
-			reg_ena(8) <= '1';	reg_d(8) <= b"000" & x"000" & HEARTBEAT;
+			-- Hold prior values until changed.
+			d.CNTLMD 	<= DIN when (LOAD = '1') and (shrt_addr = x"00") else q.CNTLMD;
+			d.LCLPWR 	<= DIN when (LOAD = '1') and (shrt_addr = x"01") else q.LCLPWR;
+			d.IRB <= ADCIN(0);	-- IRB
+			d.VRB <= ADCIN(1);	-- VRB
+			d.FVER <= q.FVER;
+			d.HVER <= q.HVER;
+			d.DAC 		<= DIN when (LOAD = '1') and (shrt_addr = x"06") else q.DAC;
+			d.RSTR 		<= DIN when (LOAD = '1') and (shrt_addr = x"07") else q.RSTR;
+			d.HB <= b"000" & x"000" & HEARTBEAT;
 
 
 		  
 			
-			CNTLMDd			<= reg_q(0)(0) or LCLMDIN;
-			CNTLMDFBd		<= reg_q(0)(15 downto 1) & CNTLMDq;
-			LCLPWRd			<= reg_q(1);
-			DACCNTLd			<=	reg_q(6);
-			RSTRd				<= reg_q(7);
+			d.LCLRMT			<= q.CNTLMD(0) or LCLMDIN;
+			d.CNTLMDFB		<= q.CNTLMD(15 downto 1) & q.LCLRMT;
 			
-			DACSETd	<= DACCNTLq when CNTLMDq = '0' else LCLPWRq;
+			d.DACSET	<= q.DAC when q.LCLRMT = '0' else q.LCLPWR;
+			DACOUT(0)	<= q.DACSET;			-- Set DAC drive.
 			
-			REMOTE	<= '1' when CNTLMDq = '0' else '0';
-			LOCAL		<= '1' when CNTLMDq = '1' else '0';
+			REMOTE	<= '1' when q.LCLRMT = '0' else '0';
+			LOCAL		<= '1' when q.LCLRMT = '1' else '0';
 			
 
 
 		with shrt_addr select DOUT <=
-		  CNTLMDFBq	when x"00",
-		  reg_q(1)	when x"01",
-		  reg_q(2)	when x"02",
-		  reg_q(3)	when x"03",
-		  reg_q(4)	when x"04",
-		  reg_q(5)	when x"05",
-		  reg_q(6)	when x"06",
-		  reg_q(7)  when x"07",
-		  reg_q(8)  when x"08",
-		  x"FFFF" 	when others;
+		  q.CNTLMDFB	when x"00",
+		  q.LCLPWR		when x"01",
+		  q.IRB			when x"02",
+		  q.VRB			when x"03",
+		  q.FVER			when x"04",
+		  q.HVER			when x"05",
+		  q.DACSET		when x"06",
+		  q.RSTR 		when x"07",
+		  q.HB		  	when x"08",
+		  x"FFFF" 		when others;
 
 end mixed;
