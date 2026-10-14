@@ -20,7 +20,6 @@ entity mbp_regs is
 		ADDR				: in std_logic_vector(15 downto 0);
 		DIN				: in std_logic_vector(15 downto 0);
 		LCLMDIN			: in std_logic;
-		HEARTBEAT		: in std_logic;
 		DOUT				: out std_logic_vector(15 downto 0);
 		ADCIN 			: in REG16_ARRAY;
 		DACOUT			: out REG16_ARRAY;
@@ -58,7 +57,7 @@ architecture mixed of mbp_regs is
 	HVER					: std_logic_vector(15 downto 0);
 	DAC					: std_logic_vector(15 downto 0);
 	RSTR					: std_logic_vector(15 downto 0);
-	HB						: std_logic_vector(15 downto 0);
+	HB						: std_logic_vector(23 downto 0);
 	DACSET				: std_logic_vector(15 downto 0);
 	CNTLMDFB				: std_logic_vector(15 downto 0);
 	LCLRMT				: std_logic;
@@ -67,7 +66,7 @@ architecture mixed of mbp_regs is
 	--
 	signal d, q			: RegisterRecord;
 	signal shrt_addr 	: std_logic_vector(7 downto 0) := x"00";
-	signal FaultClear	: std_logic;	
+	signal FaultClear	: std_logic;
 begin
 
 	--ISA addr conversion
@@ -87,7 +86,7 @@ begin
 			q.HB 			<= (others => '0'); --initialize 0's to registers
 			q.DACSET		<= (others => '0'); --initialize 0's to registers
 		elsif(CLK'event and CLK = '1') then
-				FILTER_CONTROL	<= x"0001";
+				FILTER_CONTROL	<= x"0003";
 				q <= d;
 		end if;
 	end process;
@@ -98,13 +97,13 @@ begin
 			-- Hold prior values until changed.
 			d.CNTLMD 	<= DIN when (LOAD = '1') and (shrt_addr = x"00") else q.CNTLMD;
 			d.LCLPWR 	<= DIN when (LOAD = '1') and (shrt_addr = x"01") else q.LCLPWR;
-			d.IRB <= ADCIN(0);	-- IRB
-			d.VRB <= ADCIN(1);	-- VRB
-			d.FVER <= q.FVER;
-			d.HVER <= q.HVER;
+			d.IRB 		<= ADCIN(0);	-- IRB
+			d.VRB 		<= ADCIN(1);	-- VRB
+			d.FVER 		<= q.FVER;
+			d.HVER 		<= q.HVER;
 			d.DAC 		<= DIN when (LOAD = '1') and (shrt_addr = x"06") else q.DAC;
 			d.RSTR 		<= DIN when (LOAD = '1') and (shrt_addr = x"07") else q.RSTR;
-			d.HB <= b"000" & x"000" & HEARTBEAT;
+			d.HB <= std_logic_vector(unsigned(q.HB) + 1);
 
 
 		  
@@ -112,8 +111,8 @@ begin
 			d.LCLRMT			<= q.CNTLMD(0) or LCLMDIN;
 			d.CNTLMDFB		<= q.CNTLMD(15 downto 1) & q.LCLRMT;
 			
-			d.DACSET	<= q.DAC when q.LCLRMT = '0' else q.LCLPWR;
-			DACOUT(0)	<= q.DACSET;			-- Set DAC drive.
+			d.DACSET			<= q.DAC when q.LCLRMT = '0' else q.LCLPWR;
+			DACOUT(0)		<= q.DACSET;			-- Set DAC drive.
 			
 			REMOTE	<= '1' when q.LCLRMT = '0' else '0';
 			LOCAL		<= '1' when q.LCLRMT = '1' else '0';
@@ -129,7 +128,7 @@ begin
 		  q.HVER			when x"05",
 		  q.DACSET		when x"06",
 		  q.RSTR 		when x"07",
-		  q.HB		  	when x"08",
+		  b"000" & x"000" & q.HB(23)		  	when x"08",
 		  x"FFFF" 		when others;
 
 end mixed;

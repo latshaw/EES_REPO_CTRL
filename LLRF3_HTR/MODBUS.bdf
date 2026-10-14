@@ -106,20 +106,21 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(input)
-	(rect 1000 448 1184 464)
-	(text "INPUT" (rect 141 0 169 10)(font "Arial" (font_size 6)))
-	(text "REMOTE_LOCAL" (rect 5 0 91 12)(font "Arial" ))
-	(pt 184 8)
+	(rect 1416 432 1600 448)
+	(text "INPUT" (rect 15 0 43 10)(font "Arial" (font_size 6)))
+	(text "REMOTE_LOCAL" (rect 93 0 179 12)(font "Arial" ))
+	(pt 0 8)
 	(drawing
-		(line (pt 100 12)(pt 125 12))
-		(line (pt 100 4)(pt 125 4))
-		(line (pt 129 8)(pt 184 8))
-		(line (pt 100 12)(pt 100 4))
-		(line (pt 125 4)(pt 129 8))
-		(line (pt 125 12)(pt 129 8))
+		(line (pt 84 12)(pt 59 12))
+		(line (pt 84 4)(pt 59 4))
+		(line (pt 55 8)(pt 0 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 59 4)(pt 55 8))
+		(line (pt 59 12)(pt 55 8))
 	)
-	(text "VCC" (rect 144 7 164 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 936 464 1000 488))
+	(flipy)
+	(text "VCC" (rect 20 7 40 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect 1352 448 1416 472))
 )
 (pin
 	(output)
@@ -688,7 +689,7 @@ refer to the applicable agreement for further details.
 (symbol
 	(rect 1040 208 1328 384)
 	(text "mbp_regs" (rect 5 0 53 12)(font "Arial" ))
-	(text "inst5" (rect 8 160 30 177)(font "Intel Clear" ))
+	(text "inst1" (rect 8 160 30 177)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -734,16 +735,9 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 0 128)
 		(input)
-		(text "HEARTBEAT" (rect 0 0 63 12)(font "Arial" ))
-		(text "HEARTBEAT" (rect 21 123 84 135)(font "Arial" ))
-		(line (pt 0 128)(pt 16 128))
-	)
-	(port
-		(pt 0 144)
-		(input)
 		(text "ADCIN[7..0][15..0]" (rect 0 0 93 12)(font "Arial" ))
-		(text "ADCIN[7..0][15..0]" (rect 21 139 114 151)(font "Arial" ))
-		(line (pt 0 144)(pt 16 144)(line_width 3))
+		(text "ADCIN[7..0][15..0]" (rect 21 123 114 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
 	)
 	(port
 		(pt 288 32)
@@ -852,11 +846,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 312 568)
 	(pt 816 568)
-	(bus)
-)
-(connector
-	(pt 1584 488)
-	(pt 936 488)
 	(bus)
 )
 (connector
@@ -1135,24 +1124,8 @@ refer to the applicable agreement for further details.
 	(pt 352 280)
 )
 (connector
-	(pt 1184 456)
-	(pt 1216 456)
-)
-(connector
 	(pt 1040 320)
 	(pt 1000 320)
-)
-(connector
-	(pt 1000 432)
-	(pt 1000 320)
-)
-(connector
-	(pt 1000 432)
-	(pt 1216 432)
-)
-(connector
-	(pt 1216 432)
-	(pt 1216 456)
 )
 (connector
 	(pt 1328 288)
@@ -1161,31 +1134,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 1328 304)
 	(pt 1424 304)
-)
-(connector
-	(pt 936 488)
-	(pt 936 352)
-	(bus)
-)
-(connector
-	(pt 936 352)
-	(pt 1040 352)
-	(bus)
-)
-(connector
-	(pt 976 448)
-	(pt 976 336)
-	(bus)
-)
-(connector
-	(pt 976 336)
-	(pt 1040 336)
-	(bus)
-)
-(connector
-	(pt 976 448)
-	(pt 640 448)
-	(bus)
 )
 (connector
 	(pt 520 720)
@@ -1198,14 +1146,32 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 640 448)
-	(pt 640 720)
-	(bus)
-)
-(connector
 	(pt 640 720)
 	(pt 640 872)
 	(bus)
+)
+(connector
+	(pt 1584 488)
+	(pt 960 488)
+	(bus)
+)
+(connector
+	(pt 960 488)
+	(pt 960 336)
+	(bus)
+)
+(connector
+	(pt 960 336)
+	(pt 1040 336)
+	(bus)
+)
+(connector
+	(pt 1000 320)
+	(pt 1000 440)
+)
+(connector
+	(pt 1000 440)
+	(pt 1416 440)
 )
 (junction (pt 336 536))
 (junction (pt 296 248))
@@ -1216,4 +1182,3 @@ refer to the applicable agreement for further details.
 (junction (pt 896 552))
 (junction (pt 912 72))
 (junction (pt 896 256))
-(junction (pt 640 720))
