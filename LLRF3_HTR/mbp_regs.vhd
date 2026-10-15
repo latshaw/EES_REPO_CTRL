@@ -86,7 +86,7 @@ begin
 			q.HB 			<= (others => '0'); --initialize 0's to registers
 			q.DACSET		<= (others => '0'); --initialize 0's to registers
 		elsif(CLK'event and CLK = '1') then
-				FILTER_CONTROL	<= x"0003";
+				--FILTER_CONTROL	<= x"0001";
 				q <= d;
 		end if;
 	end process;
@@ -113,7 +113,7 @@ begin
 			
 			d.DACSET			<= q.DAC when q.LCLRMT = '0' else q.LCLPWR;
 			DACOUT(0)		<= q.DACSET;			-- Set DAC drive.
-			
+			FILTER_CONTROL	<= b"0" & x"000" & q.CNTLMD(3 downto 1);
 			REMOTE	<= '1' when q.LCLRMT = '0' else '0';
 			LOCAL		<= '1' when q.LCLRMT = '1' else '0';
 			

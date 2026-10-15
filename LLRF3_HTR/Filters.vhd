@@ -19,7 +19,7 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 		 reset_n : IN STD_LOGIC;
 		 strobe  : IN STD_LOGIC; -- strobe, sample ready
 		 x       : IN STD_LOGIC_VECTOR(15 downto 0); -- 16 bit input
-		 y       :OUT STD_LOGIC_VECTOR(15 downto 0)  -- 16 but filtered output
+		 y       : OUT STD_LOGIC_VECTOR(15 downto 0)  -- 16 but filtered output
 		);
 	END COMPONENT;
 	
@@ -43,82 +43,99 @@ ARCHITECTURE BEHAVIOR OF FILTERS IS
 	  
 	END COMPONENT;
 	
-	SIGNAL IData, OData			: STD_LOGIC_VECTOR(15 downto 0);
-	SIGNAL CIC_OUT					: STD_LOGIC_VECTOR(15 downto 0);
-	SIGNAL BUFFER_OUT				: STD_LOGIC_VECTOR(15 downto 0);
-	SIGNAL FULL_IIR_OUT			: STD_LOGIC_VECTOR(15 downto 0);
-	SIGNAL SIMPLE_IIR_OUT		: STD_LOGIC_VECTOR(15 downto 0);
-	SIGNAL FULL_IIR_CHAIN_OUT	: STD_LOGIC_VECTOR(15 downto 0);
-	SIGNAL IStrobe, OStrobe		: STD_LOGIC;
-	SIGNAL CIC_STROBE				: STD_LOGIC;
+	type	RegisterRecord is record
+	Data						: STD_LOGIC_VECTOR(15 downto 0);
+	CIC_OUT					: STD_LOGIC_VECTOR(15 downto 0);
+	BUFFER_OUT				: STD_LOGIC_VECTOR(15 downto 0);
+	FULL_IIR_OUT			: STD_LOGIC_VECTOR(15 downto 0);
+	SIMPLE_IIR_OUT			: STD_LOGIC_VECTOR(15 downto 0);
+	FULL_IIR_CHAIN_OUT	: STD_LOGIC_VECTOR(15 downto 0);
+	SIMPLE_IIR_CHAIN_OUT	: STD_LOGIC_VECTOR(15 downto 0);
+	Strobe					: STD_LOGIC;
+	CIC_STROBE				: STD_LOGIC;
+	end record RegisterRecord;
+	
+	signal d, q					: RegisterRecord;
 	
 	BEGIN
 		
-		IData			<= DATA_IN;
-		IStrobe		<= STROBE;
+		d.Data			<= DATA_IN;
+		d.Strobe			<= STROBE;
 		
-		DATA_BUF: REGNE
-						GENERIC MAP(N => 16) 
-						PORT MAP(CLOCK	=> CLOCK,
-							RESET	=> RESET,
-							CLEAR	=> '1',
-							EN		=> '1',
-							INPUT	=> OData,
-							OUTPUT	=> BUFFER_OUT
-						);
+		DATA_OUT			<= q.Data			 			when FILTER_CONTROL(2 downto 0) ="000" else
+								q.CIC_OUT	 				when FILTER_CONTROL(2 downto 0) ="001" else
+								q.FULL_IIR_OUT	 			when FILTER_CONTROL(2 downto 0) ="010" else
+								q.SIMPLE_IIR_OUT			when FILTER_CONTROL(2 downto 0) ="011" else
+								q.FULL_IIR_CHAIN_OUT		when FILTER_CONTROL(2 downto 0) ="100" else
+								q.SIMPLE_IIR_CHAIN_OUT	when FILTER_CONTROL(2 downto 0) ="101" else
+								(others => '0');
+								
+		
+--		DATA_BUF: REGNE
+--						GENERIC MAP(N => 16) 
+--						PORT MAP(CLOCK	=> CLOCK,
+--							RESET	=> RESET,
+--							CLEAR	=> '1',
+--							EN		=> q.Strobe,
+--							INPUT	=> q.Data,
+--							OUTPUT	=> d.BUFFER_OUT
+--						);
 						
 		CIC: cic_8
 					PORT MAP(clk 	=> CLOCK,
 						reset_n 		=> RESET,
-						strobein		=> OStrobe,
-						xin      	=> OData,
-						yout     	=> CIC_OUT,
-						triggerout 	=> CIC_STROBE
+						strobein		=> q.Strobe,
+						xin      	=> q.Data,
+						yout     	=> d.CIC_OUT,
+						triggerout 	=> d.CIC_STROBE
 					);			
 		
 		FULLIIR: iir_lpf
 						PORT MAP(lb_clk  => CLOCK,
 							reset_n => RESET,
-							strobe  => OStrobe,
-							x       => OData,
-							y       => FULL_IIR_OUT
+							strobe  => q.Strobe,
+							x       => q.Data,
+							y       => d.FULL_IIR_OUT
 						);
 		
 		SIMPLEIIR: IIR_SIMPLE
 						PORT MAP(CLOCK  	=> CLOCK,
 							RESET 	=> RESET,
-							LOAD  	=> OStrobe,
-							I       	=> OData,
-							O       	=> SIMPLE_IIR_OUT
+							LOAD  	=> q.Strobe,
+							I       	=> q.Data,
+							O       	=> d.SIMPLE_IIR_OUT
 						);
 						
 		FULLIIR_CHAIN: iir_lpf
 						PORT MAP(lb_clk  => CLOCK,
 							reset_n => RESET,
-							strobe  => CIC_STROBE,
-							x       => CIC_OUT,
-							y       => FULL_IIR_CHAIN_OUT
-						);			
+							strobe  => q.CIC_STROBE,
+							x       => q.CIC_OUT,
+							y       => d.FULL_IIR_CHAIN_OUT
+						);
+		
+		FULLSIMPLEIIR_CHAIN: IIR_SIMPLE
+						PORT MAP(CLOCK  	=> CLOCK,
+							RESET 	=> RESET,
+							LOAD  	=> q.CIC_STROBE,
+							I       	=> q.CIC_OUT,
+							O       	=> d.SIMPLE_IIR_CHAIN_OUT
+						);
 	
 		PROCESS(CLOCK, RESET)
 		BEGIN
 				IF RESET = '0' then	
-					OData			<= (others => '0');
-					OStrobe		<= '0';
+					q.Data						<= (others => '0');
+					q.CIC_OUT					<= (others => '0');
+					q.BUFFER_OUT				<= (others => '0');
+					q.FULL_IIR_OUT				<= (others => '0');
+					q.SIMPLE_IIR_OUT			<= (others => '0');
+					q.FULL_IIR_CHAIN_OUT		<= (others => '0');
+					q.SIMPLE_IIR_CHAIN_OUT	<= (others => '0');
+					q.Strobe						<= '0';
+					q.CIC_STROBE				<= '0';
 				ELSIF CLOCK'event and CLOCK = '1' then
-					OData			<= IData;
-					OStrobe		<= IStrobe;
-					IF (FILTER_CONTROL(2 downto 0) = "000") then
-						DATA_OUT <= BUFFER_OUT;
-					ELSIF (FILTER_CONTROL(2 downto 0) = "001") then
-						DATA_OUT <= CIC_OUT;
-					ELSIF (FILTER_CONTROL(2 downto 0) = "010") then
-						DATA_OUT <= FULL_IIR_OUT;
-					ELSIF (FILTER_CONTROL(2 downto 0) = "011") then
-						DATA_OUT <= SIMPLE_IIR_OUT;
-					ELSIF (FILTER_CONTROL(2 downto 0) = "100") then
-						DATA_OUT <= FULL_IIR_CHAIN_OUT;
-					END IF;
+					q								<= d;
 				END IF;
 			END PROCESS;
 		END ARCHITECTURE BEHAVIOR;

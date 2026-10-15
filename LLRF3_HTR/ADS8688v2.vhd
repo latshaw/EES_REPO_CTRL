@@ -89,16 +89,16 @@ architecture behavior of ADS8688v2 is
 
 		--Set command word for output
 		--Each channel address is as follows 0x05 = CH1 = 0b0000101, 0x06 = CH2 = 0b0000110... add '1' bit at the end (CH1 = 0x05 & 0b1 (7 downto 0)) for a write command.
-		InputShiftReg	<= x"0B" & RangeSelect when d.cntrl_count = 0 else --Range select ch0
-								x"0D" & RangeSelect when d.cntrl_count = 1 else --Range select ch1
-								x"0F" & RangeSelect when d.cntrl_count = 2 else --Range select ch2
-								x"11" & RangeSelect when d.cntrl_count = 3 else --Range select ch3
-								x"13" & RangeSelect when d.cntrl_count = 4 else --Range select ch4
-								x"15" & RangeSelect when d.cntrl_count = 5 else --Range select ch5
-								x"17" & RangeSelect when d.cntrl_count = 6 else --Range select ch6
-								x"19" & RangeSelect when d.cntrl_count = 7 else --Range select ch7
+		InputShiftReg	<= x"0B" & RangeSelect when q.cntrl_count = 0 else --Range select ch0
+								x"0D" & RangeSelect when q.cntrl_count = 1 else --Range select ch1
+								x"0F" & RangeSelect when q.cntrl_count = 2 else --Range select ch2
+								x"11" & RangeSelect when q.cntrl_count = 3 else --Range select ch3
+								x"13" & RangeSelect when q.cntrl_count = 4 else --Range select ch4
+								x"15" & RangeSelect when q.cntrl_count = 5 else --Range select ch5
+								x"17" & RangeSelect when q.cntrl_count = 6 else --Range select ch6
+								x"19" & RangeSelect when q.cntrl_count = 7 else --Range select ch7
 								--Auto channel incrementing.
-								x"A000" when d.cntrl_count = 8 else
+								x"A000" when q.cntrl_count = 8 else
 								(others => '0');
 		
 		process(clock, reset)
@@ -138,7 +138,7 @@ architecture behavior of ADS8688v2 is
 			d.sclkDivider		<= q.sclkDivider;
 			d.cntrl_count		<= q.cntrl_count;
 			d.ActiveChannel	<= q.ActiveChannel;
-			d.channel_enable	<= q.channel_enable;
+			d.channel_enable	<= x"00";
 			d.ADC_data			<= q.ADC_data;
 
 			case q.state is

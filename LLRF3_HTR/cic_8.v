@@ -17,11 +17,7 @@ module cic_8(
     wire clk_clock;
     assign clk_clock = clk_count[1];
     always@(posedge clk) begin
-        if (clk_count == 4'b1111) begin
-            clk_count = 4'b0000;
-        end else begin
             clk_count = clk_count + 1;
-        end
     end // end process
     
     // first determine how many bits we need to sign extend, bit growth:
